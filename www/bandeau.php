@@ -1,7 +1,12 @@
-﻿	<html>
+﻿<!DOCTYPE html>
+<html>
 	<head>
-
+		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="css/index.css">
+		<link rel="stylesheet" type="text/css" href="css/table.css">
+		<link rel="icon" href="images/favicon1.png" sizes="16x16" />
+   		<link rel="icon" href="images/favicon1.ico" sizes="16x16" />
+   		<link rel="icon" href="images/favicon1.icns" sizes="16x16" />
 		<title>Intranet association Revivre</title>
 		
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
@@ -45,12 +50,12 @@
 		<div id="wrapper" background-color="white">
 			
 			<div id="entete">
-				<a href="#"><img src="image/logo.jpg"></a>
+				<a href="home.php"><img src="images/logo.jpg"></a>
 				
 				<div id="navi">
 					<ul class="bandeau">
 						<li>
-							<a href="#">Accueil </a>
+							<a href="home.php">Accueil </a>
 						</li>
 
 						<li>
@@ -87,5 +92,3 @@
 				</div>
 			</div>
 		</div>
-	</body>
-</html>

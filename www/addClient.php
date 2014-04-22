@@ -1,15 +1,7 @@
-<html>
-	<head>
-
-		<link rel="stylesheet" type="text/css" href="css/index.css">
-		<link rel="stylesheet" type="text/css" href="css/table.css">
-		<title>Intranet association Revivre - Ajouter un client</title>
-	</head>
-	<body>
 		<?php  
 		include('bandeau.php');
 		?>
-		<div id="corps" width="150%">
+		<div id="corps">
 			<div id="labelT" style="background-color:cde5f7; ">     
 				<label>Ajouter un Client</label>
 			</div>
@@ -111,8 +103,10 @@
 				</table>
 			</form>
 		</div>
-		<div id="footer">
+	</body>
+	<footer>
+		<div>
 			&copy; Association Revivre <?php echo date('Y');?><br>
 		</div>
-	</body>
+	</footer>
 </html>

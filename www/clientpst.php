@@ -1,7 +1,10 @@
+<?php  
+    include('bandeau.php');
+    ?>
+    <div id="corps">
 <?php
-
 	if($db = MySQLi_connect("localhost","Kepha",'pfudor', 'Revivre', 0, '/media/sds1/home/alx22/private/mysql/socket'))
-		echo 'Reussi';
+		echo '';
 	else
 		echo 'Erreur';
 
@@ -21,9 +24,63 @@
   $errr=mysqli_error($db);
 
     if($sql)                  
-      {echo 'ajoute';}
+      {echo '<div id="labelT" style="background-color:87F8AB; ">     
+            <label>Client ajoute avec succes</label>
+            </div>';}
     else
-      {echo 'Erreur dans la requête SQL<br/>';
-  echo $errr;}
+      {echo '<div id="labelT" style="background-color:F88787; ">     
+            <label>Le client n a pas pu etre ajoute</label>
+            </div>';}
 
+  $reponse = mysqli_query($db, "SELECT * FROM Clients WHERE CLI_Nom='$nom' AND CLI_Prenom='$prenom'");
+  $donnees = mysqli_fetch_assoc($reponse);
+  
 	?>
+  <br>
+  <table>
+  <td>
+  <table cellpadding="10">
+    <tr>
+      <th style="text-align: left; width: 150px; white-space: normal;">Nom :</th>
+      <td style="text-align: center; width: 200px;"><?php echo $donnees['CLI_Nom']; ?></td>
+    </tr>
+    <tr>
+      <th style="text-align: left; width: 150px; white-space: normal;">Prenom :</th>
+      <td style="text-align: center; width: 200px;"><?php echo $donnees['CLI_Prenom']; ?></td>
+    </tr>
+    <tr>
+      <th style="text-align: left; width: 150px; white-space: normal;">Tel Fixe :</th>
+      <td style="text-align: center; width: 200px;"><?php echo $donnees['CLI_TelFixe']; ?></td>
+    </tr>
+  </table>
+</td>
+<td>
+  <table cellpadding="10">
+    <tr>
+      <th style="text-align: left; width: 150px; white-space: normal;">Email :</th>
+      <td style="text-align: center; width: 200px;"><?php echo $donnees['CLI_Email']; ?></td>
+    </tr>
+    <tr>
+      <th style="text-align: left; width: 150px; white-space: normal;">Adresse :</th>
+      <td style="text-align: center; width: 200px;"><?php echo $donnees['CLI_Adresse']; ?></td>
+    </tr>
+    <tr>
+      <th style="text-align: left; width: 150px; white-space: normal;">Ville :</th>
+      <td style="text-align: center; width: 200px;"><?php echo $donnees['CLI_Ville']; ?>, <?php echo $donnees['CLI_CodePostal']; ?></td>
+    </tr>
+  </table>
+</td>
+</table>
+  </div>
+  <?php
+  
+
+  mysqli_free_result($reponse);
+  ?>
+  </body>
+  <footer>
+    <div>
+      &copy; Association Revivre <?php echo date('Y');?><br>
+    </div>
+  </footer>
+</html>

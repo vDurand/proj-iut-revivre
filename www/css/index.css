@@ -1,5 +1,5 @@
 body{
-	background-image:url(../image/background.jpg);
+	background-image:url(../images/background.jpg);
 	font-family: Helvetica;
 }
 
@@ -68,7 +68,7 @@ body{
 	width: 1015px;
 }
 
-#footer{
+footer{
 	color: #FFFFFF;
 	background: #426996;
 	width: 1015px;
@@ -76,6 +76,7 @@ body{
 	padding: 5;
 	border-color: #FFFFFF;
 	margin: 10px auto 8px auto;
+	text-align: center;
 }
 
 img {
