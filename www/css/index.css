@@ -5,7 +5,7 @@ body{
 
 #wrapper {
 	background: #fff;
-	width: 1034px;
+	width: 1044px;
 	margin: 30px auto 10px auto;
 	background: url(../image/logo.jpg) no-repeat #426996;
 }
@@ -64,6 +64,7 @@ body{
 	padding-top: 15px;
 	padding-left: 10px;
 	padding-bottom: 10px;
+	padding-right: 10px;
 	margin: 0px auto 10px auto;
 	width: 1015px;
 }
@@ -71,7 +72,7 @@ body{
 footer{
 	color: #FFFFFF;
 	background: #426996;
-	width: 1015px;
+	width: 1025px;
 	border: solid 5px;
 	padding: 5;
 	border-color: #FFFFFF;

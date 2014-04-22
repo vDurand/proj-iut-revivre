@@ -24,11 +24,11 @@
   $errr=mysqli_error($db);
 
     if($sql)                  
-      {echo '<div id="labelT" style="background-color:87F8AB; ">     
+      {echo '<div id="good">     
             <label>Client ajoute avec succes</label>
             </div>';}
     else
-      {echo '<div id="labelT" style="background-color:F88787; ">     
+      {echo '<div id="bad">     
             <label>Le client n a pas pu etre ajoute</label>
             </div>';}
 
@@ -39,7 +39,7 @@
   <br>
   <table>
   <td>
-  <table cellpadding="10">
+  <table cellpadding="10" class="listeClients">
     <tr>
       <th style="text-align: left; width: 150px; white-space: normal;">Nom :</th>
       <td style="text-align: center; width: 200px;"><?php echo $donnees['CLI_Nom']; ?></td>
@@ -55,7 +55,7 @@
   </table>
 </td>
 <td>
-  <table cellpadding="10">
+  <table cellpadding="10" class="listeClients">
     <tr>
       <th style="text-align: left; width: 150px; white-space: normal;">Email :</th>
       <td style="text-align: center; width: 200px;"><?php echo $donnees['CLI_Email']; ?></td>

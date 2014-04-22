@@ -1,5 +1,28 @@
 #labelT {
 	text-align: center;
+	height: 35px;
+	padding-top: 15px;
+	font-size: 20px;
+}
+
+#good {
+	text-align: center;
+	height: 35px;
+	padding-top: 15px;
+	font-size: 20px;
+	background-color: 87f8ab;
+}
+#bad {
+	text-align: center;
+	height: 35px;
+	padding-top: 15px;
+	font-size: 20px;
+	background-color: f88787;
+}
+
+.listeClients, .listeClients th, .listeClients td {
+	border: 1px solid black;
+	border-collapse:collapse;
 }
 
 #downT {

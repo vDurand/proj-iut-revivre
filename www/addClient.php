@@ -4,7 +4,7 @@
 		<div id="corps">
 			<div id="labelT" style="background-color:cde5f7; ">     
 				<label>Ajouter un Client</label>
-			</div>
+			</div><br>
 			<form method="post" action="clientpst.php" name="Client" formtype="1" colvalue="2">
 				<div style="overflow:auto;">
 					<table align="left">
