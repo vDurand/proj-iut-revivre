@@ -1,0 +1,88 @@
+body{
+	background-image:url(../image/background.jpg);
+	font-family: Helvetica;
+}
+
+#wrapper {
+	background: #fff;
+	width: 1034px;
+	margin: 30px auto 10px auto;
+	background: url(../image/logo.jpg) no-repeat #426996;
+}
+
+#entete {
+	width: auto;
+	height:150px;
+	border: solid 5px;
+	border-color: #FFFFFF;
+}
+
+#navi {
+	height: 25px;
+	margin-top: 0;
+	margin-left: 225;
+	margin-right: auto;
+	padding-top: 96px;
+	background-color: #fff;
+	background: url(images/navi.png) repeat;
+}
+
+.bandeau, .bandeau ul{
+	margin: -2;
+	float:right;
+	padding: 0;
+	height: 25px;	
+}
+
+.bandeau li{
+	float:left;
+	position:relative;
+	height: 25px;
+	background-color: #FFFFFF;
+	border-bottom-color: #000000;
+	list-style-type: none;
+}
+
+.bandeau a{
+	font-style:italic;
+	display: block;
+	padding: 4px 6px;
+	color: #1d4c82;
+	font-size: 1.01em;
+	background-color:#fff;
+	text-decoration: none;
+}
+
+#corps{
+	width: auto;
+	height:auto;
+	background-color: #EEEEEE;
+	border-right: solid 5px #FFFFFF;
+	border-left: solid 5px #FFFFFF;
+	border-top: solid 5px #FFFFFF;
+	border-bottom: solid 5px #FFFFFF;
+	padding-top: 15px;
+	padding-left: 10px;
+	padding-bottom: 10px;
+	margin: 0px auto 10px auto;
+	width: 1015px;
+}
+
+#footer{
+	color: #FFFFFF;
+	background: #426996;
+	width: 1015px;
+	border: solid 5px;
+	padding: 5;
+	border-color: #FFFFFF;
+	margin: 10px auto 8px auto;
+}
+
+img {
+	float:left;
+}
+
+.bandeau a:hover{
+	background: #ddd;
+}
+

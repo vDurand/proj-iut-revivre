@@ -1,0 +1,22 @@
+#labelT {
+	text-align: center;
+}
+
+#downT {
+	background-color:f5f2f5;
+	border-top:none;
+	border-left:none;
+	border-bottom:none;
+	border-right:none;
+	text-align:none;
+	padding-top:20px;
+	padding-bottom:5px;
+	padding-left:10px;
+	padding-right:10px;
+	width:100%;
+	text-align: center;
+}
+
+#corps {
+	min-height: 500px;
+}
