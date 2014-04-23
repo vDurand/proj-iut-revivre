@@ -15,7 +15,7 @@
 								<label>Nom :</label>
 							</td>
 							<td>
-								<input id="Nom" maxlength="255" name="Nom" type="text" fieldtype="1" style="width:200px;background-color:cde5f7;" delugetype="STRING"> 
+								<input id="Nom" maxlength="255" name="Nom" type="text" fieldtype="1" class="inputC" delugetype="STRING"> 
 							</td>
 						</tr>
 						<tr id="Client-Prenom">
@@ -23,7 +23,7 @@
 								<label>Prenom :</label>
 							</td>
 							<td>
-								<input id="Prenom" maxlength="255" name="Prenom" type="text" fieldtype="1" style="width:200px;background-color:cde5f7;" delugetype="STRING"> 
+								<input id="Prenom" maxlength="255" name="Prenom" type="text" fieldtype="1" class="inputC" delugetype="STRING"> 
 							</td>
 
 						</tr>
@@ -32,7 +32,7 @@
 								<label>Telephone Fixe :</label>
 							</td>
 							<td>
-								<input id="Tel_Fixe" maxlength="255" name="Tel_Fixe" type="text" fieldtype="1" style="width:200px;background-color:cde5f7;" delugetype="STRING"> 
+								<input id="Tel_Fixe" maxlength="255" name="Tel_Fixe" type="text" fieldtype="1" class="inputC" delugetype="STRING"> 
 							</td>
 						</tr>
 						<tr id="Client-Portable">
@@ -40,7 +40,7 @@
 								<label>Telephone Portable :</label>
 							</td>
 							<td>
-								<input id="Portable" maxlength="255" name="Portable" type="text" fieldtype="1" style="width:200px;background-color:cde5f7;" delugetype="STRING"> 
+								<input id="Portable" maxlength="255" name="Portable" type="text" fieldtype="1" class="inputC" delugetype="STRING"> 
 							</td>
 						</tr>
 						<tr id="Client-Fax">
@@ -48,7 +48,7 @@
 								<label>Fax :</label>
 							</td>
 							<td>
-								<input id="Fax" maxlength="255" name="Fax" type="text" fieldtype="1" style="width:200px;background-color:cde5f7;" delugetype="STRING"> 
+								<input id="Fax" maxlength="255" name="Fax" type="text" fieldtype="1" class="inputC" delugetype="STRING"> 
 							</td>
 						</tr>
 					</table>
@@ -60,7 +60,7 @@
 								<label>Email :</label>
 							</td>
 							<td>
-								<input id="Email" maxlength="255" name="Email" type="text" fieldtype="4" style="width:200px;background-color:cde5f7;" delugetype="STRING"> 
+								<input id="Email" maxlength="255" name="Email" type="text" fieldtype="4" class="inputC" delugetype="STRING"> 
 							</td>
 						</tr>
 						<tr id="Client-Adresse">
@@ -68,7 +68,7 @@
 								<label>Adresse :</label>
 							</td>
 							<td>
-								<input id="Adresse" maxlength="255" name="Adresse" type="text" fieldtype="1" style="width:200px;background-color:cde5f7;" delugetype="STRING">
+								<input id="Adresse" maxlength="255" name="Adresse" type="text" fieldtype="1" class="inputC" delugetype="STRING">
 							</td>
 						</tr>
 						<tr id="Client-Code_Postal">
@@ -84,7 +84,7 @@
 								<label>Ville :</label>
 							</td>
 							<td>
-								<input id="Ville" maxlength="255" name="Ville" type="text" fieldtype="1" style="width:200px;background-color:cde5f7;" delugetype="STRING">
+								<input id="Ville" maxlength="255" name="Ville" type="text" fieldtype="1" class="inputC" delugetype="STRING">
 							</td>
 						</tr>
 					</table>
