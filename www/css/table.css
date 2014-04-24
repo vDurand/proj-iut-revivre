@@ -3,6 +3,8 @@
 	height: 35px;
 	padding-top: 15px;
 	font-size: 20px;
+	background-color: #cde5f7;
+	border: 1px solid #6b727c;
 }
 
 #good {
@@ -46,5 +48,9 @@
 
 .inputC {
 	width:200px;
-	background-color: cde5f7;
+	background-color: #cde5f7;
+}
+
+.buttonC {
+	width: 20px;
 }

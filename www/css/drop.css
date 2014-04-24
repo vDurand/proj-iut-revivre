@@ -1,41 +1,32 @@
 nav ul ul {
 	display: none;
 }
-
-	nav ul li:hover > ul {
-		display: block;
-	}
-
-
-	nav ul:after {
-		content: ""; clear: both; display: block;
-	}
-
+nav ul li:hover > ul {
+	display: block;
+}
+nav ul:after {
+	content: ""; clear: both; display: block;
+}
 nav ul li {
 	float: left;
-	width: 115.52px;
+	width: 115.62px;
 }
-	nav ul li:hover {
-		background: #4b545f;
-	}
-		
-
-	
-
+nav ul li:hover {
+	background: #4b545f;
+}	
 nav ul ul {
 	border-radius: 0px; padding: 0;
 	position: absolute; top: 100%;
 }
-	nav ul ul li {
-		float: none; 
-		border-top: 1px solid #6b727c;
-		border-bottom: 1px solid #575f6a;
-		position: relative;
-	}
-		
-			nav ul ul li a:hover {
-				background: #4b545f;
-			}
+nav ul ul li {
+	float: none; 
+	border-top: 1px solid #6b727c;
+	border-bottom: 1px solid #575f6a;
+	position: relative;
+}		
+nav ul ul li a:hover {
+	background: #4b545f;
+}
 
 #navi {
 	height: 25px;
@@ -47,7 +38,6 @@ nav ul ul {
 	background-color: #fff;
 	background: url(images/navi.png) repeat;
 }
-
 #champs {
 	text-align: center;
 }

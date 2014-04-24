@@ -77,10 +77,6 @@
 
   mysqli_free_result($reponse);
   ?>
-  </body>
-  <footer>
-    <div>
-      &copy; Association Revivre <?php echo date('Y');?><br>
-    </div>
-  </footer>
-</html>
+  <?php  
+    include('footer.php');
+    ?>
