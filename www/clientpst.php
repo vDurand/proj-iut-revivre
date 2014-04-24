@@ -25,7 +25,7 @@
   $errr=mysqli_error($db);
 
     if($sql){
-      $numberQuery = mysqli_query($db, "SELECT * FROM Personnes WHERE PER_Nom='$nom' AND PER_Prenom='$prenom'");
+      $numberQuery = mysqli_query($db, "SELECT * FROM Personnes WHERE PER_Nom='$nom' AND PER_Prenom='$prenom' AND PER_Adresse='$add' AND PER_Adresse='$add' AND PER_Ville='$ville'");
       $numberRep = mysqli_fetch_assoc($numberQuery);
       $realNumber = $numberRep['PER_Num'];
 

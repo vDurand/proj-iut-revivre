@@ -43,7 +43,7 @@
 	else
 		echo 'Erreur';
 
-	$reponse = mysqli_query($db, 'SELECT * FROM Clients cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num');
+	$reponse = mysqli_query($db, 'SELECT * FROM Clients cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom');
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
 	?>
@@ -56,7 +56,7 @@
 							<td><?php echo $donnees['PER_TelPort']; ?></td>
 							<td><?php echo $donnees['CLI_Structure']; ?></td>
 							<td><?php echo $donnees['PER_Email']; ?></td>
-							<td><?php echo $donnees['PER_Adresse']; ?>, <?php echo $donnees['CLI_Ville']; ?> <?php echo $donnees['PER_CodePostal']; ?></td>
+							<td><?php echo $donnees['PER_Adresse']; ?>, <?php echo $donnees['PER_Ville']; ?> <?php echo $donnees['PER_CodePostal']; ?></td>
 							</form>
 						</tr>
 						<?php
