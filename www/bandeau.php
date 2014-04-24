@@ -40,10 +40,18 @@
 	                		</li>
 							<li id="champs"><a href="homeClient.php">Contacts</a>
 								<ul class="subMenu">
-	                       			<li><a href="addClient.php">Ajouter<br>client</a></li>
-									<li><a href="viewClients.php">Liste<br>clients</a></li>
-									<li><a href="addMember.php">Ajouter membre<br>de l'association</a></li>
-									<li><a href="viewMembers.php">Ajouter membre<br>de l'association</a></li>
+	                       			<li><a href="viewClients.php">Cliens<br>&nbsp;</a>
+										<ul>
+											<li><a href="addClient.php">Ajouter client<br>&nbsp;</a></li>
+											<li><a href="viewClients.php">Liste clients</a></li>
+										</ul>
+									</li>
+									<li><a href="viewMembers.php">Membre de<br>l'association</a>
+										<ul>
+											<li><a href="addMember.php">Ajouter un membre<br>&nbsp;</a></li>
+											<li><a href="viewMembers.php">Ajouter un membre</a></li>
+										</ul>
+									</li>
 	                			</ul>
 							</li>
 
@@ -56,8 +64,8 @@
 							</li>
 							<li id="champs"><a href="homeRent">Locations</a>
 	                			<ul class="subMenu">
-	                       			<li><a href="carRent">Véhicules &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
-	                        		<li><a href="flatRent">Appartement &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+	                       			<li><a href="carRent">Véhicules<br>&nbsp;</a></li>
+	                        		<li><a href="flatRent">Appartement<br>&nbsp;</a></li>
 	                			</ul>
 	        				</li>
 							<li id="champs"><a href="homeTool">Outillages </a>

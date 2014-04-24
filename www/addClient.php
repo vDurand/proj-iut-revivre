@@ -88,6 +88,14 @@
 										<input id="Ville" maxlength="255" name="Ville" type="text" fieldtype="1" class="inputC" delugetype="STRING">
 									</td>
 								</tr>
+								<tr id="Client-Structure">
+									<td style="text-align: left; width: 150px; white-space: normal;">
+										<label>Structure :</label>
+									</td>
+									<td>
+										<input id="Struct" maxlength="255" name="Struct" type="text" fieldtype="1" class="inputC" delugetype="STRING">
+									</td>
+								</tr>
 							</table>
 						</td>
 					</table>

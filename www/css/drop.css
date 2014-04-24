@@ -9,7 +9,7 @@ nav ul:after {
 }
 nav ul li {
 	float: left;
-	width: 115.62px;
+	width: 115.66px;
 }
 nav ul li:hover {
 	background: #4b545f;
@@ -26,6 +26,15 @@ nav ul ul li {
 }		
 nav ul ul li a:hover {
 	background: #4b545f;
+}
+nav ul ul ul {
+	position: absolute; left: 100%; top:0px;
+	
+}
+nav ul ul ul li {
+	border-left: 1px solid #575f6a;
+	border-top: 1px solid #6b727c;
+	border-bottom: 1px solid #575f6a;
 }
 
 #navi {
@@ -46,4 +55,12 @@ nav ul ul li a:hover {
 	height: 40px;
 	vertical-align: middle;
 	font-size: 14px;
+}
+.subMenu li li{
+	height: 25px;
+	width: 155px;
+	font-size: 12px;
+}
+.subMenu li li a{
+	height: 17px;
 }

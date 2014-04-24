@@ -30,7 +30,8 @@
 }
 
 .listeClients tr:nth-child(odd){ background-color:#eaeaea; }
-.listeClients tr:nth-child(even)    { background-color:#ffffff; }.listeClients td{
+.listeClients tr:nth-child(even)    { background-color:#ffffff; }
+.listeClients td{
 	vertical-align:middle;
 	
 	
@@ -76,6 +77,18 @@
 .listeClients tr:first-child td:last-child{
 	border-width:0px 0px 1px 1px;
 }
+
+#fullTable {
+	border:1px solid #003f7f;
+	border-collapse:collapse;
+}
+
+.detailClients{
+	border:0px solid #003f7f;
+	border-collapse:collapse;
+}
+.detailClients tr:nth-child(odd){ background-color:#eaeaea; }
+.detailClients tr:nth-child(even)    { background-color:#ffffff; }
 
 #downT {
 	background-color: f5f2f5;

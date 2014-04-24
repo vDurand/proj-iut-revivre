@@ -27,7 +27,7 @@
 								Tel Portable
 							</td>
 							<td style="text-align: center; width: 150px;">
-								Fax
+								Structure
 							</td>
 							<td style="text-align: center; width: 150px;">
 								Email
@@ -43,20 +43,20 @@
 	else
 		echo 'Erreur';
 
-	$reponse = mysqli_query($db, 'SELECT * FROM Clients');
+	$reponse = mysqli_query($db, 'SELECT * FROM Clients cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num');
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
 	?>
 						<tr style="font-size: 14;">
 							<form method="post" action="detailClient.php" name="detailClient">
 								<input type="hidden" name="NumC" value="">
-							<td id="detail"><a href="javascript:fsubmit('<?php echo $donnees['CLI_NumClient']; ?>');"><?php echo $donnees['CLI_Nom']; ?></td>
-							<td><?php echo $donnees['CLI_Prenom']; ?></a></td>
-							<td><?php echo $donnees['CLI_TelFixe']; ?></td>
-							<td><?php echo $donnees['CLI_TelPort']; ?></td>
-							<td><?php echo $donnees['CLI_Fax']; ?></td>
-							<td><?php echo $donnees['CLI_Email']; ?></td>
-							<td><?php echo $donnees['CLI_Adresse']; ?>, <?php echo $donnees['CLI_Ville']; ?> <?php echo $donnees['CLI_CodePostal']; ?></td>
+							<td id="detail"><a href="javascript:fsubmit('<?php echo $donnees['CLI_NumClient']; ?>');"><?php echo $donnees['PER_Nom']; ?></td>
+							<td><?php echo $donnees['PER_Prenom']; ?></a></td>
+							<td><?php echo $donnees['PER_TelFixe']; ?></td>
+							<td><?php echo $donnees['PER_TelPort']; ?></td>
+							<td><?php echo $donnees['CLI_Structure']; ?></td>
+							<td><?php echo $donnees['PER_Email']; ?></td>
+							<td><?php echo $donnees['PER_Adresse']; ?>, <?php echo $donnees['CLI_Ville']; ?> <?php echo $donnees['PER_CodePostal']; ?></td>
 							</form>
 						</tr>
 						<?php

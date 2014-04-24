@@ -10,7 +10,7 @@
 
   $num=$_POST["NumC"];
 
-  $reponse = mysqli_query($db, "SELECT * FROM Clients WHERE CLI_NumClient='$num'");
+  $reponse = mysqli_query($db, "SELECT * FROM Clients cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE CLI_NumClient='$num'");
   $donnees = mysqli_fetch_assoc($reponse);
   
 	?>
@@ -18,36 +18,52 @@
         <label>Detail du Client</label>
   </div>
   <br>
-  <table>
+  <table id="fullTable" rules="all">
   <td>
   <table cellpadding="10" class="detailClients">
     <tr>
-      <th style="text-align: left; width: 150px; white-space: normal;">Nom :</th>
-      <td style="text-align: center; width: 200px;"><?php echo $donnees['CLI_Nom']; ?></td>
+      <th style="text-align: left; width: 200px; white-space: normal;">Nom :</th>
+      <td style="text-align: left; width: 300px;"><?php echo $donnees['PER_Nom']; ?></td>
     </tr>
     <tr>
-      <th style="text-align: left; width: 150px; white-space: normal;">Prenom :</th>
-      <td style="text-align: center; width: 200px;"><?php echo $donnees['CLI_Prenom']; ?></td>
+      <th style="text-align: left; width: 200px; white-space: normal;">Prenom :</th>
+      <td style="text-align: left; width: 300px;"><?php echo $donnees['PER_Prenom']; ?></td>
     </tr>
     <tr>
-      <th style="text-align: left; width: 150px; white-space: normal;">Tel Fixe :</th>
-      <td style="text-align: center; width: 200px;"><?php echo $donnees['CLI_TelFixe']; ?></td>
+      <th style="text-align: left; width: 200px; white-space: normal;">Telephone Fixe :</th>
+      <td style="text-align: left; width: 300px;"><?php echo $donnees['PER_TelFixe']; ?></td>
+    </tr>
+    <tr>
+      <th style="text-align: left; width: 200px; white-space: normal;">Telephone Portable :</th>
+      <td style="text-align: left; width: 300px;"><?php echo $donnees['PER_TelPort']; ?></td>
+    </tr>
+    <tr>
+      <th style="text-align: left; width: 200px; white-space: normal;">Fax :</th>
+      <td style="text-align: left; width: 300px;"><?php echo $donnees['PER_Fax']; ?></td>
     </tr>
   </table>
 </td>
 <td>
   <table cellpadding="10" class="detailClients">
     <tr>
-      <th style="text-align: left; width: 150px; white-space: normal;">Email :</th>
-      <td style="text-align: center; width: 200px;"><?php echo $donnees['CLI_Email']; ?></td>
+      <th style="text-align: left; width: 200px; white-space: normal;">Email :</th>
+      <td style="text-align: left; width: 300px;"><?php echo $donnees['PER_Email']; ?></td>
     </tr>
     <tr>
-      <th style="text-align: left; width: 150px; white-space: normal;">Adresse :</th>
-      <td style="text-align: center; width: 200px;"><?php echo $donnees['CLI_Adresse']; ?></td>
+      <th style="text-align: left; width: 200px; white-space: normal;">Adresse :</th>
+      <td style="text-align: left; width: 300px;"><?php echo $donnees['PER_Adresse']; ?></td>
     </tr>
     <tr>
-      <th style="text-align: left; width: 150px; white-space: normal;">Ville :</th>
-      <td style="text-align: center; width: 200px;"><?php echo $donnees['CLI_Ville']; ?>, <?php echo $donnees['CLI_CodePostal']; ?></td>
+      <th style="text-align: left; width: 200px; white-space: normal;">Ville :</th>
+      <td style="text-align: left; width: 300px;"><?php echo $donnees['PER_Ville']; ?></td>
+    </tr>
+    <tr>
+      <th style="text-align: left; width: 200px; white-space: normal;">Code Postal :</th>
+      <td style="text-align: left; width: 300px;"><?php echo $donnees['PER_CodePostal']; ?></td>
+    </tr>
+    <tr>
+      <th style="text-align: left; width: 200px; white-space: normal;">Structure :</th>
+      <td style="text-align: left; width: 300px;"><?php echo $donnees['CLI_Structure']; ?></td>
     </tr>
   </table>
 </td>
