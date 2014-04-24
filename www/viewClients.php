@@ -1,33 +1,40 @@
 		<?php  
 		include('bandeau.php');
 		?>
+		<script language="javascript"> 
+			function fsubmit(value_p) 
+			{ 
+				document.forms['detailClient'].NumC.value = value_p; 
+				document.forms['detailClient'].submit(); 
+			} 
+</script> 
 		<div id="corps">
-			<div id="labelT" style="background-color:cde5f7; ">     
+			<div id="labelT">     
 				<label>Liste des Clients</label>
 			</div><br>
 					<table class="listeClients" cellpadding="5">
 						<tr>
-							<th style="text-align: center; width: 150px;">
+							<td style="text-align: center; width: 150px;">
 								Nom
-							</th>
-							<th style="text-align: center; width: 150px;">
+							</td>
+							<td style="text-align: center; width: 150px;">
 								Prenom
-							</th>
-							<th style="text-align: center; width: 150px;">
+							</td>
+							<td style="text-align: center; width: 150px;">
 								Tel Fixe
-							</th>
-							<th style="text-align: center; width: 150px;">
+							</td>
+							<td style="text-align: center; width: 150px;">
 								Tel Portable
-							</th>
-							<th style="text-align: center; width: 150px;">
+							</td>
+							<td style="text-align: center; width: 150px;">
 								Fax
-							</th>
-							<th style="text-align: center; width: 150px;">
+							</td>
+							<td style="text-align: center; width: 150px;">
 								Email
-							</th>
-							<th style="text-align: center; width: 150px;">
+							</td>
+							<td style="text-align: center; width: 150px;">
 								Adresse
-							</th>
+							</td>
 						</tr>
 						<?php
 
@@ -41,13 +48,16 @@
 	{
 	?>
 						<tr style="font-size: 14;">
-							<td><?php echo $donnees['CLI_Nom']; ?></td>
-							<td><?php echo $donnees['CLI_Prenom']; ?></td>
+							<form method="post" action="detailClient.php" name="detailClient">
+								<input type="hidden" name="NumC" value="">
+							<td id="detail"><a href="javascript:fsubmit('<?php echo $donnees['CLI_NumClient']; ?>');"><?php echo $donnees['CLI_Nom']; ?></td>
+							<td><?php echo $donnees['CLI_Prenom']; ?></a></td>
 							<td><?php echo $donnees['CLI_TelFixe']; ?></td>
 							<td><?php echo $donnees['CLI_TelPort']; ?></td>
 							<td><?php echo $donnees['CLI_Fax']; ?></td>
 							<td><?php echo $donnees['CLI_Email']; ?></td>
 							<td><?php echo $donnees['CLI_Adresse']; ?>, <?php echo $donnees['CLI_Ville']; ?> <?php echo $donnees['CLI_CodePostal']; ?></td>
+							</form>
 						</tr>
 						<?php
 	}

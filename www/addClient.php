@@ -16,7 +16,7 @@
 										<label>Nom :</label>
 									</td>
 									<td>
-										<input id="Nom" maxlength="255" name="Nom" type="text" fieldtype="1" class="inputC" delugetype="STRING"> 
+										<input id="Nom" required maxlength="255" name="Nom" type="text" fieldtype="1" class="inputC" delugetype="STRING"> 
 									</td>
 								</tr>
 								<tr id="Client-Prenom">
@@ -24,7 +24,7 @@
 										<label>Prenom :</label>
 									</td>
 									<td>
-										<input id="Prenom" maxlength="255" name="Prenom" type="text" fieldtype="1" class="inputC" delugetype="STRING"> 
+										<input id="Prenom" required maxlength="255" name="Prenom" type="text" fieldtype="1" class="inputC" delugetype="STRING"> 
 									</td>
 
 								</tr>
@@ -69,7 +69,7 @@
 										<label>Adresse :</label>
 									</td>
 									<td>
-										<input id="Adresse" maxlength="255" name="Adresse" type="text" fieldtype="1" class="inputC" delugetype="STRING">
+										<input id="Adresse" required maxlength="255" name="Adresse" type="text" fieldtype="1" class="inputC" delugetype="STRING">
 									</td>
 								</tr>
 								<tr id="Client-Code_Postal">
@@ -77,7 +77,7 @@
 										<label>Code Postal :</label>
 									</td>
 									<td>
-										<input id="Code_Postal" name="Code_Postal" type="text" title="" fieldtype="5" style="width:100px;background-color:#cde5f7;" delugetype="BIGINT" maxlength="5">
+										<input id="Code_Postal" required name="Code_Postal" type="text" title="" fieldtype="5" style="width:100px;background-color:#cde5f7;" delugetype="BIGINT" maxlength="5">
 									</td>
 								</tr>
 								<tr id="Client-Ville">
@@ -96,8 +96,8 @@
 					<tr>
 						<td style="background-color:f5f2f5;">
 							<span>
-								<input name="submit" type="submit" value="Submit">&nbsp;&nbsp; 
-								<input name="reset" type="reset" value="Reset">&nbsp;&nbsp; 
+								<input name="submit" type="submit" value="Submit" class="buttonC">&nbsp;&nbsp; 
+								<input name="reset" type="reset" value="Reset" class="buttonC">&nbsp;&nbsp; 
 							</span>
 						</td>
 					</tr>

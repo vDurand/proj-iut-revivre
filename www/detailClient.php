@@ -8,34 +8,19 @@
 	else
 		echo 'Erreur';
 
-  $nom=addslashes($_POST["Nom"]);
-  $prenom=addslashes($_POST["Prenom"]);
-  $tel=addslashes($_POST["Tel_Fixe"]);
-  $port=addslashes($_POST["Portable"]);
-  $fax=addslashes($_POST["Fax"]);
-  $email=addslashes($_POST["Email"]);
-  $add=addslashes($_POST["Adresse"]);
-  $cp=$_POST["Code_Postal"]);
-  $ville=addslashes($_POST["Ville"]);
+  $num=$_POST["NumC"];
 
-	$query = "INSERT INTO Personnes (PER_Num, PER_Nom, PER_Prenom, PER_TelFixe, PER_TelPort, PER_Fax, PER_Email, PER_Adresse, PER_CodePostal, PER_Ville) VALUES (NULL, '$nom', '$prenom', '$tel', '$port', '$fax', '$email', '$add', '$cp', '$ville')";
-
-  $sql = mysqli_query($db, $query);
-  $errr=mysqli_error($db);
-
-    if($sql)                  
-      {$query2 = "INSERT INTO Clients (CLI_NumClient, CLI_Structure, PER_Num) VALUES (NULL, )";
-
-        echo '<div id="good">     
-            <label>Client ajoute avec succes</label>
-            </div>';
-            $reponse = mysqli_query($db, "SELECT * FROM Clients WHERE CLI_Nom='$nom' AND CLI_Prenom='$prenom'");
-            $donnees = mysqli_fetch_assoc($reponse);
+  $reponse = mysqli_query($db, "SELECT * FROM Clients WHERE CLI_NumClient='$num'");
+  $donnees = mysqli_fetch_assoc($reponse);
+  
 	?>
+  <div id="labelT">     
+        <label>Detail du Client</label>
+  </div>
   <br>
   <table>
   <td>
-  <table cellpadding="10" class="submitClients">
+  <table cellpadding="10" class="detailClients">
     <tr>
       <th style="text-align: left; width: 150px; white-space: normal;">Nom :</th>
       <td style="text-align: center; width: 200px;"><?php echo $donnees['CLI_Nom']; ?></td>
@@ -51,7 +36,7 @@
   </table>
 </td>
 <td>
-  <table cellpadding="10" class="submitClients">
+  <table cellpadding="10" class="detailClients">
     <tr>
       <th style="text-align: left; width: 150px; white-space: normal;">Email :</th>
       <td style="text-align: center; width: 200px;"><?php echo $donnees['CLI_Email']; ?></td>
@@ -67,16 +52,12 @@
   </table>
 </td>
 </table>
+  </div>
   <?php
-  }
-    else
-      {echo '<div id="bad">     
-            <label>Le client n a pas pu etre ajoute</label>
-            </div>';}
+  
 
   mysqli_free_result($reponse);
   ?>
-  </div>
   <?php  
     include('footer.php');
     ?>
