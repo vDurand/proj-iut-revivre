@@ -24,14 +24,20 @@
 	border: 1px solid #6b727c;
 }
 
-.listeClients, .listeClients th, .listeClients td {
+.tableContact, .tableContact th, .tableContact td {
 	border:1px solid #003f7f;
 	border-collapse:collapse;
 }
-
-.listeClients tr:nth-child(odd){ background-color:#eaeaea; }
-.listeClients tr:nth-child(even)    { background-color:#ffffff; }
-.listeClients td{
+.tableContact td a:link, .tableContact a:visited{
+	text-decoration: none;
+	font-size:14px;
+	font-family:Arial;
+	font-weight:bold;
+	color:#ffffff;
+}
+.tableContact tr:nth-child(odd){ background-color:#eaeaea; }
+.tableContact tr:nth-child(even)    { background-color:#ffffff; }
+.tableContact td{
 	vertical-align:middle;
 	
 	
@@ -43,14 +49,14 @@
 	font-family:Arial;
 	font-weight:normal;
 	color:#000000;
-}.listeClients tr:last-child td{
+}.tableContact tr:last-child td{
 	border-width:0px 1px 0px 0px;
-}.listeClients tr td:last-child{
+}.tableContact tr td:last-child{
 	border-width:0px 0px 1px 0px;
-}.listeClients tr:last-child td:last-child{
+}.tableContact tr:last-child td:last-child{
 	border-width:0px 0px 0px 0px;
 }
-.listeClients tr:first-child td{
+.tableContact thead tr td{
 		background:-o-linear-gradient(bottom, #92cbef 5%, #0f77c6 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #92cbef), color-stop(1, #0f77c6) );
 	background:-moz-linear-gradient( center top, #92cbef 5%, #0f77c6 100% );
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#92cbef", endColorstr="#0f77c6");	background: -o-linear-gradient(top,#92cbef,0f77c6);
@@ -63,18 +69,19 @@
 	font-family:Arial;
 	font-weight:bold;
 	color:#ffffff;
+	height: 18px;
 }
-.listeClients tr:first-child:hover td{
-	background:-o-linear-gradient(bottom, #92cbef 5%, #0f77c6 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #92cbef), color-stop(1, #0f77c6) );
-	background:-moz-linear-gradient( center top, #92cbef 5%, #0f77c6 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#92cbef", endColorstr="#0f77c6");	background: -o-linear-gradient(top,#92cbef,0f77c6);
+.tableContact tbody tr:hover td{
+	background:-o-linear-gradient(bottom, #6ec3ea 5%, #cfeff9 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #6ec3ea), color-stop(1, #cfeff9) );
+	background:-moz-linear-gradient( center top, #6ec3ea 5%, #cfeff9 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#6ec3ea", endColorstr="#cfeff9");	background: -o-linear-gradient(top,#6ec3ea,cfeff9);
 
-	background-color:#92cbef;
+	background-color:#6ec3ea;
 }
-.listeClients tr:first-child td:first-child{
+.firstCol{
 	border-width:0px 0px 1px 0px;
 }
-.listeClients tr:first-child td:last-child{
+.tableContact thead tr td:last-child{
 	border-width:0px 0px 1px 1px;
 }
 
@@ -163,4 +170,115 @@
 	color: #000;
 	text-decoration: none;
 	font-weight: bold;
+}
+
+.listeClients {
+	margin:0px;padding:0px;
+	width:100%;
+	border:1px solid #00345b;
+	
+	-moz-border-radius-bottomleft:6px;
+	-webkit-border-bottom-left-radius:6px;
+	border-bottom-left-radius:6px;
+	
+	-moz-border-radius-bottomright:6px;
+	-webkit-border-bottom-right-radius:6px;
+	border-bottom-right-radius:6px;
+	
+	-moz-border-radius-topright:6px;
+	-webkit-border-top-right-radius:6px;
+	border-top-right-radius:6px;
+	
+	-moz-border-radius-topleft:6px;
+	-webkit-border-top-left-radius:6px;
+	border-top-left-radius:6px;
+}.listeClients table{
+    border-collapse: collapse;
+        border-spacing: 0;
+	width:100%;
+	height:100%;
+	margin:0px;padding:0px;
+}.listeClients tr:last-child td:last-child {
+	-moz-border-radius-bottomright:6px;
+	-webkit-border-bottom-right-radius:6px;
+	border-bottom-right-radius:6px;
+}
+.listeClients table tr:first-child td:first-child {
+	-moz-border-radius-topleft:6px;
+	-webkit-border-top-left-radius:6px;
+	border-top-left-radius:6px;
+}
+.listeClients table tr:first-child td:last-child {
+	-moz-border-radius-topright:6px;
+	-webkit-border-top-right-radius:6px;
+	border-top-right-radius:6px;
+}.listeClients tr:last-child td:first-child{
+	-moz-border-radius-bottomleft:6px;
+	-webkit-border-bottom-left-radius:6px;
+	border-bottom-left-radius:6px;
+}.listeClients tr:hover td{
+	background-color:#ffffff;
+		
+
+}
+.listeClients td{
+	vertical-align:middle;
+		background:-o-linear-gradient(bottom, #b5dafc 5%, #ffffff 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #b5dafc), color-stop(1, #ffffff) ); 
+	background:-moz-linear-gradient( center top, #b5dafc 5%, #ffffff 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#b5dafc", endColorstr="#ffffff");	background: -o-linear-gradient(top,#b5dafc,ffffff);
+
+	background-color:#b5dafc;
+
+	border:1px solid #00345b;
+	border-width:0px 1px 1px 0px;
+	text-align:left;
+	padding:7px;
+	font-size:12px;
+	font-family:Arial;
+	font-weight:normal;
+	color:#000000;
+}.listeClients tr:last-child td{
+	border-width:0px 1px 0px 0px;
+}.listeClients tr td:last-child{
+	border-width:0px 0px 1px 0px;
+}.listeClients tr:last-child td:last-child{
+	border-width:0px 0px 0px 0px;
+}
+.listeClients tr:first-child td{
+		background:-o-linear-gradient(bottom, #33aee8 5%, #33aee8 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #33aee8), color-stop(1, #33aee8) );
+	background:-moz-linear-gradient( center top, #33aee8 5%, #33aee8 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#33aee8", endColorstr="#33aee8");	background: -o-linear-gradient(top,#33aee8,33aee8);
+
+	background-color:#33aee8;
+	border:0px solid #00345b;
+	text-align:center;
+	border-width:0px 0px 1px 1px;
+	font-size:14px;
+	font-family:Arial;
+	font-weight:bold;
+	color:#02437f;
+}
+.listeClients tr:first-child:hover td{
+	background:-o-linear-gradient(bottom, #33aee8 5%, #33aee8 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #33aee8), color-stop(1, #33aee8) );
+	background:-moz-linear-gradient( center top, #33aee8 5%, #33aee8 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#33aee8", endColorstr="#33aee8");	background: -o-linear-gradient(top,#33aee8,33aee8);
+
+	background-color:#33aee8;
+}
+.listeClients tr:first-child td:first-child{
+	border-width:0px 0px 1px 0px;
+}
+.listeClients tr:first-child td:last-child{
+	border-width:0px 0px 1px 1px;
+}
+
+#arrowUp {
+	float: right;
+	height: 6px;
+	margin-top: 1px;
+}
+#arrowDown {
+	float: right;
+	height: 6px;
+	margin-top: -5px;
 }

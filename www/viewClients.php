@@ -12,7 +12,8 @@
 			<div id="labelT">     
 				<label>Liste des Clients</label>
 			</div><br>
-					<table class="listeClients" cellpadding="5">
+				<div class="listeClients">
+					<table cellpadding="5">
 						<tr>
 							<td style="text-align: center; width: 150px;">
 								Nom
@@ -65,6 +66,7 @@
 	mysqli_free_result($reponse);
 	?>
 					</table>
+				</div>
 		</div>
 	<?php  
 		include('footer.php');

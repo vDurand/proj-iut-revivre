@@ -38,7 +38,7 @@
 									<li><a href="viewSuppliers.php">Liste<br>fournisseurs</a></li>
 	                			</ul>
 	                		</li>
-							<li id="champs"><a href="homeClient.php">Contacts</a>
+							<li id="champs"><a href="homeContact.php">Contacts</a>
 								<ul class="subMenu">
 	                       			<li><a href="viewClients.php">Cliens<br>&nbsp;</a>
 										<ul>
