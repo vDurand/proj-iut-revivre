@@ -19,7 +19,7 @@
 			</div>
 			<br>
 			<form method="post" action="clientpre.php" name="Client" formtype="1" colvalue="2">
-				<input type="hidden" name="NumC" value="<?php echo $donnees['CLI_NumClient']; ?>">
+				<input type="hidden" name="NumC" value="<?php echo $donnees['PER_Num']; ?>">
 				<div style="overflow:auto;">
 					<table align="left">
 						<td style="vertical-align:top;">

@@ -92,7 +92,7 @@
 	{
 	?>					<form method="post" action="detailFournisseur.php" name="detailFour">
 							<input type="hidden" name="NumC" value="">
-							<tr onclick="javascript:fsubmit('<?php echo $donnees['ENC_NumFournisseur']; ?>');" style="font-size: 14;">
+							<tr onclick="javascript:fsubmit('<?php echo $donnees['FOU_NumFournisseur']; ?>');" style="font-size: 14;">
 								<td><?php echo $donnees['PER_Nom']; ?></td>
 								<td><?php echo $donnees['PER_Prenom']; ?></td>
 								<td><?php echo $donnees['PER_Adresse']; ?></td>
@@ -110,7 +110,7 @@
 	{
 	?>					<form method="post" action="detailSalarie.php" name="detailSal">
 							<input type="hidden" name="NumC" value="">
-							<tr onclick="javascript:fsubmit('<?php echo $donnees['ENC_NumSalarie']; ?>');" style="font-size: 14;">
+							<tr onclick="javascript:fsubmit('<?php echo $donnees['SAL_NumSalarie']; ?>');" style="font-size: 14;">
 								<td><?php echo $donnees['PER_Nom']; ?></td>
 								<td><?php echo $donnees['PER_Prenom']; ?></td>
 								<td><?php echo $donnees['PER_Adresse']; ?></td>
