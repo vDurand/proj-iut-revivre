@@ -21,11 +21,13 @@
 			<form method="post" action="rangContact.php" name="EditClient">
 		        <table id="alphaL">
 		          <tr>
-		          	<td class="selectDrop">
+		          	<td>
+		          		<div class="selectDrop">
 		          		<select name="trieur">
 				        	<option value="0">Nom</option>
 				        	<option value="1">Prenom</option>
 				    	</select>
+				    </div>
 		          	</td>
 		            <td>
 		              <span>
