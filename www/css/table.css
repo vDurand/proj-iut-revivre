@@ -100,16 +100,17 @@
 .detailClients tr:nth-child(even)    { background-color:#ffffff; }
 
 #downT {
-	background-color: f5f2f5;
+	background-color: #f5f2f5;
 	border-top:none;
 	border-left:none;
 	border-bottom:none;
 	border-right:none;
 	text-align:none;
-	padding-top:20px;
-	padding-bottom:5px;
-	padding-left:10px;
-	padding-right:10px;
+	margin-top: 10px;
+	padding-top:10px;
+	padding-bottom:10px;
+	padding-left:0px;
+	padding-right:0px;
 	width:100%;
 	text-align: center;
 }
