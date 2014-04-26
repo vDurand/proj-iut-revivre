@@ -1,14 +1,19 @@
 		<?php  
 		include('bandeau.php');
 		?>
-		<script src="sorttable.js"></script>
+		<script src="js/sorttable.js"></script>
 		<script language="javascript"> 
 			function fsubmit(value_p) 
 			{ 
 				document.forms['detailClient'].NumC.value = value_p; 
 				document.forms['detailClient'].submit(); 
 			} 
-</script> 
+		</script>
+		<script>
+        $(document).ready(function() {
+            $('.tooltip').tooltipster();
+        });
+    	</script>
 		<div id="corps">
 			<div id="labelT">     
 				<label>Liste des Contacts</label>
@@ -17,22 +22,22 @@
 						<thead>
 						<tr>
 							<td class="firstCol" style="text-align: center; width: 155px;">
-								<a href="#">Nom</a>
+								<a>Nom</a>
 							</td>
 							<td style="text-align: center; width: 155px;">
-								<a href="#">Prenom</a>
+								<a>Prenom</a>
 							</td>
 							<td style="text-align: center; width: 155px;">
-								<a href="#">Adresse</a>
+								<a>Adresse</a>
 							</td>
 							<td style="text-align: center; width: 155px;">
-								<a href="#">Ville</a>
+								<a>Ville</a>
 							</td>
-							<td class="sorttable_nosort" style="text-align: center; width: 155px;">
+							<td class="sorttable_nosort tooltip" style="text-align: center; width: 155px; cursor: help;" title="Vous ne pouvez pas classer par numero de portable.">
 								Portable
 							</td>
 							<td style="text-align: center; width: 155px;">
-								<a href="#">Type</a>
+								<a>Type</a>
 							</td>
 						</tr>
 					</thead>
@@ -49,18 +54,17 @@
 	$reponse = mysqli_query($db, "SELECT * FROM Clients cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom");
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
-	?>
-						<tr style="font-size: 14;">
-							<form method="post" action="detailClient.php" name="detailClient">
-								<input type="hidden" name="NumC" value="">
-							<td id="detail"><a href="javascript:fsubmit('<?php echo $donnees['CLI_NumClient']; ?>');"><?php echo $donnees['PER_Nom']; ?></td>
-							<td><?php echo $donnees['PER_Prenom']; ?></a></td>
-							<td><?php echo $donnees['PER_Adresse']; ?></a></td>
-							<td><?php echo $donnees['PER_Ville']; ?></a></td>
-							<td><?php echo $donnees['PER_TelPort']; ?></a></td>
-							<td>Client</td>
-							</form>
-						</tr>
+		?>				<form method="post" action="detailClient.php" name="detailClient">
+							<input type="hidden" name="NumC" value="">
+							<tr onclick="javascript:fsubmit('<?php echo $donnees['CLI_NumClient']; ?>');" style="font-size: 14;">
+								<td><?php echo $donnees['PER_Nom']; ?></td>
+								<td><?php echo $donnees['PER_Prenom']; ?></td>
+								<td><?php echo $donnees['PER_Adresse']; ?></td>
+								<td><?php echo $donnees['PER_Ville']; ?></td>
+								<td><?php echo $donnees['PER_TelPort']; ?></td>
+								<td>Client</td>
+							</tr>
+						</form>
 						<?php
 	}
 	mysqli_free_result($reponse);
@@ -68,18 +72,17 @@
 	$reponse = mysqli_query($db, 'SELECT * FROM Encadrant cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom');
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
-	?>
-						<tr style="font-size: 14;">
-							<form method="post" action="detailEncadrant.php" name="detailClient">
-								<input type="hidden" name="NumC" value="">
-							<td id="detail"><a href="javascript:fsubmit('<?php echo $donnees['ENC_NumEncadrant']; ?>');"><?php echo $donnees['PER_Nom']; ?></td>
-							<td><?php echo $donnees['PER_Prenom']; ?></a></td>
-							<td><?php echo $donnees['PER_Adresse']; ?></a></td>
-							<td><?php echo $donnees['PER_Ville']; ?></a></td>
-							<td><?php echo $donnees['PER_TelPort']; ?></a></td>
-							<td>Encadrant</td>
-							</form>
-						</tr>
+	?>					<form method="post" action="detailEncadrant.php" name="detailEnc">
+							<input type="hidden" name="NumC" value="">
+							<tr onclick="javascript:fsubmit('<?php echo $donnees['ENC_NumEncadrant']; ?>');" style="font-size: 14;">
+								<td><?php echo $donnees['PER_Nom']; ?></td>
+								<td><?php echo $donnees['PER_Prenom']; ?></td>
+								<td><?php echo $donnees['PER_Adresse']; ?></td>
+								<td><?php echo $donnees['PER_Ville']; ?></td>
+								<td><?php echo $donnees['PER_TelPort']; ?></td>
+								<td>Encadrant</td>
+							</tr>
+						</form>
 						<?php
 	}
 	mysqli_free_result($reponse);
@@ -87,18 +90,17 @@
 	$reponse = mysqli_query($db, 'SELECT * FROM Fournisseurs cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom');
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
-	?>
-						<tr style="font-size: 14;">
-							<form method="post" action="detailFournisseur.php" name="detailClient">
-								<input type="hidden" name="NumC" value="">
-							<td id="detail"><a href="javascript:fsubmit('<?php echo $donnees['FOU_NumFournisseur']; ?>');"><?php echo $donnees['PER_Nom']; ?></td>
-							<td><?php echo $donnees['PER_Prenom']; ?></a></td>
-							<td><?php echo $donnees['PER_Adresse']; ?></a></td>
-							<td><?php echo $donnees['PER_Ville']; ?></a></td>
-							<td><?php echo $donnees['PER_TelPort']; ?></a></td>
-							<td>Fournisseur</td>
-							</form>
-						</tr>
+	?>					<form method="post" action="detailFournisseur.php" name="detailFour">
+							<input type="hidden" name="NumC" value="">
+							<tr onclick="javascript:fsubmit('<?php echo $donnees['ENC_NumFournisseur']; ?>');" style="font-size: 14;">
+								<td><?php echo $donnees['PER_Nom']; ?></td>
+								<td><?php echo $donnees['PER_Prenom']; ?></td>
+								<td><?php echo $donnees['PER_Adresse']; ?></td>
+								<td><?php echo $donnees['PER_Ville']; ?></td>
+								<td><?php echo $donnees['PER_TelPort']; ?></td>
+								<td>Fournisseur</td>
+							</tr>
+						</form>	
 						<?php
 	}
 	mysqli_free_result($reponse);
@@ -106,18 +108,17 @@
 	$reponse = mysqli_query($db, 'SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom');
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
-	?>
-						<tr style="font-size: 14;">
-							<form method="post" action="detailSalarie.php" name="detailClient">
-								<input type="hidden" name="NumC" value="">
-							<td id="detail"><a href="javascript:fsubmit('<?php echo $donnees['SAL_NumSalarie']; ?>');"><?php echo $donnees['PER_Nom']; ?></td>
-							<td><?php echo $donnees['PER_Prenom']; ?></a></td>
-							<td><?php echo $donnees['PER_Adresse']; ?></a></td>
-							<td><?php echo $donnees['PER_Ville']; ?></a></td>
-							<td><?php echo $donnees['PER_TelPort']; ?></a></td>
-							<td><?php echo $donnees['SAL_Type']; ?></td>
-							</form>
-						</tr>
+	?>					<form method="post" action="detailSalarie.php" name="detailSal">
+							<input type="hidden" name="NumC" value="">
+							<tr onclick="javascript:fsubmit('<?php echo $donnees['ENC_NumSalarie']; ?>');" style="font-size: 14;">
+								<td><?php echo $donnees['PER_Nom']; ?></td>
+								<td><?php echo $donnees['PER_Prenom']; ?></td>
+								<td><?php echo $donnees['PER_Adresse']; ?></td>
+								<td><?php echo $donnees['PER_Ville']; ?></td>
+								<td><?php echo $donnees['PER_TelPort']; ?></td>
+								<td><?php echo $donnees['SAL_Type']; ?></td>
+							</tr>
+						</form>
 						<?php
 	}
 	mysqli_free_result($reponse);

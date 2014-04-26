@@ -14,7 +14,7 @@ sorttable = {
     sorttable.DATE_RE = /^(\d\d?)[\/\.-](\d\d?)[\/\.-]((\d\d)?\d\d)$/;
 
     forEach(document.getElementsByTagName('table'), function(table) {
-      if (table.className.search(/\btableContact\b/) != -1) {
+      if ((table.className.search(/\btableContact\b/) != -1)||(table.className.search(/\bsortable\b/) != -1)) {
         sorttable.makeSortable(table);
       }
     });

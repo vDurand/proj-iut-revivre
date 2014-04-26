@@ -16,7 +16,7 @@
 										<label>Nom :</label>
 									</td>
 									<td>
-										<input id="Nom" required maxlength="255" name="Nom" type="text" fieldtype="1" class="inputC" delugetype="STRING"> 
+										<input id="Nom" required maxlength="255" name="Nom" type="text" class="inputC" pattern="^[A-Z].*" title="Majuscule en début obligatoire" autofocus="autofocus"> 
 									</td>
 								</tr>
 								<tr id="Client-Prenom">
@@ -24,7 +24,7 @@
 										<label>Prenom :</label>
 									</td>
 									<td>
-										<input id="Prenom" required maxlength="255" name="Prenom" type="text" fieldtype="1" class="inputC" delugetype="STRING"> 
+										<input id="Prenom" required maxlength="255" name="Prenom" type="text" class="inputC" pattern="^[A-Z].*" title="Majuscule en début obligatoire"> 
 									</td>
 
 								</tr>
@@ -33,7 +33,7 @@
 										<label>Telephone Fixe :</label>
 									</td>
 									<td>
-										<input id="Tel_Fixe" maxlength="255" name="Tel_Fixe" type="text" fieldtype="1" class="inputC" delugetype="STRING"> 
+										<input id="Tel_Fixe" maxlength="255" name="Tel_Fixe" type="text" fieldtype="1" class="inputC" pattern="^[0-9][0-9](?:[\/_:-\s]?\d\d){4}$"> 
 									</td>
 								</tr>
 								<tr id="Client-Portable">
@@ -41,7 +41,7 @@
 										<label>Telephone Portable :</label>
 									</td>
 									<td>
-										<input id="Portable" maxlength="255" name="Portable" type="text" fieldtype="1" class="inputC" delugetype="STRING"> 
+										<input id="Portable" maxlength="255" name="Portable" type="text" class="inputC" pattern="^[0-9][0-9](?:[\/_:-\s]?\d\d){4}$"> 
 									</td>
 								</tr>
 								<tr id="Client-Fax">
@@ -49,7 +49,7 @@
 										<label>Fax :</label>
 									</td>
 									<td>
-										<input id="Fax" maxlength="255" name="Fax" type="text" fieldtype="1" class="inputC" delugetype="STRING"> 
+										<input id="Fax" maxlength="255" name="Fax" type="text" fieldtype="1" class="inputC" pattern="^[0-9][0-9](?:[\/_:-\s]?\d\d){4}$"> 
 									</td>
 								</tr>
 							</table>
@@ -61,7 +61,7 @@
 										<label>Email :</label>
 									</td>
 									<td>
-										<input id="Email" maxlength="255" name="Email" type="text" fieldtype="4" class="inputC" delugetype="STRING"> 
+										<input id="Email" maxlength="255" name="Email" type="text" class="inputC" placeholder="exemple@exemple.com" pattern="^[a-zA-Z0-9\._-]+@[a-zA-Z0-9\._-]+\.[a-z]{2,3}$"> 
 									</td>
 								</tr>
 								<tr id="Client-Adresse">

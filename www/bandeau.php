@@ -20,6 +20,9 @@
    		<link rel="icon" href="images/favicon1.icns" sizes="16x16" />';
 		}
 		?>
+		<link rel="stylesheet" type="text/css" href="css/tooltipster.css" />
+    	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.0.min.js"></script>
+    	<script type="text/javascript" src="js/jquery.tooltipster.min.js"></script>
 		<title>Intranet association Revivre</title>
 		<!-- V. Durand | A. Freret | P. Friboulet | J. Le Bas | IUT Caen - DUT Info (2013-2015) -->
 	</head>
