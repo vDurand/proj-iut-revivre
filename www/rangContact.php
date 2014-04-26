@@ -190,10 +190,15 @@
 		echo '';
 	else
 		echo 'Erreur';
+	$alpha = $_POST["submit"].'%';
+	if($_POST["trieur"]==0){
+		$sorter = 'PER_Nom';
+	}
+	if($_POST["trieur"]==1){
+		$sorter = 'PER_Prenom';
+	}
 
-	$sorter = 'PER_Nom';
-
-	$reponse = mysqli_query($db, "SELECT * FROM Clients cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom");
+	$reponse = mysqli_query($db, "SELECT * FROM Clients cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE $sorter like '$alpha' ORDER BY $sorter");
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
 		?>				<form method="post" action="detailClient.php" name="detailClient">
@@ -211,7 +216,7 @@
 	}
 	mysqli_free_result($reponse);
 
-	$reponse = mysqli_query($db, 'SELECT * FROM Encadrant cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom');
+	$reponse = mysqli_query($db, "SELECT * FROM Encadrant cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE $sorter like '$alpha' ORDER BY $sorter");
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
 	?>					<form method="post" action="detailEncadrant.php" name="detailEnc">
@@ -229,7 +234,7 @@
 	}
 	mysqli_free_result($reponse);
 
-	$reponse = mysqli_query($db, 'SELECT * FROM Fournisseurs cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom');
+	$reponse = mysqli_query($db, "SELECT * FROM Fournisseurs cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE $sorter like '$alpha' ORDER BY $sorter");
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
 	?>					<form method="post" action="detailFournisseur.php" name="detailFour">
@@ -247,7 +252,7 @@
 	}
 	mysqli_free_result($reponse);
 
-	$reponse = mysqli_query($db, 'SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom');
+	$reponse = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE $sorter like '$alpha' ORDER BY $sorter");
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
 	?>					<form method="post" action="detailSalarie.php" name="detailSal">

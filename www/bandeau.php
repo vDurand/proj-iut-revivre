@@ -7,6 +7,7 @@
 		<link rel="stylesheet" type="text/css" href="css/index.css">
 		<link rel="stylesheet" type="text/css" href="css/drop.css">
 		<link rel="stylesheet" type="text/css" href="css/table.css">
+		<link rel="stylesheet" type="text/css" href="css/alpha.css">
 		<?php
 		$i=rand(1,2);
 		if($i==1){
