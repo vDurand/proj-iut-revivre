@@ -24,7 +24,7 @@ body{
 	margin-right: auto;
 	padding-top: 96px;
 	background-color: #fff;
-	background: url(images/navi.png) repeat;
+	background: url(../images/navi.png) repeat;
 }
 
 .bandeau, .bandeau ul{
