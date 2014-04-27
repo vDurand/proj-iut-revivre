@@ -19,22 +19,24 @@
 	-moz-border-radius-bottomleft:0px;
 	border-bottom-left-radius:0px;
 	text-indent:0;
-	border:1px solid #dcdcdc;
+	border:1px solid #ccc;
 	display:inline-block;
 	color:#777777;
 	font-family:Arial;
 	font-size:17px;
 	font-weight:bold;
 	font-style:normal;
-	height:21px;
-	line-height:21px;
-	width:25px;
+	height:27px;
+	line-height:24px;
+	width:29px;
 	text-decoration:none;
 	text-align:center;
 	text-shadow:1px 1px 0px #ffffff;
-	margin-top: 10px;
+	margin-top: 0px;
+	margin-right: 1px;
 }
 .alphaButton:hover {
+	cursor: pointer;
 	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
 	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
@@ -50,10 +52,10 @@
 .selectDrop {
     padding: 0;
     margin: 0;
-    margin-right: 15px;
-    margin-left: 15px;
+    margin-right: 16px;
+    margin-left: 0px;
     border: 1px solid #ccc;
-    width: 120px;
+    width: 165px;
     border-radius: 3px;
     overflow: hidden;
     background-color: #fff;
@@ -62,6 +64,38 @@
 }
 
 .selectDrop select {
+	cursor: pointer;
+    padding: 4px 7px;
+    width: 100%;
+    margin-left: 10px;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+}
+
+.selectDrop select:focus {
+    outline: none;
+}
+
+.selectType {
+    padding: 0;
+    margin: 0;
+    margin-right: 15px;
+    margin-left: 0px;
+    border: 1px solid #ccc;
+    width: 120px;
+    border-radius: 3px;
+    overflow: hidden;
+    background-color: #fff;
+
+    background: #fff url("../images/arrowdown.gif") no-repeat 90% 50%;
+}
+
+.selectType select {
     padding: 5px 8px;
     width: 110%;
     border: none;
@@ -73,6 +107,6 @@
             appearance: none;
 }
 
-.selectDrop select:focus {
+.selectType select:focus {
     outline: none;
 }
