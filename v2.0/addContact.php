@@ -15,14 +15,16 @@
 							</td>
 							<td>
 								<div class="selectType">
-		          					<select name="trieur">
+		          					<select name="Type">
+		          						<option value="0">Client</option>
+										<option value="1">Fournisseur</option>
 		          			<?php
 
 	if($db = MySQLi_connect("localhost","Kepha",'pfudor', 'Revivre', 0, '/media/sds1/home/alx22/private/mysql/socket'))
 		echo '';
 	else
 		echo 'Erreur';
-	$i = 0;
+	$i = 2;
 	$reponse = mysqli_query($db, "SELECT * FROM Type");
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
@@ -32,8 +34,7 @@
 	$i++;
 	}
 	mysqli_free_result($reponse);
-	?>									<option value="<?php echo $i++; ?>">Client</option>
-										<option value="<?php echo $i++; ?>">Fournisseur</option>
+	?>									
 				    				</select>
 				    			</div>
 				    		</td>
@@ -143,6 +144,14 @@
 									</td>
 									<td>
 										<input id="Struct" maxlength="255" name="Struct" type="text" fieldtype="1" class="inputC" delugetype="STRING">
+									</td>
+								</tr>
+								<tr id="Contact-Fonction">
+									<td style="text-align: left; width: 150px; white-space: normal;">
+										<label>Fonction :</label>
+									</td>
+									<td>
+										<input id="Struct" maxlength="255" name="Fonction" type="text" fieldtype="1" class="inputC" delugetype="STRING">
 									</td>
 								</tr>
 							</table>

@@ -8,6 +8,7 @@
 	else
 		echo 'Erreur';
 
+  $type=addslashes($_POST["Type"]);
   $nom=addslashes($_POST["Nom"]);
   $prenom=addslashes($_POST["Prenom"]);
   $tel=addslashes($_POST["Tel_Fixe"]);
@@ -18,6 +19,7 @@
   $cp=addslashes($_POST["Code_Postal"]);
   $ville=addslashes($_POST["Ville"]);
   $struct=addslashes($_POST["Struct"]);
+  $fonct=addslashes($_POST["Fonction"]);
 
 	$query = "INSERT INTO Personnes (PER_Num, PER_Nom, PER_Prenom, PER_TelFixe, PER_TelPort, PER_Fax, PER_Email, PER_Adresse, PER_CodePostal, PER_Ville) VALUES (NULL, '$nom', '$prenom', '$tel', '$port', '$fax', '$email', '$add', '$cp', '$ville')";
 
@@ -29,16 +31,31 @@
       $numberRep = mysqli_fetch_assoc($numberQuery);
       $realNumber = $numberRep['PER_Num'];
 
-      $query2 = "INSERT INTO Clients (CLI_NumClient, CLI_Structure, PER_Num) VALUES (NULL, '$struct', '$realNumber')";
-
+      if($type==0){
+        $query2 = "INSERT INTO Clients (CLI_NumClient, CLI_Structure, PER_Num) VALUES (NULL, '$struct', '$realNumber')";
+      }
+      if($type==1){
+        $query2 = "INSERT INTO Fournisseurs (FOU_NumFournisseur, FOU_Structure, PER_Num) VALUES (NULL, '$struct', '$realNumber')";
+      }
+      if($type>1){
+        $query2 = "INSERT INTO Salaries (SAL_NumSalarie, PER_Num, SAL_Fonction, TYP_Id) VALUES (NULL, '$realNumber', '$fonct', '$type')";
+      }
       $sql2 = mysqli_query($db, $query2);
       $errr2 = mysqli_error($db);
 
       if($sql2){
         echo '<div id="good">     
-            <label>Client ajoute avec succes</label>
+            <label>Contact ajoute avec succes</label>
             </div>';
-            $reponse = mysqli_query($db, "SELECT * FROM Clients cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE cl.PER_Num='$realNumber'");
+            if($type==0){
+              $reponse = mysqli_query($db, "SELECT * FROM Clients cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE cl.PER_Num='$realNumber'");
+            }
+            if($type==1){
+              $reponse = mysqli_query($db, "SELECT * FROM Fournisseurs cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE cl.PER_Num='$realNumber'");
+            }
+            if($type>1){
+              $reponse = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE cl.PER_Num='$realNumber'");
+            }
             $donnees = mysqli_fetch_assoc($reponse);
 	?>
   <br>
@@ -80,7 +97,7 @@
       }
       else{
         echo '<div id="bad">     
-              <label>Le client n a pas pu etre ajoute</label>
+              <label>Le contact n a pas pu etre ajoute</label>
               </div>';
             }
             mysqli_free_result($reponse);
