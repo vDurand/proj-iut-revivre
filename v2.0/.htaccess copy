@@ -1,0 +1,11 @@
+<Files ~ "^\.(htaccess|htpasswd)$">
+deny from all
+</Files>
+ErrorDocument 404 http://alx22.cronus.feralhosting.com/404.html
+Options Indexes
+AuthUserFile /media/sds1/home/alx22/www/alx22.cronus.feralhosting.com/public_html/.htpasswd
+AuthGroupFile /dev/null
+AuthName "Please enter your ID and password"
+AuthType Basic
+require valid-user 
+order deny,allow

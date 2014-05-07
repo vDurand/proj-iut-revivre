@@ -1,0 +1,289 @@
+#labelT {
+	text-align: center;
+	height: 35px;
+	padding-top: 15px;
+	font-size: 20px;
+	background-color: #cde5f7;
+	border: 1px solid #6b727c;
+}
+#labelCat {
+	text-align: center;
+	height: 35px;
+	padding-top: 15px;
+	font-size: 20px;
+}
+
+#good {
+	text-align: center;
+	height: 35px;
+	padding-top: 15px;
+	font-size: 20px;
+	background-color: #87f8ab;
+	border: 1px solid #6b727c;
+}
+#bad {
+	text-align: center;
+	height: 35px;
+	padding-top: 15px;
+	font-size: 20px;
+	background-color: #f88787;
+	border: 1px solid #6b727c;
+}
+
+.tableContact, .tableContact th, .tableContact td {
+	border:1px solid #003f7f;
+	border-collapse:collapse;
+}
+.tableContact td a:link, .tableContact a:visited{
+	text-decoration: none;
+	font-size:14px;
+	font-family:Arial;
+	font-weight:bold;
+	color:#ffffff;
+}
+.tableContact tr:nth-child(odd){ background-color:#eaeaea; }
+.tableContact tr:nth-child(even)    { background-color:#ffffff; }
+.tableContact td{
+	vertical-align:middle;
+	
+	
+	border:1px solid #003f7f;
+	border-width:0px 1px 1px 0px;
+	text-align:left;
+	padding:8px;
+	font-size:12px;
+	font-family:Arial;
+	font-weight:normal;
+	color:#000000;
+}.tableContact tr:last-child td{
+	border-width:0px 1px 0px 0px;
+}.tableContact tr td:last-child{
+	border-width:0px 0px 1px 0px;
+}.tableContact tr:last-child td:last-child{
+	border-width:0px 0px 0px 0px;
+}
+.tableContact thead tr td{
+		background:-o-linear-gradient(bottom, #92cbef 5%, #0f77c6 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #92cbef), color-stop(1, #0f77c6) );
+	background:-moz-linear-gradient( center top, #92cbef 5%, #0f77c6 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#92cbef", endColorstr="#0f77c6");	background: -o-linear-gradient(top,#92cbef,0f77c6);
+
+	background-color:#92cbef;
+	border:0px solid #003f7f;
+	text-align:center;
+	border-width:0px 0px 1px 1px;
+	font-size:14px;
+	font-family:Arial;
+	font-weight:bold;
+	color:#ffffff;
+	height: 18px;
+	cursor: pointer;
+}
+.tableContact tbody tr:hover td{
+	background:-o-linear-gradient(bottom, #6ec3ea 5%, #cfeff9 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #6ec3ea), color-stop(1, #cfeff9) );
+	background:-moz-linear-gradient( center top, #6ec3ea 5%, #cfeff9 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#6ec3ea", endColorstr="#cfeff9");	background: -o-linear-gradient(top,#6ec3ea,cfeff9);
+
+	background-color:#6ec3ea;
+	cursor: pointer;
+}
+.firstCol{
+	border-width:0px 0px 1px 0px;
+}
+.tableContact thead tr td:last-child{
+	border-width:0px 0px 1px 1px;
+}
+
+#fullTable {
+	border:1px solid #003f7f;
+	border-collapse:collapse;
+}
+
+.detailClients{
+	border:0px solid #003f7f;
+	border-collapse:collapse;
+}
+.detailClients tr:nth-child(odd){ background-color:#eaeaea; }
+.detailClients tr:nth-child(even)    { background-color:#ffffff; }
+
+#downT {
+	background-color: #f5f2f5;
+	border-top:none;
+	border-left:none;
+	border-bottom:none;
+	border-right:none;
+	text-align:none;
+	margin-top: 10px;
+	padding-top:10px;
+	padding-bottom:10px;
+	padding-left:0px;
+	padding-right:0px;
+	width:100%;
+	text-align: center;
+}
+
+#corps {
+	min-height: 500px;
+}
+
+.inputC {
+	width:200px;
+	background-color: #cde5f7;
+}
+
+.buttonC {
+	-moz-box-shadow:inset 0px 0px 0px 1px #bee2f9;
+	-webkit-box-shadow:inset 0px 0px 0px 1px #bee2f9;
+	box-shadow:inset 0px 0px 0px 1px #bee2f9;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #99d8ff), color-stop(1, #3689d6) );
+	background:-moz-linear-gradient( center top, #99d8ff 5%, #3689d6 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#99d8ff', endColorstr='#3689d6');
+	background-color:#99d8ff;
+	-webkit-border-top-left-radius:0px;
+	-moz-border-radius-topleft:0px;
+	border-top-left-radius:0px;
+	-webkit-border-top-right-radius:0px;
+	-moz-border-radius-topright:0px;
+	border-top-right-radius:0px;
+	-webkit-border-bottom-right-radius:0px;
+	-moz-border-radius-bottomright:0px;
+	border-bottom-right-radius:0px;
+	-webkit-border-bottom-left-radius:0px;
+	-moz-border-radius-bottomleft:0px;
+	border-bottom-left-radius:0px;
+	text-indent:0px;
+	border:1px solid #3866a3;
+	display:inline-block;
+	color:#000;
+	font-family:Arial;
+	font-size:15px;
+	font-style:normal;
+	height:40px;
+	line-height:20px;
+	width:121px;
+	text-decoration:none;
+	text-align:center;
+	vertical-align: middle;
+	text-shadow:1px 1px 0px #7cacde;
+}
+.buttonC:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #468ccf), color-stop(1, #63b8ee) );
+	background:-moz-linear-gradient( center top, #468ccf 5%, #63b8ee 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#468ccf', endColorstr='#63b8ee');
+	background-color:#468ccf;
+}.buttonC:active {
+	position:relative;
+	top:1px;
+}
+
+.listeClients {
+	margin:0px;padding:0px;
+	width:100%;
+	border:1px solid #00345b;
+	
+	-moz-border-radius-bottomleft:6px;
+	-webkit-border-bottom-left-radius:6px;
+	border-bottom-left-radius:6px;
+	
+	-moz-border-radius-bottomright:6px;
+	-webkit-border-bottom-right-radius:6px;
+	border-bottom-right-radius:6px;
+	
+	-moz-border-radius-topright:6px;
+	-webkit-border-top-right-radius:6px;
+	border-top-right-radius:6px;
+	
+	-moz-border-radius-topleft:6px;
+	-webkit-border-top-left-radius:6px;
+	border-top-left-radius:6px;
+}.listeClients table{
+    border-collapse: collapse;
+        border-spacing: 0;
+	width:100%;
+	height:100%;
+	margin:0px;padding:0px;
+}.listeClients tbody tr:last-child td:last-child {
+	-moz-border-radius-bottomright:6px;
+	-webkit-border-bottom-right-radius:6px;
+	border-bottom-right-radius:6px;
+}
+.premierCol {
+	-moz-border-radius-topleft:6px;
+	-webkit-border-top-left-radius:6px;
+	border-top-left-radius:6px;
+}
+.listeClients table thead tr td:last-child {
+	-moz-border-radius-topright:6px;
+	-webkit-border-top-right-radius:6px;
+	border-top-right-radius:6px;
+}.listeClients tbody tr:last-child td:first-child{
+	-moz-border-radius-bottomleft:6px;
+	-webkit-border-bottom-left-radius:6px;
+	border-bottom-left-radius:6px;
+}.listeClients tr:hover td{
+	background-color:#ffffff;
+		
+
+}
+.listeClients td{
+	vertical-align:middle;
+		background:-o-linear-gradient(bottom, #b5dafc 5%, #ffffff 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #b5dafc), color-stop(1, #ffffff) ); 
+	background:-moz-linear-gradient( center top, #b5dafc 5%, #ffffff 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#b5dafc", endColorstr="#ffffff");	background: -o-linear-gradient(top,#b5dafc,ffffff);
+
+	background-color:#b5dafc;
+
+	border:1px solid #00345b;
+	border-width:0px 1px 1px 0px;
+	text-align:left;
+	padding:7px;
+	font-size:12px;
+	font-family:Arial;
+	font-weight:normal;
+	color:#000000;
+}.listeClients tr:last-child td{
+	border-width:0px 1px 0px 0px;
+}.listeClients tr td:last-child{
+	border-width:0px 0px 1px 0px;
+}.listeClients tr:last-child td:last-child{
+	border-width:0px 0px 0px 0px;
+}
+.listeClients thead tr td{
+	background:-o-linear-gradient(bottom, #33aee8 5%, #33aee8 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #33aee8), color-stop(1, #33aee8) );
+	background:-moz-linear-gradient( center top, #33aee8 5%, #33aee8 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#33aee8", endColorstr="#33aee8");	background: -o-linear-gradient(top,#33aee8,33aee8);
+
+	background-color:#33aee8;
+	border:0px solid #00345b;
+	text-align:center;
+	border-width:0px 0px 1px 1px;
+	font-size:14px;
+	font-family:Arial;
+	font-weight:bold;
+	color:#02437f;
+	cursor: pointer;
+}
+.listeClients tbody tr:hover td{
+	background:-o-linear-gradient(bottom, #9ADEFE 5%, #9ADEFE 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #9ADEFE), color-stop(1, #9ADEFE) );
+	background:-moz-linear-gradient( center top, #9ADEFE 5%, #9ADEFE 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#9ADEFE", endColorstr="#9ADEFE");	background: -o-linear-gradient(top,#9ADEFE,9ADEFE);
+
+	background-color:#9ADEFE;
+	cursor: pointer;
+}
+.premierCol{
+	border-width:0px 0px 1px 0px;
+}
+.listeClients thead tr td:last-child{
+	border-width:0px 0px 1px 1px;
+}
+
+#arrowUp {
+	float: right;
+	height: 6px;
+	margin-top: 1px;
+}
+#arrowDown {
+	float: right;
+	height: 6px;
+	margin-top: -5px;
+}
