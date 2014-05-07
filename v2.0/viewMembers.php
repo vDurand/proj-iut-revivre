@@ -16,9 +16,9 @@
     	</script>
 		<div id="corps">
 			<div id="labelT">     
-				<label>Liste des Clients</label>
+				<label>Liste des Membres de l'association</label>
 			</div><br>
-				<div class="listeClients">
+				<div class="listeMembers">
 					<table class="sortable" cellpadding="5">
 						<thead>
 							<tr>
@@ -41,7 +41,7 @@
 									Adresse
 								</td>
 								<td style="text-align: center; width: 150px;">
-									Structure
+									Type
 								</td>
 							</tr>
 						</thead>
@@ -53,7 +53,7 @@
 	else
 		echo 'Erreur';
 
-	$reponse = mysqli_query($db, 'SELECT * FROM Clients cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom');
+	$reponse = mysqli_query($db, 'SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num JOIN Type ty ON cl.TYP_Id=ty.TYP_Id ORDER BY PER_Nom');
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
 ?>					<form method="post" action="detailClient.php" name="detailClient">
@@ -65,7 +65,7 @@
 								<td><?php echo $donnees['PER_TelPort']; ?></td>
 								<td><?php echo $donnees['PER_Email']; ?></td>
 								<td><?php echo $donnees['PER_Adresse']; ?>, <?php echo $donnees['PER_Ville']; ?> <?php echo $donnees['PER_CodePostal']; ?></td>
-								<td><?php echo $donnees['CLI_Structure']; ?></td>
+								<td><?php echo $donnees['TYP_Nom']; ?></td>
 							</tr>
 					</form>
 						<?php
