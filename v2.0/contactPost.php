@@ -20,8 +20,9 @@
   $ville=addslashes($_POST["Ville"]);
   $struct=addslashes($_POST["Struct"]);
   $fonct=addslashes($_POST["Fonction"]);
+  $sex=addslashes($_POST["Sexe"]);
 
-	$query = "INSERT INTO Personnes (PER_Num, PER_Nom, PER_Prenom, PER_TelFixe, PER_TelPort, PER_Fax, PER_Email, PER_Adresse, PER_CodePostal, PER_Ville) VALUES (NULL, '$nom', '$prenom', '$tel', '$port', '$fax', '$email', '$add', '$cp', '$ville')";
+	$query = "INSERT INTO Personnes (PER_Num, PER_Nom, PER_Prenom, PER_TelFixe, PER_TelPort, PER_Fax, PER_Email, PER_Adresse, PER_CodePostal, PER_Ville, PER_Sexe) VALUES (NULL, '$nom', '$prenom', '$tel', '$port', '$fax', '$email', '$add', '$cp', '$ville', '$sex')";
 
   $sql = mysqli_query($db, $query);
   $errr=mysqli_error($db);

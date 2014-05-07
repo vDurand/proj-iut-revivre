@@ -92,13 +92,13 @@
 										<label>Sexe :</label>
 									</td>
 									<td style="padding-top: 0px;">
-										<input checked type="radio" name="sexe" value="Homme"/>
+										<input checked type="radio" name="Sexe" value="1"/>
 										<label>&nbsp; Homme</label>
 									</td>
 								</tr>
 								<tr>
 									<td style="padding-top: 0px;">
-										<input type="radio" name="sexe" value="Femme"/>
+										<input type="radio" name="Sexe" value="0"/>
 										<label>&nbsp; Femme</label>
 									</td>
 								</tr>
