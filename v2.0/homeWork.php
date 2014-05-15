@@ -165,7 +165,7 @@
 					<table class="tableContact" cellpadding="5">
 						<thead>
 						<tr>
-							<td class="firstCol" style="text-align: center; width: 55px;">
+							<td class="firstCol" style="text-align: center; width: 40px;">
 								<a>#</a>
 							</td>
 							<td style="text-align: center; width: 155px;">
@@ -198,7 +198,7 @@
 /*CREATE OR REPLACE VIEW ChantierClient AS SELECT co.CHA_NumDevis, pe.PER_Nom as Client FROM Commanditer co JOIN Clients cl ON co.CLI_NumClient=cl.CLI_NumClient JOIN Personnes pe ON cl.PER_Num=pe.PER_Num;
 CREATE OR REPLACE VIEW ChantierResp AS SELECT en.CHA_NumDevis, pe.PER_Nom as Resp FROM Encadrer en JOIN Salaries sa ON en.SAL_NumSalarie=sa.SAL_NumSalarie JOIN Personnes pe ON sa.PER_Num=pe.PER_Num;*/
 
-	$reponse = mysqli_query($db, "SELECT * FROM Chantiers ch JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CHA_NumDevis JOIN ChantierResp vre ON ch.CHA_NumDevis=vre.CHA_NumDevis ORDER BY CHA_DateDebut DESC");
+	$reponse = mysqli_query($db, "SELECT * FROM Chantiers ch JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CHA_NumDevis JOIN ChantierResp vre ON ch.CHA_NumDevis=vre.CHA_NumDevis ORDER BY ch.CHA_NumDevis DESC");
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
 		?>				<form method="post" action="detailClient.php" name="detailClient">

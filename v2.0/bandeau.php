@@ -39,7 +39,7 @@
 							<li id="champs"><a href="homeContact.php">Repertoire</a>
 								<ul class="subMenu">
 									<li><a href="addContact.php">Ajouter<br>Contact</a></li>
-	                       			<li><a href="viewClients.php">Cliens<br>&nbsp;</a>
+	                       			<li><a href="viewClients.php">Clients<br>&nbsp;</a>
 										<ul>
 											<li><a href="viewClientCh.php">Chantier<br>&nbsp;</a></li>
 											<li><a href="viewClientCo.php">Conditionnement</a></li>
@@ -76,8 +76,8 @@
 	        				</li>
 							<li id="champs"><a href="homeSupplier.php">Logements</a>
 								<ul class="subMenu">
-	                       			<li><a href="addSupplier.php">Ajouter<br>fournisseur</a></li>
-									<li><a href="viewSuppliers.php">Liste<br>fournisseurs</a></li>
+	                       			<li><a href="addSupplier.php">Ajouter<br>logement</a></li>
+									<li><a href="viewSuppliers.php">Liste<br>logements</a></li>
 	                			</ul>
 	                		</li>
 							<li id="champs"><a href="homeTool.php">Outillages </a>
