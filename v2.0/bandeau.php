@@ -61,17 +61,17 @@
 									</li>
 	                			</ul>
 							</li>
-							<li id="champs"><a href="homeWork">Chantiers</a>
+							<li id="champs"><a href="homeWork.php">Chantiers</a>
 								<ul class="subMenu">
-	                       			<li><a href="addWork">Ajouter<br>chantier</a></li>
-									<li><a href="ongoingWorks">Chantiers en cours</a></li>
-									<li><a href="oldWorks">Archive chantiers</a></li>
+	                       			<li><a href="addWork.php">Ajouter<br>chantier</a></li>
+									<li><a href="ongoingWorks.php">Chantiers en cours</a></li>
+									<li><a href="oldWorks.php">Archive chantiers</a></li>
 	                			</ul>
 							</li>
-							<li id="champs"><a href="homeRent">Vehicules</a>
+							<li id="champs"><a href="homeRent.php">Vehicules</a>
 	                			<ul class="subMenu">
-	                       			<li><a href="carRent">Ajouter<br>Véhicules</a></li>
-	                        		<li><a href="flatRent">Suivi<br>Vehicules</a></li>
+	                       			<li><a href="carRent.php">Ajouter<br>Véhicules</a></li>
+	                        		<li><a href="flatRent.php">Suivi<br>Vehicules</a></li>
 	                			</ul>
 	        				</li>
 							<li id="champs"><a href="homeSupplier.php">Logements</a>
@@ -80,13 +80,13 @@
 									<li><a href="viewSuppliers.php">Liste<br>fournisseurs</a></li>
 	                			</ul>
 	                		</li>
-							<li id="champs"><a href="homeTool">Outillages </a>
+							<li id="champs"><a href="homeTool.php">Outillages </a>
 								<ul class="subMenu">
 	                       			<li><a href="addTool.php">Ajouter<br>outil</a></li>
 									<li><a href="viewTools.php">Liste<br>outils</a></li>
 	                			</ul>
 							</li>
-							<li id="champs"><a href="homeMeal">Restaurant</a>
+							<li id="champs"><a href="homeMeal.php">Restaurant</a>
 								<ul class="subMenu">
 	                       			<li><a href="addMeal.php">Ajouter<br>repas</a></li>
 									<li><a href="viewMeals.php">Archive<br>commandes</a></li>
