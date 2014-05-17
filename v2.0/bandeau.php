@@ -24,6 +24,13 @@
 		<link rel="stylesheet" type="text/css" href="css/tooltipster.css" />
     	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.0.min.js"></script>
     	<script type="text/javascript" src="js/jquery.tooltipster.min.js"></script>
+    	<script language="javascript"> 
+			function fbissubmit(value_p) 
+			{ 
+				document.forms['viewDetailMember'].TypeM.value = value_p; 
+				document.forms['viewDetailMember'].submit(); 
+			} 
+		</script>
 		<title>Intranet association Revivre</title>
 		<!-- V. Durand | A. Freret | P. Friboulet | J. Le Bas | IUT Caen - DUT Info (2013-2015) -->
 	</head>
@@ -53,10 +60,25 @@
 									</li>
 									<li><a href="viewMembers.php">Membre de<br>l'association</a>
 										<ul>
-											<li><a href="viewSal.php">Salarie<br>&nbsp;</a></li>
-											<li><a href="viewSal.php">Formateur<br>&nbsp;</a></li>
-											<li><a href="viewBene.php">Benevoles<br>&nbsp;</a></li>
-											<li><a href="viewStag.php">Stagiaires</a></li>
+											<?php
+
+	if($db = MySQLi_connect("localhost","Kepha",'pfudor', 'Revivre', 0, '/media/sds1/home/alx22/private/mysql/socket'))
+		echo '';
+	else
+		echo 'Erreur';
+	$i = 2;
+	$reponse = mysqli_query($db, "SELECT * FROM Type");
+	while ($donnees = mysqli_fetch_assoc($reponse))
+	{
+		?>									<form method="post" action="viewSal.php" name="viewDetailMember">
+											<input type="hidden" name="TypeM" value="<?php echo $i; ?>">
+				        						<li><a onclick="javascript:fbissubmit('<?php echo $i; ?>');"><?php echo $donnees['TYP_Nom']; ?><br>&nbsp;</a></li>
+				        					</form>
+				        	<?php
+	$i++;
+	}
+	mysqli_free_result($reponse);
+	?>										
 										</ul>
 									</li>
 	                			</ul>
