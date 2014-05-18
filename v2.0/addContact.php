@@ -2,6 +2,19 @@
 		include('bandeau.php');
 		?>
 		<div id="corps">
+			<script language="javascript"> 
+			function showDiv(elem){
+   				if(elem.value > 1){
+     			 document.getElementById('Contact-Fonction').style.display = "";
+     			 document.getElementById('Contact-Fax').style.display = "none";
+     			 document.getElementById('Contact-Structure').style.display = "none";
+     			}
+     			if(elem.value < 2)
+     			 document.getElementById('Contact-Fonction').style.display = "none";
+     			document.getElementById('Contact-Fax').style.display = "";
+     			 document.getElementById('Contact-Structure').style.display = "";
+			}
+		</script>
 			<div id="labelT">     
 				<label>Ajouter un Contact</label>
 			</div>
@@ -15,7 +28,7 @@
 							</td>
 							<td>
 								<div class="selectType">
-		          					<select name="Type">
+		          					<select name="Type" onchange="showDiv(this)">
 		          						<option value="0">Client</option>
 										<option value="1">Fournisseur</option>
 		          			<?php
@@ -87,21 +100,6 @@
 										<input id="Fax" maxlength="255" name="Fax" type="text" fieldtype="1" class="inputC" pattern="^[0-9][0-9](?:[\/_:-\s]?\d\d){4}$"> 
 									</td>
 								</tr>
-								<tr id="Contact-Sexe">
-									<td rowspan="2" style="text-align: left; width: 150px; white-space: normal;">
-										<label>Sexe :</label>
-									</td>
-									<td style="padding-top: 0px;">
-										<input checked type="radio" name="Sexe" value="1"/>
-										<label>&nbsp; Homme</label>
-									</td>
-								</tr>
-								<tr>
-									<td style="padding-top: 0px;">
-										<input type="radio" name="Sexe" value="0"/>
-										<label>&nbsp; Femme</label>
-									</td>
-								</tr>
 							</table>
 						</td>
 						<td style="vertical-align:top;">
@@ -146,7 +144,7 @@
 										<input id="Struct" maxlength="255" name="Struct" type="text" fieldtype="1" class="inputC" delugetype="STRING">
 									</td>
 								</tr>
-								<tr id="Contact-Fonction">
+								<tr id="Contact-Fonction" style="display: none;">
 									<td style="text-align: left; width: 150px; white-space: normal;">
 										<label>Fonction :</label>
 									</td>
