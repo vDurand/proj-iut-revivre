@@ -78,11 +78,11 @@
 				<table align="center">
 					<tr id="Contact-Particulier">
 						<td style="padding-top: 0px;">
-							<input type="radio" onclick="javascript:showStruct();" name="Particulier" value="0"/>
+							<input type="radio" checked onclick="javascript:showStruct();" name="Particulier" value="Structure"/>
 							<label>&nbsp; Structure</label>
 						</td>
 						<td style="padding-top: 0px;">
-							<input type="radio" onclick="javascript:showStruct();" name="Particulier" id="yesCheck" value="1"/>
+							<input type="radio" onclick="javascript:showStruct();" name="Particulier" id="yesCheck" value="Particulier"/>
 							<label>&nbsp; Particulier</label>
 						</td>
 					</tr>
@@ -105,7 +105,7 @@
 										<label>Prenom :</label>
 									</td>
 									<td>
-										<input id="Prenom" required maxlength="255" name="Prenom" type="text" class="inputC" pattern="^[A-Z].*" title="Majuscule en début obligatoire"> 
+										<input id="Prenom" maxlength="255" name="Prenom" type="text" class="inputC" pattern="^[A-Z].*" title="Majuscule en début obligatoire"> 
 									</td>
 
 								</tr>
