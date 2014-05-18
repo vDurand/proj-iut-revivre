@@ -7,13 +7,33 @@
    				if(elem.value > 1){
      			 document.getElementById('Contact-Fonction').style.display = "";
      			 document.getElementById('Contact-Fax').style.display = "none";
-     			 document.getElementById('Contact-Structure').style.display = "none";
+     			 //document.getElementById('Contact-Structure').style.display = "none";
+     			 document.getElementById('Contact-Particulier').style.display = "none";
+     			 document.getElementById('Contact-Prenom').style.display = "";
      			}
-     			if(elem.value < 2)
+     			if(elem.value < 2){
      			 document.getElementById('Contact-Fonction').style.display = "none";
-     			document.getElementById('Contact-Fax').style.display = "";
-     			 document.getElementById('Contact-Structure').style.display = "";
+     			 document.getElementById('Contact-Fax').style.display = "";
+     			 //document.getElementById('Contact-Structure').style.display = "";
+     			 document.getElementById('Contact-Particulier').style.display = "";
+     			 document.getElementById('Contact-Prenom').style.display = "none";
+     			}
+     			/*if(elem.value == 1){
+     			 document.getElementById('Contact-Particulier').style.display = "none";
+     			}
+     			if(elem.value == 0){
+     			 document.getElementById('Contact-Particulier').style.display = "";
+     			}*/
 			}
+			function showStruct(){
+			    if (document.getElementById('yesCheck').checked) {
+			        //document.getElementById('Contact-Prenom').style.visibility = 'hidden';
+			        document.getElementById('Contact-Prenom').style.display = "";
+			    } else {
+			        //document.getElementById('Contact-Prenom').style.visibility = 'visible';
+			        document.getElementById('Contact-Prenom').style.display = "none";
+			    }
+     		}
 		</script>
 			<div id="labelT">     
 				<label>Ajouter un Contact</label>
@@ -55,6 +75,19 @@
 					</table>
 				</div>
 				<br/>
+				<table align="center">
+					<tr id="Contact-Particulier">
+						<td style="padding-top: 0px;">
+							<input type="radio" onclick="javascript:showStruct();" name="Particulier" value="0"/>
+							<label>&nbsp; Structure</label>
+						</td>
+						<td style="padding-top: 0px;">
+							<input type="radio" onclick="javascript:showStruct();" name="Particulier" id="yesCheck" value="1"/>
+							<label>&nbsp; Particulier</label>
+						</td>
+					</tr>
+				</table>
+				<br/>
 				<div style="overflow:auto;">
 					<table align="left">
 						<td style="vertical-align:top;">
@@ -67,7 +100,7 @@
 										<input id="Nom" required maxlength="255" name="Nom" type="text" class="inputC" pattern="^[A-Z].*" title="Majuscule en début obligatoire" autofocus="autofocus"> 
 									</td>
 								</tr>
-								<tr id="Contact-Prenom">
+								<tr id="Contact-Prenom" style="display:none">
 									<td style="text-align: left; width: 150px; white-space: normal;">
 										<label>Prenom :</label>
 									</td>
@@ -98,6 +131,14 @@
 									</td>
 									<td>
 										<input id="Fax" maxlength="255" name="Fax" type="text" fieldtype="1" class="inputC" pattern="^[0-9][0-9](?:[\/_:-\s]?\d\d){4}$"> 
+									</td>
+								</tr>
+								<tr id="Contact-Fonction" style="display: none;">
+									<td style="text-align: left; width: 150px; white-space: normal;">
+										<label>Fonction :</label>
+									</td>
+									<td>
+										<input id="Struct" maxlength="255" name="Fonction" type="text" fieldtype="1" class="inputC" delugetype="STRING">
 									</td>
 								</tr>
 							</table>
@@ -136,6 +177,7 @@
 										<input id="Ville" required maxlength="255" name="Ville" type="text" fieldtype="1" class="inputC" delugetype="STRING">
 									</td>
 								</tr>
+							<!--
 								<tr id="Contact-Structure">
 									<td style="text-align: left; width: 150px; white-space: normal;">
 										<label>Structure :</label>
@@ -144,14 +186,7 @@
 										<input id="Struct" maxlength="255" name="Struct" type="text" fieldtype="1" class="inputC" delugetype="STRING">
 									</td>
 								</tr>
-								<tr id="Contact-Fonction" style="display: none;">
-									<td style="text-align: left; width: 150px; white-space: normal;">
-										<label>Fonction :</label>
-									</td>
-									<td>
-										<input id="Struct" maxlength="255" name="Fonction" type="text" fieldtype="1" class="inputC" delugetype="STRING">
-									</td>
-								</tr>
+							-->
 							</table>
 						</td>
 					</table>
