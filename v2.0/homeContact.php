@@ -25,7 +25,7 @@
 		          		<div class="selectDrop">
 		          		<select name="trieur">
 				        	<option value="0">Nom</option>
-				        	<option value="1">Prenom</option>
+				        	<option value="1">Prénom</option>
 				    	</select>
 				    </div>
 		          	</td>
@@ -169,7 +169,7 @@
 								<a>Nom</a>
 							</td>
 							<td style="text-align: center; width: 155px;">
-								<a>Prenom</a>
+								<a>Prénom</a>
 							</td>
 							<td style="text-align: center; width: 155px;">
 								<a>Adresse</a>

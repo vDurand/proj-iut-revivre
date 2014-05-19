@@ -44,7 +44,7 @@
 					<table align="center">
 						<tr>
 							<td style="text-align: left; width: 150px;">
-								<label>Categorie</label>
+								<label>Catégorie</label>
 							</td>
 							<td>
 								<div class="selectType">
@@ -102,7 +102,7 @@
 								</tr>
 								<tr id="Contact-Prenom" style="display:none">
 									<td style="text-align: left; width: 150px; white-space: normal;">
-										<label>Prenom :</label>
+										<label>Prénom :</label>
 									</td>
 									<td>
 										<input id="Prenom" maxlength="255" name="Prenom" type="text" class="inputC" pattern="^[A-Z].*" title="Majuscule en début obligatoire"> 
@@ -111,7 +111,7 @@
 								</tr>
 								<tr id="Contact-Tel_Fixe">
 									<td style="text-align: left; width: 150px; white-space: normal;">
-										<label>Telephone Fixe :</label>
+										<label>Téléphone Fixe :</label>
 									</td>
 									<td>
 										<input id="Tel_Fixe" maxlength="255" name="Tel_Fixe" type="text" fieldtype="1" class="inputC" pattern="^[0-9][0-9](?:[\/_:-\s]?\d\d){4}$"> 
@@ -119,7 +119,7 @@
 								</tr>
 								<tr id="Contact-Portable">
 									<td style="text-align: left; width: 150px; white-space: normal;">
-										<label>Telephone Portable :</label>
+										<label>Téléphone Portable :</label>
 									</td>
 									<td>
 										<input id="Portable" maxlength="255" name="Portable" type="text" class="inputC" pattern="^[0-9][0-9](?:[\/_:-\s]?\d\d){4}$"> 

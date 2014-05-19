@@ -3,7 +3,7 @@
 <html>
 
 	<head>
-		<meta charset="utf-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<link rel="stylesheet" type="text/css" href="css/index.css">
 		<link rel="stylesheet" type="text/css" href="css/drop.css">
 		<link rel="stylesheet" type="text/css" href="css/table.css">

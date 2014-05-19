@@ -44,13 +44,13 @@
 									Nom
 								</td>
 								<td style="text-align: center; width: 150px;">
-									Prenom
+									Prénom
 								</td>
 								<td class="sorttable_nosort tooltip" style="text-align: center; width: 150px; cursor: help;" title="Vous ne pouvez pas classer par telephone fixe.">
-									Tel Fixe
+									Tél Fixe
 								</td>
 								<td class="sorttable_nosort tooltip" style="text-align: center; width: 150px; cursor: help;" title="Vous ne pouvez pas classer par telephone portable.">
-									Tel Portable
+									Tél Portable
 								</td>
 								<td style="text-align: center; width: 150px;">
 									Email
