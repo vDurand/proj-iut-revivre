@@ -196,7 +196,7 @@
 						<td>
 							<span>
 								<input name="submit" type="submit" value="Ajouter" class="buttonC">&nbsp;&nbsp; 
-								<input name="reset" type="reset" value="RAZ" class="buttonC">
+								<input name="reset" type="reset" value="Annuler" class="buttonC">
 							</span>
 						</td>
 					</tr>

@@ -15,7 +15,7 @@
   
 	?>
 			<div id="labelT">     
-				<label>Ajouter un Client</label>
+				<label>Modifier Client</label>
 			</div>
 			<br>
 			<form method="post" action="clientpre.php" name="Client" formtype="1" colvalue="2">

@@ -43,7 +43,7 @@
 					<nav>
 						<ul class="bandeau">
 							<li id="champs"><a href="home.php">Accueil</a></li>
-							<li id="champs"><a href="homeContact.php">Repertoire</a>
+							<li id="champs"><a href="homeContact.php">Répertoire</a>
 								<ul class="subMenu">
 									<li><a href="addContact.php">Ajouter<br>Contact</a></li>
 	                       			<li><a href="viewClients.php">Clients<br>&nbsp;</a>
@@ -108,7 +108,7 @@
 									<li><a href="viewTools.php">Liste<br>outils</a></li>
 	                			</ul>
 							</li>
-							<li id="champs"><a href="homeMeal.php">Restaurant</a>
+							<li id="champs"><a href="homeMeal.php">Restauration</a>
 								<ul class="subMenu">
 	                       			<li><a href="addMeal.php">Ajouter<br>repas</a></li>
 									<li><a href="viewMeals.php">Archive<br>commandes</a></li>
