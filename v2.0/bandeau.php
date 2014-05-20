@@ -38,7 +38,7 @@
 	<body>
 		<div id="wrapper" background-color="white">
 			<div id="entete">
-				<a href="home.php"><img src="images/logo_small.jpg" style="margin-top=10px;"></a>
+				<a href="home.php"><img id="logoAssos" src="images/logo_small.jpg"></a>
 				<div id="navi">
 					<nav>
 						<ul class="bandeau">
