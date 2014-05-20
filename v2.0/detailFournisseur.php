@@ -63,13 +63,13 @@
             </tr>
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Structure :</th>
-              <td style="text-align: left; width: 300px;"><?php echo $donnees['CLI_Structure']; ?></td>
+              <td style="text-align: left; width: 300px;"><?php echo $donnees['FOU_Structure']; ?></td>
             </tr>
           </table>
         </td>
       </table>
       <form method="post" action="editClient.php" name="EditClient">
-        <input type="hidden" name="NumC" value="<?php echo $donnees['CLI_NumClient']; ?>">
+        <input type="hidden" name="NumC" value="<?php echo $donnees['FOU_NumFournisseur']; ?>">
         <table id="downT">
           <tr>
             <td>
