@@ -46,7 +46,7 @@
 
       if($sql2){
         echo '<div id="good">     
-            <label>Contact ajoute avec succes</label>
+            <label>Contact ajouté avec succès</label>
             </div>';
             if($type==0){
               $reponse = mysqli_query($db, "SELECT * FROM Clients cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE cl.PER_Num='$realNumber'");
@@ -68,11 +68,11 @@
       <td style="text-align: center; width: 200px;"><?php echo $donnees['PER_Nom']; ?></td>
     </tr>
     <tr>
-      <th style="text-align: left; width: 150px; white-space: normal;">Prenom :</th>
+      <th style="text-align: left; width: 150px; white-space: normal;">Prénom :</th>
       <td style="text-align: center; width: 200px;"><?php echo $donnees['PER_Prenom']; ?></td>
     </tr>
     <tr>
-      <th style="text-align: left; width: 150px; white-space: normal;">Tel Fixe :</th>
+      <th style="text-align: left; width: 150px; white-space: normal;">Tél Fixe :</th>
       <td style="text-align: center; width: 200px;"><?php echo $donnees['PER_TelFixe']; ?></td>
     </tr>
   </table>
@@ -98,7 +98,7 @@
       }
       else{
         echo '<div id="bad">     
-              <label>Le contact n a pas pu etre ajoute</label>
+              <label>Le contact n\'a pas pu être ajouté</label>
               </div>';
             }
             mysqli_free_result($reponse);
