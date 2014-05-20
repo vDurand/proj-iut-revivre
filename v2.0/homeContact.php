@@ -234,7 +234,7 @@
 	$reponse = mysqli_query($db, 'SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num JOIN Type ty ON cl.TYP_Id=ty.TYP_Id ORDER BY PER_Nom');
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
-	?>					<form method="post" action="detailSalarie.php" name="detailSal">
+	?>					<form method="post" action="detailSal.php" name="detailSal">
 							<input type="hidden" name="NumC" value="">
 							<tr onclick="javascript:fsubmit('<?php echo $donnees['SAL_NumSalarie']; ?>', 'detailSal');" style="font-size: 14;">
 								<td><?php echo $donnees['PER_Nom']; ?></td>
