@@ -38,7 +38,7 @@
 	<body>
 		<div id="wrapper" background-color="white">
 			<div id="entete">
-				<a href="home.php"><img src="images/logo.jpg"></a>
+				<a href="home.php"><img src="images/logo_small.jpg" style="margin-top=10px;"></a>
 				<div id="navi">
 					<nav>
 						<ul class="bandeau">
@@ -93,6 +93,12 @@
 							<li id="champs"><a href="homeRent.php">Vehicules</a>
 	                			<ul class="subMenu">
 	                       			<li><a href="carRent.php">Ajouter<br>Véhicules</a></li>
+	                        		<li><a href="flatRent.php">Suivi<br>Vehicules</a></li>
+	                			</ul>
+	        				</li>
+	        				<li id="champs"><a href="homeRent.php">N@vette</a>
+	                			<ul class="subMenu">
+	                       			<li><a href="carRent.php">Louer<br>Véhicules</a></li>
 	                        		<li><a href="flatRent.php">Suivi<br>Vehicules</a></li>
 	                			</ul>
 	        				</li>
