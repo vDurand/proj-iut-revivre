@@ -10,7 +10,7 @@
 
   $num=$_POST["NumC"];
 
-  $reponse = mysqli_query($db, "SELECT * FROM Clients cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE CLI_NumClient='$num'");
+  $reponse = mysqli_query($db, "SELECT * FROM Fournisseurs cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE FOU_NumFournisseur='$num'");
   $donnees = mysqli_fetch_assoc($reponse);
   
 	?>
