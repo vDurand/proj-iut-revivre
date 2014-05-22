@@ -13,10 +13,12 @@
      			}
      			if(elem.value < 2){
      			 document.getElementById('Contact-Fonction').style.display = "none";
+     			 document.getElementById('Struct').value = ""; 
      			 document.getElementById('Contact-Fax').style.display = "";
      			 //document.getElementById('Contact-Structure').style.display = "";
      			 document.getElementById('Contact-Particulier').style.display = "";
      			 document.getElementById('Contact-Prenom').style.display = "none";
+     			 document.getElementById('Prenom').value = ""; 
      			}
      			/*if(elem.value == 1){
      			 document.getElementById('Contact-Particulier').style.display = "none";
@@ -32,6 +34,7 @@
 			    } else {
 			        //document.getElementById('Contact-Prenom').style.visibility = 'visible';
 			        document.getElementById('Contact-Prenom').style.display = "none";
+			     	document.getElementById('Prenom').value = "";   
 			    }
      		}
 		</script>

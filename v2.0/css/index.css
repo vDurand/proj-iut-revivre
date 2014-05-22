@@ -17,21 +17,10 @@ body{
 	border-color: #FFFFFF;
 }
 
-#navi {
-	height: 25px;
-	margin-top: 0;
-	margin-left: 0;
-	margin-right: auto;
-	padding-top: 96px;
-	background-color: #fff;
-	background: url(../images/navi.png) repeat;
-}
-
 .bandeau, .bandeau ul{
-	margin: -2;
+	margin:0;
 	float:right;
 	padding: 0;
-	height: 25px;	
 }
 
 .bandeau li{
