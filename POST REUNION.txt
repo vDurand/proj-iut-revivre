@@ -1,0 +1,25 @@
+﻿BDD : rajouter différenciation particulier/structure
+menu : enlever Homme/femme
+chantier : devis en attente/validé/en cours/bon de livraison=terminé (en même temps)
+chantier : bar de progression sur le détail du devis
+chantier : montant prévu/achat prévu
+rajouter un planning GantProject ?
+chantier : rajouter moteur de recherche
+Restaurant -> Restauration
+Rajouter onglet "Navette" = location
+Dans onglet "Chantier" rajouter "Ajouter Contrôle" et qu'il soit imprimable
+Suivi des véhicules -> tableau croisé-dynamique, nombre de km effectués, maintenance, date d'achat
+Les voitures Navette sont louées à des personnes en formation ou en emploi et nécessitant une voiture de location (location restrainte aux personnes en difficutltés)
+Navette n'est pas prioritaire
+Ajouter les locataires des voitures dans l'onglet "Client" de "Répertoire"
+
+Répertoire et chantier pour le 5 juin
+que tout soit prêt jusqu'au bon de livraison
+prête à être utilisé
+trouver une solution pour le transfert de répertoire
+que pour la fin de l'année tous les chantiers 2014 soit rentrés dans la table
+
+faire les mêmes structures pour récupérer les tables ?
+Mettre le logo de l'iut dans les mails
+
+jeudi 12 juin 10h du MATIN BIATCH !
