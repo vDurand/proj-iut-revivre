@@ -3,10 +3,10 @@
 		?>
 		<script src="js/sorttable.js"></script>
 		<script language="javascript"> 
-			function fsubmit(value_p) 
+			function fsubmit(value_p, type) 
 			{ 
-				document.forms['detailClient'].NumC.value = value_p; 
-				document.forms['detailClient'].submit(); 
+				document.forms[type].NumC.value = value_p; 
+				document.forms[type].submit(); 
 			} 
 		</script>
 		<script>
@@ -58,7 +58,7 @@
 	{
 ?>					<form method="post" action="detailClient.php" name="detailClient">
 						<input type="hidden" name="NumC" value="">
-							<tr onclick="javascript:fsubmit('<?php echo $donnees['CLI_NumClient']; ?>');" style="font-size: 14;">
+							<tr onclick="javascript:fsubmit('<?php echo $donnees['CLI_NumClient']; ?>', 'detailClient');" style="font-size: 14;">
 								<td><?php echo $donnees['PER_Nom']; ?></td>
 								<td><?php echo $donnees['PER_Prenom']; ?></td>
 								<td><?php echo $donnees['PER_TelFixe']; ?></td>

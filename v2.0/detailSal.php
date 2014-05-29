@@ -10,7 +10,7 @@
 
   $num=$_POST["NumC"];
 
-  $reponse = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE SAL_NumSalarie='$num'");
+  $reponse = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num JOIN Type ty ON cl.TYP_Id=ty.TYP_Id WHERE SAL_NumSalarie='$num' ORDER BY PER_Nom");
   $donnees = mysqli_fetch_assoc($reponse);
   
 	?>
@@ -62,8 +62,8 @@
               <td style="text-align: left; width: 300px;"><?php echo $donnees['PER_CodePostal']; ?></td>
             </tr>
             <tr>
-              <th style="text-align: left; width: 200px; white-space: normal;">Structure :</th>
-              <td style="text-align: left; width: 300px;"><?php echo $donnees['FOU_Structure']; ?></td>
+              <th style="text-align: left; width: 200px; white-space: normal;">Type :</th>
+              <td style="text-align: left; width: 300px;"><?php echo $donnees['TYP_Nom']; ?></td>
             </tr>
           </table>
         </td>

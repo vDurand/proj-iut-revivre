@@ -3,11 +3,11 @@
 		?>
 		<script src="js/sorttable.js"></script>
 		<script language="javascript"> 
-			function fsubmit(value_p) 
+			function fsubmit(value_p, type) 
 			{ 
-				document.forms['detailClient'].NumC.value = value_p; 
-				document.forms['detailClient'].submit(); 
-			} 
+				document.forms[type].NumC.value = value_p; 
+				document.forms[type].submit(); 
+			}  
 		</script>
 		<script>
         $(document).ready(function() {
@@ -56,9 +56,9 @@
 	$reponse = mysqli_query($db, 'SELECT * FROM Fournisseurs cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom');
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
-?>					<form method="post" action="detailClient.php" name="detailClient">
+?>					<form method="post" action="detailFournisseur.php" name="detailFour">
 						<input type="hidden" name="NumC" value="">
-							<tr onclick="javascript:fsubmit('<?php echo $donnees['CLI_NumClient']; ?>');" style="font-size: 14;">
+							<tr onclick="javascript:fsubmit('<?php echo $donnees['FOU_NumFournisseur']; ?>', 'detailFour');" style="font-size: 14;">
 								<td><?php echo $donnees['PER_Nom']; ?></td>
 								<td><?php echo $donnees['PER_Prenom']; ?></td>
 								<td><?php echo $donnees['PER_TelFixe']; ?></td>
