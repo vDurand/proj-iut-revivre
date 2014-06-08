@@ -74,7 +74,7 @@
 										<label>Echéance :</label>
 									</td>
 									<td>
-										<input id="Fin_Max" maxlength="255" name="Fin_max" type="date" class="inputC"> 
+										<input id="Fin_Max" maxlength="255" name="Fin_Max" type="date" class="inputC"> 
 									</td>
 								</tr>
 							</table>
@@ -94,7 +94,7 @@
 										<label>Montant Prévu :</label>
 									</td>
 									<td>
-										<input id="Montant_Prev" maxlength="255" name="Montant_Prev" type="text" class="inputC"> 
+										<input id="Montant_Prev" maxlength="255" name="Montant_Prev" type="text" class="inputC" placeholder="&euro;"> 
 									</td>
 								</tr>
 								<tr id="Contact-Fax">
@@ -102,7 +102,7 @@
 										<label>Achats Prévus :</label>
 									</td>
 									<td>
-										<input id="Achats_Prev" maxlength="255" name="Achats_Prev" type="text" class="inputC"> 
+										<input id="Achats_Prev" maxlength="255" name="Achats_Prev" type="text" class="inputC" placeholder="&euro;"> 
 									</td>
 								</tr>
 								<tr id="Contact-Fonction">

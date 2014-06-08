@@ -63,7 +63,7 @@
     </tr>
     <tr>
       <th style="text-align: left; width: 150px; white-space: normal;">Montant Prévu:</th>
-      <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_MontantPrev']; ?></td>
+      <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_MontantPrev']; ?> &euro;</td>
     </tr>
   </table>
 </td>
