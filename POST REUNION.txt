@@ -1,5 +1,5 @@
-﻿BDD : rajouter différenciation particulier/structure
-menu : enlever Homme/femme
+X BDD : rajouter différenciation particulier/structure
+X menu : enlever Homme/femme
 chantier : devis en attente/validé/en cours/bon de livraison=terminé (en même temps)
 chantier : bar de progression sur le détail du devis
 chantier : montant prévu/achat prévu
