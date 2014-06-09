@@ -54,7 +54,7 @@
 							<tr onclick="javascript:fsubmit('<?php echo $donnees['CLI_NumClient']; ?>');" style="font-size: 14;">
 								<td><?php echo $donnees['CHA_Id']; ?></td>
 								<td><?php echo $donnees['CHA_Intitule']; ?></td>
-								<td><?php echo $donnees['Client']; ?><br/><?php echo $donnees['ClientP']; ?></td>
+								<td><?php echo $donnees['Client']; ?></td>
 								<td><?php //echo $donnees['Resp']; ?></td>
 								<td><?php echo $donnees['CHA_DateDebut']; ?></td>
 								<td><?php echo $donnees['CHA_DateFinReel']; ?></td>
@@ -196,7 +196,7 @@
 				<div>     
 				<label>&#8226; Derniers Fournisseurs Ajoutés :</label>
 			</div><br>
-				<div class="listeMembers">
+				<div class="listeFourn">
 					<table class="sortable" cellpadding="5">
 						<thead>
 							<tr>
