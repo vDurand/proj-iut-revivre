@@ -15,6 +15,7 @@ body{
 	height:150px;
 	border: solid 5px;
 	border-color: #FFFFFF;
+	background: url(../images/header_bg.png) no-repeat #1d4c82;
 }
 
 .bandeau, .bandeau ul{
@@ -69,6 +70,7 @@ footer{
 	border-color: #FFFFFF;
 	margin: 10px auto 8px auto;
 	text-align: center;
+	background: url(../images/header_bg.png) no-repeat #1d4c82;
 }
 
 footer div {
