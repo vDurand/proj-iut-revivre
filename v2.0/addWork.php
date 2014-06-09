@@ -65,7 +65,7 @@
 										<label>Date de Début :</label>
 									</td>
 									<td>
-										<input id="Debut" maxlength="255" name="Debut" type="date" class="inputC"> 
+										<input id="Debut" required maxlength="255" name="Debut" type="date" class="inputC"> 
 									</td>
 
 								</tr>

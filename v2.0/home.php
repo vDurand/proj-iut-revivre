@@ -53,11 +53,11 @@
 							<input type="hidden" name="NumC" value="">
 							<tr onclick="javascript:fsubmit('<?php echo $donnees['CLI_NumClient']; ?>');" style="font-size: 14;">
 								<td><?php echo $donnees['CHA_Id']; ?></td>
-								<td><?php echo $donnees['CHA_Intitule']; ?></td>
+								<td><?php echo ucfirst(strtolower($donnees['CHA_Intitule'])); ?></td>
 								<td><?php echo $donnees['Client']; ?><br/><?php echo $donnees['ClientP']; ?></td>
 								<td><?php //echo $donnees['Resp']; ?></td>
-								<td><?php echo $donnees['CHA_DateDebut']; ?></td>
-								<td><?php echo $donnees['CHA_DateFinReel']; ?></td>
+								<td><?php echo dater($donnees['CHA_DateDebut']); ?></td>
+								<td><?php echo dater($donnees['CHA_DateFinReel']); ?></td>
 							</tr>
 						</form>
 						<?php

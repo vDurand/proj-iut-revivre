@@ -8,15 +8,15 @@
 	else
 		echo 'Erreur';
 
-  $client=addslashes($_POST["Client"]);
-  $nom=addslashes($_POST["Nom"]);
-  $num=addslashes($_POST["Num"]);
-  $ddebut=addslashes($_POST["Debut"]);
-  $dfinp=addslashes($_POST["Fin_Prev"]);
-  $montantp=addslashes($_POST["Montant_Prev"]);
-  $achatp=addslashes($_POST["Achats_Prev"]);
-  $heurep=addslashes($_POST["Heures_Prev"]);
-  $echeance=addslashes($_POST["Fin_Max"]);
+  $client=strtoupper(addslashes($_POST["Client"]));
+  $nom=strtoupper(addslashes($_POST["Nom"]));
+  $num=strtoupper(addslashes($_POST["Num"]));
+  $ddebut=strtoupper(addslashes($_POST["Debut"]));
+  $dfinp=strtoupper(addslashes($_POST["Fin_Prev"]));
+  $montantp=strtoupper(addslashes($_POST["Montant_Prev"]));
+  $achatp=strtoupper(addslashes($_POST["Achats_Prev"]));
+  $heurep=strtoupper(addslashes($_POST["Heures_Prev"]));
+  $echeance=strtoupper(addslashes($_POST["Fin_Max"]));
 
 	$query = "INSERT INTO Chantiers (CHA_DateDebut, CHA_DateFinPrevue, CHA_Intitule, CHA_Echeance, CHA_MontantPrev, CHA_AchatsPrev, CHA_HeuresPrev, CHA_Id) VALUES ('$ddebut', '$dfinp', '$nom', '$echeance', '$montantp', '$achatp', '$heurep', '$num')";
 

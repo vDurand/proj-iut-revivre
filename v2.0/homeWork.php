@@ -195,7 +195,7 @@
 
 	$sorter = 'CHA_DateDebut';
 
-/*CREATE OR REPLACE VIEW ChantierClient AS SELECT co.CHA_NumDevis, pe.PER_Nom as Client FROM Commanditer co JOIN Clients cl ON co.CLI_NumClient=cl.CLI_NumClient JOIN Personnes pe ON cl.PER_Num=pe.PER_Num;
+/*CREATE OR REPLACE VIEW ChantierClient AS SELECT co.CHA_NumDevis, pe.PER_Nom as Client, pe.PER_Prenom as ClientP FROM Commanditer co JOIN Clients cl ON co.CLI_NumClient=cl.CLI_NumClient JOIN Personnes pe ON cl.PER_Num=pe.PER_Num;
 CREATE OR REPLACE VIEW ChantierResp AS SELECT en.CHA_NumDevis, pe.PER_Nom as Resp FROM Encadrer en JOIN Salaries sa ON en.SAL_NumSalarie=sa.SAL_NumSalarie JOIN Personnes pe ON sa.PER_Num=pe.PER_Num;*/
 
 	//$reponse = mysqli_query($db, "SELECT * FROM Chantiers ch JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CHA_NumDevis JOIN ChantierResp vre ON ch.CHA_NumDevis=vre.CHA_NumDevis ORDER BY ch.CHA_NumDevis DESC");
@@ -206,11 +206,11 @@ CREATE OR REPLACE VIEW ChantierResp AS SELECT en.CHA_NumDevis, pe.PER_Nom as Res
 							<input type="hidden" name="NumC" value="">
 							<tr onclick="javascript:fsubmit('<?php echo $donnees['CLI_NumClient']; ?>');" style="font-size: 14;">
 								<td><?php echo $donnees['CHA_Id']; ?></td>
-								<td><?php echo $donnees['CHA_Intitule']; ?></td>
-								<td><?php echo $donnees['Client']; ?></td>
+								<td><?php echo ucfirst(strtolower($donnees['CHA_Intitule'])); ?></td>
+								<td><?php echo $donnees['Client']; ?> <?php echo $donnees['ClientP']; ?></td>
 								<td><?php //echo $donnees['Resp']; ?></td>
-								<td><?php echo $donnees['CHA_DateDebut']; ?></td>
-								<td><?php echo $donnees['CHA_DateFinReel']; ?></td>
+								<td><?php echo dater($donnees['CHA_DateDebut']); ?></td>
+								<td><?php echo dater($donnees['CHA_DateFinReel']); ?></td>
 							</tr>
 						</form>
 						<?php

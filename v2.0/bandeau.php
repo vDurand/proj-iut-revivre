@@ -9,6 +9,14 @@
 		<link rel="stylesheet" type="text/css" href="css/table.css">
 		<link rel="stylesheet" type="text/css" href="css/alpha.css">
 		<?php
+		
+		function dater($str){
+			$formatDate = "d / m / Y";
+			$result = "";
+			if($str!="")
+				$result = date($formatDate, strtotime($str));
+			return $result;
+		}
 		$i=rand(1,2);
 		if($i==1){
 			echo '<link rel="icon" href="images/favicon2.png" sizes="16x16" />
