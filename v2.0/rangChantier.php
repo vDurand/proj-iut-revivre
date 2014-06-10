@@ -194,12 +194,14 @@
 		echo 'Erreur';
 
 	$sorter = 'CHA_DateDebut';
-
-/*CREATE OR REPLACE VIEW ChantierClient AS SELECT co.CHA_NumDevis, pe.PER_Nom as Client, pe.PER_Prenom as ClientP FROM Commanditer co JOIN Clients cl ON co.CLI_NumClient=cl.CLI_NumClient JOIN Personnes pe ON cl.PER_Num=pe.PER_Num;
-CREATE OR REPLACE VIEW ChantierResp AS SELECT en.CHA_NumDevis, pe.PER_Nom as Resp FROM Encadrer en JOIN Salaries sa ON en.SAL_NumSalarie=sa.SAL_NumSalarie JOIN Personnes pe ON sa.PER_Num=pe.PER_Num;*/
-
-	//$reponse = mysqli_query($db, "SELECT * FROM Chantiers ch JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CHA_NumDevis JOIN ChantierResp vre ON ch.CHA_NumDevis=vre.CHA_NumDevis ORDER BY ch.CHA_NumDevis DESC");
-	$reponse = mysqli_query($db, "SELECT * FROM Chantiers ch JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CHA_NumDevis ORDER BY ch.CHA_NumDevis DESC");
+	$alpha = $_POST["submit"].'%';
+	if($_POST["trieur"]==0){
+		$sorter = 'Client';
+	}
+	if($_POST["trieur"]==1){
+		$sorter = 'Resp';
+	}
+	$reponse = mysqli_query($db, "SELECT * FROM Chantiers ch JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CHA_NumDevis WHERE $sorter like '$alpha' ORDER BY $sorter");
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
 		?>				<form method="post" action="detailChantier.php" name="detailClient">
