@@ -10,7 +10,7 @@
 
   $num=$_POST["NumC"];
 
-  $reponse = mysqli_query($db, "SELECT * FROM Chantiers ch JOIN Commanditer co ON co.CHA_NumDevis=ch.CHA_NumDevis JOIN Clients cl ON cl.CLI_NumClient=co.CLI_NumClient JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE ch.CHA_NumDevis='$num'");
+  $reponse = mysqli_query($db, "SELECT * FROM Chantiers ch JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CNumDevis LEFT JOIN ChantierResp vre ON ch.CHA_NumDevis=vre.RNumDevis WHERE ch.CHA_NumDevis='$num'");
   $donnees = mysqli_fetch_assoc($reponse);
   
 	?>
@@ -27,7 +27,7 @@
             </tr>
             <tr>
               <th style="text-align: left; width: 150px; white-space: normal;">Nom du Chantier:</th>
-              <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_Intitule']; ?></td>
+              <td style="text-align: center; width: 250px;"><?php echo $donnees['CHA_Intitule']; ?></td>
             </tr>
             <tr>
               <th style="text-align: left; width: 150px; white-space: normal;">Date de Début:</th>
@@ -41,35 +41,43 @@
               <th style="text-align: left; width: 150px; white-space: normal;">Montant Prévu:</th>
               <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_MontantPrev']; ?> &euro;</td>
             </tr>
+            <tr>
+              <th style="text-align: left; width: 150px; white-space: normal;">Responsable:</th>
+              <td style="text-align: center; width: 200px;"><?php echo $donnees['Resp']; ?> <?php echo $donnees['RespP']; ?></td>
+            </tr>
           </table>
         </td>
         <td>
           <table cellpadding="10" class="detailClients">
             <tr>
               <th style="text-align: left; width: 150px; white-space: normal;">Nom Client:</th>
-              <td style="text-align: center; width: 200px;"><?php echo $donnees['PER_Nom']; ?></td>
+              <td style="text-align: center; width: 200px;"><?php echo $donnees['Client']; ?></td>
+            </tr>
+            <tr>
+              <th style="text-align: left; width: 150px; white-space: normal;">Prénom Client:</th>
+              <td style="text-align: center; width: 200px;"><?php echo $donnees['ClientP']; ?></td>
             </tr>
             <tr>
               <th style="text-align: left; width: 150px; white-space: normal;">Tél Fixe :</th>
-              <td style="text-align: center; width: 200px;"><?php echo $donnees['PER_TelFixe']; ?></td>
+              <td style="text-align: center; width: 200px;"><?php echo $donnees['ClientTel']; ?></td>
             </tr>
             <tr>
               <th style="text-align: left; width: 150px; white-space: normal;">Email :</th>
-              <td style="text-align: center; width: 200px;"><?php echo $donnees['PER_Email']; ?></td>
+              <td style="text-align: center; width: 200px;"><?php echo $donnees['ClientEmail']; ?></td>
             </tr>
             <tr>
               <th style="text-align: left; width: 150px; white-space: normal;">Adresse :</th>
-              <td style="text-align: center; width: 200px;"><?php echo $donnees['PER_Adresse']; ?></td>
+              <td style="text-align: center; width: 200px;"><?php echo $donnees['ClientAd']; ?></td>
             </tr>
             <tr>
               <th style="text-align: left; width: 150px; white-space: normal;">Ville :</th>
-              <td style="text-align: center; width: 200px;"><?php echo $donnees['PER_Ville']; ?>, <?php echo $donnees['PER_CodePostal']; ?></td>
+              <td style="text-align: center; width: 200px;"><?php echo $donnees['ClientV']; ?>, <?php echo $donnees['ClientCP']; ?></td>
             </tr>
           </table>
         </td>
       </table>
-      <form method="post" action="editClient.php" name="EditClient">
-        <input type="hidden" name="NumC" value="<?php echo $donnees['FOU_NumFournisseur']; ?>">
+      <form method="post" action="editChantier.php" name="EditClient">
+        <input type="hidden" name="NumC" value="<?php echo $donnees['CHA_NumDevis']; ?>">
         <table id="downT">
           <tr>
             <td>
