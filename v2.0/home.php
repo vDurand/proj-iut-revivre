@@ -46,16 +46,16 @@
 
 	$sorter = 'CHA_DateDebut';
 	$i = 0;
-	$reponse = mysqli_query($db, "SELECT * FROM Chantiers ch JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CHA_NumDevis ORDER BY ch.CHA_NumDevis DESC");
+	$reponse = mysqli_query($db, "SELECT * FROM Chantiers ch JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CNumDevis LEFT JOIN ChantierResp vre ON ch.CHA_NumDevis=vre.RNumDevis ORDER BY ch.CHA_NumDevis DESC");
 	while (($donnees = mysqli_fetch_assoc($reponse))&&($i<3))
 	{
-		?>				<form method="post" action="detailClient.php" name="detailClient">
+		?>				<form method="post" action="detailChantier.php" name="detailChantier">
 							<input type="hidden" name="NumC" value="">
-							<tr onclick="javascript:fsubmit('<?php echo $donnees['CLI_NumClient']; ?>');" style="font-size: 14;">
+							<tr onclick="javascript:fsubmit('<?php echo $donnees['CHA_NumDevis']; ?>', 'detailChantier');" style="font-size: 14;">
 								<td><?php echo $donnees['CHA_Id']; ?></td>
 								<td><?php echo ucfirst(strtolower($donnees['CHA_Intitule'])); ?></td>
 								<td><?php echo $donnees['Client']; ?><br/><?php echo $donnees['ClientP']; ?></td>
-								<td><?php //echo $donnees['Resp']; ?></td>
+								<td><?php echo $donnees['Resp']; ?><br/><?php echo $donnees['RespP']; ?></td>
 								<td><?php echo dater($donnees['CHA_DateDebut']); ?></td>
 								<td><?php echo dater($donnees['CHA_DateFinReel']); ?></td>
 							</tr>
