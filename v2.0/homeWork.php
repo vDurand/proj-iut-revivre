@@ -208,8 +208,8 @@ CREATE OR REPLACE VIEW ChantierResp AS SELECT en.CHA_NumDevis as RNumDevis, pe.P
 							<tr onclick="javascript:fsubmit('<?php echo $donnees['CHA_NumDevis']; ?>');" style="font-size: 14;">
 								<td><?php echo $donnees['CHA_Id']; ?></td>
 								<td><?php echo ucfirst(strtolower($donnees['CHA_Intitule'])); ?></td>
-								<td><?php echo $donnees['Client']; ?> <?php echo $donnees['ClientP']; ?></td>
-								<td><?php echo $donnees['Resp']; ?> <?php echo $donnees['RespP']; ?></td>
+								<td><?php echo strtoupper($donnees['Client']); ?> <?php echo $donnees['ClientP']; ?></td>
+								<td><?php echo strtoupper($donnees['Resp']); ?> <?php echo $donnees['RespP']; ?></td>
 								<td><?php echo dater($donnees['CHA_DateDebut']); ?></td>
 								<td><?php echo dater($donnees['CHA_DateFinReel']); ?></td>
 							</tr>

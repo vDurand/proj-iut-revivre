@@ -2,6 +2,11 @@
     include('bandeau.php');
     ?>
     <div id="corps">
+      <script language="javascript"> 
+      function addResp(){
+        document.getElementById('Ajout-Resp').style.display = "";
+      }
+    </script>
 <?php
 	if($db = MySQLi_connect("localhost","Kepha",'pfudor', 'Revivre', 0, '/media/sds1/home/alx22/private/mysql/socket'))
 		echo '';
@@ -78,10 +83,10 @@
       </table>
       <table id="downT">
         <tr>
-          <td>
+          <td style="text-align: center; width: 150px;">
             <form method="post" action="editChantier.php" name="EditClient">
             <input type="hidden" name="NumC" value="<?php echo $donnees['CHA_NumDevis']; ?>">
-            <span>
+            <span id="submitOne">
               <input name="submit" type="submit" value="Modifier" class="buttonC">
             </span>
             </form>
@@ -89,17 +94,56 @@
           <?php
           if($donnees['Resp']==""){
           ?>
-          <td align="left">
+          <!--<td align="left">
             <form method="post" action="ajoutResponsable.php" name="EditClient">
             <input type="hidden" name="NumC" value="<?php echo $donnees['CHA_NumDevis']; ?>">
             <span>
               <input name="submit" type="submit" value="Responsable" class="buttonC">
             </span>
             </form>
+          </td>-->
+          <td style="text-align: center; width: 200px;">
+            <span id="addTwo">
+              <input onclick="addResp()" value="Responsable" class="buttonC">
+            </span>
+          </td>
+          <?php
+          }else{
+          ?>
+          <td style="text-align: center; width: 200px;">
+            &nbsp;
           </td>
           <?php
           }
           ?>
+          <td style="text-align: center; width: 200px;">
+            &nbsp;
+          </td>
+        </tr>
+        <tr id="Ajout-Resp" style="display:none">
+          <form method="post" action="chantierPost.php" name="Chantier" formtype="1" colvalue="2">
+          <td style="text-align: center;">
+                <label>Responsable : </label>
+          </td>
+          <td style="text-align: center;">
+            <div class="selectType">
+              <select name="Client">
+                    <?php
+  $reponseBis = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom");
+  while ($donneesBis = mysqli_fetch_assoc($reponseBis))
+  {
+    ?>          <option value="<?php echo $donneesBis['SAL_NumSalarie']; ?>"><?php echo strtoupper($donneesBis['PER_Nom']); ?> <?php echo $donneesBis['PER_Prenom']; ?></option>
+                  <?php
+  }
+  mysqli_free_result($reponse);
+  ?>                  
+              </select>
+            </div>
+          </td>
+          <td style="text-align: left;">
+            <input name="submit" type="submit" value="Ajouter">
+          </td>
+        </form>
         </tr>
       </table>
     </div>
