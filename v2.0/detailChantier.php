@@ -4,7 +4,10 @@
     <div id="corps">
       <script language="javascript"> 
       function addResp(){
-        document.getElementById('Ajout-Resp').style.display = "";
+        if(document.getElementById('Ajout-Resp').style.display == "none")
+          document.getElementById('Ajout-Resp').style.display = "";
+        else
+          document.getElementById('Ajout-Resp').style.display = "none";
       }
     </script>
 <?php
@@ -82,11 +85,11 @@
         </td>
       </table>
       <table id="downT">
-        <tr>
+        <tr id="button-line">
           <td style="text-align: center; width: 150px;">
             <form method="post" action="editChantier.php" name="EditClient">
             <input type="hidden" name="NumC" value="<?php echo $donnees['CHA_NumDevis']; ?>">
-            <span id="submitOne">
+            <span>
               <input name="submit" type="submit" value="Modifier" class="buttonC">
             </span>
             </form>
@@ -94,17 +97,9 @@
           <?php
           if($donnees['Resp']==""){
           ?>
-          <!--<td align="left">
-            <form method="post" action="ajoutResponsable.php" name="EditClient">
-            <input type="hidden" name="NumC" value="<?php echo $donnees['CHA_NumDevis']; ?>">
-            <span>
-              <input name="submit" type="submit" value="Responsable" class="buttonC">
-            </span>
-            </form>
-          </td>-->
           <td style="text-align: center; width: 200px;">
-            <span id="addTwo">
-              <input onclick="addResp()" value="Responsable" class="buttonC">
+            <span>
+              <input  name="submit" type="submit" onclick="addResp()" value="Responsable" class="buttonC">
             </span>
           </td>
           <?php
@@ -120,14 +115,15 @@
             &nbsp;
           </td>
         </tr>
-        <tr id="Ajout-Resp" style="display:none">
-          <form method="post" action="chantierPost.php" name="Chantier" formtype="1" colvalue="2">
-          <td style="text-align: center;">
+        <tr id="Ajout-Resp" style="display:none;">
+          <form method="post" action="chantierAdd.php" name="Chantier" formtype="1" colvalue="2">
+            <input type="hidden" name="NumC" value="<?php echo $donnees['CHA_NumDevis']; ?>">
+          <td style="text-align: center; padding-top: 35px;">
                 <label>Responsable : </label>
           </td>
-          <td style="text-align: center;">
+          <td align="center" style="padding-top: 35px;">
             <div class="selectType">
-              <select name="Client">
+              <select name="Resp">
                     <?php
   $reponseBis = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom");
   while ($donneesBis = mysqli_fetch_assoc($reponseBis))
@@ -140,7 +136,7 @@
               </select>
             </div>
           </td>
-          <td style="text-align: left;">
+          <td align="left" style="padding-top: 35px;">
             <input name="submit" type="submit" value="Ajouter">
           </td>
         </form>
