@@ -8,21 +8,33 @@
 	else
 		echo 'Erreur';
 
-  $resp=strtoupper(addslashes($_POST["Resp"]));
-  $num=strtoupper(addslashes($_POST["NumC"]));
+  $resp=$_POST["Resp"];
+  $num=$_POST["NumC"];
+  $mem=$_POST["Member"];
+  $deb=$_POST["DebutTps"];
+  $fin=$_POST["FinTps"];
 
-	$query = "INSERT INTO Encadrer (CHA_NumDevis, SAL_NumSalarie) VALUES ('$num', '$resp')";
+  if($resp!=""){
 
-  $sql = mysqli_query($db, $query);
-  $errr=mysqli_error($db);
+  	$query = "INSERT INTO Encadrer (CHA_NumDevis, SAL_NumSalarie) VALUES ('$num', '$resp')";
 
-    if($sql){
-        echo '<div id="good">     
-            <label>Responsable ajouté avec succès</label>
-            </div>';
-            $reponse = mysqli_query($db, "SELECT * FROM Chantiers ch JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CNumDevis LEFT JOIN ChantierResp vre ON ch.CHA_NumDevis=vre.RNumDevis WHERE ch.CHA_NumDevis='$num'");
-            
-            $donnees = mysqli_fetch_assoc($reponse);
+    $sql = mysqli_query($db, $query);
+    $errr=mysqli_error($db);
+
+      if($sql){
+          echo '<div id="good">     
+              <label>Responsable ajouté avec succès</label>
+              </div>';
+      }
+      else{
+        echo '<div id="bad">     
+              <label>Le Responsable n\'a pas pu être ajouté</label>
+              </div>';
+      }
+  }
+  $reponse = mysqli_query($db, "SELECT * FROM Chantiers ch JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CNumDevis LEFT JOIN ChantierResp vre ON ch.CHA_NumDevis=vre.RNumDevis WHERE ch.CHA_NumDevis='$num'");
+    
+  $donnees = mysqli_fetch_assoc($reponse);
 	?>
   <br>
   <table>
@@ -84,14 +96,25 @@
 </td>
 </table>
   <?php
+    mysqli_free_result($reponse);
+    if($mem!=""){
+
+    $query2 = "INSERT INTO TempsTravail (TRA_DateDebut, TRA_DateFin, CHA_NumDevis, SAL_NumSalarie) VALUES ('$deb', '$fin', '$num', '$mem')";
+
+    $sql2 = mysqli_query($db, $query2);
+    $errr2=mysqli_error($db);
+
+      if($sql2){
+          echo '<div id="good">     
+              <label>Travail ajouté avec succès</label>
+              </div>';
       }
       else{
         echo '<div id="bad">     
-              <label>Le Responsable n\'a pas pu être ajouté</label>
+              <label>Le temps de travail n\'a pas pu être ajouté</label>
               </div>';
-            }
-            mysqli_free_result($reponse);
-    
+      }
+    }
   ?>
   </div>
   <?php  
