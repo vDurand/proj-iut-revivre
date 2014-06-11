@@ -76,18 +76,32 @@
           </table>
         </td>
       </table>
-      <form method="post" action="editChantier.php" name="EditClient">
-        <input type="hidden" name="NumC" value="<?php echo $donnees['CHA_NumDevis']; ?>">
-        <table id="downT">
-          <tr>
-            <td>
-              <span>
-                <input name="submit" type="submit" value="Modifier" class="buttonC">
-              </span>
-            </td>
-          </tr>
-        </table>
-      </form>
+      <table id="downT">
+        <tr>
+          <td>
+            <form method="post" action="editChantier.php" name="EditClient">
+            <input type="hidden" name="NumC" value="<?php echo $donnees['CHA_NumDevis']; ?>">
+            <span>
+              <input name="submit" type="submit" value="Modifier" class="buttonC">
+            </span>
+            </form>
+          </td>
+          <?php
+          if($donnees['Resp']==""){
+          ?>
+          <td align="left">
+            <form method="post" action="ajoutResponsable.php" name="EditClient">
+            <input type="hidden" name="NumC" value="<?php echo $donnees['CHA_NumDevis']; ?>">
+            <span>
+              <input name="submit" type="submit" value="Responsable" class="buttonC">
+            </span>
+            </form>
+          </td>
+          <?php
+          }
+          ?>
+        </tr>
+      </table>
     </div>
   <?php
   

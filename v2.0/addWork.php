@@ -27,7 +27,7 @@
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
 		?>
-				        				<option value="<?php echo $donnees['CLI_NumClient']; ?>"><?php echo $donnees['PER_Nom']; ?></option>
+				        				<option value="<?php echo $donnees['CLI_NumClient']; ?>"><?php echo strtoupper($donnees['PER_Nom']); ?> <?php echo $donnees['PER_Prenom']; ?></option>
 				        	<?php
 	$i++;
 	}
