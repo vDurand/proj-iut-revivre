@@ -47,7 +47,7 @@
           <table cellpadding="10" class="detailClients">
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Email :</th>
-              <td style="text-align: left; width: 300px;"> 	<A HREF="mailto:<?php echo $donnees['PER_Email'];?>"> <?php echo $donnees['PER_Email']; ?></A>						<!--<?php /*echo $donnees['PER_Email']; */?></td>-->
+              <td style="text-align: left; width: 300px;"> 	<A HREF="mailto:<?php echo $donnees['PER_Email'];?>"> <?php echo $donnees['PER_Email']; ?></A></td>
             </tr>
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Adresse :</th>

@@ -83,7 +83,7 @@
             </tr>
             <tr>
               <th style="text-align: left; width: 150px; white-space: normal;">Email :</th>
-              <td style="text-align: center; width: 200px;"><?php echo $donnees['ClientEmail']; ?></td>
+              <td style="text-align: center; width: 200px;"><A HREF="mailto:<?php echo $donnees['ClientEmail'];?>"> <?php echo $donnees['ClientEmail']; ?></A></td>
             </tr>
             <tr>
               <th style="text-align: left; width: 150px; white-space: normal;">Adresse :</th>
