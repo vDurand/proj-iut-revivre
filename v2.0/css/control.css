@@ -1,0 +1,12 @@
+@media print
+{
+	#formulaire
+	{
+		display:block;
+	}				
+	
+	#wrapper
+	{
+		display:none;
+	}
+}
