@@ -3,7 +3,7 @@
 		?>
 		<div id="corps">
 			<div id="labelT">     
-				<label>Admin Cave</label>
+				<label>Admin Panel</label>
 			</div>
 			<br>
 			<form method="post" action="terminator.php" name="rm_all" formtype="1" colvalue="2">
@@ -132,8 +132,8 @@
 						<tr>
 						<td colspan="2">
 							<span>
-								<input name="submit" type="submit" value="RM dat Shite" class="buttonC">&nbsp;&nbsp; 
-								<input name="reset" type="reset" value="Useless button" class="buttonC">
+								<input name="submit" type="submit" value="Supprimer" class="buttonC">&nbsp;&nbsp; 
+								<input name="reset" type="reset" value="Annuler" class="buttonC">
 							</span>
 						</td>
 					</tr>
