@@ -63,7 +63,7 @@
 								<td><?php echo $donnees['PER_Prenom']; ?></td>
 								<td><?php echo $donnees['PER_TelFixe']; ?></td>
 								<td><?php echo $donnees['PER_TelPort']; ?></td>
-								<td><?php echo $donnees['PER_Email']; ?></td>
+								<td><a href="mailto:<?php echo $donnees['PER_Email'];?>"><?php echo $donnees['PER_Email']; ?></a></td>
 								<td><?php echo $donnees['PER_Adresse']; ?>, <?php echo $donnees['PER_Ville']; ?> <?php echo $donnees['PER_CodePostal']; ?></td>
 								<td><?php echo $donnees['FOU_Structure']; ?></td>
 							</tr>

@@ -174,7 +174,11 @@
 	position:relative;
 	top:1px;
 }
-
+.listeClients a:link, .listeClients a:visited{
+	text-decoration: none;
+	font-family:Arial;
+	color:#000;
+}
 .listeClients {
 	margin:0px;padding:0px;
 	width:100%;
@@ -287,7 +291,11 @@
 	height: 6px;
 	margin-top: -5px;
 }
-
+.listeMembers a:link, .listeMembers a:visited{
+	text-decoration: none;
+	font-family:Arial;
+	color:#000;
+}
 .listeMembers {
 	margin:0px;padding:0px;
 	width:100%;
@@ -378,7 +386,11 @@
 .listeMembers thead tr td:last-child{
 	border-width:0px 0px 1px 1px;
 }
-
+.listeFourn a:link, .listeFourn a:visited{
+	text-decoration: none;
+	font-family:Arial;
+	color:#000;
+}
 .listeFourn {
 	margin:0px;padding:0px;
 	width:100%;
