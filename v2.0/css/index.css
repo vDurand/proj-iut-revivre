@@ -82,7 +82,7 @@ footer div a:link, footer div a:visited{
 }
 
 img {
-	float:left;
+	float:top left;
 }
 
 .bandeau a:hover{

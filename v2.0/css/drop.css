@@ -10,6 +10,7 @@ nav ul:after {
 nav ul li {
 	float: left;
 	width: 129.35px;
+	
 }
 nav ul li:hover {
 	background: #4b545f;
@@ -38,14 +39,9 @@ nav ul ul ul li {
 }
 
 #navi {
-	height: 25px;
-	margin-top: 0;
-	margin-left: 225;
-	margin-right: auto;
-	padding-top: 79px;
-	padding-right: 0px;
+	margin-top: -4px;
+	height: 26px;
 	background-color: #fff;
-	background: url(images/navi.png) repeat;
 }
 #champs {
 	text-align: center;

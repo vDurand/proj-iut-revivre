@@ -9,6 +9,10 @@
 			} 
 		</script>
 		<div id="corps">
+			<div id="labelT">     
+	            <label>Base de Données de l'Association Revivre</label>
+			</div>
+			<br/>
 			<div>     
 				<label>&#8226; Derniers Chantiers Ajoutés :</label>
 			</div><br>
