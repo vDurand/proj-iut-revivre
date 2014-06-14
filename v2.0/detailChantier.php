@@ -203,6 +203,9 @@
         </tr>
         </form>
       </table>
+      <?php 
+      if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM TempsTravail WHERE CHA_NumDevis='$num'"))) {
+       ?>
       <div class="listeClients">
       <table cellpadding="5">
             <thead>
@@ -240,6 +243,7 @@
           </tbody>
         </table>
       </div>
+      <?php } ?>
     </div>
   <?php
   mysqli_free_result($reponse);
