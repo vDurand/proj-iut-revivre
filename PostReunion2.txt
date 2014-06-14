@@ -1,5 +1,5 @@
-﻿- rajouter mailto:
-- fin réel du chantier sur le devis
+﻿DONE - rajouter mailto:
+DONE - fin réel du chantier sur le devis
 - doublon date de fin prévu/échéance
 - pouvoir ajouter du temps de travail à plusieurs membres en même temps
 - temps de travail, juste ajouter le nombre d'heures de travail, pas besoin de date+heure => Date + durée, that's all folks !

@@ -57,6 +57,16 @@
               <th style="text-align: left; width: 150px; white-space: normal;">Echéance:</th>
               <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_Echeance']; ?></td>
             </tr>
+            <?php
+            if($donnees['CHA_DateFinReel']!=NULL){
+            ?>
+            <tr>
+              <th style="text-align: left; width: 150px; white-space: normal;">Fin:</th>
+              <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_DateFinReel']; ?></td>
+            </tr>
+            <?php
+            }
+            ?>
             <tr>
               <th style="text-align: left; width: 150px; white-space: normal;">Montant Prévu:</th>
               <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_MontantPrev']; ?> &euro;</td>

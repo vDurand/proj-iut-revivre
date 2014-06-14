@@ -76,6 +76,7 @@
 		echo 'Erreur';
 	$i = 2;
 	$reponse = mysqli_query($db, "SELECT * FROM Type");
+	
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
 		?>									<form method="post" action="viewSal.php" name="viewDetailMember">
