@@ -81,14 +81,6 @@
 						</td>
 						<td style="vertical-align:top;">
 							<table id="rightT" colcount="1" cellpadding="10">
-								<tr id="Contact-Tel_Fixe">
-									<td style="text-align: left; width: 150px; white-space: normal;">
-										<label>Date de Fin Prévue :</label>
-									</td>
-									<td>
-										<input id="Fin_Prev" maxlength="255" name="Fin_Prev" type="date" class="inputC"> 
-									</td>
-								</tr>
 								<tr id="Contact-Portable">
 									<td style="text-align: left; width: 150px; white-space: normal;">
 										<label>Montant Prévu :</label>

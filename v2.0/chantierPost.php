@@ -12,13 +12,12 @@
   $nom=strtoupper(addslashes($_POST["Nom"]));
   $num=strtoupper(addslashes($_POST["Num"]));
   $ddebut=strtoupper(addslashes($_POST["Debut"]));
-  $dfinp=strtoupper(addslashes($_POST["Fin_Prev"]));
   $montantp=strtoupper(addslashes($_POST["Montant_Prev"]));
   $achatp=strtoupper(addslashes($_POST["Achats_Prev"]));
   $heurep=strtoupper(addslashes($_POST["Heures_Prev"]));
   $echeance=strtoupper(addslashes($_POST["Fin_Max"]));
 
-	$query = "INSERT INTO Chantiers (CHA_DateDebut, CHA_DateFinPrevue, CHA_Intitule, CHA_Echeance, CHA_MontantPrev, CHA_AchatsPrev, CHA_HeuresPrev, CHA_Id) VALUES ('$ddebut', '$dfinp', '$nom', '$echeance', '$montantp', '$achatp', '$heurep', '$num')";
+	$query = "INSERT INTO Chantiers (CHA_DateDebut, CHA_Intitule, CHA_Echeance, CHA_MontantPrev, CHA_AchatsPrev, CHA_HeuresPrev, CHA_Id) VALUES ('$ddebut', '$nom', '$echeance', '$montantp', '$achatp', '$heurep', '$num')";
 
   $sql = mysqli_query($db, $query);
   $errr=mysqli_error($db);
