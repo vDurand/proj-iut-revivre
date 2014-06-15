@@ -293,15 +293,20 @@
                 <td><?php echo $donnees3['TRA_DateFin']; ?></td>
                 <td><?php echo $donnees3['duree']; ?></td>
               </tr>
-            </form>
             <?php
   }
   mysqli_free_result($reponse3);
-  ?>          
+  $reponse4 = mysqli_query($db, "SELECT TIME(SUM(TRA_DateFin-TRA_DateDebut)) as total FROM TempsTravail ttps JOIN Salaries sal ON ttps.SAL_NumSalarie=sal.SAL_NumSalarie JOIN Personnes pe ON pe.PER_Num=sal.PER_Num WHERE ttps.CHA_NumDevis=11 GROUP BY CHA_NumDevis");
+  $donnees4 = mysqli_fetch_assoc($reponse4)
+  ?>         <tr style="font-size: 14;">
+              <td colspan="2"></td>
+              <td style="font-weight: bold;">Heures Totales : </td>
+              <td style="font-weight: bold;"><?php echo $donnees4['total']; ?></td>
+            </tr> 
           </tbody>
         </table>
       </div>
-      <?php } ?>
+      <?php } mysqli_free_result($reponse4);?>
     </div>
   <?php
   mysqli_free_result($reponse);
