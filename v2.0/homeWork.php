@@ -194,13 +194,8 @@
 		echo 'Erreur';
 
 	$sorter = 'CHA_DateDebut';
-
-/*CREATE OR REPLACE VIEW ChantierClient AS SELECT co.CHA_NumDevis, pe.PER_Nom as Client, pe.PER_Prenom as ClientP FROM Commanditer co JOIN Clients cl ON co.CLI_NumClient=cl.CLI_NumClient JOIN Personnes pe ON cl.PER_Num=pe.PER_Num;
-CREATE OR REPLACE VIEW ChantierClient AS SELECT co.CHA_NumDevis as CNumDevis, pe.PER_Nom as Client, pe.PER_Prenom as ClientP, pe.PER_TelFixe as ClientTel, pe.PER_Email as ClientEmail, pe.PER_Adresse as ClientAd, pe.PER_Ville as ClientV, pe.PER_CodePostal as ClientCP FROM Commanditer co JOIN Clients cl ON co.CLI_NumClient=cl.CLI_NumClient JOIN Personnes pe ON cl.PER_Num=pe.PER_Num;
-CREATE OR REPLACE VIEW ChantierResp AS SELECT en.CHA_NumDevis as RNumDevis, pe.PER_Nom as Resp, pe.PER_Prenom as RespP FROM Encadrer en JOIN Salaries sa ON en.SAL_NumSalarie=sa.SAL_NumSalarie JOIN Personnes pe ON sa.PER_Num=pe.PER_Num;*/
-
-	//$reponse = mysqli_query($db, "SELECT * FROM Chantiers ch JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CHA_NumDevis LEFT JOIN ChantierResp vre ON ch.CHA_NumDevis=vre.CHA_NumDevis ORDER BY ch.CHA_NumDevis DESC");
-	$reponse = mysqli_query($db, "SELECT * FROM Chantiers ch JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CNumDevis LEFT JOIN ChantierResp vre ON ch.CHA_NumDevis=vre.RNumDevis ORDER BY ch.CHA_NumDevis DESC");
+	//SELECT * FROM Chantiers ch JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CNumDevis LEFT JOIN ChantierResp vre ON ch.CHA_NumDevis=vre.RNumDevis ORDER BY ch.CHA_NumDevis DESC
+	$reponse = mysqli_query($db, "SELECT * FROM ChantierMax Join TypeEtat ON IdMax=TYE_Id ORDER BY CHA_NumDevis DESC");
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
 		?>				<form method="post" action="detailChantier.php" name="detailClient">
@@ -211,7 +206,13 @@ CREATE OR REPLACE VIEW ChantierResp AS SELECT en.CHA_NumDevis as RNumDevis, pe.P
 								<td><?php echo strtoupper($donnees['Client']); ?> <?php echo $donnees['ClientP']; ?></td>
 								<td><?php echo strtoupper($donnees['Resp']); ?> <?php echo $donnees['RespP']; ?></td>
 								<td><?php echo dater($donnees['CHA_DateDebut']); ?></td>
-								<td><?php echo dater($donnees['CHA_DateFinReel']); ?></td>
+								<td><?php if ($donnees['IdMax']==4) {
+											echo dater($donnees['CHA_DateFinReel']);
+										  }
+										  else {
+										  	echo $donnees['TYE_Nom'];
+										  } ?>
+								</td>
 							</tr>
 						</form>
 						<?php
