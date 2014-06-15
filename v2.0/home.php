@@ -50,7 +50,7 @@
 
 	$sorter = 'CHA_DateDebut';
 	$i = 0;
-	$reponse = mysqli_query($db, "SELECT * FROM Chantiers ch JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CNumDevis LEFT JOIN ChantierResp vre ON ch.CHA_NumDevis=vre.RNumDevis ORDER BY ch.CHA_NumDevis DESC");
+	$reponse = mysqli_query($db, "SELECT * FROM ChantierMax Join TypeEtat ON IdMax=TYE_Id ORDER BY CHA_NumDevis DESC");
 	while (($donnees = mysqli_fetch_assoc($reponse))&&($i<3))
 	{
 		?>				<form method="post" action="detailChantier.php" name="detailChantier">
@@ -61,7 +61,13 @@
 								<td><?php echo strtoupper($donnees['Client']); ?><br/><?php echo $donnees['ClientP']; ?></td>
 								<td><?php echo strtoupper($donnees['Resp']); ?><br/><?php echo $donnees['RespP']; ?></td>
 								<td><?php echo dater($donnees['CHA_DateDebut']); ?></td>
-								<td><?php echo dater($donnees['CHA_DateFinReel']); ?></td>
+								<td><?php if ($donnees['IdMax']==4) {
+											echo dater($donnees['CHA_DateFinReel']);
+										  }
+										  else {
+										  	echo $donnees['TYE_Nom'];
+										  } ?>
+								</td>
 							</tr>
 						</form>
 						<?php
