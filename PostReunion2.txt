@@ -8,7 +8,7 @@ DONE - doublon date de fin prévu/échéance
 - Type = Consommable, EPI, Location, Matière, Repas, Intérim
 - Ajout de type réservé à l'admin
 - Sur la page d'acceuil, afficher uniquement les preview des chantiers en cours
-- Type chantier : En attente, Validé, En cours, Terminé, Refusé
+DONE - Type chantier : En attente, Validé, En cours, Terminé, Refusé
 - Rajouter un onglet "Chantier en cours"
 - Les chantiers refusés sont archivés
 - Distinguer montant ahcat et montant des heures
@@ -17,7 +17,7 @@ DONE - doublon date de fin prévu/échéance
 - idem en mode création de pdf
 - Mettre le tableau de bord sur le détail du chantier
 - faire la soustraction des heures pour avoir les heures restantes à effectuer
-- case état (modifiable)
+PENDING - case état (modifiable)
 - dans le tableau de bord => Achat total effectué, écart / Heures totales effectuées, écart
 - mettre un indicateur pour savoir si on est dans le rouge (en mode DANGER MTHAFUCKA!)
-- Contacter the IT guy !
+DONE - Contacter the IT guy !

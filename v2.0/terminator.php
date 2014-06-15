@@ -16,27 +16,38 @@
   if($chantier!=0){
    $query1 = "DELETE FROM Commanditer WHERE CHA_NumDevis = $chantier";
    $query2 = "DELETE FROM Chantiers WHERE CHA_NumDevis = $chantier";
+   $query9 = "DELETE FROM Etat WHERE CHA_NumDevis = $chantier";
    $sql1 = mysqli_query($db, $query1);
    $errr1=mysqli_error($db);
 
     if($sql1){
-      $sql2 = mysqli_query($db, $query2);
-      $errr2 = mysqli_error($db);
+      $sql9 = mysqli_query($db, $query9);
+      $errr9 = mysqli_error($db);
 
-      if($sql2){
-        echo '<div id="good">     
-            <label>Supression Chantier OK</label>
-            </div>';
+      if($sql9){
+      	$sql2 = mysqli_query($db, $query2);
+      	$errr2 = mysqli_error($db);
+      	
+      	if($sql2){
+	        echo '<div id="good">     
+	            <label>Supression Chantier OK</label>
+	            </div>';
+	    }
+	    else{
+	      echo '<div id="bad">     
+	            <label>Le chantier n\'a pas pu être supprimé</label>
+	            </div>';
+	    }
       }
       else{
         echo '<div id="bad">     
-              <label>Le chantier n\'a pas pu être ajouté</label>
+              <label>Le chantier n\'a pas pu être supprimé</label>
               </div>';
       }
     }
     else{
         echo '<div id="bad">     
-              <label>Le chantier n\'a pas pu être ajouté</label>
+              <label>Le chantier n\'a pas pu être supprimé</label>
               </div>';
       }
   }
@@ -57,13 +68,13 @@
       }
       else{
         echo '<div id="bad">     
-              <label>Le chantier n\'a pas pu être ajouté</label>
+              <label>Le client n\'a pas pu être supprimé</label>
               </div>';
       }
     }
     else{
         echo '<div id="bad">     
-              <label>Le chantier n\'a pas pu être ajouté</label>
+              <label>Le client n\'a pas pu être supprimé</label>
               </div>';
       }
   }
@@ -84,13 +95,13 @@
       }
       else{
         echo '<div id="bad">     
-              <label>Le chantier n\'a pas pu être ajouté</label>
+              <label>Le membre n\'a pas pu être supprimé</label>
               </div>';
       }
     }
     else{
         echo '<div id="bad">     
-              <label>Le chantier n\'a pas pu être ajouté</label>
+              <label>Le membre n\'a pas pu être supprimé</label>
               </div>';
       }
   }
@@ -111,13 +122,13 @@
       }
       else{
         echo '<div id="bad">     
-              <label>Le chantier n\'a pas pu être ajouté</label>
+              <label>Le fournisseur n\'a pas pu être supprimé</label>
               </div>';
       }
     }
     else{
         echo '<div id="bad">     
-              <label>Le chantier n\'a pas pu être ajouté</label>
+              <label>Le fournisseur n\'a pas pu être supprimé</label>
               </div>';
       }
   }

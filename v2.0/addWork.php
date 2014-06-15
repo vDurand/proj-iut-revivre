@@ -105,6 +105,27 @@
 										<input id="Heures_Prev" maxlength="255" name="Heures_Prev" type="text" class="inputC">
 									</td>
 								</tr>
+								<tr id="Chantier_Resp">
+									<td style="text-align: left; width: 150px; white-space: normal;">
+										<label>Responsable :</label>
+									</td>
+									<td>
+										<div class="selectType">
+										            <select name="Resp">
+										            	<option value=""></option>
+										                  <?php
+										$reponseBis = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom");
+										while ($donneesBis = mysqli_fetch_assoc($reponseBis))
+										{
+										  ?>          <option value="<?php echo $donneesBis['SAL_NumSalarie']; ?>"><?php echo strtoupper($donneesBis['PER_Nom']); ?> <?php echo $donneesBis['PER_Prenom']; ?></option>
+										                <?php
+										}
+										mysqli_free_result($reponseBis);
+										?>                  
+										            </select>
+										          </div>
+									</td>
+								</tr>
 							</table>
 						</td>
 					</table>

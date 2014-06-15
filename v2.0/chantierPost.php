@@ -16,6 +16,9 @@
   $achatp=strtoupper(addslashes($_POST["Achats_Prev"]));
   $heurep=strtoupper(addslashes($_POST["Heures_Prev"]));
   $echeance=strtoupper(addslashes($_POST["Fin_Max"]));
+  $resp=strtoupper(addslashes($_POST["Resp"]));
+  date_default_timezone_set('France/Paris');
+  $dateNow = date('Y-m-d H:i:s', time());
 
 	$query = "INSERT INTO Chantiers (CHA_DateDebut, CHA_Intitule, CHA_Echeance, CHA_MontantPrev, CHA_AchatsPrev, CHA_HeuresPrev, CHA_Id) VALUES ('$ddebut', '$nom', '$echeance', '$montantp', '$achatp', '$heurep', '$num')";
 
@@ -33,12 +36,23 @@
       $errr2 = mysqli_error($db);
 
       if($sql2){
-        echo '<div id="good">     
-            <label>Chantier ajouté avec succès</label>
-            </div>';
-            $reponse = mysqli_query($db, "SELECT * FROM Chantiers ch JOIN Commanditer co ON co.CHA_NumDevis=ch.CHA_NumDevis JOIN Clients cl ON cl.CLI_NumClient=co.CLI_NumClient JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE ch.CHA_NumDevis='$realNumber'");
-            
-            $donnees = mysqli_fetch_assoc($reponse);
+      	$query3 = "INSERT INTO Etat (ETA_Date, CHA_NumDevis, TYE_Id) VALUES ('$dateNow', '$realNumber', 1)";
+      	
+      	$sql3 = mysqli_query($db, $query3);
+      	$errr3 = mysqli_error($db);
+      	
+      	$query4 = "INSERT INTO Encadrer (CHA_NumDevis, SAL_NumSalarie) VALUES ('$realNumber', '$resp')";
+      	
+      	$sql4 = mysqli_query($db, $query4);
+      	$errr4=mysqli_error($db);
+      	
+      	if($sql3){
+	        echo '<div id="good">     
+	            <label>Chantier ajouté avec succès</label>
+	            </div>';
+	            $reponse = mysqli_query($db, "SELECT * FROM Chantiers ch JOIN Commanditer co ON co.CHA_NumDevis=ch.CHA_NumDevis JOIN Clients cl ON cl.CLI_NumClient=co.CLI_NumClient JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE ch.CHA_NumDevis='$realNumber'");
+	            
+	            $donnees = mysqli_fetch_assoc($reponse);
 	?>
   <br>
   <table>
@@ -92,14 +106,27 @@
 </td>
 </table>
   <?php
-      }
-      else{
-        echo '<div id="bad">     
-              <label>Le chantier n\'a pas pu être ajouté</label>
-              </div>';
-            }
-            mysqli_free_result($reponse);
+	      }
+	      else{
+	        echo '<div id="bad">     
+	              <label>Le chantier n\'a pas pu être ajouté</label>
+	              </div>';
+	      }
+	            mysqli_free_result($reponse);
+	    }
+	    else{
+	      echo '<div id="bad">     
+	            <label>Le chantier n\'a pas pu être ajouté</label>
+	            </div>';
+	    }
+	    
     }
+    else{
+      echo '<div id="bad">     
+            <label>Le chantier n\'a pas pu être ajouté</label>
+            </div>';
+    }
+    
   ?>
   </div>
   <?php  

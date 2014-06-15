@@ -29,8 +29,8 @@
 		echo 'Erreur';
 
   $num=$_POST["NumC"];
-
-  $reponse = mysqli_query($db, "SELECT * FROM Chantiers ch JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CNumDevis LEFT JOIN ChantierResp vre ON ch.CHA_NumDevis=vre.RNumDevis WHERE ch.CHA_NumDevis='$num'");
+	//CREATE OR REPLACE VIEW ChantierEtat AS SELECT CHA_NumDevis as NumDevis, TYE_Nom as Etat FROM Chantiers JOIN Etat USING (CHA_NumDevis) JOIN TypeEtat USING (TYE_Id);
+  $reponse = mysqli_query($db, "SELECT * FROM Chantiers ch JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CNumDevis LEFT JOIN ChantierResp vre ON ch.CHA_NumDevis=vre.RNumDevis LEFT JOIN ChantierEtat cet ON ch.CHA_NumDevis=NumDevis WHERE ch.CHA_NumDevis='$num'");
   $donnees = mysqli_fetch_assoc($reponse);
   
 	?>
@@ -67,6 +67,10 @@
             <?php
             }
             ?>
+            <tr>
+              <th style="text-align: left; width: 150px; white-space: normal;">Etat du Devis:</th>
+              <td style="text-align: center; width: 200px;"><?php echo $donnees['Etat']; ?></td>
+            </tr>
             <tr>
               <th style="text-align: left; width: 150px; white-space: normal;">Montant Prévu:</th>
               <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_MontantPrev']; ?> &euro;</td>
@@ -155,7 +159,7 @@
     ?>          <option value="<?php echo $donneesBis['SAL_NumSalarie']; ?>"><?php echo strtoupper($donneesBis['PER_Nom']); ?> <?php echo $donneesBis['PER_Prenom']; ?></option>
                   <?php
   }
-  mysqli_free_result($reponse);
+  mysqli_free_result($reponseBis);
   ?>                  
               </select>
             </div>
