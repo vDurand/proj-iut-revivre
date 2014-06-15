@@ -26,6 +26,15 @@
       	else
       	  document.getElementById('Chang-Etat').style.display = "none";
       }
+      function showFin(elem){
+      	if(elem.value == 4){
+      		document.getElementById('Chang-Etat2').style.display = "";
+      	}
+      	else {
+      		document.getElementById('Chang-Etat2').style.display = "none";
+      		document.getElementById('DateFin').value = "";
+      	}
+      }
     </script>
 <?php
 	if($db = MySQLi_connect("localhost","Kepha",'pfudor', 'Revivre', 0, '/media/sds1/home/alx22/private/mysql/socket'))
@@ -56,18 +65,18 @@
             </tr>
             <tr>
               <th style="text-align: left; width: 150px; white-space: normal;">Date de Début:</th>
-              <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_DateDebut']; ?></td>
+              <td style="text-align: center; width: 200px;"><?php echo dater($donnees['CHA_DateDebut']); ?></td>
             </tr>
             <tr>
               <th style="text-align: left; width: 150px; white-space: normal;">Echéance:</th>
-              <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_Echeance']; ?></td>
+              <td style="text-align: center; width: 200px;"><?php echo dater($donnees['CHA_Echeance']); ?></td>
             </tr>
             <?php
             if($donnees['CHA_DateFinReel']!=NULL){
             ?>
             <tr>
               <th style="text-align: left; width: 150px; white-space: normal;">Fin:</th>
-              <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_DateFinReel']; ?></td>
+              <td style="text-align: center; width: 200px;"><?php echo dater($donnees['CHA_DateFinReel']); ?></td>
             </tr>
             <?php
             }
@@ -214,32 +223,43 @@
           </td>
         </tr>
         </form>
+        <form method="post" action="chantierAdd.php" name="Chantier" formtype="1" colvalue="2">
         <tr id="Chang-Etat" style="display:none;">
-                <form method="post" action="chantierAdd.php" name="Chantier" formtype="1" colvalue="2">
-                  <input type="hidden" name="NumC" value="<?php echo $donnees['CHA_NumDevis']; ?>">
-                <td style="text-align: center; padding-top: 35px;">
-                      <label>Etat : </label>
-                </td>
-                <td align="center" style="padding-top: 35px;">
-                  <div class="selectType">
-                    <select name="EtatA">
-                          <?php
-        $reponse4 = mysqli_query($db, "SELECT * FROM TypeEtat WHERE TYE_Id>$IdEtat ORDER BY TYE_Id");
-        while ($donnees4 = mysqli_fetch_assoc($reponse4))
-        {
-          ?>          <option value="<?php echo $donnees4['TYE_Id']; ?>"><?php echo $donnees4['TYE_Nom']; ?></option>
-                        <?php
-        }
-        mysqli_free_result($reponse4);
-        ?>                  
-                    </select>
-                  </div>
-                </td>
-                <td align="left" style="padding-top: 35px;">
-                  <input name="submit" type="submit" value="Changer">
-                </td>
-              </form>
-              </tr>
+        	<input type="hidden" name="NumC" value="<?php echo $donnees['CHA_NumDevis']; ?>">
+	        <td style="text-align: center; padding-top: 35px;">
+	              <label>Etat : </label>
+	        </td>
+	        <td align="center" style="padding-top: 35px;">
+	          <div class="selectType">
+	            <select name="EtatA" onchange="showFin(this)">
+	                  <?php
+	$reponse4 = mysqli_query($db, "SELECT * FROM TypeEtat WHERE TYE_Id>$IdEtat ORDER BY TYE_Id");
+	while ($donnees4 = mysqli_fetch_assoc($reponse4))
+	{
+	  ?>          <option value="<?php echo $donnees4['TYE_Id']; ?>"><?php echo $donnees4['TYE_Nom']; ?></option>
+	                <?php
+	}
+	mysqli_free_result($reponse4);
+	?>                  
+	            </select>
+	          </div>
+	        </td>
+	        <td align="left" style="padding-top: 35px;">
+	          <input name="submit" type="submit" value="Changer">
+	        </td>
+        </tr>
+	    <tr id="Chang-Etat2" style="display:none;">
+	        <td style="text-align: center; padding-top: 15px;">
+	              <label>Date de Fin : </label>
+	        </td>
+	        <td align="center" style="padding-top: 15px;">
+	          <input id="DateFin" maxlength="255" name="DateFin" type="date" class="inputC"> 
+	        </td>
+	        <td align="left" style="padding-top: 15px;">
+	          &nbsp; 
+	        </td>
+	      </tr>
+       	  </form>
       </table>
       <?php 
       if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM TempsTravail WHERE CHA_NumDevis='$num'"))) {

@@ -18,151 +18,8 @@
 			<div id="labelT">     
 				<label>Liste des Chantiers Archivés</label>
 			</div><br>
-			<form method="post" action="rangChantier.php" name="EditClient">
-		        <table id="alphaL">
-		          <tr>
-		          	<td>
-		          		<div class="selectDrop">
-		          		<select name="trieur">
-				        	<option value="0">Client</option>
-				        	<option value="1">Responsable</option>
-				    	</select>
-				    </div>
-		          	</td>
-		            <td>
-		              <span>
-		                <input name="submit" type="submit" value="A" class="alphaButton">
-		              </span>
-		            </td>
-		            <td>
-		              <span>
-		                <input name="submit" type="submit" value="B" class="alphaButton">
-		              </span>
-		            </td>
-		            <td>
-		              <span>
-		                <input name="submit" type="submit" value="C" class="alphaButton">
-		              </span>
-		            </td>
-		            <td>
-		              <span>
-		                <input name="submit" type="submit" value="D" class="alphaButton">
-		              </span>
-		            </td>
-		            <td>
-		              <span>
-		                <input name="submit" type="submit" value="E" class="alphaButton">
-		              </span>
-		            </td>
-		            <td>
-		              <span>
-		                <input name="submit" type="submit" value="F" class="alphaButton">
-		              </span>
-		            </td>
-		            <td>
-		              <span>
-		                <input name="submit" type="submit" value="G" class="alphaButton">
-		              </span>
-		            </td>
-		            <td>
-		              <span>
-		                <input name="submit" type="submit" value="H" class="alphaButton">
-		              </span>
-		            </td>
-		            <td>
-		              <span>
-		                <input name="submit" type="submit" value="I" class="alphaButton">
-		              </span>
-		            </td>
-		            <td>
-		              <span>
-		                <input name="submit" type="submit" value="J" class="alphaButton">
-		              </span>
-		            </td>
-		            <td>
-		              <span>
-		                <input name="submit" type="submit" value="K" class="alphaButton">
-		              </span>
-		            </td>
-		            <td>
-		              <span>
-		                <input name="submit" type="submit" value="L" class="alphaButton">
-		              </span>
-		            </td>
-		            <td>
-		              <span>
-		                <input name="submit" type="submit" value="M" class="alphaButton">
-		              </span>
-		            </td>
-		            <td>
-		              <span>
-		                <input name="submit" type="submit" value="N" class="alphaButton">
-		              </span>
-		            </td>
-		            <td>
-		              <span>
-		                <input name="submit" type="submit" value="O" class="alphaButton">
-		              </span>
-		            </td>
-		            <td>
-		              <span>
-		                <input name="submit" type="submit" value="P" class="alphaButton">
-		              </span>
-		            </td>
-		            <td>
-		              <span>
-		                <input name="submit" type="submit" value="Q" class="alphaButton">
-		              </span>
-		            </td>
-		            <td>
-		              <span>
-		                <input name="submit" type="submit" value="R" class="alphaButton">
-		              </span>
-		            </td>
-		            <td>
-		              <span>
-		                <input name="submit" type="submit" value="S" class="alphaButton">
-		              </span>
-		            </td>
-		            <td>
-		              <span>
-		                <input name="submit" type="submit" value="T" class="alphaButton">
-		              </span>
-		            </td>
-		            <td>
-		              <span>
-		                <input name="submit" type="submit" value="U" class="alphaButton">
-		              </span>
-		            </td>
-		            <td>
-		              <span>
-		                <input name="submit" type="submit" value="V" class="alphaButton">
-		              </span>
-		            </td>
-		            <td>
-		              <span>
-		                <input name="submit" type="submit" value="W" class="alphaButton">
-		              </span>
-		            </td>
-		            <td>
-		              <span>
-		                <input name="submit" type="submit" value="X" class="alphaButton">
-		              </span>
-		            </td>
-		            <td>
-		              <span>
-		                <input name="submit" type="submit" value="Y" class="alphaButton">
-		              </span>
-		            </td>
-		            <td>
-		              <span>
-		                <input name="submit" type="submit" value="Z" class="alphaButton">
-		              </span>
-		            </td>
-		          </tr>
-		        </table>
-		    </form>
-					<table class="tableContact" cellpadding="5">
+				<div class="listeMembers">
+					<table cellpadding="5">
 						<thead>
 						<tr>
 							<td class="firstCol" style="text-align: center; width: 40px;">
@@ -220,7 +77,8 @@
 	mysqli_free_result($reponse);
 	?>					
 					</tbody>
-					</table>
+				</table>
+			</div>
 		</div>
 	<?php  
 		include('footer.php');

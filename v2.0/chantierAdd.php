@@ -16,6 +16,7 @@
   date_default_timezone_set('France/Paris');
   $dateNow = date('Y-m-d H:i:s', time());
   $etat=$_POST["EtatA"];
+  $dfin=$_POST["DateFin"];
 
   if($resp!=""){
 
@@ -123,6 +124,13 @@
     	
     	$sql3 = mysqli_query($db, $query3);
     	$errr3 = mysqli_error($db);
+    	
+    	if ($dfin!="") {
+    		$query4 = "UPDATE Chantiers SET CHA_DateFinReel = '$dfin' WHERE CHA_NumDevis = '$num'";
+    		
+    		$sql4 = mysqli_query($db, $query4);
+    		$errr4 = mysqli_error($db);
+    	}
     	
     	if($sql3){
     	    echo '<div id="good">     
