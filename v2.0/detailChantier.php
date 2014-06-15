@@ -19,7 +19,12 @@
           document.getElementById('Ajout-Tps').style.display = "none";
           document.getElementById('Ajout-Tps2').style.display = "none";
         }
-        
+      }
+      function changeEtat(){
+      	if(document.getElementById('Chang-Etat').style.display == "none")
+      	  document.getElementById('Chang-Etat').style.display = "";
+      	else
+      	  document.getElementById('Chang-Etat').style.display = "none";
       }
     </script>
 <?php
@@ -121,6 +126,7 @@
             </form>
           </td>
           <?php
+          $IdEtat=$donnees['Id'];
           if($donnees['Resp']==""){
           ?>
           <td style="text-align: center; width: 200px;">
@@ -132,14 +138,16 @@
           }else{
           ?>
           <td style="text-align: center; width: 200px;">
-            &nbsp;
+            <span>
+              <input  name="submit" type="submit" onclick="addTps()" value="Travail" class="buttonC">
+            </span>
           </td>
           <?php
           }
           ?>
           <td style="text-align: center; width: 200px;">
             <span>
-              <input  name="submit" type="submit" onclick="addTps()" value="Travail" class="buttonC">
+              <input  name="submit" type="submit" onclick="changeEtat()" value="Etat" class="buttonC">
             </span>
           </td>
         </tr>
@@ -179,13 +187,13 @@
             <div class="selectType">
               <select name="Member">
                     <?php
-  $reponseBis = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom");
-  while ($donneesBis = mysqli_fetch_assoc($reponseBis))
+  $reponseTres = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom");
+  while ($donneesTres = mysqli_fetch_assoc($reponseTres))
   {
-    ?>          <option value="<?php echo $donneesBis['SAL_NumSalarie']; ?>"><?php echo strtoupper($donneesBis['PER_Nom']); ?> <?php echo $donneesBis['PER_Prenom']; ?></option>
+    ?>          <option value="<?php echo $donneesTres['SAL_NumSalarie']; ?>"><?php echo strtoupper($donneesTres['PER_Nom']); ?> <?php echo $donneesTres['PER_Prenom']; ?></option>
                   <?php
   }
-  mysqli_free_result($reponseBis);
+  mysqli_free_result($reponseTres);
   ?>                  
               </select>
             </div>
@@ -206,6 +214,32 @@
           </td>
         </tr>
         </form>
+        <tr id="Chang-Etat" style="display:none;">
+                <form method="post" action="chantierAdd.php" name="Chantier" formtype="1" colvalue="2">
+                  <input type="hidden" name="NumC" value="<?php echo $donnees['CHA_NumDevis']; ?>">
+                <td style="text-align: center; padding-top: 35px;">
+                      <label>Etat : </label>
+                </td>
+                <td align="center" style="padding-top: 35px;">
+                  <div class="selectType">
+                    <select name="EtatA">
+                          <?php
+        $reponse4 = mysqli_query($db, "SELECT * FROM TypeEtat WHERE TYE_Id>$IdEtat ORDER BY TYE_Id");
+        while ($donnees4 = mysqli_fetch_assoc($reponse4))
+        {
+          ?>          <option value="<?php echo $donnees4['TYE_Id']; ?>"><?php echo $donnees4['TYE_Nom']; ?></option>
+                        <?php
+        }
+        mysqli_free_result($reponse4);
+        ?>                  
+                    </select>
+                  </div>
+                </td>
+                <td align="left" style="padding-top: 35px;">
+                  <input name="submit" type="submit" value="Changer">
+                </td>
+              </form>
+              </tr>
       </table>
       <?php 
       if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM TempsTravail WHERE CHA_NumDevis='$num'"))) {

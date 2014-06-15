@@ -13,6 +13,9 @@
   $mem=$_POST["Member"];
   $deb=$_POST["DebutTps"];
   $fin=$_POST["FinTps"];
+  date_default_timezone_set('France/Paris');
+  $dateNow = date('Y-m-d H:i:s', time());
+  $etat=$_POST["EtatA"];
 
   if($resp!=""){
 
@@ -115,6 +118,24 @@
               </div>';
       }
     }
+    if ($etat!="") {
+    	$query3 = "INSERT INTO Etat (ETA_Date, CHA_NumDevis, TYE_Id) VALUES ('$dateNow', '$num', '$etat')";
+    	
+    	$sql3 = mysqli_query($db, $query3);
+    	$errr3 = mysqli_error($db);
+    	
+    	if($sql3){
+    	    echo '<div id="good">     
+    	        <label>Etat changé avec succès</label>
+    	        </div>';
+    	}
+    	else{
+    	  echo '<div id="bad">     
+    	        <label>L\'état n\'a pas pu être changé</label>
+    	        </div>';
+    	}
+    }
+    
   ?>
   </div>
   <?php  

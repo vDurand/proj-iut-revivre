@@ -17,7 +17,7 @@ DONE - Type chantier : En attente, Validé, En cours, Terminé, Refusé
 - idem en mode création de pdf
 - Mettre le tableau de bord sur le détail du chantier
 - faire la soustraction des heures pour avoir les heures restantes à effectuer
-PENDING - case état (modifiable)
+DONE - case état (modifiable)
 - dans le tableau de bord => Achat total effectué, écart / Heures totales effectuées, écart
 - mettre un indicateur pour savoir si on est dans le rouge (en mode DANGER MTHAFUCKA!)
 DONE - Contacter the IT guy !
