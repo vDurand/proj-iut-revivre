@@ -19,7 +19,7 @@
 				<label>Liste des Chantiers Archivés</label>
 			</div><br>
 				<div class="listeMembers">
-					<table cellpadding="5">
+					<table class="sortable" cellpadding="5">
 						<thead>
 						<tr>
 							<td class="firstCol" style="text-align: center; width: 40px;">
@@ -34,10 +34,10 @@
 							<td style="text-align: center; width: 155px;">
 								<a>Responsable</a>
 							</td>
-							<td style="text-align: center; width: 155px;">
+							<td style="text-align: center; width: 155px; cursor: help;" class="sorttable_nosort tooltip" title="Classement par défaut.">
 								Debut
 							</td>
-							<td style="text-align: center; width: 155px;">
+							<td style="text-align: center; width: 155px; cursor: help;" class="sorttable_nosort tooltip" title="Vous ne pouvez pas classer par date de fin.">
 								<a>Fin</a>
 							</td>
 						</tr>
@@ -52,7 +52,7 @@
 
 	$sorter = 'CHA_DateDebut';
 
-	$reponse = mysqli_query($db, "SELECT *, max(Id) FROM Chantiers ch JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CNumDevis LEFT JOIN ChantierResp vre ON ch.CHA_NumDevis=vre.RNumDevis LEFT JOIN ChantierEtat cet ON ch.CHA_NumDevis=NumDevis Group By NumDevis HAVING max(Id)>3 ORDER BY ch.CHA_NumDevis DESC");
+	$reponse = mysqli_query($db, "SELECT *, max(Id) FROM Chantiers ch JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CNumDevis LEFT JOIN ChantierResp vre ON ch.CHA_NumDevis=vre.RNumDevis LEFT JOIN ChantierEtat cet ON ch.CHA_NumDevis=NumDevis Group By NumDevis HAVING max(Id)>3 ORDER BY ch.CHA_DateDebut DESC");
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
 		?>				<form method="post" action="detailChantier.php" name="detailClient">

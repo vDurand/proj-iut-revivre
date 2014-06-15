@@ -171,7 +171,7 @@
 							<td style="text-align: center; width: 155px;">
 								<a>Prénom</a>
 							</td>
-							<td style="text-align: center; width: 155px;">
+							<td class="sorttable_nosort tooltip" style="text-align: center; width: 155px; cursor: help;" title="Vous ne pouvez pas classer par adresse.">
 								<a>Adresse</a>
 							</td>
 							<td style="text-align: center; width: 155px;">

@@ -177,10 +177,10 @@
 							<td style="text-align: center; width: 155px;">
 								<a>Responsable</a>
 							</td>
-							<td style="text-align: center; width: 155px;">
+							<td style="text-align: center; width: 155px; cursor: help;" class="sorttable_nosort tooltip" title="Classement par défaut.">
 								Debut
 							</td>
-							<td style="text-align: center; width: 155px;">
+							<td style="text-align: center; width: 155px; cursor: help;" class="sorttable_nosort tooltip" title="Vous ne pouvez pas classer par date de fin.">
 								<a>Fin</a>
 							</td>
 						</tr>
@@ -195,7 +195,7 @@
 
 	$sorter = 'CHA_DateDebut';
 	//SELECT * FROM Chantiers ch JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CNumDevis LEFT JOIN ChantierResp vre ON ch.CHA_NumDevis=vre.RNumDevis ORDER BY ch.CHA_NumDevis DESC
-	$reponse = mysqli_query($db, "SELECT * FROM ChantierMax Join TypeEtat ON IdMax=TYE_Id ORDER BY CHA_NumDevis DESC");
+	$reponse = mysqli_query($db, "SELECT * FROM ChantierMax Join TypeEtat ON IdMax=TYE_Id ORDER BY CHA_DateDebut DESC");
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
 		?>				<form method="post" action="detailChantier.php" name="detailClient">

@@ -20,22 +20,22 @@
 			<table cellpadding="5">
 						<thead>
 						<tr>
-							<td class="firstCol" style="text-align: center; width: 40px;">
+							<td class="firstCol" style="text-align: center; width: 40px; cursor: crosshair;">
 								<a>#</a>
 							</td>
-							<td style="text-align: center; width: 231px;">
+							<td style="text-align: center; width: 231px; cursor: crosshair;">
 								<a>Chantier</a>
 							</td>
-							<td style="text-align: center; width: 155px;">
+							<td style="text-align: center; width: 155px; cursor: crosshair;">
 								<a>Client</a>
 							</td>
-							<td style="text-align: center; width: 155px;">
+							<td style="text-align: center; width: 155px; cursor: crosshair;">
 								<a>Responsable</a>
 							</td>
-							<td style="text-align: center; width: 155px;">
+							<td style="text-align: center; width: 155px; cursor: crosshair;">
 								Debut
 							</td>
-							<td style="text-align: center; width: 155px;">
+							<td style="text-align: center; width: 155px; cursor: crosshair;">
 								<a>Fin</a>
 							</td>
 						</tr>
@@ -83,28 +83,28 @@
 				<label>&#8226; Derniers Membres de l'association Ajoutés :</label>
 			</div><br>
 				<div class="listeMembers">
-					<table class="sortable" cellpadding="5">
+					<table cellpadding="5">
 						<thead>
 							<tr>
-								<td class="premierCol" style="text-align: center; width: 150px;">
+								<td class="premierCol" style="text-align: center; width: 150px; cursor: crosshair;">
 									Nom
 								</td>
-								<td style="text-align: center; width: 150px;">
+								<td style="text-align: center; width: 150px; cursor: crosshair;">
 									Prénom
 								</td>
-								<td class="sorttable_nosort tooltip" style="text-align: center; width: 150px; cursor: help;" title="Vous ne pouvez pas classer par telephone fixe.">
+								<td style="text-align: center; width: 150px; cursor: crosshair;">
 									Tél Fixe
 								</td>
-								<td class="sorttable_nosort tooltip" style="text-align: center; width: 150px; cursor: help;" title="Vous ne pouvez pas classer par telephone portable.">
+								<td style="text-align: center; width: 150px; cursor: crosshair;">
 									Tél Portable
 								</td>
-								<td style="text-align: center; width: 150px;">
+								<td style="text-align: center; width: 150px; cursor: crosshair;">
 									Email
 								</td>
-								<td style="text-align: center; width: 150px;">
+								<td style="text-align: center; width: 150px; cursor: crosshair;">
 									Adresse
 								</td>
-								<td style="text-align: center; width: 150px;">
+								<td style="text-align: center; width: 150px; cursor: crosshair;">
 									Type
 								</td>
 							</tr>
@@ -145,28 +145,28 @@
 				<label>&#8226; Derniers Clients Ajoutés :</label>
 			</div><br>
 				<div class="listeClients">
-					<table class="sortable" cellpadding="5">
+					<table cellpadding="5">
 						<thead>
 							<tr>
-								<td class="premierCol" style="text-align: center; width: 150px;">
+								<td class="premierCol" style="text-align: center; width: 150px; cursor: crosshair;">
 									Nom
 								</td>
-								<td style="text-align: center; width: 150px;">
+								<td style="text-align: center; width: 150px; cursor: crosshair;">
 									Prénom
 								</td>
-								<td class="sorttable_nosort tooltip" style="text-align: center; width: 150px; cursor: help;" title="Vous ne pouvez pas classer par telephone fixe.">
+								<td style="text-align: center; width: 150px; cursor: crosshair;">
 									Tél Fixe
 								</td>
-								<td class="sorttable_nosort tooltip" style="text-align: center; width: 150px; cursor: help;" title="Vous ne pouvez pas classer par telephone portable.">
+								<td style="text-align: center; width: 150px; cursor: crosshair;">
 									Tél Portable
 								</td>
-								<td style="text-align: center; width: 150px;">
+								<td style="text-align: center; width: 150px; cursor: crosshair;">
 									Email
 								</td>
-								<td style="text-align: center; width: 150px;">
+								<td style="text-align: center; width: 150px; cursor: crosshair;">
 									Adresse
 								</td>
-								<td style="text-align: center; width: 150px;">
+								<td style="text-align: center; width: 150px; cursor: crosshair;">
 									Structure
 								</td>
 							</tr>
@@ -207,28 +207,28 @@
 				<label>&#8226; Derniers Fournisseurs Ajoutés :</label>
 			</div><br>
 				<div class="listeMembers">
-					<table class="sortable" cellpadding="5">
+					<table cellpadding="5">
 						<thead>
 							<tr>
-								<td class="premierCol" style="text-align: center; width: 150px;">
+								<td class="premierCol" style="text-align: center; width: 150px; cursor: crosshair;">
 									Nom
 								</td>
-								<td style="text-align: center; width: 150px;">
+								<td style="text-align: center; width: 150px; cursor: crosshair;">
 									Prénom
 								</td>
-								<td class="sorttable_nosort tooltip" style="text-align: center; width: 150px; cursor: help;" title="Vous ne pouvez pas classer par telephone fixe.">
+								<td style="text-align: center; width: 150px; cursor: crosshair;">
 									Tél Fixe
 								</td>
-								<td class="sorttable_nosort tooltip" style="text-align: center; width: 150px; cursor: help;" title="Vous ne pouvez pas classer par telephone portable.">
+								<td style="text-align: center; width: 150px; cursor: crosshair;">
 									Tél Portable
 								</td>
-								<td style="text-align: center; width: 150px;">
+								<td style="text-align: center; width: 150px; cursor: crosshair;">
 									Email
 								</td>
-								<td style="text-align: center; width: 150px;">
+								<td style="text-align: center; width: 150px; cursor: crosshair;">
 									Adresse
 								</td>
-								<td style="text-align: center; width: 150px;">
+								<td style="text-align: center; width: 150px; cursor: crosshair;">
 									Structure
 								</td>
 							</tr>

@@ -55,16 +55,16 @@
 								<ul class="subMenu">
 									<li><a href="addContact.php">Ajouter<br>Contact</a></li>
 	                       			<li><a href="viewClients.php">Clients<br>&nbsp;</a>
-										<ul>
+										<!--<ul>
 											<li><a href="viewClientCh.php">Chantier<br>&nbsp;</a></li>
 											<li><a href="viewClientCo.php">Conditionnement</a></li>
-										</ul>
+										</ul>-->
 									</li>
 									<li><a href="viewFourn.php">Fournisseurs<br>&nbsp;</a>
-										<ul>
+										<!--<ul>
 											<li><a href="viewFournCh.php">Chantier<br>&nbsp;</a></li>
 											<li><a href="viewFournFo.php">Fourniture</a></li>
-										</ul>
+										</ul>-->
 									</li>
 									<li><a href="viewMembers.php">Membre de<br>l'association</a>
 										<ul>
