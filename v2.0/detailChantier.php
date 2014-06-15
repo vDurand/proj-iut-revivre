@@ -213,13 +213,13 @@
         </tr>
         <tr id="Ajout-Tps2" style="display:none;">
           <td style="text-align: center; padding-top: 15px;">
-                <label>Date : </label>
+                <input id="Date" maxlength="255" name="Date" type="date" class="inputC" placeholder="Date"> 
           </td>
           <td align="center" style="padding-top: 15px;">
-            <input id="DebutTps" maxlength="255" name="DebutTps" type="datetime-local" class="inputC" placeholder="Debut"> 
+            <input id="Debut" maxlength="255" name="Debut" type="time" class="inputC" placeholder="Debut"> 
           </td>
           <td align="left" style="padding-top: 15px;">
-            <input id="FinTps" maxlength="255" name="FinTps" type="datetime-local" class="inputC" placeholder="Fin"> 
+            <input id="Fin" maxlength="255" name="Fin" type="time" class="inputC" placeholder="Fin"> 
           </td>
         </tr>
         </form>
@@ -272,6 +272,9 @@
                 <a>Membre</a>
               </td>
               <td style="text-align: center; width: 200px;">
+                <a>Date</a>
+              </td>
+              <td style="text-align: center; width: 200px;">
                 <a>Debut</a>
               </td>
               <td style="text-align: center; width: 200px;">
@@ -284,22 +287,23 @@
           </thead>
           <tbody>
             <?php
-  $reponse3 = mysqli_query($db, "SELECT *, TIME(TRA_DateFin-TRA_DateDebut) as duree FROM TempsTravail ttps JOIN Salaries sal ON ttps.SAL_NumSalarie=sal.SAL_NumSalarie JOIN Personnes pe ON pe.PER_Num=sal.PER_Num WHERE ttps.CHA_NumDevis='$num' ORDER BY ttps.TRA_NumTravail DESC");
+  $reponse3 = mysqli_query($db, "SELECT *, TIMEDIFF(TRA_Fin, TRA_Debut) as duree FROM TempsTravail ttps JOIN Salaries sal ON ttps.SAL_NumSalarie=sal.SAL_NumSalarie JOIN Personnes pe ON pe.PER_Num=sal.PER_Num WHERE ttps.CHA_NumDevis='$num' ORDER BY ttps.TRA_Date ASC");
   while ($donnees3 = mysqli_fetch_assoc($reponse3))
   {
     ?>        <tr style="font-size: 14;">
                 <td><?php echo strtoupper($donnees3['PER_Nom']); ?> <?php echo $donnees3['PER_Prenom']; ?></td>
-                <td><?php echo $donnees3['TRA_DateDebut']; ?></td>
-                <td><?php echo $donnees3['TRA_DateFin']; ?></td>
+                <td><?php echo dater($donnees3['TRA_Date']); ?></td>
+                <td><?php echo $donnees3['TRA_Debut']; ?></td>
+                <td><?php echo $donnees3['TRA_Fin']; ?></td>
                 <td><?php echo $donnees3['duree']; ?></td>
               </tr>
             <?php
   }
   mysqli_free_result($reponse3);
-  $reponse4 = mysqli_query($db, "SELECT TIME(SUM(TRA_DateFin-TRA_DateDebut)) as total FROM TempsTravail ttps JOIN Salaries sal ON ttps.SAL_NumSalarie=sal.SAL_NumSalarie JOIN Personnes pe ON pe.PER_Num=sal.PER_Num WHERE ttps.CHA_NumDevis='$num' GROUP BY CHA_NumDevis");
+  $reponse4 = mysqli_query($db, "SELECT TIME(SUM(TRA_Fin-TRA_Debut)) as total FROM TempsTravail ttps WHERE ttps.CHA_NumDevis='$num' GROUP BY CHA_NumDevis");
   $donnees4 = mysqli_fetch_assoc($reponse4)
   ?>         <tr style="font-size: 14;">
-              <td colspan="2"></td>
+              <td colspan="3"></td>
               <td style="font-weight: bold;">Heures Totales : </td>
               <td style="font-weight: bold;"><?php echo $donnees4['total']; ?></td>
             </tr> 

@@ -11,8 +11,9 @@
   $resp=$_POST["Resp"];
   $num=$_POST["NumC"];
   $mem=$_POST["Member"];
-  $deb=$_POST["DebutTps"];
-  $fin=$_POST["FinTps"];
+  $date=$_POST["Date"];
+  $deb=$_POST["Debut"];
+  $fin=$_POST["Fin"];
   date_default_timezone_set('France/Paris');
   $dateNow = date('Y-m-d H:i:s', time());
   $etat=$_POST["EtatA"];
@@ -103,7 +104,7 @@
     mysqli_free_result($reponse);
     if($mem!=""){
 
-    $query2 = "INSERT INTO TempsTravail (TRA_DateDebut, TRA_DateFin, CHA_NumDevis, SAL_NumSalarie) VALUES ('$deb', '$fin', '$num', '$mem')";
+    $query2 = "INSERT INTO TempsTravail (TRA_Date, TRA_Debut, TRA_Fin, CHA_NumDevis, SAL_NumSalarie) VALUES ('$date','$deb', '$fin', '$num', '$mem')";
 
     $sql2 = mysqli_query($db, $query2);
     $errr2=mysqli_error($db);
