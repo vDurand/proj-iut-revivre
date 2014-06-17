@@ -18,7 +18,7 @@
   $echeance=strtoupper(addslashes($_POST["Fin_Max"]));
   date_default_timezone_set('France/Paris');
   
-  $query = "UPDATE Chantiers SET CHA_Id = '$num', CHA_Intitule = '$nom', CHA_DateDebut = '$ddebut', CHA_MontantPrev	 = '$montantp', CHA_AchatsPrev = '$achatp', CHA_HeuresPrev = '$heurep', CHA_Echeance = '$echeance' WHERE Chantiers.CHA_NumsDevis = '$id'";
+  $query = "UPDATE Chantiers SET CHA_Id = '$num', CHA_Intitule = '$nom', CHA_DateDebut = '$ddebut', CHA_MontantPrev	 = '$montantp', CHA_AchatsPrev = '$achatp', CHA_HeuresPrev = '$heurep', CHA_Echeance = '$echeance' WHERE Chantiers.CHA_NumDevis = '$id'";
   
   $sql = mysqli_query($db, $query);
   $errr=mysqli_error($db);
