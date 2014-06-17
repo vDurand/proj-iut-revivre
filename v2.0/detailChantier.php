@@ -89,6 +89,14 @@
               <th style="text-align: left; width: 150px; white-space: normal;">Montant Prévu:</th>
               <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_MontantPrev']; ?> &euro;</td>
             </tr>
+			<tr>
+              <th style="text-align: left; width: 150px; white-space: normal;">Achats Prévus:</th>
+              <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_AchatsPrev']; ?> &euro;</td>
+            </tr>
+			<tr>
+              <th style="text-align: left; width: 150px; white-space: normal;">Heures Prévues:</th>
+              <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_HeuresPrev']; ?></td>
+            </tr>
             <tr>
               <th style="text-align: left; width: 150px; white-space: normal;">Responsable:</th>
               <td style="text-align: center; width: 200px;"><?php echo $donnees['Resp']; ?> <?php echo $donnees['RespP']; ?></td>
@@ -127,7 +135,7 @@
       <table id="downT">
         <tr id="button-line">
           <td style="text-align: center; width: 150px;">
-            <form method="post" action="editChantier.php" name="EditClient">
+            <form method="post" action="editChantier.php" name="EditChantier">
             <input type="hidden" name="NumC" value="<?php echo $donnees['CHA_NumDevis']; ?>">
             <span>
               <input name="submit" type="submit" value="Modifier" class="buttonC">
