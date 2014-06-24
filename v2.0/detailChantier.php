@@ -41,6 +41,9 @@
 		echo '';
 	else
 		echo 'Erreur';
+		
+  $Workers = array(" ");
+  $Ids = array(" ");
 
   $num=$_POST["NumC"];
 	//CREATE OR REPLACE VIEW ChantierEtat AS SELECT CHA_NumDevis as NumDevis, TYE_Nom as Etat, TYE_Id as Id FROM Chantiers JOIN Etat USING (CHA_NumDevis) JOIN TypeEtat USING (TYE_Id) ORDER BY TYE_Id DESC LIMIT 1;
@@ -178,17 +181,87 @@
             <div class="selectType">
               <select name="Resp">
                     <?php
+                    $j = 1;
   $reponseBis = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom");
   while ($donneesBis = mysqli_fetch_assoc($reponseBis))
   {
-    ?>          <option value="<?php echo $donneesBis['SAL_NumSalarie']; ?>"><?php echo strtoupper($donneesBis['PER_Nom']); ?> <?php echo $donneesBis['PER_Prenom']; ?></option>
+    ?>          <option value="<?php echo $donneesBis['SAL_NumSalarie']; ?>"><?php echo strtoupper($donneesBis['PER_Nom']); $temp1=strtoupper($donneesBis['PER_Nom']);?> <?php echo $donneesBis['PER_Prenom']; $temp2=$donneesBis['PER_Prenom']; ?></option>
                   <?php
-  }
+                  $Workers[$j] = "$temp1 $temp2";
+                  $Ids[$j] = $donneesBis['SAL_NumSalarie'];
+                  $j++;
+  } 
   mysqli_free_result($reponseBis);
   ?>                  
               </select>
             </div>
           </td>
+          
+<script language="javascript"> 
+  function AddWorkingTime() {
+  
+  // conversion php array to js array
+  	var jWorkers= <?php echo json_encode($Workers); ?>;
+  	var jIds= <?php echo json_encode($Ids); ?>;
+  
+  // structure html tr/td/div
+  	var table = document.getElementById("downT");
+  	var NewRow = table.insertRow(4);
+  		NewRow.id = "Ajout-Tps";
+  	
+  	var NewCell1 = NewRow.insertCell(0);
+  		NewCell1.setAttribute("style","text-align: center; padding-top: 35px;");
+  		NewCell1.innerHTML = "<label>Membres : </label>";
+  	
+  	var NewCell2 = NewRow.insertCell(1);
+  		NewCell2.setAttribute("style","padding-top: 35px;");
+  		NewCell2.setAttribute("align","center");
+  	
+  	var NewDiv = document.createElement("div");
+  		NewDiv.setAttribute("class","selectType");
+  
+  // insertion array in select option via tmp
+	  	tmp = '<select  name="Member[]">';
+			for (var i in jWorkers) {
+				tmp += '<option value="'+jIds[i]+'">'+jWorkers[i]+"</option>\n";
+			}
+			tmp += "</select>";
+	
+		NewDiv.innerHTML = tmp;
+
+  		NewCell2.appendChild(NewDiv);
+  	
+  	var NewCell3 = NewRow.insertCell(2);
+  		NewCell3.setAttribute("style","padding-top: 35px;");
+  		NewCell3.setAttribute("align","center");
+  	
+  // next tr
+  	var NewRow2 = table.insertRow(5);
+  	//NewRow2.id = "Ajout-Tps2";
+  	
+  	var NewCell4 = NewRow2.insertCell(0);
+  		NewCell4.setAttribute("text-align: center; padding-top: 15px;");
+  		
+  	var NewDiv2 = document.createElement("div");
+  		
+  	var input1 = document.createElement("input");
+  		input1.type = "date";
+  		input1.name = "Date[]";
+  	NewDiv2.appendChild(input1);
+  	NewCell4.appendChild(NewDiv2);
+  	
+  	//NewCell4.innerHTML = '<input id="Date" maxlength="100" name="Date[]" type="date" class="inputC2" placeholder="Date">';
+  	
+  	var NewCell5 = NewRow2.insertCell(1);
+  	NewCell5.setAttribute("text-align: center; padding-top: 15px;");
+  	//NewCell5.innerHTML = '<input id="Debut" maxlength="100" name="Debut[]" type="number" class="inputC2" placeholder="Nombre dheures">';
+  	
+  	var NewCell6 = NewRow2.insertCell(2);
+  	NewCell6.setAttribute("style","padding-top: 35px;");
+  	NewCell6.setAttribute("align","center");
+   }
+</script>          
+          
           <td align="left" style="padding-top: 35px;">
             <input name="submit" type="submit" value="Ajouter">
           </td>
@@ -202,13 +275,14 @@
           </td>
           <td align="center" style="padding-top: 35px;">
             <div class="selectType">
-              <select name="Member">
+              <select name="Member[]">
                     <?php
   $reponseTres = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom");
   while ($donneesTres = mysqli_fetch_assoc($reponseTres))
   {
     ?>          <option value="<?php echo $donneesTres['SAL_NumSalarie']; ?>"><?php echo strtoupper($donneesTres['PER_Nom']); ?> <?php echo $donneesTres['PER_Prenom']; ?></option>
                   <?php
+                  
   }
   mysqli_free_result($reponseTres);
   ?>                  
@@ -221,13 +295,13 @@
         </tr>
         <tr id="Ajout-Tps2" style="display:none;">
           <td style="text-align: center; padding-top: 15px;">
-                <input id="Date" maxlength="255" name="Date" type="date" class="inputC" placeholder="Date"> 
+                <input id="Date" maxlength="100" name="Date[]" type="date" class="inputC2" placeholder="Date"> 
           </td>
           <td align="center" style="padding-top: 15px;">
-            <input id="Debut" maxlength="255" name="Debut" type="time" class="inputC" placeholder="Debut"> 
+            <input id="Debut" maxlength="100" name="Debut[]" type="number" class="inputC2" placeholder="Nombre d'heures"> 
           </td>
           <td align="left" style="padding-top: 15px;">
-            <input id="Fin" maxlength="255" name="Fin" type="time" class="inputC" placeholder="Fin"> 
+            <input name="plus" type="button" value="+" onclick="AddWorkingTime()"> 
           </td>
         </tr>
         </form>
@@ -318,11 +392,13 @@
           </tbody>
         </table>
       </div>
-      <?php } mysqli_free_result($reponse4);?>
+      <?php } ?>
+     
     </div>
   <?php
   mysqli_free_result($reponse);
   ?>
+  
   <?php  
     include('footer.php');
     ?>
