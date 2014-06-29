@@ -1,13 +1,9 @@
 <?php  
     include('bandeau.php');
-    ?>
+?>
     <div id="corps">
 <?php
-	if($db = MySQLi_connect("localhost","Kepha",'pfudor', 'Revivre', 0, '/media/sds1/home/alx22/private/mysql/socket'))
-		echo '';
-	else
-		echo 'Erreur';
-
+// Modification client
   $num=$_POST["NumC"];
   $nom=addslashes($_POST["Nom"]);
   $prenom=addslashes($_POST["Prenom"]);
@@ -37,7 +33,7 @@
             </div>';
             $reponse = mysqli_query($db, "SELECT * FROM Clients cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE cl.PER_Num='$num'");
             $donnees = mysqli_fetch_assoc($reponse);
-	?>
+?>
   <br>
   <table>
   <td>
@@ -73,7 +69,7 @@
   </table>
 </td>
 </table>
-  <?php
+<?php
       }
       else{
         echo '<div id="bad">     
@@ -82,8 +78,8 @@
             }
             mysqli_free_result($reponse);
     }
-  ?>
+?>
   </div>
-  <?php  
+<?php  
     include('footer.php');
-    ?>
+?>

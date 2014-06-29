@@ -1,14 +1,7 @@
-		<?php  
-		include('bandeau.php');
-		?>
+<?php  
+	include('bandeau.php');
+?>
 		<script src="js/sorttable.js"></script>
-		<script language="javascript"> 
-			function fsubmit(value_p) 
-			{ 
-				document.forms['detailClient'].NumC.value = value_p; 
-				document.forms['detailClient'].submit(); 
-			} 
-		</script>
 		<script>
         $(document).ready(function() {
             $('.tooltip').tooltipster();
@@ -186,13 +179,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<?php
-
-	if($db = MySQLi_connect("localhost","Kepha",'pfudor', 'Revivre', 0, '/media/sds1/home/alx22/private/mysql/socket'))
-		echo '';
-	else
-		echo 'Erreur';
-
+<?php
 	$sorter = 'CHA_DateDebut';
 	$alpha = $_POST["submit"].'%';
 	if($_POST["trieur"]==0){
@@ -204,9 +191,10 @@
 	$reponse = mysqli_query($db, "SELECT * FROM Chantiers ch JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CNumDevis LEFT JOIN ChantierResp vre ON ch.CHA_NumDevis=vre.RNumDevis WHERE $sorter like '$alpha' ORDER BY $sorter");
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
-		?>				<form method="post" action="detailChantier.php" name="detailClient">
+?>
+						<form method="post" action="detailChantier.php" name="detailClient">
 							<input type="hidden" name="NumC" value="">
-							<tr onclick="javascript:fsubmit('<?php echo $donnees['CHA_NumDevis']; ?>');" style="font-size: 14;">
+							<tr onclick="javascript:submitViewDetail('<?php echo $donnees['CHA_NumDevis']; ?>', 'detailClient');" style="font-size: 14;">
 								<td><?php echo $donnees['CHA_Id']; ?></td>
 								<td><?php echo ucfirst(strtolower($donnees['CHA_Intitule'])); ?></td>
 								<td><?php echo strtoupper($donnees['Client']); ?> <?php echo $donnees['ClientP']; ?></td>
@@ -215,13 +203,13 @@
 								<td><?php echo dater($donnees['CHA_DateFinReel']); ?></td>
 							</tr>
 						</form>
-						<?php
+<?php
 	}
 	mysqli_free_result($reponse);
-	?>					
+?>					
 					</tbody>
 					</table>
 		</div>
-	<?php  
-		include('footer.php');
-		?>
+<?php  
+	include('footer.php');
+?>

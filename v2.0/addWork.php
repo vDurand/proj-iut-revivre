@@ -1,6 +1,6 @@
-		<?php  
-		include('bandeau.php');
-		?>
+<?php  
+	include('bandeau.php');
+?>
 		<div id="corps">
 			<div id="labelT">     
 				<label>Ajouter un Chantier</label>
@@ -16,23 +16,18 @@
 							<td>
 								<div class="selectType">
 		          					<select name="Client">
-		          			<?php
-
-	if($db = MySQLi_connect("localhost","Kepha",'pfudor', 'Revivre', 0, '/media/sds1/home/alx22/private/mysql/socket'))
-		echo '';
-	else
-		echo 'Erreur';
+<?php
 	$i = 2;
 	$reponse = mysqli_query($db, "SELECT * FROM Clients cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom");
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
-		?>
+?>
 				        				<option value="<?php echo $donnees['CLI_NumClient']; ?>"><?php echo strtoupper($donnees['PER_Nom']); ?> <?php echo $donnees['PER_Prenom']; ?></option>
-				        	<?php
-	$i++;
+<?php
+		$i++;
 	}
 	mysqli_free_result($reponse);
-	?>									
+?>									
 				    				</select>
 				    			</div>
 				    		</td>
@@ -113,15 +108,16 @@
 										<div class="selectType">
 										            <select name="Resp">
 										            	<option value=""></option>
-										                  <?php
-										$reponseBis = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom");
-										while ($donneesBis = mysqli_fetch_assoc($reponseBis))
-										{
-										  ?>          <option value="<?php echo $donneesBis['SAL_NumSalarie']; ?>"><?php echo strtoupper($donneesBis['PER_Nom']); ?> <?php echo $donneesBis['PER_Prenom']; ?></option>
-										                <?php
-										}
-										mysqli_free_result($reponseBis);
-										?>                  
+<?php
+	$reponse = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom");
+	while ($donnees = mysqli_fetch_assoc($reponse))
+	{
+?>
+														<option value="<?php echo $donnees['SAL_NumSalarie']; ?>"><?php echo strtoupper($donnees['PER_Nom']); ?> <?php echo $donnees['PER_Prenom']; ?></option>
+<?php
+	}
+	mysqli_free_result($reponse);
+?>                  
 										            </select>
 										          </div>
 									</td>
@@ -142,6 +138,6 @@
 				</table>
 			</form>
 		</div>
-		<?php  
-		include('footer.php');
-		?>
+<?php  
+	include('footer.php');
+?>

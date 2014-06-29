@@ -1,13 +1,9 @@
 ﻿<?php  
     include('bandeau.php');
-    ?>
+?>
     <div id="corps">
 <?php
-	if($db = MySQLi_connect("localhost","Kepha",'pfudor', 'Revivre', 0, '/media/sds1/home/alx22/private/mysql/socket'))
-		echo '';
-	else
-		echo 'Erreur';
-
+// Modification d un chantier
   $id=$_POST["NumC"];		
   $nom=strtoupper(addslashes($_POST["Nom"]));
   $num=strtoupper(addslashes($_POST["Num"]));
@@ -31,7 +27,7 @@
 			';
             $reponse = mysqli_query($db, "SELECT * FROM Chantiers ch JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CNumDevis LEFT JOIN ChantierResp vre ON ch.CHA_NumDevis=vre.RNumDevis LEFT JOIN ChantierEtat cet ON ch.CHA_NumDevis=NumDevis WHERE ch.CHA_NumDevis='$id' limit 1");
             $donnees = mysqli_fetch_assoc($reponse);
-	?>
+?>
   <br>
 <table>
         <td>
@@ -113,16 +109,16 @@
           </table>
         </td>
       </table>
-	  <?php
+<?php
       }
       else{
         echo '<div id="bad">     
               <label>Le chantier n a pas pu etre modifie</label>
               </div>';
-            }
-            mysqli_free_result($reponse);
-  ?>
+      }
+      mysqli_free_result($reponse);
+?>
   </div>
-  <?php  
+<?php  
     include('footer.php');
-    ?>
+?>

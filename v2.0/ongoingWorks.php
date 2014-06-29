@@ -1,14 +1,7 @@
-		<?php  
-		include('bandeau.php');
-		?>
+<?php  
+	include('bandeau.php');
+?>
 		<script src="js/sorttable.js"></script>
-		<script language="javascript"> 
-			function fsubmit(value_p) 
-			{ 
-				document.forms['detailClient'].NumC.value = value_p; 
-				document.forms['detailClient'].submit(); 
-			} 
-		</script>
 		<script>
         $(document).ready(function() {
             $('.tooltip').tooltipster();
@@ -43,13 +36,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<?php
-
-	if($db = MySQLi_connect("localhost","Kepha",'pfudor', 'Revivre', 0, '/media/sds1/home/alx22/private/mysql/socket'))
-		echo '';
-	else
-		echo 'Erreur';
-
+<?php
 	$sorter = 'CHA_DateDebut';
 
 /*CREATE OR REPLACE VIEW ChantierClient AS SELECT co.CHA_NumDevis, pe.PER_Nom as Client, pe.PER_Prenom as ClientP FROM Commanditer co JOIN Clients cl ON co.CLI_NumClient=cl.CLI_NumClient JOIN Personnes pe ON cl.PER_Num=pe.PER_Num;
@@ -69,9 +56,10 @@ CREATE OR REPLACE VIEW ChantierResp AS SELECT en.CHA_NumDevis as RNumDevis, pe.P
 	$reponse = mysqli_query($db, "SELECT * FROM ChantierMax Join TypeEtat ON IdMax=TYE_Id WHERE IdMax<4 ORDER BY CHA_DateDebut DESC");
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
-		?>				<form method="post" action="detailChantier.php" name="detailClient">
+?>
+						<form method="post" action="detailChantier.php" name="detailClient">
 							<input type="hidden" name="NumC" value="">
-							<tr onclick="javascript:fsubmit('<?php echo $donnees['CHA_NumDevis']; ?>');" style="font-size: 14;">
+							<tr onclick="javascript:submitViewDetail('<?php echo $donnees['CHA_NumDevis']; ?>', 'detailClient');" style="font-size: 14;">
 								<td><?php echo $donnees['CHA_Id']; ?></td>
 								<td><?php echo ucfirst(strtolower($donnees['CHA_Intitule'])); ?></td>
 								<td><?php echo strtoupper($donnees['Client']); ?> <?php echo $donnees['ClientP']; ?></td>
@@ -80,14 +68,14 @@ CREATE OR REPLACE VIEW ChantierResp AS SELECT en.CHA_NumDevis as RNumDevis, pe.P
 								<td><?php echo $donnees['TYE_Nom']; ?></td>
 							</tr>
 						</form>
-						<?php
+<?php
 	}
 	mysqli_free_result($reponse);
-	?>					
+?>					
 					</tbody>
 				</table>
 			</div>
 		</div>
-	<?php  
-		include('footer.php');
-		?>
+<?php  
+	include('footer.php');
+?>

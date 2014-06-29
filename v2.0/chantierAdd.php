@@ -1,13 +1,9 @@
 <?php  
-    include('bandeau.php');
-    ?>
+	include('bandeau.php');
+?>
     <div id="corps">
 <?php
-	if($db = MySQLi_connect("localhost","Kepha",'pfudor', 'Revivre', 0, '/media/sds1/home/alx22/private/mysql/socket'))
-		echo '';
-	else
-		echo 'Erreur';
-
+// Ajout responsable
   $resp=$_POST["Resp"];
   $num=$_POST["NumC"];
   $mem=$_POST["Member"];
@@ -40,7 +36,7 @@
   $reponse = mysqli_query($db, "SELECT * FROM Chantiers ch JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CNumDevis LEFT JOIN ChantierResp vre ON ch.CHA_NumDevis=vre.RNumDevis WHERE ch.CHA_NumDevis='$num'");
     
   $donnees = mysqli_fetch_assoc($reponse);
-	?>
+?>
   <br>
   <table>
   <td>
@@ -100,8 +96,9 @@
   </table>
 </td>
 </table>
-  <?php
+<?php
     mysqli_free_result($reponse);
+// Ajout tps de travail
     if($mem!=""){
 
     $query2 = "INSERT INTO TempsTravail (TRA_Date, TRA_Debut, TRA_Fin, CHA_NumDevis, SAL_NumSalarie) VALUES ('$date','$deb', '$fin', '$num', '$mem')";
@@ -120,6 +117,7 @@
               </div>';
       }
     }
+// Changement d etat
     if ($etat!="") {
     	$query3 = "INSERT INTO Etat (ETA_Date, CHA_NumDevis, TYE_Id) VALUES ('$dateNow', '$num', '$etat')";
     	
@@ -144,9 +142,8 @@
     	        </div>';
     	}
     }
-    
-  ?>
+?>
   </div>
-  <?php  
-    include('footer.php');
-    ?>
+ <?php  
+	include('footer.php');
+?>

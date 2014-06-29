@@ -1,6 +1,6 @@
-		<?php  
-		include('bandeau.php');
-		?>
+<?php  
+	include('bandeau.php');
+?>
 		<div id="corps">
 			<div id="labelT">     
 				<label>Admin Panel</label>
@@ -17,23 +17,16 @@
 								<div class="selectType">
 		          					<select name="Client">
 		          						<option value="0"></option>
-		          			<?php
-
-	if($db = MySQLi_connect("localhost","Kepha",'pfudor', 'Revivre', 0, '/media/sds1/home/alx22/private/mysql/socket'))
-		echo '';
-	else
-		echo 'Erreur';
-	$i = 2;
+<?php
 	$reponse = mysqli_query($db, "SELECT * FROM Clients cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom");
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
-		?>
+?>
 				        				<option value="<?php echo $donnees['PER_Num']; ?>"><?php echo $donnees['PER_Nom']; ?></option>
-				        	<?php
-	$i++;
+<?php
 	}
 	mysqli_free_result($reponse);
-	?>									
+?>									
 				    				</select>
 				    			</div>
 				    		</td>
@@ -46,23 +39,16 @@
 								<div class="selectType">
 		          					<select name="Fourn">
 		          						<option value="0"></option>
-		          			<?php
-
-	if($db = MySQLi_connect("localhost","Kepha",'pfudor', 'Revivre', 0, '/media/sds1/home/alx22/private/mysql/socket'))
-		echo '';
-	else
-		echo 'Erreur';
-	$i = 2;
+<?php
 	$reponse = mysqli_query($db, "SELECT * FROM Fournisseurs cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom");
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
-		?>
+?>
 				        				<option value="<?php echo $donnees['PER_Num']; ?>"><?php echo $donnees['PER_Nom']; ?></option>
-				        	<?php
-	$i++;
+<?php
 	}
 	mysqli_free_result($reponse);
-	?>									
+?>									
 				    				</select>
 				    			</div>
 				    		</td>
@@ -75,23 +61,16 @@
 								<div class="selectType">
 		          					<select name="Memb">
 		          						<option value="0"></option>
-		          			<?php
-
-	if($db = MySQLi_connect("localhost","Kepha",'pfudor', 'Revivre', 0, '/media/sds1/home/alx22/private/mysql/socket'))
-		echo '';
-	else
-		echo 'Erreur';
-	$i = 2;
+<?php
 	$reponse = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom");
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
-		?>
+?>
 				        				<option value="<?php echo $donnees['PER_Num']; ?>"><?php echo $donnees['PER_Nom']; ?></option>
-				        	<?php
-	$i++;
+<?php
 	}
 	mysqli_free_result($reponse);
-	?>									
+?>									
 				    				</select>
 				    			</div>
 				    		</td>
@@ -104,23 +83,16 @@
 								<div class="selectType">
 		          					<select name="Chantier">
 		          						<option value="0"></option>
-		          			<?php
-
-	if($db = MySQLi_connect("localhost","Kepha",'pfudor', 'Revivre', 0, '/media/sds1/home/alx22/private/mysql/socket'))
-		echo '';
-	else
-		echo 'Erreur';
-	$i = 2;
+<?php
 	$reponse = mysqli_query($db, "SELECT * FROM Chantiers");
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
-		?>
+?>
 				        				<option value="<?php echo $donnees['CHA_NumDevis']; ?>"><?php echo $donnees['CHA_Id']; ?></option>
-				        	<?php
-	$i++;
+<?php
 	}
 	mysqli_free_result($reponse);
-	?>									
+?>									
 				    				</select>
 				    			</div>
 				    		</td>
@@ -141,6 +113,6 @@
 				</div>
 			</form>
 		</div>
-		<?php  
-		include('footer.php');
-		?>
+<?php  
+	include('footer.php');
+?>

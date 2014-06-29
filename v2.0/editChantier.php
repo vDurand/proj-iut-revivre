@@ -1,53 +1,12 @@
 ﻿<?php  
     include('bandeau.php');
-    ?>
+?>
     <div id="corps">
-      <script language="javascript"> 
-      function addResp(){
-        if(document.getElementById('Ajout-Resp').style.display == "none")
-          document.getElementById('Ajout-Resp').style.display = "";
-        else
-          document.getElementById('Ajout-Resp').style.display = "none";
-      }
-      function addTps(){
-        if(document.getElementById('Ajout-Tps').style.display == "none"){
-          document.getElementById('Ajout-Tps').style.display = "";
-          document.getElementById('Ajout-Tps2').style.display = "";
-        }
-        
-        else{
-          document.getElementById('Ajout-Tps').style.display = "none";
-          document.getElementById('Ajout-Tps2').style.display = "none";
-        }
-      }
-      function changeEtat(){
-      	if(document.getElementById('Chang-Etat').style.display == "none")
-      	  document.getElementById('Chang-Etat').style.display = "";
-      	else
-      	  document.getElementById('Chang-Etat').style.display = "none";
-      }
-      function showFin(elem){
-      	if(elem.value == 4){
-      		document.getElementById('Chang-Etat2').style.display = "";
-      	}
-      	else {
-      		document.getElementById('Chang-Etat2').style.display = "none";
-      		document.getElementById('DateFin').value = "";
-      	}
-      }
-    </script>
 <?php
-	if($db = MySQLi_connect("localhost","Kepha",'pfudor', 'Revivre', 0, '/media/sds1/home/alx22/private/mysql/socket'))
-		echo '';
-	else
-		echo 'Erreur';
-
   $num=$_POST["NumC"];
-	//CREATE OR REPLACE VIEW ChantierEtat AS SELECT CHA_NumDevis as NumDevis, TYE_Nom as Etat, TYE_Id as Id FROM Chantiers JOIN Etat USING (CHA_NumDevis) JOIN TypeEtat USING (TYE_Id) ORDER BY TYE_Id DESC LIMIT 1;
   $reponse = mysqli_query($db, "SELECT * FROM Chantiers ch JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CNumDevis LEFT JOIN ChantierResp vre ON ch.CHA_NumDevis=vre.RNumDevis LEFT JOIN ChantierEtat cet ON ch.CHA_NumDevis=NumDevis WHERE ch.CHA_NumDevis='$num' limit 1");
   $donnees = mysqli_fetch_assoc($reponse);
-  
-	?>
+?>
 			<div id="labelT">     
 				<label>Modifier Chantier</label>
 			</div>
@@ -135,6 +94,6 @@
 				</table>
 			</form>
 		</div>
-		<?php  
-		include('footer.php');
-		?>
+<?php  
+	include('footer.php');
+?>

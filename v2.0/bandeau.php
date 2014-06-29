@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-
+<?php  
+	include('assets.php');
+?>
 <html>
 
 	<head>
@@ -8,37 +10,23 @@
 		<link rel="stylesheet" type="text/css" href="css/drop.css">
 		<link rel="stylesheet" type="text/css" href="css/table.css">
 		<link rel="stylesheet" type="text/css" href="css/alpha.css">
-		<?php
-		
-		function dater($str){
-			$formatDate = "d / m / Y";
-			$result = "";
-			if($str!="")
-				$result = date($formatDate, strtotime($str));
-			return $result;
-		}
-		$i=rand(1,2);
-		if($i==1){
-			echo '<link rel="icon" href="images/favicon2.png" sizes="16x16" />
-   		<link rel="icon" href="images/favicon2.ico" sizes="16x16" />
-   		<link rel="icon" href="images/favicon2.icns" sizes="16x16" />';
-		}
-		else{
-			echo '<link rel="icon" href="images/favicon1.png" sizes="16x16" />
-   		<link rel="icon" href="images/favicon1.ico" sizes="16x16" />
-   		<link rel="icon" href="images/favicon1.icns" sizes="16x16" />';
-		}
-		?>
+<?php
+	$i=rand(1,2);
+	if($i==1){
+		echo '<link rel="icon" href="images/favicon2.png" sizes="16x16" />
+		<link rel="icon" href="images/favicon2.ico" sizes="16x16" />
+		<link rel="icon" href="images/favicon2.icns" sizes="16x16" />';
+	}
+	else{
+		echo '<link rel="icon" href="images/favicon1.png" sizes="16x16" />
+		<link rel="icon" href="images/favicon1.ico" sizes="16x16" />
+		<link rel="icon" href="images/favicon1.icns" sizes="16x16" />';
+	}
+?>
 		<link rel="stylesheet" type="text/css" href="css/tooltipster.css" />
     	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.0.min.js"></script>
     	<script type="text/javascript" src="js/jquery.tooltipster.min.js"></script>
-    	<script language="javascript"> 
-			function fbissubmit(value_p) 
-			{ 
-				document.forms['viewDetailMember'].TypeM.value = value_p; 
-				document.forms['viewDetailMember'].submit(); 
-			} 
-		</script>
+    	<script type="text/javascript" src="js/assets.js"></script>
 		<title>Intranet association Revivre</title>
 		<!-- V. Durand | A. Freret | P. Friboulet | J. Le Bas | IUT Caen - DUT Info (2013-2015) -->
 	</head>
@@ -68,26 +56,24 @@
 									</li>
 									<li><a href="viewMembers.php">Membre de<br>l'association</a>
 										<ul>
-											<?php
-
-	if($db = MySQLi_connect("localhost","Kepha",'pfudor', 'Revivre', 0, '/media/sds1/home/alx22/private/mysql/socket'))
-		echo '';
-	else
-		echo 'Erreur';
+<?php
+	$db = revivre();
+	
 	$i = 2;
 	$reponse = mysqli_query($db, "SELECT * FROM Type");
 	
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
-		?>									<form method="post" action="viewSal.php" name="viewDetailMember">
-											<input type="hidden" name="TypeM" value="<?php echo $i; ?>">
-				        						<li><a onclick="javascript:fbissubmit('<?php echo $i; ?>');"><?php echo $donnees['TYP_Nom']; ?><br>&nbsp;</a></li>
+?>
+											<form method="post" action="viewSal.php" name="viewDetailMember">
+												<input type="hidden" name="TypeM" value="<?php echo $i; ?>">
+				        						<li><a onclick="javascript:submitListMember('<?php echo $i; ?>');"><?php echo $donnees['TYP_Nom']; ?><br>&nbsp;</a></li>
 				        					</form>
-				        	<?php
-	$i++;
+<?php
+		$i++;
 	}
 	mysqli_free_result($reponse);
-	?>										
+?>										
 										</ul>
 									</li>
 	                			</ul>

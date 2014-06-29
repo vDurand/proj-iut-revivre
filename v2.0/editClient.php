@@ -1,19 +1,13 @@
-		<?php  
-		include('bandeau.php');
-		?>
+<?php  
+	include('bandeau.php');
+?>
 		<div id="corps">
-			<?php
-	if($db = MySQLi_connect("localhost","Kepha",'pfudor', 'Revivre', 0, '/media/sds1/home/alx22/private/mysql/socket'))
-		echo '';
-	else
-		echo 'Erreur';
-
+<?php
   $num=$_POST["NumC"];
 
   $reponse = mysqli_query($db, "SELECT * FROM Clients cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE CLI_NumClient='$num'");
   $donnees = mysqli_fetch_assoc($reponse);
-  
-	?>
+?>
 			<div id="labelT">     
 				<label>Modifier Client</label>
 			</div>
@@ -125,6 +119,6 @@
 				</table>
 			</form>
 		</div>
-		<?php  
-		include('footer.php');
-		?>
+<?php  
+	include('footer.php');
+?>

@@ -1,13 +1,8 @@
 <?php  
     include('bandeau.php');
-    ?>
+?>
     <div id="corps">
 <?php
-	if($db = MySQLi_connect("localhost","Kepha",'pfudor', 'Revivre', 0, '/media/sds1/home/alx22/private/mysql/socket'))
-		echo '';
-	else
-		echo 'Erreur';
-
   $client=addslashes($_POST["Client"]);
   $chantier=addslashes($_POST["Chantier"]);
   $memb=addslashes($_POST["Memb"]);
@@ -132,8 +127,8 @@
               </div>';
       }
   }
-  ?>
+?>
   </div>
-  <?php  
+<?php  
     include('footer.php');
-    ?>
+?>

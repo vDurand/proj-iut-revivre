@@ -1,43 +1,7 @@
-		<?php  
-		include('bandeau.php');
-		?>
+<?php  
+	include('bandeau.php');
+?>
 		<div id="corps">
-			<script language="javascript"> 
-			function showDiv(elem){
-   				if(elem.value > 1){
-     			 document.getElementById('Contact-Fonction').style.display = "";
-     			 document.getElementById('Contact-Fax').style.display = "none";
-     			 //document.getElementById('Contact-Structure').style.display = "none";
-     			 document.getElementById('Contact-Particulier').style.display = "none";
-     			 document.getElementById('Contact-Prenom').style.display = "";
-     			}
-     			if(elem.value < 2){
-     			 document.getElementById('Contact-Fonction').style.display = "none";
-     			 document.getElementById('Struct').value = ""; 
-     			 document.getElementById('Contact-Fax').style.display = "";
-     			 //document.getElementById('Contact-Structure').style.display = "";
-     			 document.getElementById('Contact-Particulier').style.display = "";
-     			 document.getElementById('Contact-Prenom').style.display = "none";
-     			 document.getElementById('Prenom').value = ""; 
-     			}
-     			/*if(elem.value == 1){
-     			 document.getElementById('Contact-Particulier').style.display = "none";
-     			}
-     			if(elem.value == 0){
-     			 document.getElementById('Contact-Particulier').style.display = "";
-     			}*/
-			}
-			function showStruct(){
-			    if (document.getElementById('yesCheck').checked) {
-			        //document.getElementById('Contact-Prenom').style.visibility = 'hidden';
-			        document.getElementById('Contact-Prenom').style.display = "";
-			    } else {
-			        //document.getElementById('Contact-Prenom').style.visibility = 'visible';
-			        document.getElementById('Contact-Prenom').style.display = "none";
-			     	document.getElementById('Prenom').value = "";   
-			    }
-     		}
-		</script>
 			<div id="labelT">     
 				<label>Ajouter un Contact</label>
 			</div>
@@ -51,26 +15,21 @@
 							</td>
 							<td>
 								<div class="selectType">
-		          					<select name="Type" onchange="showDiv(this)">
+		          					<select name="Type" onchange="showMemberInput(this)">
 		          						<option value="0">Client</option>
 										<option value="1">Fournisseur</option>
-		          			<?php
-
-	if($db = MySQLi_connect("localhost","Kepha",'pfudor', 'Revivre', 0, '/media/sds1/home/alx22/private/mysql/socket'))
-		echo '';
-	else
-		echo 'Erreur';
+<?php
 	$i = 2;
 	$reponse = mysqli_query($db, "SELECT * FROM Type");
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
-		?>
+?>
 				        				<option value="<?php echo $i; ?>"><?php echo $donnees['TYP_Nom']; ?></option>
-				        	<?php
-	$i++;
+<?php
+		$i++;
 	}
 	mysqli_free_result($reponse);
-	?>									
+?>									
 				    				</select>
 				    			</div>
 				    		</td>
@@ -180,16 +139,6 @@
 										<input id="Ville" required maxlength="255" name="Ville" type="text" fieldtype="1" class="inputC" delugetype="STRING">
 									</td>
 								</tr>
-							<!--
-								<tr id="Contact-Structure">
-									<td style="text-align: left; width: 150px; white-space: normal;">
-										<label>Structure :</label>
-									</td>
-									<td>
-										<input id="Struct" maxlength="255" name="Struct" type="text" fieldtype="1" class="inputC" delugetype="STRING">
-									</td>
-								</tr>
-							-->
 							</table>
 						</td>
 					</table>
@@ -206,6 +155,6 @@
 				</table>
 			</form>
 		</div>
-		<?php  
-		include('footer.php');
-		?>
+<?php  
+	include('footer.php');
+?>

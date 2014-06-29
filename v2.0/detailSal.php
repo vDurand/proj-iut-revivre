@@ -1,19 +1,13 @@
 <?php  
     include('bandeau.php');
-    ?>
+?>
     <div id="corps">
 <?php
-	if($db = MySQLi_connect("localhost","Kepha",'pfudor', 'Revivre', 0, '/media/sds1/home/alx22/private/mysql/socket'))
-		echo '';
-	else
-		echo 'Erreur';
-
   $num=$_POST["NumC"];
 
   $reponse = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num JOIN Type ty ON cl.TYP_Id=ty.TYP_Id WHERE SAL_NumSalarie='$num' ORDER BY PER_Nom");
   $donnees = mysqli_fetch_assoc($reponse);
-  
-	?>
+?>
       <div id="labelT">     
             <label>Detail du Membre</label>
       </div>
@@ -81,11 +75,9 @@
         </table>
       </form>
     </div>
-  <?php
-  
-
+<?php
   mysqli_free_result($reponse);
-  ?>
-  <?php  
+?>
+<?php  
     include('footer.php');
-    ?>
+?>

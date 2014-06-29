@@ -1,6 +1,6 @@
-﻿		<?php  
-		include('bandeau.php');
-		?>
+﻿<?php  
+	include('bandeau.php');
+?>
 		<head>
 			<link rel="stylesheet" type="text/css" href="css/index.css">
 			<link rel="stylesheet" type="text/css" href="css/control.css" media="print">

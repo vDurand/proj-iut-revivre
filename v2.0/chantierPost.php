@@ -1,13 +1,9 @@
 <?php  
-    include('bandeau.php');
-    ?>
+	include('bandeau.php');
+?>
     <div id="corps">
 <?php
-	if($db = MySQLi_connect("localhost","Kepha",'pfudor', 'Revivre', 0, '/media/sds1/home/alx22/private/mysql/socket'))
-		echo '';
-	else
-		echo 'Erreur';
-
+// Creation d un chantier
   $client=strtoupper(addslashes($_POST["Client"]));
   $nom=strtoupper(addslashes($_POST["Nom"]));
   $num=strtoupper(addslashes($_POST["Num"]));
@@ -53,7 +49,7 @@
 	            $reponse = mysqli_query($db, "SELECT * FROM Chantiers ch JOIN Commanditer co ON co.CHA_NumDevis=ch.CHA_NumDevis JOIN Clients cl ON cl.CLI_NumClient=co.CLI_NumClient JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE ch.CHA_NumDevis='$realNumber'");
 	            
 	            $donnees = mysqli_fetch_assoc($reponse);
-	?>
+?>
   <br>
   <table>
   <td>
@@ -105,7 +101,7 @@
   </table>
 </td>
 </table>
-  <?php
+<?php
 	      }
 	      else{
 	        echo '<div id="bad">     
@@ -126,9 +122,8 @@
             <label>Le chantier n\'a pas pu être ajouté</label>
             </div>';
     }
-    
-  ?>
+?>
   </div>
-  <?php  
-    include('footer.php');
-    ?>
+<?php  
+	include('footer.php');
+?>

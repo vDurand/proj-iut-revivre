@@ -1,13 +1,9 @@
 <?php  
     include('bandeau.php');
-    ?>
+?>
     <div id="corps">
 <?php
-	if($db = MySQLi_connect("localhost","Kepha",'pfudor', 'Revivre', 0, '/media/sds1/home/alx22/private/mysql/socket'))
-		echo '';
-	else
-		echo 'Erreur';
-
+// Ajout contact
   $type=addslashes($_POST["Type"]);
   $nom=addslashes($_POST["Nom"]);
   $prenom=addslashes($_POST["Prenom"]);
@@ -20,9 +16,8 @@
   $ville=addslashes($_POST["Ville"]);
   $struct=addslashes($_POST["Particulier"]);
   $fonct=addslashes($_POST["Fonction"]);
-  //$sex=addslashes($_POST["Sexe"]);
 
-	$query = "INSERT INTO Personnes (PER_Num, PER_Nom, PER_Prenom, PER_TelFixe, PER_TelPort, PER_Fax, PER_Email, PER_Adresse, PER_CodePostal, PER_Ville) VALUES (NULL, '$nom', '$prenom', '$tel', '$port', '$fax', '$email', '$add', '$cp', '$ville')";
+  $query = "INSERT INTO Personnes (PER_Num, PER_Nom, PER_Prenom, PER_TelFixe, PER_TelPort, PER_Fax, PER_Email, PER_Adresse, PER_CodePostal, PER_Ville) VALUES (NULL, '$nom', '$prenom', '$tel', '$port', '$fax', '$email', '$add', '$cp', '$ville')";
 
   $sql = mysqli_query($db, $query);
   $errr=mysqli_error($db);
@@ -58,7 +53,7 @@
               $reponse = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE cl.PER_Num='$realNumber'");
             }
             $donnees = mysqli_fetch_assoc($reponse);
-	?>
+?>
   <br>
   <table>
   <td>
@@ -94,7 +89,7 @@
   </table>
 </td>
 </table>
-  <?php
+<?php
       }
       else{
         echo '<div id="bad">     
@@ -103,8 +98,8 @@
             }
             mysqli_free_result($reponse);
     }
-  ?>
+?>
   </div>
-  <?php  
+<?php  
     include('footer.php');
-    ?>
+?>
