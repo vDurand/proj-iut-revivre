@@ -3,13 +3,35 @@
 ?>
     <div id="corps">
 <?php
+
+  $j=0;
+  foreach($_POST["Member"] AS $numMb){
+	$mem[$j] = $numMb;
+	$j++;
+  }
+  $max = $j;
+  $j=0;
+  foreach($_POST["Date"] AS $numJr){
+  	$date[$j] = $numJr;
+  	$j++;
+  }
+  $j=0;
+  foreach($_POST["Debut"] AS $numHr){
+  	$heure[$j] = $numHr;
+  	$j++;
+  }
+  
+  echo "<PRE>";
+  print_r($mem);
+  print_r($date);
+  print_r($heure);
+  echo "</PRE>";
 // Ajout responsable
   $resp=$_POST["Resp"];
   $num=$_POST["NumC"];
-  $mem=$_POST["Member"];
-  $date=$_POST["Date"];
-  $deb=$_POST["Debut"];
-  $fin=$_POST["Fin"];
+  //$mem=$_POST["Member"];
+  //$date=$_POST["Date"];
+  //$deb=$_POST["Debut"];
   date_default_timezone_set('France/Paris');
   $dateNow = date('Y-m-d H:i:s', time());
   $etat=$_POST["EtatA"];
@@ -99,23 +121,26 @@
 <?php
     mysqli_free_result($reponse);
 // Ajout tps de travail
-    if($mem!=""){
-
-    $query2 = "INSERT INTO TempsTravail (TRA_Date, TRA_Debut, TRA_Fin, CHA_NumDevis, SAL_NumSalarie) VALUES ('$date','$deb', '$fin', '$num', '$mem')";
-
-    $sql2 = mysqli_query($db, $query2);
-    $errr2=mysqli_error($db);
-
-      if($sql2){
-          echo '<div id="good">     
-              <label>Travail ajouté avec succès</label>
-              </div>';
-      }
-      else{
-        echo '<div id="bad">     
-              <label>Le temps de travail n\'a pas pu être ajouté</label>
-              </div>';
-      }
+    if($mem[0]!=""){
+	//$i = 0;
+		for($i = 0; $i < $max; $i++){
+			$query2 = "INSERT INTO TempsTravail (TRA_Date, TRA_Duree, CHA_NumDevis, SAL_NumSalarie) VALUES ('$date[$i]','$heure[$i]', '$num', '$mem[$i]')";
+			
+			    $sql2 = mysqli_query($db, $query2);
+			    $errr2=mysqli_error($db);
+			
+			      if($sql2){
+			          echo '<div id="good">     
+			              <label>Travail ajouté avec succès</label>
+			              </div>';
+			      }
+			      else{
+			        echo '<div id="bad">     
+			              <label>Le temps de travail n\'a pas pu être ajouté</label>
+			              </div>';
+			      }
+			//$i++;
+		}
     }
 // Changement d etat
     if ($etat!="") {

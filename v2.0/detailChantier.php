@@ -166,15 +166,15 @@
         </form>
         </tr>
 <!-- Ajout Tps Travail -->
-        <form method="post" action="chantierAdd.php" name="Chantier" formtype="1" colvalue="2">
+        <form method="post" action="chantierAdd.php" name="AddWork" id="AddWork">
         <tr id="Ajout-Tps" style="display:none;">
-          <input type="hidden" name="NumC" value="<?php echo $donnees['CHA_NumDevis']; ?>">
+          <input form="AddWork" type="hidden" name="NumC" value="<?php echo $donnees['CHA_NumDevis']; ?>">
           <td style="text-align: center; padding-top: 35px;">
                 <label>Membres : </label>
           </td>
           <td align="center" style="padding-top: 35px;">
             <div class="selectType">
-              <select name="Member[]">
+              <select form="AddWork" name="Member[]">
               	<option></option>
 <?php
   $reponseTres = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom");
@@ -190,20 +190,23 @@
             </div>
           </td>
           <td align="left" style="padding-top: 35px;">
-            <input name="submit" type="submit" value="Ajouter">
+            <input form="AddWork" name="submit" type="submit" value="Ajouter">
+            <input form="AddWork" name="reset" type="reset" value="Annuler">
           </td>
         </tr>
         <tr id="Ajout-Tps2" style="display:none;">
           <td style="text-align: center; padding-top: 15px;">
-                <input id="Date" maxlength="100" name="Date[]" type="date" class="inputC2" placeholder="Date"> 
+                <input form="AddWork" id="Date" maxlength="100" name="Date[]" type="date" class="inputC2" placeholder="Date"> 
           </td>
           <td align="center" style="padding-top: 15px;">
-            <input id="Debut" maxlength="100" name="Debut[]" type="number" class="inputC2" placeholder="Nombre d'heures"> 
+            <input form="AddWork" id="Debut" maxlength="100" name="Debut[]" type="time" class="inputC2" placeholder="Nombre d'heures"> 
           </td>
           <td align="left" style="padding-top: 15px;">
-            <input name="plus" type="button" value="+" onclick="AddWorkingTime()"> 
+            <input name="plus" type="button" value="+" onclick="AddWorkingTime()">
+            <input name="moins" type="button" value="-" onclick="RmWorkingTime()">  
           </td>
         </tr>
+        <tr id="placeholder_row_bottom"></tr>
         </form>
 <!-- Changement Etat Chantier -->
         <form method="post" action="chantierAdd.php" name="Chantier" formtype="1" colvalue="2">
@@ -253,44 +256,36 @@
       <table cellpadding="5">
             <thead>
             <tr>
-              <td class="firstCol" style="text-align: center; width: 200px;">
+              <td class="firstCol" style="text-align: center; width: 600px;">
                 <a>Membre</a>
               </td>
               <td style="text-align: center; width: 200px;">
                 <a>Date</a>
               </td>
               <td style="text-align: center; width: 200px;">
-                <a>Debut</a>
-              </td>
-              <td style="text-align: center; width: 200px;">
-                <a>Fin</a>
-              </td>
-              <td style="text-align: center; width: 155px;">
-                <a>Duree</a>
+                <a>Durée</a>
               </td>
             </tr>
           </thead>
           <tbody>
 <?php
-		$reponse3 = mysqli_query($db, "SELECT *, TIMEDIFF(TRA_Fin, TRA_Debut) as duree FROM TempsTravail ttps JOIN Salaries sal ON ttps.SAL_NumSalarie=sal.SAL_NumSalarie JOIN Personnes pe ON pe.PER_Num=sal.PER_Num WHERE ttps.CHA_NumDevis='$num' ORDER BY ttps.TRA_Date ASC");
+		$reponse3 = mysqli_query($db, "SELECT * FROM TempsTravail ttps JOIN Salaries sal ON ttps.SAL_NumSalarie=sal.SAL_NumSalarie JOIN Personnes pe ON pe.PER_Num=sal.PER_Num WHERE ttps.CHA_NumDevis='$num' ORDER BY ttps.TRA_Date ASC");
 		while ($donnees3 = mysqli_fetch_assoc($reponse3))
 		{
 ?>
 	        <tr style="font-size: 14;">
                 <td><?php echo strtoupper($donnees3['PER_Nom']); ?> <?php echo $donnees3['PER_Prenom']; ?></td>
                 <td><?php echo dater($donnees3['TRA_Date']); ?></td>
-                <td><?php echo $donnees3['TRA_Debut']; ?></td>
-                <td><?php echo $donnees3['TRA_Fin']; ?></td>
-                <td><?php echo $donnees3['duree']; ?></td>
+                <td><?php echo $donnees3['TRA_Duree']; ?></td>
               </tr>
 <?php
 		}
 		mysqli_free_result($reponse3);
-		$reponse4 = mysqli_query($db, "SELECT TIME(SUM(TRA_Fin-TRA_Debut)) as total FROM TempsTravail ttps WHERE ttps.CHA_NumDevis='$num' GROUP BY CHA_NumDevis");
+		$reponse4 = mysqli_query($db, "SELECT TIME(SUM(TRA_Duree)) as total FROM TempsTravail ttps WHERE ttps.CHA_NumDevis='$num' GROUP BY CHA_NumDevis");
 		$donnees4 = mysqli_fetch_assoc($reponse4)
 ?>
 	         <tr style="font-size: 14;">
-              <td colspan="3"></td>
+              <td></td>
               <td style="font-weight: bold;">Heures Totales : </td>
               <td style="font-weight: bold;"><?php echo $donnees4['total']; ?></td>
             </tr> 
@@ -299,16 +294,15 @@
       </div>
 <?php
 		mysqli_free_result($reponse4);
-	} 
+	}
+	mysqli_free_result($reponse);  
 ?>
     </div>
 <?php
-  mysqli_free_result($reponse);
-?>
-<?php  
     include('footer.php');
 ?>
 <script type="text/javascript">
+	var buttonCount = 1;
 // Add tps travail form ++ (detailChantier)
 	function AddWorkingTime()
 	{
@@ -333,7 +327,7 @@
 	  		NewDiv.setAttribute("class","selectType");
 	  
 	  // insertion array in select option via tmp
-		  	tmp = '<select  name="Member[]">';
+		  	tmp = '<select form="AddWork" name="Member[]">';
 				for (var i in jWorkers) {
 					tmp += '<option value="'+jIds[i]+'">'+jWorkers[i]+"</option>\n";
 				}
@@ -349,27 +343,42 @@
 	  	
 	  // next tr
 	  	var NewRow2 = table.insertRow(5);
-	  	//NewRow2.id = "Ajout-Tps2";
+	  	NewRow2.id = "Ajout-Tps2";
 	  	
 	  	var NewCell4 = NewRow2.insertCell(0);
-	  		NewCell4.setAttribute("text-align: center; padding-top: 15px;");
+	  		NewCell4.setAttribute("style","text-align: center; padding-top: 15px;");
 	  		
-	  	var NewDiv2 = document.createElement("div");
+	  	/*var NewDiv2 = document.createElement("div");
 	  		
 	  	var input1 = document.createElement("input");
 	  		input1.type = "date";
 	  		input1.name = "Date[]";
 	  	NewDiv2.appendChild(input1);
-	  	NewCell4.appendChild(NewDiv2);
+	  	NewCell4.appendChild(NewDiv2);*/
 	  	
-	  	//NewCell4.innerHTML = '<input id="Date" maxlength="100" name="Date[]" type="date" class="inputC2" placeholder="Date">';
+	  	NewCell4.innerHTML = '<input form="AddWork" id="Date" maxlength="100" name="Date[]" type="date" class="inputC2" placeholder="Date">';
 	  	
 	  	var NewCell5 = NewRow2.insertCell(1);
-	  	NewCell5.setAttribute("text-align: center; padding-top: 15px;");
-	  	//NewCell5.innerHTML = '<input id="Debut" maxlength="100" name="Debut[]" type="number" class="inputC2" placeholder="Nombre dheures">';
+	  	NewCell5.setAttribute("style","text-align: center; padding-top: 15px;");
+	  	NewCell5.innerHTML = '<input form="AddWork" id="Debut" maxlength="100" name="Debut[]" type="time" class="inputC2" placeholder="Nombre dheures">';
 	  	
 	  	var NewCell6 = NewRow2.insertCell(2);
 	  	NewCell6.setAttribute("style","padding-top: 35px;");
 	  	NewCell6.setAttribute("align","center");
+	  	
+	  	/*var AllDiv = document.createElement("div");
+	  	AllDiv.appendChild(NewRow);
+	  	AllDiv.appendChild(NewRow2);*/
+	  	
+	  	buttonCount++;
 	}
+// Remove tps travail form -- (detailChantier)
+	function RmWorkingTime()
+	{
+		if (buttonCount > 1) {
+			$("#placeholder_row_bottom").prev().remove();
+			buttonCount--;
+			$("#placeholder_row_bottom").prev().remove();
+		}
+	}	
 </script>
