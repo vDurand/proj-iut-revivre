@@ -87,12 +87,21 @@
 						<td>
 							<span>
 								<input name="submit" type="submit" value="Valider" class="buttonC">&nbsp;&nbsp; 
-								<input name="reset" type="reset" value="Annuler" class="buttonC">
 							</span>
+						</td>
+						<td>
+							<input name="reset" type="reset" value="Annuler" class="buttonC">
+							</form>
+						</td>
+						<td>
+							<form id="return" method="post" action="detailChantier.php" name="detailClient">
+								<input form="return" type="hidden" name="NumC" value="<?php echo $num; ?>">
+								<input form="return" name="submit" type="submit" value="Retour" class="buttonC">
+							</form>
 						</td>
 					</tr>
 				</table>
-			</form>
+			
 		</div>
 <?php  
 	include('footer.php');

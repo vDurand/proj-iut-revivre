@@ -27,6 +27,10 @@
     	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.0.min.js"></script>
     	<script type="text/javascript" src="js/jquery.tooltipster.min.js"></script>
     	<script type="text/javascript" src="js/assets.js"></script>
+    	<link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.5.1.css">
+    	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    	<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    	<script src="http://cdn.oesmith.co.uk/morris-0.5.1.min.js"></script>
 		<title>Intranet association Revivre</title>
 		<!-- V. Durand | A. Freret | P. Friboulet | J. Le Bas | IUT Caen - DUT Info (2013-2015) -->
 	</head>
