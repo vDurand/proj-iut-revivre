@@ -1,7 +1,7 @@
 ﻿DONE - rajouter mailto:
 DONE - fin réel du chantier sur le devis
 DONE - doublon date de fin prévu/échéance
-- pouvoir ajouter du temps de travail à plusieurs membres en même temps
+DONE - pouvoir ajouter du temps de travail à plusieurs membres en même temps
 DONE - temps de travail, juste ajouter le nombre d'heures de travail, pas besoin de date+heure => Date + durée, that's all folks !
 DONE - ajouter un caclul automatique du nombre d'heures totales
 - fournisseur, date, montant, type (carburant, matière, ...), PAS de quantité (paye ta peinture au centilittre!)

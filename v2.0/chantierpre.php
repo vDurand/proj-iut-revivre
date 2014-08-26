@@ -88,7 +88,7 @@
             </tr>
 			<tr>
               <th style="text-align: left; width: 150px; white-space: normal;">Heures Prévues:</th>
-              <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_HeuresPrev']; ?></td>
+              <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_HeuresPrev']; $Hmax = $donnees['CHA_HeuresPrev']; ?></td>
             </tr>
             <tr>
               <th style="text-align: left; width: 150px; white-space: normal;">Responsable:</th>
@@ -322,12 +322,37 @@
           </tbody>
         </table>
       </div>
+      <div id="HoursEvolution" style="height: 400px;"></div>
 <?php
 		mysqli_free_result($reponse4);
 	}
 	mysqli_free_result($reponse);  
 ?>
     </div>
+    <script type="text/javascript">
+    	Morris.Line({
+    	  element: 'HoursEvolution',
+    	  data: [
+    	  	<?php
+    	  	$reponse5 = mysqli_query($db, "SELECT * FROM TempsTravail ttps JOIN Salaries sal ON ttps.SAL_NumSalarie=sal.SAL_NumSalarie JOIN Personnes pe ON pe.PER_Num=sal.PER_Num WHERE ttps.CHA_NumDevis='$num' ORDER BY ttps.TRA_Date ASC");
+    	  	while ($donnees5 = mysqli_fetch_assoc($reponse5))
+    	  	{
+    	  	?>
+    	    { y: '<?php echo $donnees5['TRA_Date']; ?>', a: <?php $croissance = $croissance + $donnees5['TRA_Duree']; echo $croissance; ?>},
+    	    <?php
+    	    		}
+    	    		mysqli_free_result($reponse5);
+    	    ?>
+    	  ],
+    	  xkey: 'y',
+    	  ykeys: ['a'],
+    	  labels: ['Nombre d\'heures'],
+    	  goals: [<?php echo $Hmax; ?>],
+    	  goalLineColors: ['Red'],
+    	  goalStrokeWidth: 4,
+    	  lineColors: ['green']
+    	});
+    </script>
 <?php  
     include('footer.php');
 ?>
