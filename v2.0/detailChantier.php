@@ -328,14 +328,35 @@
 	  element: 'HoursEvolution',
 	  data: [
 	  	<?php
+	  	$i = 0;
 	  	$reponse5 = mysqli_query($db, "SELECT * FROM TempsTravail ttps JOIN Salaries sal ON ttps.SAL_NumSalarie=sal.SAL_NumSalarie JOIN Personnes pe ON pe.PER_Num=sal.PER_Num WHERE ttps.CHA_NumDevis='$num' ORDER BY ttps.TRA_Date ASC");
 	  	while ($donnees5 = mysqli_fetch_assoc($reponse5))
 	  	{
-	  	?>
-	    { y: '<?php echo $donnees5['TRA_Date']; ?>', a: <?php $croissance = $croissance + $donnees5['TRA_Duree']; echo $croissance; ?>},
-	    <?php
-	    		}
-	    		mysqli_free_result($reponse5);
+	  		$hourTable[$i] = $donnees5['TRA_Duree'];
+	  		$dateTable[$i] = $donnees5['TRA_Date'];
+	  		$i++;
+		}
+		mysqli_free_result($reponse5);
+		
+		$sommeTable[0] = $hourTable[0];
+		$distinctDate[0] = $dateTable[0];
+		$k = 0;
+		
+		for ($j = 1; $j < $i; $j++) {
+			if ($dateTable[$j] == $dateTable[$j-1]) {
+				$sommeTable[$k] = $sommeTable[$k] + $hourTable[$j];
+			}
+			else {
+				$k++;
+				$sommeTable[$k] = $hourTable[$j];
+				$distinctDate[$k] = $dateTable[$j];
+			}
+		}
+		
+		for ($i = 0; $i < $k+1; $i++) {?>
+			{ y: '<?php echo $distinctDate[$i]; ?>', a: <?php $croissance = $croissance + $sommeTable[$i]; echo $croissance; ?>},
+		<?php	
+		}
 	    ?>
 	  ],
 	  xkey: 'y',

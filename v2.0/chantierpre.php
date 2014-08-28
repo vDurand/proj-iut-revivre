@@ -76,7 +76,7 @@
 ?>
             <tr>
               <th style="text-align: left; width: 150px; white-space: normal;">Etat du Devis:</th>
-              <td style="text-align: center; width: 200px;"><?php echo $donnees['Etat']; ?></td>
+              <td style="text-align: center; width: 200px;"><div id="stateOfSite"><?php echo $donnees['Etat']; ?></div></td>
             </tr>
             <tr>
               <th style="text-align: left; width: 150px; white-space: normal;">Montant Prévu:</th>
@@ -88,7 +88,7 @@
             </tr>
 			<tr>
               <th style="text-align: left; width: 150px; white-space: normal;">Heures Prévues:</th>
-              <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_HeuresPrev']; $Hmax = $donnees['CHA_HeuresPrev']; ?></td>
+              <td style="text-align: center; width: 200px;"><div id="hoursOnSite"><?php echo $donnees['CHA_HeuresPrev']; $Hmax = $donnees['CHA_HeuresPrev'];?></div></td>
             </tr>
             <tr>
               <th style="text-align: left; width: 150px; white-space: normal;">Responsable:</th>
@@ -329,30 +329,88 @@
 	mysqli_free_result($reponse);  
 ?>
     </div>
-    <script type="text/javascript">
-    	Morris.Line({
-    	  element: 'HoursEvolution',
-    	  data: [
-    	  	<?php
-    	  	$reponse5 = mysqli_query($db, "SELECT * FROM TempsTravail ttps JOIN Salaries sal ON ttps.SAL_NumSalarie=sal.SAL_NumSalarie JOIN Personnes pe ON pe.PER_Num=sal.PER_Num WHERE ttps.CHA_NumDevis='$num' ORDER BY ttps.TRA_Date ASC");
-    	  	while ($donnees5 = mysqli_fetch_assoc($reponse5))
-    	  	{
-    	  	?>
-    	    { y: '<?php echo $donnees5['TRA_Date']; ?>', a: <?php $croissance = $croissance + $donnees5['TRA_Duree']; echo $croissance; ?>},
-    	    <?php
-    	    		}
-    	    		mysqli_free_result($reponse5);
-    	    ?>
-    	  ],
-    	  xkey: 'y',
-    	  ykeys: ['a'],
-    	  labels: ['Nombre d\'heures'],
-    	  goals: [<?php echo $Hmax; ?>],
-    	  goalLineColors: ['Red'],
-    	  goalStrokeWidth: 4,
-    	  lineColors: ['green']
-    	});
-    </script>
+<script type="text/javascript">
+	window.onload=function(){
+		var state = "<?php echo $IdEtat; ?>";
+		document.getElementById('stateOfSite').style.color = 'white';	
+		switch (state) {
+	        case "1":
+	            document.getElementById('stateOfSite').style.backgroundColor = 'grey';
+	            break;
+	        case "2":
+	            document.getElementById('stateOfSite').style.backgroundColor = 'green';
+	            break;
+	        case "3":
+	            document.getElementById('stateOfSite').style.backgroundColor = 'yellow';
+	            document.getElementById('stateOfSite').style.color = 'black';	
+	            break;
+	        case "4":
+	            document.getElementById('stateOfSite').style.backgroundColor = 'yellow';
+	            document.getElementById('stateOfSite').style.color = 'black';	
+	            break;
+	        case "5":
+	            document.getElementById('stateOfSite').style.backgroundColor = 'red';
+	            break;
+		}
+	};
+	
+	Morris.Line({
+	  element: 'HoursEvolution',
+	  data: [
+	  	<?php
+	  	$i = 0;
+	  	$reponse5 = mysqli_query($db, "SELECT * FROM TempsTravail ttps JOIN Salaries sal ON ttps.SAL_NumSalarie=sal.SAL_NumSalarie JOIN Personnes pe ON pe.PER_Num=sal.PER_Num WHERE ttps.CHA_NumDevis='$num' ORDER BY ttps.TRA_Date ASC");
+	  	while ($donnees5 = mysqli_fetch_assoc($reponse5))
+	  	{
+	  		$hourTable[$i] = $donnees5['TRA_Duree'];
+	  		$dateTable[$i] = $donnees5['TRA_Date'];
+	  		$i++;
+		}
+		mysqli_free_result($reponse5);
+		
+		$sommeTable[0] = $hourTable[0];
+		$distinctDate[0] = $dateTable[0];
+		$k = 0;
+		
+		for ($j = 1; $j < $i; $j++) {
+			if ($dateTable[$j] == $dateTable[$j-1]) {
+				$sommeTable[$k] = $sommeTable[$k] + $hourTable[$j];
+			}
+			else {
+				$k++;
+				$sommeTable[$k] = $hourTable[$j];
+				$distinctDate[$k] = $dateTable[$j];
+			}
+		}
+		
+		for ($i = 0; $i < $k+1; $i++) {?>
+			{ y: '<?php echo $distinctDate[$i]; ?>', a: <?php $croissance = $croissance + $sommeTable[$i]; echo $croissance; ?>},
+		<?php	
+		}
+	    ?>
+	  ],
+	  xkey: 'y',
+	  ykeys: ['a'],
+	  labels: ['Nombre d\'heures'],
+	  goals: [<?php echo $Hmax; ?>],
+	  goalLineColors: ['Red'],
+	  goalStrokeWidth: 4,
+	  lineColors: ['green']
+	});
+	
+	window.onload=function(){
+		var current = <?php if($croissance!=""){echo $croissance;}else{echo "0";} ?>;
+		var maxxx = <?php echo $Hmax; ?>;
+		if (maxxx<current) {
+			document.getElementById('hoursOnSite').style.backgroundColor = 'red';
+			document.getElementById('hoursOnSite').style.color = 'white';	
+		}
+		else {
+			document.getElementById('hoursOnSite').style.backgroundColor = 'green';
+			document.getElementById('hoursOnSite').style.color = 'white';
+		}
+	}; 
+</script>
 <?php  
     include('footer.php');
 ?>
