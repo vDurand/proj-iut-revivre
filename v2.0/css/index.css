@@ -89,3 +89,27 @@ img {
 	background: #ddd;
 }
 
+#debug{
+	background-color: #245C9C;
+	border-right: solid 5px #FFFFFF;
+	border-left: solid 5px #FFFFFF;
+	border-top: solid 5px #FFFFFF;
+	border-bottom: solid 5px #FFFFFF;
+	text-align: center;
+	padding-top: 15px;
+	height: 50px;
+	width: 100px;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+#debug a:link, #debug a:visited{
+	color: #FFFFFF;
+	font-weight: bold;
+	text-decoration: none;
+}
+#debug a:hover{
+	color: #FFFFFF;
+	font-weight: bold;
+	text-decoration: underline;
+}
