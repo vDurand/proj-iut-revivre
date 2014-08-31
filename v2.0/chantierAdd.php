@@ -5,35 +5,43 @@
 <?php
 
   $j=0;
-  foreach($_POST["Member"] AS $numMb){
-	$mem[$j] = $numMb;
-	$j++;
-  }
-  $max = $j;
-  $j=0;
-  foreach($_POST["Date"] AS $numJr){
-  	$date[$j] = $numJr;
-  	$j++;
-  }
-  $j=0;
-  foreach($_POST["Debut"] AS $numHr){
-  	$heure[$j] = $numHr;
-  	$j++;
+  if (isset($_POST["Member"])&&isset($_POST["Date"])&&isset($_POST["Debut"])) {
+  	foreach($_POST["Member"] AS $numMb){
+  		$mem[$j] = $numMb;
+  		$j++;
+  	}
+  	$max = $j;
+  	$j=0;
+  	foreach($_POST["Date"] AS $numJr){
+  		$date[$j] = $numJr;
+  		$j++;
+  	}
+  	$j=0;
+  	foreach($_POST["Debut"] AS $numHr){
+  		$heure[$j] = $numHr;
+  		$j++;
+  	}
   }
   
-
-  $resp=$_POST["Resp"];
+  
+  if (isset($_POST["Resp"])) {
+  	$resp=$_POST["Resp"];
+  }  
   $num=$_POST["NumC"];
   //$mem=$_POST["Member"];
   //$date=$_POST["Date"];
   //$deb=$_POST["Debut"];
-  date_default_timezone_set('France/Paris');
+  date_default_timezone_set('Europe/Paris');
   $dateNow = date('Y-m-d H:i:s', time());
-  $etat=$_POST["EtatA"];
-  $dfin=$_POST["DateFin"];
+  if (isset($_POST["EtatA"])) {
+  	$etat=$_POST["EtatA"];
+  } 
+  if (isset($_POST["DateFin"])) {
+  	$dfin=$_POST["DateFin"];
+  }
 
 // Ajout responsable
-  if($resp!=""){
+  if(isset($resp)){
 
   	$query = "INSERT INTO Encadrer (CHA_NumDevis, SAL_NumSalarie) VALUES ('$num', '$resp')";
 
@@ -53,7 +61,7 @@
   }
 
 // Ajout tps de travail
-    if($mem[0]!=""){
+    if(isset($mem[0])){
 	//$i = 0;
 		for($i = 0; $i < $max; $i++){
 			$query2 = "INSERT INTO TempsTravail (TRA_Date, TRA_Duree, CHA_NumDevis, SAL_NumSalarie) VALUES ('$date[$i]','$heure[$i]', '$num', '$mem[$i]')";
@@ -75,7 +83,7 @@
 		}
     }
 // Changement d etat
-    if ($etat!="") {
+    if (isset($etat)) {
     	$query3 = "INSERT INTO Etat (ETA_Date, CHA_NumDevis, TYE_Id) VALUES ('$dateNow', '$num', '$etat')";
     	
     	$sql3 = mysqli_query($db, $query3);
@@ -427,6 +435,8 @@
 	  data: [
 	  	<?php
 	  	$i = 0;
+	  	$hourTable[0] = 0;
+	  	$dateTable[0] = 0;
 	  	$reponse5 = mysqli_query($db, "SELECT * FROM TempsTravail ttps JOIN Salaries sal ON ttps.SAL_NumSalarie=sal.SAL_NumSalarie JOIN Personnes pe ON pe.PER_Num=sal.PER_Num WHERE ttps.CHA_NumDevis='$num' ORDER BY ttps.TRA_Date ASC");
 	  	while ($donnees5 = mysqli_fetch_assoc($reponse5))
 	  	{
@@ -439,6 +449,7 @@
 		$sommeTable[0] = $hourTable[0];
 		$distinctDate[0] = $dateTable[0];
 		$k = 0;
+		$croissance = 0;
 		
 		for ($j = 1; $j < $i; $j++) {
 			if ($dateTable[$j] == $dateTable[$j-1]) {

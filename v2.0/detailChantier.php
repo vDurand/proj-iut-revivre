@@ -329,6 +329,8 @@
 	  data: [
 	  	<?php
 	  	$i = 0;
+	  	$hourTable[0] = 0;
+	  	$dateTable[0] = 0;
 	  	$reponse5 = mysqli_query($db, "SELECT * FROM TempsTravail ttps JOIN Salaries sal ON ttps.SAL_NumSalarie=sal.SAL_NumSalarie JOIN Personnes pe ON pe.PER_Num=sal.PER_Num WHERE ttps.CHA_NumDevis='$num' ORDER BY ttps.TRA_Date ASC");
 	  	while ($donnees5 = mysqli_fetch_assoc($reponse5))
 	  	{
@@ -341,6 +343,7 @@
 		$sommeTable[0] = $hourTable[0];
 		$distinctDate[0] = $dateTable[0];
 		$k = 0;
+		$croissance = 0;
 		
 		for ($j = 1; $j < $i; $j++) {
 			if ($dateTable[$j] == $dateTable[$j-1]) {
