@@ -5,15 +5,15 @@
 <?php
 // Modification client
   $num=$_POST["NumC"];
-  $nom=addslashes($_POST["Nom"]);
-  $prenom=addslashes($_POST["Prenom"]);
-  $tel=addslashes($_POST["Tel_Fixe"]);
-  $port=addslashes($_POST["Portable"]);
-  $fax=addslashes($_POST["Fax"]);
-  $email=addslashes($_POST["Email"]);
-  $add=addslashes($_POST["Adresse"]);
+  $nom=addslashes(mysqli_real_escape_string($db, $_POST["Nom"]));
+  $prenom=addslashes(mysqli_real_escape_string($db, $_POST["Prenom"]));
+  $tel=addslashes(mysqli_real_escape_string($db, $_POST["Tel_Fixe"]));
+  $port=addslashes(mysqli_real_escape_string($db, $_POST["Portable"]));
+  $fax=addslashes(mysqli_real_escape_string($db, $_POST["Fax"]));
+  $email=addslashes(mysqli_real_escape_string($db, $_POST["Email"]));
+  $add=addslashes(mysqli_real_escape_string($db, $_POST["Adresse"]));
   $cp=addslashes($_POST["Code_Postal"]);
-  $ville=addslashes($_POST["Ville"]);
+  $ville=addslashes(mysqli_real_escape_string($db, $_POST["Ville"]));
   $struct=addslashes($_POST["Struct"]);
 
 	$query = "UPDATE Personnes SET PER_Nom = '$nom', PER_Prenom = '$prenom', PER_TelFixe = '$tel', PER_TelPort = '$port', PER_Fax = '$fax', PER_Email = '$email', PER_Adresse = '$add', PER_CodePostal = '$cp', PER_Ville = '$ville' WHERE Personnes.PER_Num = '$num'";

@@ -5,17 +5,17 @@
 <?php
 // Ajout contact
   $type=addslashes($_POST["Type"]);
-  $nom=addslashes($_POST["Nom"]);
-  $prenom=addslashes($_POST["Prenom"]);
-  $tel=addslashes($_POST["Tel_Fixe"]);
-  $port=addslashes($_POST["Portable"]);
-  $fax=addslashes($_POST["Fax"]);
-  $email=addslashes($_POST["Email"]);
-  $add=addslashes($_POST["Adresse"]);
+  $nom=addslashes(mysqli_real_escape_string($db, $_POST["Nom"]));
+  $prenom=addslashes(mysqli_real_escape_string($db, $_POST["Prenom"]));
+  $tel=addslashes(mysqli_real_escape_string($db, $_POST["Tel_Fixe"]));
+  $port=addslashes(mysqli_real_escape_string($db, $_POST["Portable"]));
+  $fax=addslashes(mysqli_real_escape_string($db, $_POST["Fax"]));
+  $email=addslashes(mysqli_real_escape_string($db, $_POST["Email"]));
+  $add=addslashes(mysqli_real_escape_string($db, $_POST["Adresse"]));
   $cp=addslashes($_POST["Code_Postal"]);
-  $ville=addslashes($_POST["Ville"]);
+  $ville=addslashes(mysqli_real_escape_string($db, $_POST["Ville"]));
   $struct=addslashes($_POST["Particulier"]);
-  $fonct=addslashes($_POST["Fonction"]);
+  $fonct=addslashes(mysqli_real_escape_string($db, $_POST["Fonction"]));
 
   $query = "INSERT INTO Personnes (PER_Num, PER_Nom, PER_Prenom, PER_TelFixe, PER_TelPort, PER_Fax, PER_Email, PER_Adresse, PER_CodePostal, PER_Ville) VALUES (NULL, '$nom', '$prenom', '$tel', '$port', '$fax', '$email', '$add', '$cp', '$ville')";
 

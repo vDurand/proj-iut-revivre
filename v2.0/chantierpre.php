@@ -5,8 +5,8 @@
 <?php
 // Modification d un chantier
   $id=$_POST["NumC"];		
-  $nom=strtoupper(addslashes($_POST["Nom"]));
-  $num=strtoupper(addslashes($_POST["Num"]));
+  $nom=strtoupper(addslashes(mysqli_real_escape_string($db, $_POST["Nom"])));
+  $num=strtoupper(addslashes(mysqli_real_escape_string($db, $_POST["Num"])));
   $ddebut=strtoupper(addslashes($_POST["Debut"]));
   $montantp=strtoupper(addslashes($_POST["Montant_Prev"]));
   $achatp=strtoupper(addslashes($_POST["Achats_Prev"]));

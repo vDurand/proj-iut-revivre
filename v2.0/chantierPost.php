@@ -5,15 +5,15 @@
 <?php
 // Creation d un chantier
   $client=strtoupper(addslashes($_POST["Client"]));
-  $nom=strtoupper(addslashes($_POST["Nom"]));
-  $num=strtoupper(addslashes($_POST["Num"]));
+  $nom=strtoupper(addslashes(mysqli_real_escape_string($db, $_POST["Nom"])));
+  $num=strtoupper(addslashes(mysqli_real_escape_string($db, $_POST["Num"])));
   $ddebut=strtoupper(addslashes($_POST["Debut"]));
   $montantp=strtoupper(addslashes($_POST["Montant_Prev"]));
   $achatp=strtoupper(addslashes($_POST["Achats_Prev"]));
   $heurep=strtoupper(addslashes($_POST["Heures_Prev"]));
   $echeance=strtoupper(addslashes($_POST["Fin_Max"]));
   $resp=strtoupper(addslashes($_POST["Resp"]));
-  date_default_timezone_set('France/Paris');
+  date_default_timezone_set('Europe/Paris');
   $dateNow = date('Y-m-d H:i:s', time());
 
 	$query = "INSERT INTO Chantiers (CHA_DateDebut, CHA_Intitule, CHA_Echeance, CHA_MontantPrev, CHA_AchatsPrev, CHA_HeuresPrev, CHA_Id) VALUES ('$ddebut', '$nom', '$echeance', '$montantp', '$achatp', '$heurep', '$num')";
