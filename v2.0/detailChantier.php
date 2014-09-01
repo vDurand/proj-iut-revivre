@@ -19,49 +19,49 @@
         <td>
           <table cellpadding="10" class="detailClients">
             <tr>
-              <th style="text-align: left; width: 150px; white-space: normal;">Numéro de Devis:</th>
+              <th style="text-align: left; width: 200px; white-space: normal;">Numéro de Devis:</th>
               <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_Id']; ?></td>
             </tr>
             <tr>
-              <th style="text-align: left; width: 150px; white-space: normal;">Nom du Chantier:</th>
+              <th style="text-align: left; width: 200px; white-space: normal;">Nom du Chantier:</th>
               <td style="text-align: center; width: 250px;"><?php echo $donnees['CHA_Intitule']; ?></td>
             </tr>
             <tr>
-              <th style="text-align: left; width: 150px; white-space: normal;">Date de Début:</th>
+              <th style="text-align: left; width: 200px; white-space: normal;">Date de Début:</th>
               <td style="text-align: center; width: 200px;"><?php echo dater($donnees['CHA_DateDebut']); ?></td>
             </tr>
             <tr>
-              <th style="text-align: left; width: 150px; white-space: normal;">Echéance:</th>
+              <th style="text-align: left; width: 200px; white-space: normal;">Echéance:</th>
               <td style="text-align: center; width: 200px;"><?php echo dater($donnees['CHA_Echeance']); ?></td>
             </tr>
 <?php
 	if($donnees['CHA_DateFinReel']!=NULL){
 ?>
             <tr>
-              <th style="text-align: left; width: 150px; white-space: normal;">Fin:</th>
+              <th style="text-align: left; width: 200px; white-space: normal;">Fin:</th>
               <td style="text-align: center; width: 200px;"><?php echo dater($donnees['CHA_DateFinReel']); ?></td>
             </tr>
 <?php
 	}
 ?>
             <tr>
-              <th style="text-align: left; width: 150px; white-space: normal;">Etat du Devis:</th>
+              <th style="text-align: left; width: 200px; white-space: normal;">Etat du Devis:</th>
               <td style="text-align: center; width: 200px;"><div id="stateOfSite"><?php echo $donnees['Etat']; ?></div></td>
             </tr>
             <tr>
-              <th style="text-align: left; width: 150px; white-space: normal;">Montant Prévu:</th>
+              <th style="text-align: left; width: 200px; white-space: normal;">Montant Prévu:</th>
               <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_MontantPrev']; ?> &euro;</td>
             </tr>
 			<tr>
-              <th style="text-align: left; width: 150px; white-space: normal;">Achats Prévus:</th>
+              <th style="text-align: left; width: 200px; white-space: normal;">Achats Prévus:</th>
               <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_AchatsPrev']; ?> &euro;</td>
             </tr>
 			<tr>
-              <th style="text-align: left; width: 150px; white-space: normal;">Heures Prévues:</th>
+              <th style="text-align: left; width: 200px; white-space: normal;">Heures Prévues:</th>
               <td style="text-align: center; width: 200px;"><div id="hoursOnSite"><?php echo $donnees['CHA_HeuresPrev']; $Hmax = $donnees['CHA_HeuresPrev'];?></div></td>
             </tr>
             <tr>
-              <th style="text-align: left; width: 150px; white-space: normal;">Responsable:</th>
+              <th style="text-align: left; width: 200px; white-space: normal;">Responsable:</th>
               <td style="text-align: center; width: 200px;"><?php echo $donnees['Resp']; ?> <?php echo $donnees['RespP']; ?></td>
             </tr>
           </table>
@@ -69,27 +69,27 @@
         <td>
           <table cellpadding="10" class="detailClients">
             <tr>
-              <th style="text-align: left; width: 150px; white-space: normal;">Nom Client:</th>
+              <th style="text-align: left; width: 200px; white-space: normal;">Nom Client:</th>
               <td style="text-align: center; width: 200px;"><?php echo $donnees['Client']; ?></td>
             </tr>
             <tr>
-              <th style="text-align: left; width: 150px; white-space: normal;">Prénom Client:</th>
+              <th style="text-align: left; width: 200px; white-space: normal;">Prénom Client:</th>
               <td style="text-align: center; width: 200px;"><?php echo $donnees['ClientP']; ?></td>
             </tr>
             <tr>
-              <th style="text-align: left; width: 150px; white-space: normal;">Tél Fixe :</th>
+              <th style="text-align: left; width: 200px; white-space: normal;">Tél Fixe :</th>
               <td style="text-align: center; width: 200px;"><?php echo $donnees['ClientTel']; ?></td>
             </tr>
             <tr>
-              <th style="text-align: left; width: 150px; white-space: normal;">Email :</th>
+              <th style="text-align: left; width: 200px; white-space: normal;">Email :</th>
               <td style="text-align: center; width: 200px;"><A HREF="mailto:<?php echo $donnees['ClientEmail'];?>"> <?php echo $donnees['ClientEmail']; ?></A></td>
             </tr>
             <tr>
-              <th style="text-align: left; width: 150px; white-space: normal;">Adresse :</th>
+              <th style="text-align: left; width: 200px; white-space: normal;">Adresse :</th>
               <td style="text-align: center; width: 200px;"><?php echo $donnees['ClientAd']; ?></td>
             </tr>
             <tr>
-              <th style="text-align: left; width: 150px; white-space: normal;">Ville :</th>
+              <th style="text-align: left; width: 200px; white-space: normal;">Ville :</th>
               <td style="text-align: center; width: 200px;"><?php echo $donnees['ClientV']; ?>, <?php echo $donnees['ClientCP']; ?></td>
             </tr>
           </table>

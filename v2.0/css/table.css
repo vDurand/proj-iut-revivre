@@ -102,6 +102,17 @@
 	border:0px solid #003f7f;
 	border-collapse:collapse;
 }
+.detailClients tr th{
+	text-align: left; 
+	width: 200px; 
+	white-space: normal;
+	padding-left: 25px;
+}
+.detailClients tr td{
+	text-align: center; 
+	width: 200px; 
+	padding-right: 35px;
+}
 .detailClients tr:nth-child(odd){ background-color:#eaeaea; }
 .detailClients tr:nth-child(even)    { background-color:#ffffff; }
 
