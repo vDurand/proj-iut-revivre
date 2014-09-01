@@ -54,14 +54,27 @@
 // A/M form ajout tps travail (detailChantier)
 	function addTps()
 	{
+	  var i = 1;
 	  if(document.getElementById('Ajout-Tps').style.display == "none"){
 	    document.getElementById('Ajout-Tps').style.display = "";
-	    document.getElementById('Ajout-Tps2').style.display = "";
+	    document.getElementById('Ajout-Tpss').style.display = "";
 	  }
 	  else{
 	    document.getElementById('Ajout-Tps').style.display = "none";
-	    document.getElementById('Ajout-Tps2').style.display = "none";
+	    document.getElementById('Ajout-Tpss').style.display = "none";
 	  }
+	  while (document.getElementById('Ajout-Tps'+i) != "") {
+	  	if(document.getElementById('Ajout-Tps'+i).style.display == "none"){
+	  	  document.getElementById('Ajout-Tps'+i).style.display = "";
+	  	  document.getElementById('Ajout-Tpss'+i).style.display = "";
+	  	}
+	  	else{
+	  	  document.getElementById('Ajout-Tps'+i).style.display = "none";
+	  	  document.getElementById('Ajout-Tpss'+i).style.display = "none";
+	  	}
+	  	i++;
+	  }
+	  
 	}
 	
 // A/M form changement etat (detailChantier)

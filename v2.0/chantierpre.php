@@ -224,7 +224,7 @@
             <input form="AddWork" name="reset" type="reset" value="Annuler">
           </td>
         </tr>
-        <tr id="Ajout-Tps2" style="display:none;">
+        <tr id="Ajout-Tpss" style="display:none;">
           <td style="text-align: center; padding-top: 15px;">
                 <input form="AddWork" id="Date" maxlength="100" name="Date[]" type="date" class="inputC2" placeholder="Date"> 
           </td>
@@ -456,7 +456,7 @@
 	  	
 	  // next tr
 	  	var NewRow2 = table.insertRow(5);
-	  	NewRow2.id = "Ajout-Tps2";
+	  	NewRow2.id = "Ajout-Tpss";
 	  	
 	  	var NewCell4 = NewRow2.insertCell(0);
 	  		NewCell4.setAttribute("style","text-align: center; padding-top: 15px;");

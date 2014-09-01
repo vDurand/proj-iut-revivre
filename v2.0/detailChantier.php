@@ -132,6 +132,14 @@
               <input  name="submit" type="submit" onclick="changeEtat()" value="Etat" class="buttonC">
             </span>
           </td>
+          <td style="text-align: center; width: 150px;">
+            <form method="post" action="editChantier.php" name="EditChantier">
+            <input type="hidden" name="NumC" value="<?php echo $donnees['CHA_NumDevis']; ?>">
+            <span>
+              <input name="submit" type="submit" value="Achat" class="buttonC">
+            </span>
+            </form>
+          </td>
         </tr>
 <!-- Ajout Responsable -->
         <tr id="Ajout-Resp" style="display:none;">
@@ -194,9 +202,9 @@
             <input form="AddWork" name="reset" type="reset" value="Annuler">
           </td>
         </tr>
-        <tr id="Ajout-Tps2" style="display:none;">
+        <tr id="Ajout-Tpss" style="display:none;">
           <td style="text-align: center; padding-top: 15px;">
-                <input form="AddWork" id="Date" maxlength="100" name="Date[]" type="date" class="inputC2" placeholder="Date"> 
+                <input form="AddWork" id="Date" maxlength="100" style="width:140px;" name="Date[]" type="date" class="inputC2" placeholder="Date"> 
           </td>
           <td align="center" style="padding-top: 15px;">
             <input form="AddWork" id="Debut" maxlength="100" name="Debut[]" type="time" class="inputC2" placeholder="Nombre d'heures"> 
@@ -396,7 +404,8 @@
 	  // structure html tr/td/div
 	  	var table = document.getElementById("downT");
 	  	var NewRow = table.insertRow(4);
-	  		NewRow.id = "Ajout-Tps";
+	  		NewRow.id = "Ajout-Tps"+buttonCount;
+	  		NewRow.setAttribute("style", "display:;")
 	  	
 	  	var NewCell1 = NewRow.insertCell(0);
 	  		NewCell1.setAttribute("style","text-align: center; padding-top: 35px;");
@@ -426,7 +435,8 @@
 	  	
 	  // next tr
 	  	var NewRow2 = table.insertRow(5);
-	  	NewRow2.id = "Ajout-Tps2";
+	  	NewRow2.id = "Ajout-Tpss"+buttonCount;
+	  	NewRow2.setAttribute("style", "display:;")
 	  	
 	  	var NewCell4 = NewRow2.insertCell(0);
 	  		NewCell4.setAttribute("style","text-align: center; padding-top: 15px;");
@@ -439,7 +449,7 @@
 	  	NewDiv2.appendChild(input1);
 	  	NewCell4.appendChild(NewDiv2);*/
 	  	
-	  	NewCell4.innerHTML = '<input form="AddWork" id="Date" maxlength="100" name="Date[]" type="date" class="inputC2" placeholder="Date">';
+	  	NewCell4.innerHTML = '<input form="AddWork" id="Date" style="width:140px;" maxlength="100" name="Date[]" type="date" class="inputC2" placeholder="Date">';
 	  	
 	  	var NewCell5 = NewRow2.insertCell(1);
 	  	NewCell5.setAttribute("style","text-align: center; padding-top: 15px;");
