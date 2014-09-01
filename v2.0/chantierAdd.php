@@ -409,73 +409,70 @@
 		document.getElementById('stateOfSite').style.color = 'white';	
 		switch (state) {
 	        case "1":
-	            document.getElementById('stateOfSite').style.backgroundColor = 'grey';
+	            document.getElementById('stateOfSite').style.backgroundColor = '#797979';
 	            break;
 	        case "2":
 	            document.getElementById('stateOfSite').style.backgroundColor = 'green';
 	            break;
 	        case "3":
-	            document.getElementById('stateOfSite').style.backgroundColor = 'yellow';
+	            document.getElementById('stateOfSite').style.backgroundColor = '#FFF300';
 	            document.getElementById('stateOfSite').style.color = 'black';	
 	            break;
 	        case "4":
-	            document.getElementById('stateOfSite').style.backgroundColor = 'yellow';
-	            document.getElementById('stateOfSite').style.color = 'black';	
+	            document.getElementById('stateOfSite').style.backgroundColor = 'blue';
 	            break;
 	        case "5":
 	            document.getElementById('stateOfSite').style.backgroundColor = 'red';
 	            break;
 		}
-	};
-	
-	Morris.Line({
-	  element: 'HoursEvolution',
-	  data: [
-	  	<?php
-	  	$i = 0;
-	  	$hourTable[0] = 0;
-	  	$dateTable[0] = 0;
-	  	$reponse5 = mysqli_query($db, "SELECT * FROM TempsTravail ttps JOIN Salaries sal ON ttps.SAL_NumSalarie=sal.SAL_NumSalarie JOIN Personnes pe ON pe.PER_Num=sal.PER_Num WHERE ttps.CHA_NumDevis='$num' ORDER BY ttps.TRA_Date ASC");
-	  	while ($donnees5 = mysqli_fetch_assoc($reponse5))
-	  	{
-	  		$hourTable[$i] = $donnees5['TRA_Duree'];
-	  		$dateTable[$i] = $donnees5['TRA_Date'];
-	  		$i++;
-		}
-		mysqli_free_result($reponse5);
 		
-		$sommeTable[0] = $hourTable[0];
-		$distinctDate[0] = $dateTable[0];
-		$k = 0;
-		$croissance = 0;
-		
-		for ($j = 1; $j < $i; $j++) {
-			if ($dateTable[$j] == $dateTable[$j-1]) {
-				$sommeTable[$k] = $sommeTable[$k] + $hourTable[$j];
+		Morris.Line({
+		  element: 'HoursEvolution',
+		  data: [
+		  	<?php
+		  	$i = 0;
+		  	$hourTable[0] = 0;
+		  	$dateTable[0] = 0;
+		  	$reponse5 = mysqli_query($db, "SELECT * FROM TempsTravail ttps JOIN Salaries sal ON ttps.SAL_NumSalarie=sal.SAL_NumSalarie JOIN Personnes pe ON pe.PER_Num=sal.PER_Num WHERE ttps.CHA_NumDevis='$num' ORDER BY ttps.TRA_Date ASC");
+		  	while ($donnees5 = mysqli_fetch_assoc($reponse5))
+		  	{
+		  		$hourTable[$i] = $donnees5['TRA_Duree'];
+		  		$dateTable[$i] = $donnees5['TRA_Date'];
+		  		$i++;
 			}
-			else {
-				$k++;
-				$sommeTable[$k] = $hourTable[$j];
-				$distinctDate[$k] = $dateTable[$j];
+			mysqli_free_result($reponse5);
+			
+			$sommeTable[0] = $hourTable[0];
+			$distinctDate[0] = $dateTable[0];
+			$k = 0;
+			$croissance = 0;
+			
+			for ($j = 1; $j < $i; $j++) {
+				if ($dateTable[$j] == $dateTable[$j-1]) {
+					$sommeTable[$k] = $sommeTable[$k] + $hourTable[$j];
+				}
+				else {
+					$k++;
+					$sommeTable[$k] = $hourTable[$j];
+					$distinctDate[$k] = $dateTable[$j];
+				}
 			}
-		}
+			
+			for ($i = 0; $i < $k+1; $i++) {?>
+				{ y: '<?php echo $distinctDate[$i]; ?>', a: <?php $croissance = $croissance + $sommeTable[$i]; echo $croissance; ?>},
+			<?php	
+			}
+		    ?>
+		  ],
+		  xkey: 'y',
+		  ykeys: ['a'],
+		  labels: ['Nombre d\'heures'],
+		  goals: [<?php echo $Hmax; ?>],
+		  goalLineColors: ['Red'],
+		  goalStrokeWidth: 4,
+		  lineColors: ['green']
+		});
 		
-		for ($i = 0; $i < $k+1; $i++) {?>
-			{ y: '<?php echo $distinctDate[$i]; ?>', a: <?php $croissance = $croissance + $sommeTable[$i]; echo $croissance; ?>},
-		<?php	
-		}
-	    ?>
-	  ],
-	  xkey: 'y',
-	  ykeys: ['a'],
-	  labels: ['Nombre d\'heures'],
-	  goals: [<?php echo $Hmax; ?>],
-	  goalLineColors: ['Red'],
-	  goalStrokeWidth: 4,
-	  lineColors: ['green']
-	});
-	
-	window.onload=function(){
 		var current = <?php if($croissance!=""){echo $croissance;}else{echo "0";} ?>;
 		var maxxx = <?php echo $Hmax; ?>;
 		if (maxxx<current) {
@@ -486,7 +483,7 @@
 			document.getElementById('hoursOnSite').style.backgroundColor = 'green';
 			document.getElementById('hoursOnSite').style.color = 'white';
 		}
-	}; 
+	};
 </script>
  <?php  
 	include('footer.php');
