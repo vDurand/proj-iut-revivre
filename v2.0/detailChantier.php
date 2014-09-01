@@ -16,7 +16,8 @@
       </div>
       <br>
       <table id="fullTable" rules="all">
-        <td>
+      	<tr>
+        <td rowspan="2">
           <table cellpadding="10" class="detailClients">
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Numéro de Devis:</th>
@@ -48,7 +49,7 @@
               <th style="text-align: left; width: 200px; white-space: normal;">Etat du Devis:</th>
               <td style="text-align: center; width: 200px;"><div id="stateOfSite"><?php echo $donnees['Etat']; ?></div></td>
             </tr>
-            <tr>
+            <tr style="border-top:2px solid #eaeaea; border-bottom:1px solid #eaeaea;">
               <th style="text-align: left; width: 200px; white-space: normal;">Montant Prévu:</th>
               <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_MontantPrev']; ?> &euro;</td>
             </tr>
@@ -94,6 +95,27 @@
             </tr>
           </table>
         </td>
+        </tr>
+        <tr><td>
+          <table cellpadding="10" class="detailClients">
+        	<tr>
+        	  <th style="text-align: left; width: 200px; white-space: normal;"></th>
+        	  <td style="text-align: center; width: 200px;">&nbsp;</td>
+        	</tr>
+        	<tr>
+        	  <th style="text-align: left; width: 200px; white-space: normal;"></th>
+        	  <td style="text-align: center; width: 200px;">&nbsp;</td>
+        	</tr>
+        	<tr>
+        	  <th style="text-align: left; width: 200px; white-space: normal;"></th>
+        	  <td style="text-align: center; width: 200px;">&nbsp;</td>
+        	</tr>
+        	<tr>
+        	  <th style="text-align: left; width: 200px; white-space: normal;"></th>
+        	  <td style="text-align: center; width: 200px;">&nbsp;</td>
+        	</tr>
+          </table>
+        </td></tr>
       </table>    
 <!-- Buttons Line -->
       <table id="downT">
