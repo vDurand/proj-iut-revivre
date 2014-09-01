@@ -65,6 +65,16 @@
               <th style="text-align: left; width: 200px; white-space: normal;">Responsable:</th>
               <td style="text-align: center; width: 200px;"><?php echo $donnees['Resp']; ?> <?php echo $donnees['RespP']; ?></td>
             </tr>
+<?php
+	if($donnees['CHA_DateFinReel']==NULL){
+?>
+            <tr>
+              <th style="text-align: left; width: 200px; white-space: normal;">&nbsp;</th>
+              <td style="text-align: center; width: 200px;">&nbsp;</td>
+            </tr>
+<?php
+	}
+?>
           </table>
         </td>
         <td>
@@ -155,7 +165,7 @@
             </span>
           </td>
           <td style="text-align: center; width: 150px;">
-            <form method="post" action="editChantier.php" name="EditChantier">
+            <form method="post" action="buy.php" name="addBuy">
             <input type="hidden" name="NumC" value="<?php echo $donnees['CHA_NumDevis']; ?>">
             <span>
               <input name="submit" type="submit" value="Achat" class="buttonC">
@@ -172,7 +182,7 @@
           </td>
           <td align="center" style="padding-top: 35px;">
             <div class="selectType">
-              <select name="Resp">
+              <select required name="Resp">
 <?php
   $j = 1;
   $reponseBis = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom");
@@ -204,7 +214,7 @@
           </td>
           <td align="center" style="padding-top: 35px;">
             <div class="selectType">
-              <select form="AddWork" name="Member[]">
+              <select required form="AddWork" name="Member[]">
               	<option></option>
 <?php
   $reponseTres = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom");
@@ -226,10 +236,10 @@
         </tr>
         <tr id="Ajout-Tpss" style="display:none;">
           <td style="text-align: center; padding-top: 15px;">
-                <input form="AddWork" id="Date" maxlength="100" style="width:140px;" name="Date[]" type="date" class="inputC2" placeholder="Date"> 
+                <input required form="AddWork" id="Date" maxlength="100" style="width:140px;" name="Date[]" type="date" class="inputC2" placeholder="Date"> 
           </td>
           <td align="center" style="padding-top: 15px;">
-            <input form="AddWork" id="Debut" maxlength="100" name="Debut[]" type="time" class="inputC2" placeholder="Nombre d'heures"> 
+            <input required form="AddWork" id="Debut" maxlength="100" name="Debut[]" type="time" class="inputC2" placeholder="Nombre d'heures"> 
           </td>
           <td align="left" style="padding-top: 15px;">
             <input name="plus" type="button" value="+" onclick="AddWorkingTime()">
@@ -338,17 +348,17 @@
 	            document.getElementById('stateOfSite').style.backgroundColor = '#797979';
 	            break;
 	        case "2":
-	            document.getElementById('stateOfSite').style.backgroundColor = 'green';
+	            document.getElementById('stateOfSite').style.backgroundColor = '#13AB0E';
 	            break;
 	        case "3":
 	            document.getElementById('stateOfSite').style.backgroundColor = '#FFF300';
 	            document.getElementById('stateOfSite').style.color = 'black';	
 	            break;
 	        case "4":
-	            document.getElementById('stateOfSite').style.backgroundColor = 'blue';
+	            document.getElementById('stateOfSite').style.backgroundColor = '#0E52AB';
 	            break;
 	        case "5":
-	            document.getElementById('stateOfSite').style.backgroundColor = 'red';
+	            document.getElementById('stateOfSite').style.backgroundColor = '#D50000';
 	            break;
 		}
 		
@@ -441,7 +451,7 @@
 	  		NewDiv.setAttribute("class","selectType");
 	  
 	  // insertion array in select option via tmp
-		  	tmp = '<select form="AddWork" name="Member[]">';
+		  	tmp = '<select required form="AddWork" name="Member[]">';
 				for (var i in jWorkers) {
 					tmp += '<option value="'+jIds[i]+'">'+jWorkers[i]+"</option>\n";
 				}
@@ -471,11 +481,11 @@
 	  	NewDiv2.appendChild(input1);
 	  	NewCell4.appendChild(NewDiv2);*/
 	  	
-	  	NewCell4.innerHTML = '<input form="AddWork" id="Date" style="width:140px;" maxlength="100" name="Date[]" type="date" class="inputC2" placeholder="Date">';
+	  	NewCell4.innerHTML = '<input required form="AddWork" id="Date" style="width:140px;" maxlength="100" name="Date[]" type="date" class="inputC2" placeholder="Date">';
 	  	
 	  	var NewCell5 = NewRow2.insertCell(1);
 	  	NewCell5.setAttribute("style","text-align: center; padding-top: 15px;");
-	  	NewCell5.innerHTML = '<input form="AddWork" id="Debut" maxlength="100" name="Debut[]" type="time" class="inputC2" placeholder="Nombre dheures">';
+	  	NewCell5.innerHTML = '<input required form="AddWork" id="Debut" maxlength="100" name="Debut[]" type="time" class="inputC2" placeholder="Nombre dheures">';
 	  	
 	  	var NewCell6 = NewRow2.insertCell(2);
 	  	NewCell6.setAttribute("style","padding-top: 35px;");
