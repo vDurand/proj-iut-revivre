@@ -7,6 +7,51 @@
   $Ids = array(" ");
 
   $num=$_POST["NumC"];
+  
+  $j=0;
+  if (isset($_POST["Produit"])) {
+  	foreach($_POST["Produit"] AS $a){
+  		$produits[$j] = $a;
+  		$j++;
+  	}
+  	$max = $j;
+  	$j=0;
+  	foreach($_POST["Quantite"] AS $a){
+  		$quantite[$j] = $a;
+  		$j++;
+  	}
+  	$j=0;
+  	foreach($_POST["Type"] AS $a){
+  		$type[$j] = $a;
+  		$j++;
+  	}
+  	$j=0;
+  	foreach($_POST["Date"] AS $a){
+  		$date[$j] = $a;
+  		$j++;
+  	}
+  }
+  if (isset($date[0])) {
+  	for ($i = 0; $i < $max; $i++) {
+  		$query = "INSERT INTO Acheter (CHA_NumDevis, ACH_TypeAchat, ACH_Date, ACH_Quantite, ACH_NumAchat, PRO_Ref) VALUES ('$num', '$type[$i]', '$date[$i]', '$quantite[$i]', NULL, '$produits[$i]');";
+  		
+  		    $sql = mysqli_query($db, $query);
+  		    $errr=mysqli_error($db);
+  		
+  		      if($sql){
+  		          echo '<div id="good">     
+  		              <label>Achat ajouté avec succès</label>
+  		              </div>';
+  		      }
+  		      else{
+  		        echo '<div id="bad">     
+  		              <label>L\'achat n\'a pas pu être ajouté</label>
+  		              </div>';
+  		      }
+  	}
+  }
+  
+  
 	//CREATE OR REPLACE VIEW ChantierEtat AS SELECT CHA_NumDevis as NumDevis, TYE_Nom as Etat, TYE_Id as Id FROM Chantiers JOIN Etat USING (CHA_NumDevis) JOIN TypeEtat USING (TYE_Id) ORDER BY TYE_Id DESC LIMIT 1;
   $reponse = mysqli_query($db, "SELECT * FROM Chantiers ch JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CNumDevis LEFT JOIN ChantierResp vre ON ch.CHA_NumDevis=vre.RNumDevis LEFT JOIN ChantierEtat cet ON ch.CHA_NumDevis=NumDevis WHERE ch.CHA_NumDevis='$num' limit 1");
   $donnees = mysqli_fetch_assoc($reponse);
@@ -292,7 +337,7 @@
 <?php 
 	if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM TempsTravail WHERE CHA_NumDevis='$num'"))) {
 ?>
-      <div class="listeClients" style="margin-bottom: 15px;">
+      <div class="listeClients">
       <table cellpadding="5">
             <thead>
             <tr>
@@ -332,57 +377,9 @@
           </tbody>
         </table>
       </div>
-      <h style="padding-left: 12px; text-decoration: underline; color: #008000;">Evolution des heures de travail :</h>
       <div id="HoursEvolution" style="height: 400px;"></div>
 <?php
 		mysqli_free_result($reponse4);
-	}
-	
-	if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM Acheter JOIN Produits USING (PRO_Ref) WHERE CHA_NumDevis='$num'"))) {
-	
-?>
-	<div class="listeMembers" style="margin-top: 15px; margin-bottom: 15px;">
-	      <table cellpadding="5">
-	            <thead>
-	            <tr>
-	              <td class="firstCol" style="text-align: center; width: 600px;">
-	                <a>Produit</a>
-	              </td>
-	              <td style="text-align: center; width: 200px;">
-	                <a>Date</a>
-	              </td>
-	              <td style="text-align: center; width: 200px;">
-	                <a>Montant</a>
-	              </td>
-	            </tr>
-	          </thead>
-	          <tbody>
-	<?php
-			$totAchat = 0;
-			$reponse5 = mysqli_query($db, "SELECT * FROM Acheter JOIN Produits USING (PRO_Ref) WHERE CHA_NumDevis='$num' ORDER BY ACH_Date ASC");
-			while ($donnees5 = mysqli_fetch_assoc($reponse5))
-			{
-	?>
-		        <tr style="font-size: 14;">
-	                <td><?php echo strtoupper($donnees5['PRO_Nom']); ?> (<?php echo $donnees5['PRO_Conditionnement']; ?>) <span style="float: right;">x<?php echo $donnees5['ACH_Quantite']; ?></span></td>
-	                <td><?php echo dater($donnees5['ACH_Date']); ?></td>
-	                <td><?php echo ($donnees5['PRO_Tarif']*$donnees5['ACH_Quantite'])." €"; $totAchat += $donnees5['PRO_Tarif']*$donnees5['ACH_Quantite']; ?></td>
-	              </tr>
-	<?php
-			}
-			mysqli_free_result($reponse5);
-	?>
-		         <tr style="font-size: 14;">
-	              <td></td>
-	              <td style="font-weight: bold;">Montant Total : </td>
-	              <td style="font-weight: bold;"><?php echo $totAchat; ?> €</td>
-	            </tr> 
-	          </tbody>
-	        </table>
-	      </div>
-	      <h style="padding-left: 12px; text-decoration: underline; color: #1A89D3;">Evolution des achats :</h>
-	      <div id="ProductEvolution" style="height: 400px;"></div>
-<?php
 	}
 	mysqli_free_result($reponse);  
 ?>
@@ -467,29 +464,6 @@
 			document.getElementById('hoursOnSite').style.backgroundColor = 'green';
 			document.getElementById('hoursOnSite').style.color = 'white';
 		}
-		
-		Morris.Line({
-		  element: 'ProductEvolution',
-		  data: [
-		  	<?php
-		  	$achats = 0;
-		  	$reponse5 = mysqli_query($db, "SELECT * FROM Acheter JOIN Produits USING (PRO_Ref) WHERE CHA_NumDevis='$num' ORDER BY ACH_Date ASC");
-		  	while ($donnees5 = mysqli_fetch_assoc($reponse5))
-		  	{
-		  	?>
-				{ y: '<?php echo $donnees5['ACH_Date']; ?>', a: <?php $achats = $achats + $donnees5['PRO_Tarif']*$donnees5['ACH_Quantite']; echo $achats; ?>},
-			<?php	
-			}
-		    ?>
-		  ],
-		  xkey: 'y',
-		  ykeys: ['a'],
-		  labels: ['Montant'],
-		  //goals: [<?php echo $Hmax; ?>],
-		  //goalLineColors: ['Red'],
-		  //goalStrokeWidth: 4,
-		  lineColors: ['#1A89D3']
-		});
 	};
 </script>
 <?php
