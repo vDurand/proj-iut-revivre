@@ -667,7 +667,7 @@
           }
           #progressbar2 .ui-progressbar-value {
       	<?php if ($totAchat*100/$MontantMax > 100) {?>
-      		background-color: #EB0C0C;
+      		background-color: #E00B0B;
       	<?php } else { ?>
       		background-color: #2F72B0;
       	<?php }?>
