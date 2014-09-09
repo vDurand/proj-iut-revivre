@@ -1,6 +1,8 @@
 ﻿<?php  
     include('bandeau.php');
 ?>
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
     <div id="corps">
 <?php
 // Modification d un chantier
@@ -85,7 +87,7 @@
                   </tr>
       			<tr>
                     <th style="text-align: left; width: 200px; white-space: normal;">Achats Prévus:</th>
-                    <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_AchatsPrev']; ?> &euro;</td>
+                    <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_AchatsPrev']; $MontantMax = $donnees['CHA_AchatsPrev']; ?> &euro;</td>
                   </tr>
       			<tr>
                     <th style="text-align: left; width: 200px; white-space: normal;">Heures Prévues:</th>
@@ -143,12 +145,12 @@
               	  <td style="text-align: center; width: 200px;">&nbsp;</td>
               	</tr>
               	<tr>
-              	  <th style="text-align: left; width: 200px; white-space: normal;"></th>
-              	  <td style="text-align: center; width: 200px;">&nbsp;</td>
+              	  <th style="text-align: left; width: 200px; white-space: normal;">Heures :</th>
+              	  <td style="text-align: center; width: 200px;"><div id="progressbar"><div class="progress-label"></div></div></td>
               	</tr>
               	<tr>
-              	  <th style="text-align: left; width: 200px; white-space: normal;"></th>
-              	  <td style="text-align: center; width: 200px;">&nbsp;</td>
+              	  <th style="text-align: left; width: 200px; white-space: normal;">Achats :</th>
+              	  <td style="text-align: center; width: 200px;"><div id="progressbar2"><div class="progress-label2"></div></div></td>
               	</tr>
               	<tr>
               	  <th style="text-align: left; width: 200px; white-space: normal;"></th>
@@ -515,9 +517,9 @@
       		  xkey: 'y',
       		  ykeys: ['a'],
       		  labels: ['Montant'],
-      		  //goals: [<?php echo $Hmax; ?>],
-      		  //goalLineColors: ['Red'],
-      		  //goalStrokeWidth: 4,
+      		  goals: [<?php echo $MontantMax; ?>],
+      		  goalLineColors: ['Red'],
+      		  goalStrokeWidth: 4,
       		  lineColors: ['#1A89D3']
       		});
       	};
@@ -608,3 +610,84 @@
       		}
       	}	
       </script>
+      <script>
+        $(function() {
+          $(function() {
+              var progressbar = $( "#progressbar" ),
+                progressLabel = $( ".progress-label" );
+           
+              progressbar.progressbar({
+                value: <?php echo round($croissance*100/$Hmax, 2) ; ?>,
+              });
+              <?php if ($croissance*100/$Hmax > 100) {?>
+            		progressLabel.text( "<?php echo round($croissance*100/$Hmax, 2) ; ?> %" );
+            	<?php } else { ?>
+          		progressLabel.text( progressbar.progressbar( "value" ) + "%" );	
+          	<?php }?>
+              
+            });
+          $(function() {
+              var progressbar = $( "#progressbar2" ),
+                progressLabel = $( ".progress-label2" );
+           
+              progressbar.progressbar({
+                value: <?php echo round($totAchat*100/$MontantMax, 2) ; ?>,
+              });
+              <?php if ($totAchat*100/$MontantMax > 100) {?>
+            		progressLabel.text( "<?php echo round($totAchat*100/$MontantMax, 2) ; ?> %" );
+            	<?php } else { ?>
+          		progressLabel.text( progressbar.progressbar( "value" ) + "%" );	
+          	<?php }?>
+              
+            });
+        });
+        </script>
+        <style>
+          #progressbar .ui-progressbar-value {
+          <?php if ($croissance*100/$Hmax > 100) {?>
+          	background-color: #EB0C0C;
+         	<?php } else { ?>
+          	background-color: #2FB044;
+          <?php }?>
+          }
+          #progressbar2 .ui-progressbar-value {
+      	<?php if ($totAchat*100/$MontantMax > 100) {?>
+      		background-color: #EB0C0C;
+      	<?php } else { ?>
+      		background-color: #2F72B0;
+      	<?php }?>
+          }
+          .ui-progressbar {
+              position: relative;
+      	}
+      	.progress-label {
+      	position: absolute;
+      	right: 35%;
+      	font-weight: bold;
+      	font-size: 12px;
+      	<?php if ($croissance*100/$Hmax > 50) {?>
+      		color: #fff;
+      		text-shadow: 1px 1px 0 #000;
+      	<?php } else { ?>
+      		color: #000;
+      		text-shadow: 1px 1px 0 #fff;
+      	<?php }?>
+      	}
+      	.ui-progressbar2 {
+      	    position: relative;
+      	}
+      	.progress-label2 {
+      	position: absolute;
+      	right: 35%;
+      	font-weight: bold;
+      	font-size: 12px;
+      	<?php if ($totAchat*100/$MontantMax > 50) {?>
+      		color: #fff;
+      		text-shadow: 1px 1px 0 #000;
+      	<?php } else { ?>
+      		color: #000;
+      		text-shadow: 1px 1px 0 #fff;
+      	<?php }?>
+      	
+      	}
+          </style>
