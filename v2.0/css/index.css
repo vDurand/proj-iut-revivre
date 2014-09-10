@@ -113,3 +113,10 @@ img {
 	font-weight: bold;
 	text-decoration: underline;
 }
+#error {
+	text-align: center;
+	font-weight: bold;
+	font-size: 25px;
+	color: #333333;
+	text-shadow: 2px 2px 0 #fff;
+}

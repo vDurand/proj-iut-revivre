@@ -296,6 +296,7 @@
 <!-- List Tps Travail -->
 <?php
 	$graphTpsOK = 0; 
+	$totalHh = 0;
 	if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM TempsTravail WHERE CHA_NumDevis='$num'"))) {
 ?>
       <div class="listeClients" style="margin-bottom: 15px;">
@@ -333,7 +334,7 @@
 	         <tr style="font-size: 14;">
               <td></td>
               <td style="font-weight: bold;">Heures Totales : </td>
-              <td style="font-weight: bold;"><?php echo $donnees4['total']; ?></td>
+              <td style="font-weight: bold;"><?php echo $donnees4['total']; $totalHh = $donnees4['total'];?></td>
             </tr> 
           </tbody>
         </table>
@@ -346,15 +347,13 @@
 		$reponseT = mysqli_query($db, "SELECT TarifHoraire FROM Constante");
 		$donneesT = mysqli_fetch_assoc($reponseT);
 		
-		$montantHeure = 0;
-		$resteHeure = 0;
-		$montantHeure = $donneesT['TarifHoraire']*$donnees4['total'];
-		$resteHeure = $Hmax-$donnees4['total'];
-		
 		mysqli_free_result($reponse4);
 		$graphTpsOK = 1;
 	}
-	
+	$montantHeure = 0;
+	$resteHeure = 0;
+	$montantHeure = $donneesT['TarifHoraire']*$totalHh;
+	$resteHeure = $Hmax-$totalHh;
 	$totAchat = 0;
 	$graphMntOK = 0;
 	if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM Acheter JOIN Produits USING (PRO_Ref) WHERE CHA_NumDevis='$num'"))) {
@@ -716,8 +715,8 @@
 	}
     </style>
     <?php } else {
-    	echo "ERROR : WRONG NUMBER";
+    	echo "<div id='error'>ERROR : WRONG NUMBER</div>";
     }
     } else {
-    	echo "ERROR : DONT EVEN TRY";
+    	echo "<div id='error'>ERROR : DONT EVEN TRY</div>";
     } ?>
