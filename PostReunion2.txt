@@ -11,13 +11,13 @@ DONE - ajouter un caclul automatique du nombre d'heures totales
 DONE - Type chantier : En attente, Validé, En cours, Terminé, Refusé
 DONE - Rajouter un onglet "Chantier en cours"
 DONE - Les chantiers refusés sont archivés
-- Distinguer montant ahcat et montant des heures
-- Prix dde vente, montant des achats prévus, montant des heures prévues (la redondance est ton ami)
+DONE - Distinguer montant ahcat et montant des heures
+D - Prix dde vente, montant des achats prévus, montant des heures prévues (la redondance est ton ami)
 - Impression du bon de livraison et non du devis (CORRECTION RAPPORT PAGE 4)
 - idem en mode création de pdf
-- Mettre le tableau de bord sur le détail du chantier
-- faire la soustraction des heures pour avoir les heures restantes à effectuer
+DONE - Mettre le tableau de bord sur le détail du chantier
+D - faire la soustraction des heures pour avoir les heures restantes à effectuer
 DONE - case état (modifiable)
-- dans le tableau de bord => Achat total effectué, écart / Heures totales effectuées, écart
-- mettre un indicateur pour savoir si on est dans le rouge (en mode DANGER MTHAFUCKA!)
+DONE dans le tableau de bord => Achat total effectué, écart / Heures totales effectuées, écart
+DONE mettre un indicateur pour savoir si on est dans le rouge (en mode DANGER MTHAFUCKA!)
 DONE - Contacter the IT guy !

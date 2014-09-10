@@ -11,6 +11,18 @@
 			<input name="plus" type="button" value="-" class="buttonSmll" onclick="RmBuy()">
 			</div>
 			<br>
+			<table align="center">
+				<tr id="Contact-Particulier">
+					<td style="padding-top: 0px;">
+						<input type="radio" checked onclick="javascript:showNewProd();" name="truc"/>
+						<label>&nbsp; Existant</label>
+					</td>
+					<td style="padding-top: 0px;">
+						<input type="radio" onclick="javascript:showNewProd();" id="yesCheck" name="truc"/>
+						<label>&nbsp; Nouveau</label>
+					</td>
+				</tr>
+			</table>
 			<form method="post" action="buyPost.php" name="BuyProd" id="BuyProd">
 				<table id="BuyAjout" align="center" cellspacing="0px">
 					<tr id="Ajout-Tps">
@@ -18,8 +30,8 @@
 							<label>Produit :</label>
 						</td>
 						<td>
-							<div class="selectProd">
-	          					<select form="BuyProd" required name="Produit[]">
+							<div id="ProdSelector" class="selectProd" style="display: ;">
+	          					<select form="BuyProd" id="ProduitExistant" name="Produit[]">
 <?php
 $num=$_POST["NumC"];
 $Products = array(" ");
@@ -38,6 +50,55 @@ $j++;
 mysqli_free_result($reponse);
 ?>									
 			    				</select>
+			    			</div>
+			    			<div id="ProdCreator" style="display: none;">
+			    				<table>
+			    				<tr>
+			    				<td>Fournisseur :</td>
+			    				<td colspan="3">
+			    				<select form="BuyProd" name="FournProd[]" style="width: 200px;">
+			    					<option value=""></option>
+<?php 
+$reponse2 = mysqli_query($db, "SELECT * FROM Fournisseurs JOIN Personnes USING (PER_Num) ORDER BY PER_Nom");
+while ($donnees2 = mysqli_fetch_assoc($reponse2))
+{
+?>
+									<option value="<?php echo $donnees2['FOU_NumFournisseur']; ?>"><?php echo strtoupper($donnees2['PER_Nom'])." ".$donnees2['PER_Prenom']; ?></option>
+<?php 
+} 
+?>			    				
+			    				</select>
+			    				</td>
+			    				</tr>
+			    				<tr>
+			    				<td>
+			    				<label>Réf :</label>
+			    				</td>
+			    				<td>
+			    				<input form="BuyProd" id="RefProd" name="RefProd[]" type="text">
+			    				</td>
+			    				<td>
+			    				<label>Nom :</label>
+			    				</td>
+			    				<td>
+			    				<input form="BuyProd" id="NomProd" name="NomProd[]" type="text">
+			    				</td>
+			    				</tr>
+			    				<tr>
+			    				<td>
+			    				<label>Tarif :</label>
+			    				</td>
+			    				<td>
+			    				<input form="BuyProd" id="PriceProd" name="PriceProd[]" type="number">
+			    				</td>
+			    				<td>
+			    				<label>Conditionnement :</label>
+			    				</td>
+			    				<td>
+			    				<input form="BuyProd" id="CondProd" name="CondProd[]" type="text">
+			    				</td>
+			    				</tr>
+			    				</table>
 			    			</div>
 			    		</td>
 			    		<td style="text-align: right; width: 100px; padding-right: 10px;">

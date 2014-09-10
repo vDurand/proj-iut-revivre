@@ -111,8 +111,8 @@
         <tr><td>
           <table cellpadding="10" class="detailClients">
         	<tr>
-        	  <th style="text-align: left; width: 200px; white-space: normal;"></th>
-        	  <td style="text-align: center; width: 200px;">&nbsp;</td>
+        	  <th style="text-align: left; width: 200px; white-space: normal;">Montant des heures</th>
+        	  <td style="text-align: center; width: 200px;"><div id="heureMontant"></div></td>
         	</tr>
         	<tr>
         	  <th style="text-align: left; width: 200px; white-space: normal;">Heures :</th>
@@ -123,8 +123,8 @@
         	  <td style="text-align: center; width: 200px;"><div id="progressbar2"><div class="progress-label2"></div></div></td>
         	</tr>
         	<tr>
-        	  <th style="text-align: left; width: 200px; white-space: normal;"></th>
-        	  <td style="text-align: center; width: 200px;">&nbsp;</td>
+        	  <th style="text-align: left; width: 200px; white-space: normal;">Heures restantes</th>
+        	  <td style="text-align: center; width: 200px;"><div id="heureRestante"></div></td>
         	</tr>
           </table>
         </td></tr>
@@ -336,8 +336,18 @@
         </table>
       </div>
       <h style="padding-left: 12px; text-decoration: underline; color: #008000;">Evolution des heures de travail :</h>
+<!-- Graph Tps Travail -->
       <div id="HoursEvolution" style="height: 400px;"></div>
+<!-- List Achats -->
 <?php
+		$reponseT = mysqli_query($db, "SELECT TarifHoraire FROM Constante");
+		$donneesT = mysqli_fetch_assoc($reponseT);
+		
+		$montantHeure = 0;
+		$resteHeure = 0;
+		$montantHeure = $donneesT['TarifHoraire']*$donnees4['total'];
+		$resteHeure = $Hmax-$donnees4['total'];
+		
 		mysqli_free_result($reponse4);
 		$graphTpsOK = 1;
 	}
@@ -387,6 +397,7 @@
 	        </table>
 	      </div>
 	      <h style="padding-left: 12px; text-decoration: underline; color: #1A89D3;">Evolution des achats :</h>
+<!-- Graph Achats -->
 	      <div id="ProductEvolution" style="height: 400px;"></div>
 <?php
 	$graphMntOK = 1;
@@ -396,6 +407,15 @@
     </div>
 <script type="text/javascript">
 	window.onload=function(){
+		// Affiche heure restant et montant des heures dans le haut de la page
+		<?php if ($resteHeure < 0) { ?>
+			document.getElementById('heureRestante').innerHTML = "Depassé de <?php echo -$resteHeure; ?>h";
+		<?php }else{ ?>
+			document.getElementById('heureRestante').innerHTML = "<?php echo $resteHeure; ?>h";
+		<?php } ?>
+		document.getElementById('heureMontant').innerHTML = "<?php echo $montantHeure; ?> €";
+		
+		
 		var state = "<?php echo $IdEtat; $croissance = 0; ?>";
 		document.getElementById('stateOfSite').style.color = 'white';	
 		switch (state) {

@@ -9,14 +9,52 @@
   $Ids = array(" ");
 
   $num=$_POST["NumC"];
+  $max = 0;
+  $max1 = 0;
   
   $j=0;
+  // Produit existant
   if (isset($_POST["Produit"])) {
   	foreach($_POST["Produit"] AS $a){
   		$produits[$j] = $a;
   		$j++;
   	}
   	$max = $j;
+  }
+  // Nouveau produit
+  $fournProd[0] = "";
+  $j = 0;
+  foreach($_POST["FournProd"] AS $a){
+  	$fournProd[$j] = $a;
+  	$j++;
+  }
+  if ($fournProd[0]!="") {
+  	$max += $j;
+  	$max1 = $j;
+  	$j=0;
+  	foreach($_POST["RefProd"] AS $a){
+  		$refProd[$j] = $a;
+  		$j++;
+  	}
+  	$j=0;
+  	foreach($_POST["NomProd"] AS $a){
+  		$nomProd[$j] = $a;
+  		$j++;
+  	}
+  	$j=0;
+  	foreach($_POST["CondProd"] AS $a){
+  		$condProd[$j] = $a;
+  		$j++;
+  	}
+  	$j=0;
+  	foreach($_POST["PriceProd"] AS $a){
+  		$priceProd[$j] = $a;
+  		$j++;
+  	}
+  }
+  // Gestion Achat
+  $date[0] = "";
+  if (isset($_POST["Quantite"])&&isset($_POST["Type"])&&isset($_POST["Date"])) {
   	$j=0;
   	foreach($_POST["Quantite"] AS $a){
   		$quantite[$j] = $a;
@@ -33,7 +71,32 @@
   		$j++;
   	}
   }
-  if (isset($date[0])) {
+  // Ajout des nouveaux produits
+  if ($fournProd[0]!="") {
+  	for ($i = 0; $i < $max1; $i++) {
+  		$query1 = "INSERT INTO Produits (PRO_Ref, PRO_Conditionnement, PRO_Nom, PRO_Tarif, FOU_NumFournisseur) VALUES ('$refProd[$i]', '$condProd[$i]', '$nomProd[$i]', '$priceProd[$i]', '$fournProd[$i]');";
+  		
+  		    $sql1 = mysqli_query($db, $query1);
+  		    $errr1=mysqli_error($db);
+  		
+  		      if($sql1){
+  		          echo '<div id="good">     
+  		              <label>Produit ajouté avec succès</label>
+  		              </div>';
+  		          $reponseP = mysqli_query($db, "SELECT PRO_Ref FROM Produits WHERE PRO_Ref like '$refProd[$i]'");
+  		          $donneesP = mysqli_fetch_assoc($reponseP);
+  		          array_unshift($produits , $donneesP['PRO_Ref']);
+  		          mysqli_free_result($reponseP);
+  		      }
+  		      else{
+  		        echo '<div id="bad">     
+  		              <label>Le produit n\'a pas pu être ajouté</label>
+  		              </div>';
+  		      }
+  	}
+  }
+  // Ajout des achats
+  if ($date[0]!="") {
   	for ($i = 0; $i < $max; $i++) {
   		$query = "INSERT INTO Acheter (CHA_NumDevis, ACH_TypeAchat, ACH_Date, ACH_Quantite, ACH_NumAchat, PRO_Ref) VALUES ('$num', '$type[$i]', '$date[$i]', '$quantite[$i]', NULL, '$produits[$i]');";
   		
@@ -156,8 +219,8 @@
               <tr><td>
                 <table cellpadding="10" class="detailClients">
               	<tr>
-              	  <th style="text-align: left; width: 200px; white-space: normal;"></th>
-              	  <td style="text-align: center; width: 200px;">&nbsp;</td>
+              	  <th style="text-align: left; width: 200px; white-space: normal;">Montant des heures</th>
+              	  <td style="text-align: center; width: 200px;"><div id="heureMontant"></div></td>
               	</tr>
               	<tr>
               	  <th style="text-align: left; width: 200px; white-space: normal;">Heures :</th>
@@ -168,8 +231,8 @@
               	  <td style="text-align: center; width: 200px;"><div id="progressbar2"><div class="progress-label2"></div></div></td>
               	</tr>
               	<tr>
-              	  <th style="text-align: left; width: 200px; white-space: normal;"></th>
-              	  <td style="text-align: center; width: 200px;">&nbsp;</td>
+              	  <th style="text-align: left; width: 200px; white-space: normal;">Heures restantes</th>
+              	  <td style="text-align: center; width: 200px;"><div id="heureRestante"></div></td>
               	</tr>
                 </table>
               </td></tr>
@@ -336,7 +399,8 @@
              	  </form>
             </table>
       <!-- List Tps Travail -->
-      <?php 
+      <?php
+      	$graphTpsOK = 0; 
       	if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM TempsTravail WHERE CHA_NumDevis='$num'"))) {
       ?>
             <div class="listeClients" style="margin-bottom: 15px;">
@@ -380,11 +444,24 @@
               </table>
             </div>
             <h style="padding-left: 12px; text-decoration: underline; color: #008000;">Evolution des heures de travail :</h>
+      <!-- Graph Tps Travail -->
             <div id="HoursEvolution" style="height: 400px;"></div>
+      <!-- List Achats -->
       <?php
+      		$reponseT = mysqli_query($db, "SELECT TarifHoraire FROM Constante");
+      		$donneesT = mysqli_fetch_assoc($reponseT);
+      		
+      		$montantHeure = 0;
+      		$resteHeure = 0;
+      		$montantHeure = $donneesT['TarifHoraire']*$donnees4['total'];
+      		$resteHeure = $Hmax-$donnees4['total'];
+      		
       		mysqli_free_result($reponse4);
+      		$graphTpsOK = 1;
       	}
       	
+      	$totAchat = 0;
+      	$graphMntOK = 0;
       	if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM Acheter JOIN Produits USING (PRO_Ref) WHERE CHA_NumDevis='$num'"))) {
       	
       ?>
@@ -405,7 +482,7 @@
       	          </thead>
       	          <tbody>
       	<?php
-      			$totAchat = 0;
+      			
       			$reponse5 = mysqli_query($db, "SELECT * FROM Acheter JOIN Produits USING (PRO_Ref) WHERE CHA_NumDevis='$num' ORDER BY ACH_Date ASC");
       			while ($donnees5 = mysqli_fetch_assoc($reponse5))
       			{
@@ -428,15 +505,26 @@
       	        </table>
       	      </div>
       	      <h style="padding-left: 12px; text-decoration: underline; color: #1A89D3;">Evolution des achats :</h>
+      <!-- Graph Achats -->
       	      <div id="ProductEvolution" style="height: 400px;"></div>
       <?php
+      	$graphMntOK = 1;
       	}
       	mysqli_free_result($reponse);  
       ?>
           </div>
       <script type="text/javascript">
       	window.onload=function(){
-      		var state = "<?php echo $IdEtat; ?>";
+      		// Affiche heure restant et montant des heures dans le haut de la page
+      		<?php if ($resteHeure < 0) { ?>
+      			document.getElementById('heureRestante').innerHTML = "Depassé de <?php echo -$resteHeure; ?>h";
+      		<?php }else{ ?>
+      			document.getElementById('heureRestante').innerHTML = "<?php echo $resteHeure; ?>h";
+      		<?php } ?>
+      		document.getElementById('heureMontant').innerHTML = "<?php echo $montantHeure; ?> €";
+      		
+      		
+      		var state = "<?php echo $IdEtat; $croissance = 0; ?>";
       		document.getElementById('stateOfSite').style.color = 'white';	
       		switch (state) {
       	        case "1":
@@ -456,7 +544,7 @@
       	            document.getElementById('stateOfSite').style.backgroundColor = '#D50000';
       	            break;
       		}
-      		
+      		<?php if ($graphTpsOK == 1) { ?>
       		Morris.Line({
       		  element: 'HoursEvolution',
       		  data: [
@@ -476,7 +564,7 @@
       			$sommeTable[0] = $hourTable[0];
       			$distinctDate[0] = $dateTable[0];
       			$k = 0;
-      			$croissance = 0;
+      			
       			
       			for ($j = 1; $j < $i; $j++) {
       				if ($dateTable[$j] == $dateTable[$j-1]) {
@@ -503,7 +591,7 @@
       		  goalStrokeWidth: 4,
       		  lineColors: ['green']
       		});
-      		
+      		<?php } ?>
       		var current = <?php if($croissance!=""){echo $croissance;}else{echo "0";} ?>;
       		var maxxx = <?php echo $Hmax; ?>;
       		if (maxxx<current) {
@@ -514,19 +602,44 @@
       			document.getElementById('hoursOnSite').style.backgroundColor = 'green';
       			document.getElementById('hoursOnSite').style.color = 'white';
       		}
-      		
+      		<?php if ($graphMntOK == 1) {?>
       		Morris.Line({
       		  element: 'ProductEvolution',
       		  data: [
       		  	<?php
       		  	$achats = 0;
+      		  	$i = 0;
+      		  	$buyTable[0] = 0;
+      		  	$calTable[0] = 0;
       		  	$reponse5 = mysqli_query($db, "SELECT * FROM Acheter JOIN Produits USING (PRO_Ref) WHERE CHA_NumDevis='$num' ORDER BY ACH_Date ASC");
       		  	while ($donnees5 = mysqli_fetch_assoc($reponse5))
       		  	{
+      			  	$buyTable[$i] = $donnees5['PRO_Tarif']*$donnees5['ACH_Quantite'];
+      		  			$calTable[$i] = $donnees5['ACH_Date'];
+      		  			$i++;
+      		  	}
+      			  	mysqli_free_result($reponse5);
+      			  	
+      			  	$sumTable[0] = $buyTable[0];
+      			  	$distinctCal[0] = $calTable[0];
+      			  	$k = 0;
+      			  	
+      			  	for ($j = 1; $j < $i; $j++) {
+      			  		if ($calTable[$j] == $calTable[$j-1]) {
+      			  			$sumTable[$k] = $sumTable[$k] + $buyTable[$j];
+      			  		}
+      			  		else {
+      			  			$k++;
+      			  			$sumTable[$k] = $buyTable[$j];
+      			  			$distinctCal[$k] = $calTable[$j];
+      			  		}
+      			  	}
+      			  	
+      			  	for ($i = 0; $i < $k+1; $i++) {
       		  	?>
-      				{ y: '<?php echo $donnees5['ACH_Date']; ?>', a: <?php $achats = $achats + $donnees5['PRO_Tarif']*$donnees5['ACH_Quantite']; echo $achats; ?>},
+      				{ y: '<?php echo $distinctCal[$i]; ?>', a: <?php $achats = $achats + $sumTable[$i]; echo $achats; ?>},
       			<?php	
-      			}
+      				}
       		    ?>
       		  ],
       		  xkey: 'y',
@@ -537,6 +650,7 @@
       		  goalStrokeWidth: 4,
       		  lineColors: ['#1A89D3']
       		});
+      		<?php } ?>
       	};
       </script>
       <?php

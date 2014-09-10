@@ -97,3 +97,19 @@
 			document.getElementById('DateFin').value = "";
 		}
 	}
+// A/M creation nouveau produit
+	function showNewProd()
+	{
+	    if (document.getElementById('yesCheck').checked) {
+	        document.getElementById('ProdCreator').style.display = "";
+	        document.getElementById('ProdSelector').style.display = "none";
+	        document.getElementById('ProduitExistant').value = ""; 
+	    } else {
+	        document.getElementById('ProdCreator').style.display = "none";
+	        document.getElementById('ProdSelector').style.display = "";
+	     	document.getElementById('NomProd').value = "";  
+	     	document.getElementById('RefProd').value = "";  
+	     	document.getElementById('CondProd').value = "";  
+	     	document.getElementById('PriceProd').value = ""; 
+	    }
+	}

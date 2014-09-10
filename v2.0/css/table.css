@@ -118,6 +118,7 @@
 
 #BuyAjout tr:nth-child(odd){  }
 #BuyAjout tr:nth-child(even) td    { border-bottom: 1px solid #000; }
+#BuyAjout table tr:nth-child(even) td    { border-bottom: 0px solid #000; }
 
 #downT {
 	background-color: #f5f2f5;
