@@ -41,7 +41,7 @@
 	while (($donnees = mysqli_fetch_assoc($reponse))&&($i<3))
 	{
 ?>
-						<form method="post" action="detailChantier.php" name="detailChantier">
+						<form method="get" action="detailChantier.php" name="detailChantier">
 							<input type="hidden" name="NumC" value="">
 							<tr onclick="javascript:submitViewDetail('<?php echo $donnees['CHA_NumDevis']; ?>', 'detailChantier');" style="font-size: 14;">
 								<td><?php echo $donnees['CHA_Id']; ?></td>

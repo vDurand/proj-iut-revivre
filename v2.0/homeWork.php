@@ -186,7 +186,7 @@
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
 ?>
-						<form method="post" action="detailChantier.php" name="detailClient">
+						<form method="get" action="detailChantier.php" name="detailClient">
 							<input type="hidden" name="NumC" value="">
 							<tr onclick="javascript:submitViewDetail('<?php echo $donnees['CHA_NumDevis']; ?>', 'detailClient');" style="font-size: 14;">
 								<td><?php echo $donnees['CHA_Id']; ?></td>
