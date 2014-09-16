@@ -115,7 +115,7 @@
 										<td><?php echo $donnees['PER_TelFixe']; ?></td>
 										<td><?php echo $donnees['PER_TelPort']; ?></td>
 										<td><?php echo $donnees['PER_Email']; ?></td>
-										<td><?php echo $donnees['PER_Adresse']; ?>, <?php echo $donnees['PER_Ville']; ?> <?php echo $donnees['PER_CodePostal']; ?></td>
+										<td><?php echo ucfirst(mb_strtolower($donnees['PER_Adresse'], 'UTF-8')); ?>, <?php echo ucfirst(mb_strtolower($donnees['PER_Ville'], 'UTF-8')); ?> <?php echo $donnees['PER_CodePostal']; ?></td>
 										<td><?php echo $donnees['TYP_Nom']; ?></td>
 									</tr>
 							</form>
@@ -173,7 +173,7 @@
 										<td><?php echo $donnees['PER_TelFixe']; ?></td>
 										<td><?php echo $donnees['PER_TelPort']; ?></td>
 										<td><?php echo $donnees['PER_Email']; ?></td>
-										<td><?php echo $donnees['PER_Adresse']; ?>, <?php echo $donnees['PER_Ville']; ?> <?php echo $donnees['PER_CodePostal']; ?></td>
+										<td><?php echo ucfirst(mb_strtolower($donnees['PER_Adresse'], 'UTF-8')); ?>, <?php echo ucfirst(mb_strtolower($donnees['PER_Ville'], 'UTF-8')); ?> <?php echo $donnees['PER_CodePostal']; ?></td>
 										<td><?php echo $donnees['CLI_Structure']; ?></td>
 									</tr>
 							</form>
