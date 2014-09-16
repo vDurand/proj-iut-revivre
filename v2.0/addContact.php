@@ -59,7 +59,7 @@
 										<label>Nom :</label>
 									</td>
 									<td>
-										<input id="Nom" required maxlength="255" name="Nom" type="text" class="inputC" pattern="^[A-Z].*" title="Majuscule en début obligatoire" autofocus="autofocus"> 
+										<input id="Nom" required maxlength="255" name="Nom" type="text" class="inputC" autofocus="autofocus"> 
 									</td>
 								</tr>
 								<tr id="Contact-Prenom" style="display:none">
@@ -67,7 +67,7 @@
 										<label>Prénom :</label>
 									</td>
 									<td>
-										<input id="Prenom" maxlength="255" name="Prenom" type="text" class="inputC" pattern="^[A-Z].*" title="Majuscule en début obligatoire"> 
+										<input id="Prenom" maxlength="255" name="Prenom" type="text" class="inputC"> 
 									</td>
 
 								</tr>
@@ -76,7 +76,7 @@
 										<label>Téléphone Fixe :</label>
 									</td>
 									<td>
-										<input id="Tel_Fixe" maxlength="255" name="Tel_Fixe" type="text" fieldtype="1" class="inputC" pattern="^[0-9][0-9](?:[\/_:-\s]?\d\d){4}$"> 
+										<input id="Tel_Fixe" maxlength="255" name="Tel_Fixe" type="text" fieldtype="1" class="inputC"> 
 									</td>
 								</tr>
 								<tr id="Contact-Portable">
@@ -84,7 +84,7 @@
 										<label>Téléphone Portable :</label>
 									</td>
 									<td>
-										<input id="Portable" maxlength="255" name="Portable" type="text" class="inputC" pattern="^[0-9][0-9](?:[\/_:-\s]?\d\d){4}$"> 
+										<input id="Portable" maxlength="255" name="Portable" type="text" class="inputC"> 
 									</td>
 								</tr>
 								<tr id="Contact-Fax">
@@ -92,7 +92,7 @@
 										<label>Fax :</label>
 									</td>
 									<td>
-										<input id="Fax" maxlength="255" name="Fax" type="text" fieldtype="1" class="inputC" pattern="^[0-9][0-9](?:[\/_:-\s]?\d\d){4}$"> 
+										<input id="Fax" maxlength="255" name="Fax" type="text" fieldtype="1" class="inputC"> 
 									</td>
 								</tr>
 								<tr id="Contact-Fonction" style="display: none;">

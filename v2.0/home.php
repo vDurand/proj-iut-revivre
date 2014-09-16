@@ -45,9 +45,9 @@
 							<input type="hidden" name="NumC" value="">
 							<tr onclick="javascript:submitViewDetail('<?php echo $donnees['CHA_NumDevis']; ?>', 'detailChantier');" style="font-size: 14;">
 								<td><?php echo $donnees['CHA_Id']; ?></td>
-								<td><?php echo ucfirst(strtolower($donnees['CHA_Intitule'])); ?></td>
-								<td><?php echo strtoupper($donnees['Client']); ?><br/><?php echo $donnees['ClientP']; ?></td>
-								<td><?php echo strtoupper($donnees['Resp']); ?><br/><?php echo $donnees['RespP']; ?></td>
+								<td><?php echo ucfirst(mb_strtolower($donnees['CHA_Intitule'], 'UTF-8')); ?></td>
+								<td><?php echo strtoupper($donnees['Client']); ?><br/><?php echo ucfirst(mb_strtolower($donnees['ClientP'], 'UTF-8')); ?></td>
+								<td><?php echo strtoupper($donnees['Resp']); ?><br/><?php echo ucfirst(mb_strtolower($donnees['RespP'], 'UTF-8')); ?></td>
 								<td><?php echo dater($donnees['CHA_DateDebut']); ?></td>
 								<td>
 <?php
@@ -110,8 +110,8 @@
 		?>					<form method="post" action="detailSal.php" name="detailSal">
 									<input type="hidden" name="NumC" value="">
 									<tr onclick="javascript:submitViewDetail('<?php echo $donnees['SAL_NumSalarie']; ?>', 'detailSal');" style="font-size: 14;">
-										<td><?php echo $donnees['PER_Nom']; ?></td>
-										<td><?php echo $donnees['PER_Prenom']; ?></td>
+										<td><?php echo ucfirst(mb_strtolower($donnees['PER_Nom'], 'UTF-8')); ?></td>
+										<td><?php echo ucfirst(mb_strtolower($donnees['PER_Prenom'], 'UTF-8')); ?></td>
 										<td><?php echo $donnees['PER_TelFixe']; ?></td>
 										<td><?php echo $donnees['PER_TelPort']; ?></td>
 										<td><?php echo $donnees['PER_Email']; ?></td>
@@ -168,8 +168,8 @@
 		?>					<form method="post" action="detailClient.php" name="detailClient">
 								<input type="hidden" name="NumC" value="">
 									<tr onclick="javascript:submitViewDetail('<?php echo $donnees['CLI_NumClient']; ?>', 'detailClient');" style="font-size: 14;">
-										<td><?php echo $donnees['PER_Nom']; ?></td>
-										<td><?php echo $donnees['PER_Prenom']; ?></td>
+										<td><?php echo ucfirst(mb_strtolower($donnees['PER_Nom'], 'UTF-8')); ?></td>
+										<td><?php echo ucfirst(mb_strtolower($donnees['PER_Prenom'], 'UTF-8')); ?></td>
 										<td><?php echo $donnees['PER_TelFixe']; ?></td>
 										<td><?php echo $donnees['PER_TelPort']; ?></td>
 										<td><?php echo $donnees['PER_Email']; ?></td>
@@ -226,8 +226,8 @@
 		?>					<form method="post" action="detailFournisseur.php" name="detailFour">
 								<input type="hidden" name="NumC" value="">
 									<tr onclick="javascript:submitViewDetail('<?php echo $donnees['FOU_NumFournisseur']; ?>', 'detailFour');" style="font-size: 14;">
-										<td><?php echo $donnees['PER_Nom']; ?></td>
-										<td><?php echo $donnees['PER_Prenom']; ?></td>
+										<td><?php echo ucfirst(mb_strtolower($donnees['PER_Nom'], 'UTF-8')); ?></td>
+										<td><?php echo ucfirst(mb_strtolower($donnees['PER_Prenom'], 'UTF-8')); ?></td>
 										<td><?php echo $donnees['PER_TelFixe']; ?></td>
 										<td><?php echo $donnees['PER_TelPort']; ?></td>
 										<td><?php echo $donnees['PER_Email']; ?></td>

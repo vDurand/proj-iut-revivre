@@ -5,7 +5,7 @@
 <html>
 
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<link rel="stylesheet" type="text/css" href="css/index.css">
 		<link rel="stylesheet" type="text/css" href="css/drop.css">
 		<link rel="stylesheet" type="text/css" href="css/table.css">
@@ -63,6 +63,7 @@
 <?php
 	$db = revivre();
 	
+	mysqli_query($db, "SET NAMES 'utf8'");
 	$i = 2;
 	$reponse = mysqli_query($db, "SELECT * FROM Type");
 	
