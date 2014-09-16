@@ -59,10 +59,14 @@
               <th style="text-align: left; width: 200px; white-space: normal;">Type :</th>
               <td style="text-align: left; width: 300px;"><?php echo $donnees['TYP_Nom']; ?></td>
             </tr>
+			<tr>
+              <th style="text-align: left; width: 200px; white-space: normal;">Fonction :</th>
+              <td style="text-align: left; width: 300px;"><?php echo $donnees['SAL_Fonction']; ?></td>
+            </tr>
           </table>
         </td>
       </table>
-      <form method="post" action="editClient.php" name="EditClient">
+      <form method="post" action="editSal.php" name="EditSal">
         <input type="hidden" name="NumC" value="<?php echo $donnees['SAL_NumSalarie']; ?>">
         <table id="downT">
           <tr>

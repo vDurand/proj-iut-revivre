@@ -22,16 +22,16 @@
   $errr=mysqli_error($db);
 
     if($sql){
-      $query2 = "UPDATE Clients SET CLI_Structure = '$struct' WHERE Clients.PER_Num = '$num'";
+      $query2 = "UPDATE Fournisseurs SET FOU_Structure = '$struct' WHERE Fournisseurs.PER_Num = '$num'";
 
       $sql2 = mysqli_query($db, $query2);
       $errr2 = mysqli_error($db);
 
       if($sql2){
         echo '<div id="good">     
-            <label>Client modifie avec succes</label>
+            <label>Fournisseur modifie avec succes</label>
             </div>';
-            $reponse = mysqli_query($db, "SELECT * FROM Clients cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE cl.PER_Num='$num'");
+			$reponse = mysqli_query($db, "SELECT * FROM Fournisseurs fou JOIN Personnes pe ON fou.PER_Num=pe.PER_Num WHERE fou.PER_Num='$num'");
             $donnees = mysqli_fetch_assoc($reponse);
 ?>
   <br>
@@ -76,7 +76,7 @@
     </tr>
 	<tr>
       <th style="text-align: left; width: 150px; white-space: normal;">Structure :</th>
-      <td style="text-align: center; width: 200px;"><?php echo $donnees['CLI_Structure']; ?></td>
+      <td style="text-align: center; width: 200px;"><?php echo $donnees['FOU_Structure']; ?></td>
 	</tr>
   </table>
 </td>
@@ -85,7 +85,7 @@
       }
       else{
         echo '<div id="bad">     
-              <label>Le client n a pas pu etre modifie</label>
+              <label>Le Fournisseur n a pas pu etre modifie</label>
               </div>';
             }
             mysqli_free_result($reponse);

@@ -62,7 +62,7 @@
           </table>
         </td>
       </table>
-      <form method="post" action="editClient.php" name="EditClient">
+      <form method="post" action="editFournisseur.php" name="EditFournisseur">
         <input type="hidden" name="NumC" value="<?php echo $donnees['FOU_NumFournisseur']; ?>">
         <table id="downT">
           <tr>

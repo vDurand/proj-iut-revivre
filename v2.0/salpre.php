@@ -14,7 +14,7 @@
   $add=addslashes(mysqli_real_escape_string($db, $_POST["Adresse"]));
   $cp=addslashes($_POST["Code_Postal"]);
   $ville=addslashes(mysqli_real_escape_string($db, $_POST["Ville"]));
-  $struct=addslashes($_POST["Struct"]);
+  $fonction=addslashes($_POST["Fonction"]);
 
 	$query = "UPDATE Personnes SET PER_Nom = '$nom', PER_Prenom = '$prenom', PER_TelFixe = '$tel', PER_TelPort = '$port', PER_Fax = '$fax', PER_Email = '$email', PER_Adresse = '$add', PER_CodePostal = '$cp', PER_Ville = '$ville' WHERE Personnes.PER_Num = '$num'";
 
@@ -22,16 +22,16 @@
   $errr=mysqli_error($db);
 
     if($sql){
-      $query2 = "UPDATE Clients SET CLI_Structure = '$struct' WHERE Clients.PER_Num = '$num'";
+      $query2 = "UPDATE Salaries SET SAL_Fonction = '$fonction' WHERE Salaries.PER_Num = '$num'";
 
       $sql2 = mysqli_query($db, $query2);
       $errr2 = mysqli_error($db);
 
       if($sql2){
         echo '<div id="good">     
-            <label>Client modifie avec succes</label>
+            <label>Membre modifie avec succes</label>
             </div>';
-            $reponse = mysqli_query($db, "SELECT * FROM Clients cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE cl.PER_Num='$num'");
+			$reponse = mysqli_query($db, "SELECT * FROM Salaries sal JOIN Personnes pe ON sal.PER_Num=pe.PER_Num JOIN Type ty ON sal.TYP_Id=ty.TYP_Id WHERE sal.PER_Num='$num' ORDER BY PER_Nom");
             $donnees = mysqli_fetch_assoc($reponse);
 ?>
   <br>
@@ -75,9 +75,9 @@
       <td style="text-align: center; width: 200px;"><?php echo $donnees['PER_Ville']; ?>, <?php echo $donnees['PER_CodePostal']; ?></td>
     </tr>
 	<tr>
-      <th style="text-align: left; width: 150px; white-space: normal;">Structure :</th>
-      <td style="text-align: center; width: 200px;"><?php echo $donnees['CLI_Structure']; ?></td>
-	</tr>
+      <th style="text-align: left; width: 150px; white-space: normal;">Fonction :</th>
+      <td style="text-align: center; width: 200px;"><?php echo $donnees['SAL_Fonction']; ?></td>
+    </tr>
   </table>
 </td>
 </table>
@@ -85,7 +85,7 @@
       }
       else{
         echo '<div id="bad">     
-              <label>Le client n a pas pu etre modifie</label>
+              <label>Le membre n a pas pu etre modifie</label>
               </div>';
             }
             mysqli_free_result($reponse);
