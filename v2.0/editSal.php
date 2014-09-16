@@ -9,7 +9,7 @@
   $donnees = mysqli_fetch_assoc($reponse);
 ?>
 			<div id="labelT">     
-				<label>Modifier Client</label>
+				<label>Modifier Membre</label>
 			</div>
 			<br>
 			<form method="post" action="salpre.php" name="Sal" formtype="1" colvalue="2">
