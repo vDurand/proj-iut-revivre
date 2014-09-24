@@ -12,11 +12,11 @@ ATTENTES :
 - Faire valider la base par Mr Porcq
 - 15 Novembre (lot 1), livraison de la partie Chantier
 - 5 Janvier (lot 2), livraison de la partie Salariés
-- Rajouter des champs pour savoir si le membre est actif ou inactif
+- Rajouter des champs pour savoir si le membre est actif ou inactif (nouvelle demande de gillou)
 - Bien déterminer les actions de chacun pendant toute la durée du projet
 - Faire un document Word pour expliquer là où s'était arrêté le projet en Juin, où en était le projet en Septembre, qui a fait quoi
 - Demander au commanditaire la situation par rapport à la CNIL
-
+- Prendre rdv w/ GLD
 
 
 

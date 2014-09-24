@@ -30,7 +30,7 @@
             </tr>
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Nom du Chantier:</th>
-              <td style="text-align: center; width: 250px;"><?php echo $donnees['CHA_Intitule']; ?></td>
+              <td style="text-align: center; width: 250px;"><?php echo firstMaj($donnees['CHA_Intitule']); ?></td>
             </tr>
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Date de Début:</th>
@@ -102,7 +102,7 @@
             </tr>
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Adresse :</th>
-              <td style="text-align: center; width: 200px;"><?php echo $donnees['ClientAd']; ?></td>
+              <td style="text-align: center; width: 200px;"><?php echo firstMaj($donnees['ClientAd']); ?></td>
             </tr>
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Ville :</th>
@@ -113,22 +113,22 @@
         </tr>
         <tr><td>
           <table cellpadding="10" class="detailClients">
+            <tr>
+              <th style="text-align: left; width: 200px; white-space: normal;">Achats :</th>
+              <td style="text-align: center; width: 200px;"><div id="progressbar2"><div class="progress-label2"></div></div></td>
+            </tr>
         	<tr>
-        	  <th style="text-align: left; width: 200px; white-space: normal;">Montant des heures</th>
-        	  <td style="text-align: center; width: 200px;"><div id="heureMontant"></div></td>
-        	</tr>
-        	<tr>
-        	  <th style="text-align: left; width: 200px; white-space: normal;">Heures :</th>
+        	  <th style="text-align: left; width: 200px; white-space: normal;">Heures en cours :</th>
         	  <td style="text-align: center; width: 200px;"><div id="progressbar"><div class="progress-label"></div></div></td>
         	</tr>
         	<tr>
-        	  <th style="text-align: left; width: 200px; white-space: normal;">Achats :</th>
-        	  <td style="text-align: center; width: 200px;"><div id="progressbar2"><div class="progress-label2"></div></div></td>
-        	</tr>
-        	<tr>
-        	  <th style="text-align: left; width: 200px; white-space: normal;">Heures restantes</th>
+        	  <th style="text-align: left; width: 200px; white-space: normal;">Heures restantes :</th>
         	  <td style="text-align: center; width: 200px;"><div id="heureRestante"></div></td>
         	</tr>
+    		<tr>
+    		  <th style="text-align: left; width: 200px; white-space: normal;">Montant des heures :</th>
+    		  <td style="text-align: center; width: 200px;"><div id="heureMontant"></div></td>
+    		</tr>
           </table>
         </td></tr>
       </table>    
@@ -189,16 +189,12 @@
             <div class="selectType">
               <select required name="Resp">
 <?php
-  $j = 1;
   $reponseBis = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom");
   while ($donneesBis = mysqli_fetch_assoc($reponseBis))
   {
 ?>
-	          	<option value="<?php echo $donneesBis['SAL_NumSalarie']; ?>"><?php echo strtoupper($donneesBis['PER_Nom']); $temp1=strtoupper($donneesBis['PER_Nom']);?> <?php echo $donneesBis['PER_Prenom']; $temp2=$donneesBis['PER_Prenom']; ?></option>
+	          	<option value="<?php echo $donneesBis['SAL_NumSalarie']; ?>"><?php echo strtoupper($donneesBis['PER_Nom']);?> <?php echo $donneesBis['PER_Prenom'];?></option>
 <?php
-      $Workers[$j] = "$temp1 $temp2";
-      $Ids[$j] = $donneesBis['SAL_NumSalarie'];
-      $j++;
   } 
   mysqli_free_result($reponseBis);
 ?>                  
@@ -221,16 +217,42 @@
             <div class="selectType">
               <select required form="AddWork" name="Member[]">
               	<option></option>
+              	<optgroup label="Stagiaires"> 
 <?php
-  $reponseTres = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom");
+  $j = 0;
+  $reponseTres = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num Where TYP_Id = 7 ORDER BY PER_Nom");
   while ($donneesTres = mysqli_fetch_assoc($reponseTres))
   {
 ?>
 		          <option value="<?php echo $donneesTres['SAL_NumSalarie']; ?>"><?php echo strtoupper($donneesTres['PER_Nom']); ?> <?php echo $donneesTres['PER_Prenom']; ?></option>
 <?php             
+  	$temp1=strtoupper($donneesTres['PER_Nom']);
+  	$temp2=$donneesTres['PER_Prenom'];
+  	$Workers[$j] = "$temp1 $temp2";
+  	$Ids[$j] = $donneesTres['SAL_NumSalarie'];
+  	$limitOpt = $j;
+  	$j++;
   }
   mysqli_free_result($reponseTres);
 ?>                  
+              	</optgroup>
+              	<optgroup label="Salariés en Insertion">
+<?php
+  $reponseTres = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num Where TYP_Id = 8 ORDER BY PER_Nom");
+  while ($donneesTres = mysqli_fetch_assoc($reponseTres))
+  {
+?>
+		          <option value="<?php echo $donneesTres['SAL_NumSalarie']; ?>"><?php echo strtoupper($donneesTres['PER_Nom']); ?> <?php echo $donneesTres['PER_Prenom']; ?></option>
+<?php             
+  	$temp1=strtoupper($donneesTres['PER_Nom']);
+  	$temp2=$donneesTres['PER_Prenom'];
+  	$Workers[$j] = "$temp1 $temp2";
+  	$Ids[$j] = $donneesTres['SAL_NumSalarie'];
+  	$j++;
+  }
+  mysqli_free_result($reponseTres);
+?>    
+              	</optgroup>
               </select>
             </div>
           </td>
@@ -577,11 +599,14 @@
 	  		NewDiv.setAttribute("class","selectType");
 	  
 	  // insertion array in select option via tmp
-		  	tmp = '<select required form="AddWork" name="Member[]">';
+		  	tmp = '<select required form="AddWork" name="Member[]">\n<option></option>\n<optgroup label="Stagiaires"> ';
 				for (var i in jWorkers) {
 					tmp += '<option value="'+jIds[i]+'">'+jWorkers[i]+"</option>\n";
+					if (i == <?php echo $limitOpt; ?>) {
+						tmp += '</optgroup>\n<optgroup label="Salariés en Insertion">';
+					}
 				}
-				tmp += "</select>";
+				tmp += "</optgroup>\n</select>";
 		
 			NewDiv.innerHTML = tmp;
 	

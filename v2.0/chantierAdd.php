@@ -214,22 +214,22 @@
               </tr>
               <tr><td>
                 <table cellpadding="10" class="detailClients">
-              	<tr>
-              	  <th style="text-align: left; width: 200px; white-space: normal;">Montant des heures</th>
-              	  <td style="text-align: center; width: 200px;"><div id="heureMontant"></div></td>
-              	</tr>
-              	<tr>
-              	  <th style="text-align: left; width: 200px; white-space: normal;">Heures :</th>
-              	  <td style="text-align: center; width: 200px;"><div id="progressbar"><div class="progress-label"></div></div></td>
-              	</tr>
-              	<tr>
-              	  <th style="text-align: left; width: 200px; white-space: normal;">Achats :</th>
-              	  <td style="text-align: center; width: 200px;"><div id="progressbar2"><div class="progress-label2"></div></div></td>
-              	</tr>
-              	<tr>
-              	  <th style="text-align: left; width: 200px; white-space: normal;">Heures restantes</th>
-              	  <td style="text-align: center; width: 200px;"><div id="heureRestante"></div></td>
-              	</tr>
+                  <tr>
+                    <th style="text-align: left; width: 200px; white-space: normal;">Achats :</th>
+                    <td style="text-align: center; width: 200px;"><div id="progressbar2"><div class="progress-label2"></div></div></td>
+                  </tr>
+                	<tr>
+                	  <th style="text-align: left; width: 200px; white-space: normal;">Heures en cours :</th>
+                	  <td style="text-align: center; width: 200px;"><div id="progressbar"><div class="progress-label"></div></div></td>
+                	</tr>
+                	<tr>
+                	  <th style="text-align: left; width: 200px; white-space: normal;">Heures restantes :</th>
+                	  <td style="text-align: center; width: 200px;"><div id="heureRestante"></div></td>
+                	</tr>
+                	<tr>
+                	  <th style="text-align: left; width: 200px; white-space: normal;">Montant des heures :</th>
+                	  <td style="text-align: center; width: 200px;"><div id="heureMontant"></div></td>
+                	</tr>
                 </table>
               </td></tr>
             </table>    
