@@ -1,7 +1,12 @@
-<!DOCTYPE html>
 <?php  
 	include('assets.php');
+	 session_start();
+	 date_default_timezone_set('Europe/Paris');
+	 if (!isset($_SESSION['user']) && basename($_SERVER["PHP_SELF"]) != "login.php") {
+	     header("Location: login.php");
+	 }
 ?>
+<!DOCTYPE html>
 <html>
 
 	<head>
@@ -120,9 +125,19 @@
 									<li><a href="viewMeals.php">Archive<br>commandes</a></li>
 	                			</ul>
 							</li>
-						</ul>	
+						</ul>
+						<?php
+						if (isset($_SESSION["user"])) {
+						?>
+						            <form action="login.php" method="post">
+						                <input class="deco" id="deco" name="logout" type="submit" value="X">
+						            </form>
+						            <?php
+						}
+						?>	
 					</nav>
 				</div>
 			</div>
 		</div>
 		<div id="debug"><a href="debugger.php">Signaler<br>un Bug.</a></div>
+		

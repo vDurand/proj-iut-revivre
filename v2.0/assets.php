@@ -71,4 +71,21 @@ function firstMaj($prenom)
 {
     return mb_convert_case(trim(firstNoAccent($prenom)), MB_CASE_TITLE, "UTF-8");
 }
+
+// getter-setter
+function postGetter($name)
+{
+    if(isset($_POST[$name])&&!empty($_POST[$name]))
+        return $_POST[$name];
+    else
+        return null;
+}
+
+function getGetter($name)
+{
+    if(isset($_GET[$name])&&!empty($_GET[$name]))
+        return $_GET[$name];
+    else
+        return null;
+}
 ?>
