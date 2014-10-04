@@ -128,7 +128,7 @@
 										<label>Code Postal :</label>
 									</td>
 									<td>
-										<input id="Code_Postal" required name="Code_Postal" type="text" title="" fieldtype="5" style="width:100px;background-color:#cde5f7;" delugetype="BIGINT" maxlength="5">
+										<input id="Code_Postal" required name="Code_Postal" pattern="^\d{5}$" type="text" title="" fieldtype="5" style="width:100px;background-color:#cde5f7;" maxlength="5">
 									</td>
 								</tr>
 								<tr id="Contact-Ville">

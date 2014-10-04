@@ -23,7 +23,7 @@
 										<label>Nom :</label>
 									</td>
 									<td>
-										<input id="Nom" required maxlength="255" name="Nom" type="text" class="inputC" pattern="^[A-Z].*" title="Majuscule en début obligatoire" value="<?php echo $donnees['PER_Nom']; ?>"> 
+										<input id="Nom" required maxlength="255" name="Nom" type="text" class="inputC" value="<?php echo $donnees['PER_Nom']; ?>"> 
 									</td>
 								</tr>
 								<tr id="Client-Prenom">
@@ -31,7 +31,7 @@
 										<label>Prenom :</label>
 									</td>
 									<td>
-										<input id="Prenom" required maxlength="255" name="Prenom" type="text" class="inputC" pattern="^[A-Z].*" title="Majuscule en début obligatoire" value="<?php echo $donnees['PER_Prenom']; ?>"> 
+										<input id="Prenom" required maxlength="255" name="Prenom" type="text" class="inputC" value="<?php echo $donnees['PER_Prenom']; ?>"> 
 									</td>
 
 								</tr>
@@ -84,7 +84,7 @@
 										<label>Code Postal :</label>
 									</td>
 									<td>
-										<input id="Code_Postal" required name="Code_Postal" type="text" title="" fieldtype="5" style="width:100px;background-color:#cde5f7;" delugetype="BIGINT" maxlength="5" value="<?php echo $donnees['PER_CodePostal']; ?>">
+										<input id="Code_Postal" required name="Code_Postal" pattern="^\d{5}$" type="text" title="" fieldtype="5" style="width:100px;background-color:#cde5f7;" delugetype="BIGINT" maxlength="5" value="<?php echo $donnees['PER_CodePostal']; ?>">
 									</td>
 								</tr>
 								<tr id="Client-Ville">

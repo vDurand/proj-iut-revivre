@@ -23,18 +23,20 @@
 										<label>Nom :</label>
 									</td>
 									<td>
-										<input id="Nom" required maxlength="255" name="Nom" type="text" class="inputC" pattern="^[A-Z].*" title="Majuscule en début obligatoire" value="<?php echo $donnees['PER_Nom']; ?>"> 
+										<input id="Nom" required maxlength="255" name="Nom" type="text" class="inputC" value="<?php echo $donnees['PER_Nom']; ?>"> 
 									</td>
 								</tr>
+								<?php if ($donnees['CLI_Structure'] != "Structure") { ?>
 								<tr id="Client-Prenom">
 									<td style="text-align: left; width: 150px; white-space: normal;">
 										<label>Prenom :</label>
 									</td>
 									<td>
-										<input id="Prenom" required maxlength="255" name="Prenom" type="text" class="inputC" pattern="^[A-Z].*" title="Majuscule en début obligatoire" value="<?php echo $donnees['PER_Prenom']; ?>"> 
+										<input id="Prenom" required maxlength="255" name="Prenom" type="text" class="inputC" value="<?php echo $donnees['PER_Prenom']; ?>"> 
 									</td>
 
 								</tr>
+								<?php } ?>
 								<tr id="Client-Tel_Fixe">
 									<td style="text-align: left; width: 150px; white-space: normal;">
 										<label>Telephone Fixe :</label>
@@ -76,7 +78,7 @@
 										<label>Adresse :</label>
 									</td>
 									<td>
-										<input id="Adresse" required maxlength="255" name="Adresse" type="text" fieldtype="1" class="inputC" delugetype="STRING" value="<?php echo $donnees['PER_Adresse']; ?>">
+										<input id="Adresse" required maxlength="255" name="Adresse" type="text" fieldtype="1" class="inputC" value="<?php echo $donnees['PER_Adresse']; ?>">
 									</td>
 								</tr>
 								<tr id="Client-Code_Postal">
@@ -84,7 +86,7 @@
 										<label>Code Postal :</label>
 									</td>
 									<td>
-										<input id="Code_Postal" required name="Code_Postal" type="text" title="" fieldtype="5" style="width:100px;background-color:#cde5f7;" delugetype="BIGINT" maxlength="5" value="<?php echo $donnees['PER_CodePostal']; ?>">
+										<input id="Code_Postal" required name="Code_Postal" pattern="^\d{5}$" type="text" fieldtype="5" style="width:100px;background-color:#cde5f7;"  maxlength="5" value="<?php echo $donnees['PER_CodePostal']; ?>">
 									</td>
 								</tr>
 								<tr id="Client-Ville">
@@ -97,10 +99,10 @@
 								</tr>
 								<tr id="Client-Structure">
 									<td style="text-align: left; width: 150px; white-space: normal;">
-										<label>Structure :</label>
+										<label>&nbsp;</label>
 									</td>
 									<td>
-										<input id="Struct" maxlength="255" name="Struct" type="text" fieldtype="1" class="inputC" delugetype="STRING" value="<?php echo $donnees['CLI_Structure']; ?>">
+										<input id="Struct" maxlength="255" name="Struct" type="hidden" fieldtype="1" class="inputC" delugetype="STRING" value="<?php echo $donnees['CLI_Structure']; ?>">
 									</td>
 								</tr>
 							</table>

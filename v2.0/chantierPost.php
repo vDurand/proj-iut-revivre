@@ -4,15 +4,15 @@
     <div id="corps">
 <?php
 // Creation d un chantier
-  $client=strtoupper(addslashes($_POST["Client"]));
-  $nom=strtoupper(addslashes(mysqli_real_escape_string($db, $_POST["Nom"])));
+  $client=$_POST["Client"];
+  $nom=addslashes(mysqli_real_escape_string($db, formatLOW($_POST["Nom"])));
   $num=strtoupper(addslashes(mysqli_real_escape_string($db, $_POST["Num"])));
-  $ddebut=strtoupper(addslashes($_POST["Debut"]));
-  $montantp=strtoupper(addslashes($_POST["Montant_Prev"]));
-  $achatp=strtoupper(addslashes($_POST["Achats_Prev"]));
-  $heurep=strtoupper(addslashes($_POST["Heures_Prev"]));
-  $echeance=strtoupper(addslashes($_POST["Fin_Max"]));
-  $resp=strtoupper(addslashes($_POST["Resp"]));
+  $ddebut=addslashes($_POST["Debut"]);
+  $montantp=addslashes($_POST["Montant_Prev"]);
+  $achatp=addslashes($_POST["Achats_Prev"]);
+  $heurep=addslashes($_POST["Heures_Prev"]);
+  $echeance=addslashes($_POST["Fin_Max"]);
+  $resp=addslashes($_POST["Resp"]);
   date_default_timezone_set('Europe/Paris');
   $dateNow = date('Y-m-d H:i:s', time());
 
@@ -102,6 +102,11 @@
 </td>
 </table>
 <?php
+	      echo '<script language="Javascript">
+	      <!--
+	      document.location.replace("detailChantier.php?NumC='.$donnees['CHA_NumDevis'].'");
+	      // -->
+	      </script>';
 	      }
 	      else{
 	        echo '<div id="bad">     

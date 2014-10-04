@@ -44,10 +44,10 @@
 						<form method="get" action="detailChantier.php" name="detailChantier">
 							<input type="hidden" name="NumC" value="">
 							<tr onclick="javascript:submitViewDetail('<?php echo $donnees['CHA_NumDevis']; ?>', 'detailChantier');" style="font-size: 14;">
-								<td><?php echo $donnees['CHA_Id']; ?></td>
-								<td><?php echo ucfirst(mb_strtolower($donnees['CHA_Intitule'], 'UTF-8')); ?></td>
-								<td><?php echo strtoupper($donnees['Client']); ?><br/><?php echo ucfirst(mb_strtolower($donnees['ClientP'], 'UTF-8')); ?></td>
-								<td><?php echo strtoupper($donnees['Resp']); ?><br/><?php echo ucfirst(mb_strtolower($donnees['RespP'], 'UTF-8')); ?></td>
+								<td><?php echo formatUP($donnees['CHA_Id']); ?></td>
+								<td><?php echo formatLOW($donnees['CHA_Intitule']); ?></td>
+								<td><?php echo formatUP($donnees['Client']); ?><br/><?php echo formatLOW($donnees['ClientP']); ?></td>
+								<td><?php echo formatUP($donnees['Resp']); ?><br/><?php echo formatLOW($donnees['RespP']); ?></td>
 								<td><?php echo dater($donnees['CHA_DateDebut']); ?></td>
 								<td>
 <?php
@@ -107,16 +107,16 @@
 	$reponse = mysqli_query($db, 'SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num JOIN Type ty ON cl.TYP_Id=ty.TYP_Id ORDER BY PER_Nom');
 	while (($donnees = mysqli_fetch_assoc($reponse))&&($i<3))
 	{
-		?>					<form method="post" action="detailSal.php" name="detailSal">
+		?>					<form method="get" action="detailSal.php" name="detailSal">
 									<input type="hidden" name="NumC" value="">
 									<tr onclick="javascript:submitViewDetail('<?php echo $donnees['SAL_NumSalarie']; ?>', 'detailSal');" style="font-size: 14;">
-										<td><?php echo ucfirst(mb_strtolower($donnees['PER_Nom'], 'UTF-8')); ?></td>
-										<td><?php echo ucfirst(mb_strtolower($donnees['PER_Prenom'], 'UTF-8')); ?></td>
+										<td><?php echo formatUP($donnees['PER_Nom']); ?></td>
+										<td><?php echo formatLOW($donnees['PER_Prenom']); ?></td>
 										<td><?php echo $donnees['PER_TelFixe']; ?></td>
 										<td><?php echo $donnees['PER_TelPort']; ?></td>
 										<td><?php echo $donnees['PER_Email']; ?></td>
-										<td><?php echo ucfirst(mb_strtolower($donnees['PER_Adresse'], 'UTF-8')); ?>, <?php echo ucfirst(mb_strtolower($donnees['PER_Ville'], 'UTF-8')); ?> <?php echo $donnees['PER_CodePostal']; ?></td>
-										<td><?php echo $donnees['TYP_Nom']; ?></td>
+										<td><?php echo formatLOW($donnees['PER_Adresse']); ?> <?php echo formatUP($donnees['PER_Ville']); ?> <?php if(!empty($donnees['PER_CodePostal'])) echo $donnees['PER_CodePostal']; ?></td>
+										<td><?php echo formatLOW($donnees['TYP_Nom']); ?></td>
 									</tr>
 							</form>
 <?php
@@ -165,16 +165,16 @@
 	$reponse = mysqli_query($db, 'SELECT * FROM Clients cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY CLI_NumClient DESC');
 	while (($donnees = mysqli_fetch_assoc($reponse))&&($i<3))
 	{ 
-		?>					<form method="post" action="detailClient.php" name="detailClient">
+		?>					<form method="get" action="detailClient.php" name="detailClient">
 								<input type="hidden" name="NumC" value="">
 									<tr onclick="javascript:submitViewDetail('<?php echo $donnees['CLI_NumClient']; ?>', 'detailClient');" style="font-size: 14;">
-										<td><?php echo ucfirst(mb_strtolower($donnees['PER_Nom'], 'UTF-8')); ?></td>
-										<td><?php echo ucfirst(mb_strtolower($donnees['PER_Prenom'], 'UTF-8')); ?></td>
+										<td><?php echo formatUP($donnees['PER_Nom']); ?></td>
+										<td><?php echo formatLOW($donnees['PER_Prenom']); ?></td>
 										<td><?php echo $donnees['PER_TelFixe']; ?></td>
 										<td><?php echo $donnees['PER_TelPort']; ?></td>
 										<td><?php echo $donnees['PER_Email']; ?></td>
-										<td><?php echo ucfirst(mb_strtolower($donnees['PER_Adresse'], 'UTF-8')); ?>, <?php echo ucfirst(mb_strtolower($donnees['PER_Ville'], 'UTF-8')); ?> <?php echo $donnees['PER_CodePostal']; ?></td>
-										<td><?php echo $donnees['CLI_Structure']; ?></td>
+										<td><?php echo formatLOW($donnees['PER_Adresse']); ?> <?php echo formatUP($donnees['PER_Ville']); ?> <?php if(!empty($donnees['PER_CodePostal'])) echo $donnees['PER_CodePostal']; ?></td>
+										<td><?php echo formatLOW($donnees['CLI_Structure']); ?></td>
 									</tr>
 							</form>
 <?php
@@ -223,16 +223,16 @@
 	$reponse = mysqli_query($db, 'SELECT * FROM Fournisseurs cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY FOU_NumFournisseur DESC');
 	while (($donnees = mysqli_fetch_assoc($reponse))&&($i<3))
 	{
-		?>					<form method="post" action="detailFournisseur.php" name="detailFour">
+		?>					<form method="get" action="detailFournisseur.php" name="detailFour">
 								<input type="hidden" name="NumC" value="">
 									<tr onclick="javascript:submitViewDetail('<?php echo $donnees['FOU_NumFournisseur']; ?>', 'detailFour');" style="font-size: 14;">
-										<td><?php echo ucfirst(mb_strtolower($donnees['PER_Nom'], 'UTF-8')); ?></td>
-										<td><?php echo ucfirst(mb_strtolower($donnees['PER_Prenom'], 'UTF-8')); ?></td>
+										<td><?php echo formatUP($donnees['PER_Nom']); ?></td>
+										<td><?php echo formatLOW($donnees['PER_Prenom']); ?></td>
 										<td><?php echo $donnees['PER_TelFixe']; ?></td>
 										<td><?php echo $donnees['PER_TelPort']; ?></td>
 										<td><?php echo $donnees['PER_Email']; ?></td>
-										<td><?php echo $donnees['PER_Adresse']; ?>, <?php echo $donnees['PER_Ville']; ?> <?php echo $donnees['PER_CodePostal']; ?></td>
-										<td><?php echo $donnees['FOU_Structure']; ?></td>
+										<td><?php echo formatLOW($donnees['PER_Adresse']); ?> <?php echo formatUP($donnees['PER_Ville']); ?> <?php if(!empty($donnees['PER_CodePostal'])) echo $donnees['PER_CodePostal']; ?></td>
+										<td><?php echo formatLOW($donnees['FOU_Structure']); ?></td>
 									</tr>
 							</form>
 <?php

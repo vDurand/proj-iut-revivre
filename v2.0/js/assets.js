@@ -20,6 +20,7 @@
 			document.getElementById('Contact-Fax').style.display = "none";
 			document.getElementById('Contact-Particulier').style.display = "none";
 			document.getElementById('Contact-Prenom').style.display = "";
+			document.getElementById("Prenom").setAttribute("required", "");
 		}
 		if(elem.value < 2){
 			document.getElementById('Contact-Fonction').style.display = "none";
@@ -28,6 +29,7 @@
 			document.getElementById('Contact-Particulier').style.display = "";
 			document.getElementById('Contact-Prenom').style.display = "none";
 			document.getElementById('Prenom').value = ""; 
+			document.getElementById("Prenom").removeAttribute("required");
 		}
 	}
 	
@@ -36,9 +38,11 @@
 	{
 	    if (document.getElementById('yesCheck').checked) {
 	        document.getElementById('Contact-Prenom').style.display = "";
+	        document.getElementById("Prenom").setAttribute("required", "");
 	    } else {
 	        document.getElementById('Contact-Prenom').style.display = "none";
 	     	document.getElementById('Prenom').value = "";   
+	     	document.getElementById("Prenom").removeAttribute("required");
 	    }
 	}
 	
@@ -104,6 +108,11 @@
 	        document.getElementById('ProdCreator').style.display = "";
 	        document.getElementById('ProdSelector').style.display = "none";
 	        document.getElementById('ProduitExistant').value = ""; 
+	        document.getElementById("RefProd").setAttribute("required", "");
+	        document.getElementById("FournProd").setAttribute("required", "");
+	        document.getElementById("NomProd").setAttribute("required", "");
+	        document.getElementById("PriceProd").setAttribute("required", "");
+	        document.getElementById("CondProd").setAttribute("required", "");
 	    } else {
 	        document.getElementById('ProdCreator').style.display = "none";
 	        document.getElementById('ProdSelector').style.display = "";
@@ -111,5 +120,10 @@
 	     	document.getElementById('RefProd').value = "";  
 	     	document.getElementById('CondProd').value = "";  
 	     	document.getElementById('PriceProd').value = ""; 
+	     	document.getElementById("RefProd").removeAttribute("required");
+	     	document.getElementById("NomProd").removeAttribute("required");
+	     	document.getElementById("FournProd").removeAttribute("required");
+	     	document.getElementById("PriceProd").removeAttribute("required");
+	     	document.getElementById("CondProd").removeAttribute("required");
 	    }
 	}

@@ -3,10 +3,13 @@
 ?>
     <div id="corps">
 <?php
-  $num=$_POST["NumC"];
+  $num=intval($_GET["NumC"]);
+  if (is_numeric($_GET["NumC"]))
+  {
 
   $reponse = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num JOIN Type ty ON cl.TYP_Id=ty.TYP_Id WHERE SAL_NumSalarie='$num' ORDER BY PER_Nom");
   $donnees = mysqli_fetch_assoc($reponse);
+  if ($donnees) {
 ?>
       <div id="labelT">     
             <label>Detail du Membre</label>
@@ -17,11 +20,11 @@
           <table cellpadding="10" class="detailClients">
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Nom :</th>
-              <td style="text-align: left; width: 300px;"><?php echo $donnees['PER_Nom']; ?></td>
+              <td style="text-align: left; width: 300px;"><?php echo formatUP($donnees['PER_Nom']); ?></td>
             </tr>
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Prénom :</th>
-              <td style="text-align: left; width: 300px;"><?php echo $donnees['PER_Prenom']; ?></td>
+              <td style="text-align: left; width: 300px;"><?php echo formatLOW($donnees['PER_Prenom']); ?></td>
             </tr>
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Téléphone Fixe :</th>
@@ -35,6 +38,10 @@
               <th style="text-align: left; width: 200px; white-space: normal;">Fax :</th>
               <td style="text-align: left; width: 300px;"><?php echo $donnees['PER_Fax']; ?></td>
             </tr>
+            <tr>
+              <th style="text-align: left; width: 200px; white-space: normal;">&nbsp;</th>
+              <td style="text-align: left; width: 300px;">&nbsp;</td>
+            </tr>
           </table>
         </td>
         <td>
@@ -45,11 +52,11 @@
             </tr>
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Adresse :</th>
-              <td style="text-align: left; width: 300px;"><?php echo $donnees['PER_Adresse']; ?></td>
+              <td style="text-align: left; width: 300px;"><?php echo formatLOW($donnees['PER_Adresse']); ?></td>
             </tr>
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Ville :</th>
-              <td style="text-align: left; width: 300px;"><?php echo $donnees['PER_Ville']; ?></td>
+              <td style="text-align: left; width: 300px;"><?php echo formatUP($donnees['PER_Ville']); ?></td>
             </tr>
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Code Postal :</th>
@@ -61,7 +68,7 @@
             </tr>
 			<tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Fonction :</th>
-              <td style="text-align: left; width: 300px;"><?php echo $donnees['SAL_Fonction']; ?></td>
+              <td style="text-align: left; width: 300px;"><?php echo formatLOW($donnees['SAL_Fonction']); ?></td>
             </tr>
           </table>
         </td>
@@ -78,10 +85,16 @@
           </tr>
         </table>
       </form>
-    </div>
 <?php
+  } else {
+  	echo "<div id='error'>ERROR : WRONG NUMBER</div>";
+  }
+  } else {
+  	echo "<div id='error'>ERROR : NUMBER ONLY</div>";
+  }
   mysqli_free_result($reponse);
 ?>
+</div>
 <?php  
     include('footer.php');
 ?>

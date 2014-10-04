@@ -44,15 +44,15 @@
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
 ?>
-							<form method="post" action="detailClient.php" name="detailClient">
+							<form method="get" action="detailClient.php" name="detailClient">
 								<input type="hidden" name="NumC" value="">
 									<tr onclick="javascript:submitViewDetail('<?php echo $donnees['CLI_NumClient']; ?>', 'detailClient');" style="font-size: 14;">
-										<td><?php echo $donnees['PER_Nom']; ?></td>
-										<td><?php echo $donnees['PER_Prenom']; ?></td>
+										<td><?php echo formatUP($donnees['PER_Nom']); ?></td>
+										<td><?php echo formatLOW($donnees['PER_Prenom']); ?></td>
 										<td><?php echo $donnees['PER_TelFixe']; ?></td>
 										<td><?php echo $donnees['PER_TelPort']; ?></td>
 										<td><a href="mailto:<?php echo $donnees['PER_Email'];?>"><?php echo $donnees['PER_Email']; ?></a></td>
-										<td><?php echo $donnees['PER_Adresse']; ?>, <?php echo $donnees['PER_Ville']; ?> <?php echo $donnees['PER_CodePostal']; ?></td>
+										<td><?php echo formatLOW($donnees['PER_Adresse']); ?>, <?php echo formatUP($donnees['PER_Ville']); ?> <?php echo $donnees['PER_CodePostal']; ?></td>
 										<td><?php echo $donnees['CLI_Structure']; ?></td>
 									</tr>
 							</form>

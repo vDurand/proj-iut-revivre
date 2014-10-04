@@ -171,7 +171,7 @@
 								<a>Ville</a>
 							</td>
 							<td class="sorttable_nosort tooltip" style="text-align: center; width: 155px; cursor: help;" title="Vous ne pouvez pas classer par numero de portable.">
-								Portable
+								Téléphone
 							</td>
 							<td style="text-align: center; width: 155px;">
 								<a>Type</a>
@@ -186,14 +186,18 @@
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
 ?>
-						<form method="post" action="detailClient.php" name="detailClient">
+						<form method="get" action="detailClient.php" name="detailClient">
 							<input type="hidden" name="NumC" value="">
 							<tr onclick="javascript:submitViewDetail('<?php echo $donnees['CLI_NumClient']; ?>', 'detailClient')" style="font-size: 14;">
-								<td><?php echo ucfirst(mb_strtolower($donnees['PER_Nom'], 'UTF-8')); ?></td>
-								<td><?php echo ucfirst(mb_strtolower($donnees['PER_Prenom'], 'UTF-8')); ?></td>
-								<td><?php echo ucfirst(mb_strtolower($donnees['PER_Adresse'], 'UTF-8')); ?></td>
-								<td><?php echo ucfirst(mb_strtolower($donnees['PER_Ville'], 'UTF-8')); ?></td>
-								<td><?php echo $donnees['PER_TelPort']; ?></td>
+								<td><?php echo formatUP($donnees['PER_Nom']); ?></td>
+								<td><?php echo formatLOW($donnees['PER_Prenom']); ?></td>
+								<td><?php echo formatLOW($donnees['PER_Adresse']); ?></td>
+								<td><?php echo formatUP($donnees['PER_Ville']); ?> <?php if(!empty($donnees['PER_CodePostal'])) echo $donnees['PER_CodePostal']; ?></td>
+								<td><?php if (!empty($donnees['PER_TelFixe'])) {
+									echo $donnees['PER_TelFixe'];
+								}else {
+									echo $donnees['PER_TelPort'];
+								} ?></td>
 								<td>Client</td>
 							</tr>
 						</form>
@@ -205,14 +209,18 @@
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
 ?>
-						<form method="post" action="detailFournisseur.php" name="detailFour">
+						<form method="get" action="detailFournisseur.php" name="detailFour">
 							<input type="hidden" name="NumC" value="">
 							<tr onclick="javascript:submitViewDetail('<?php echo $donnees['FOU_NumFournisseur']; ?>', 'detailFour');" style="font-size: 14;">
-								<td><?php echo ucfirst(mb_strtolower($donnees['PER_Nom'], 'UTF-8')); ?></td>
-								<td><?php echo ucfirst(mb_strtolower($donnees['PER_Prenom'], 'UTF-8')); ?></td>
-								<td><?php echo ucfirst(mb_strtolower($donnees['PER_Adresse'], 'UTF-8')); ?></td>
-								<td><?php echo ucfirst(mb_strtolower($donnees['PER_Ville'], 'UTF-8')); ?></td>
-								<td><?php echo $donnees['PER_TelPort']; ?></td>
+								<td><?php echo formatUP($donnees['PER_Nom']); ?></td>
+								<td><?php echo formatLOW($donnees['PER_Prenom']); ?></td>
+								<td><?php echo formatLOW($donnees['PER_Adresse']); ?></td>
+								<td><?php echo formatUP($donnees['PER_Ville']); ?> <?php if(!empty($donnees['PER_CodePostal'])) echo $donnees['PER_CodePostal']; ?></td>
+								<td><?php if (!empty($donnees['PER_TelFixe'])) {
+									echo $donnees['PER_TelFixe'];
+								}else {
+									echo $donnees['PER_TelPort'];
+								} ?></td>
 								<td>Fournisseur</td>
 							</tr>
 						</form>	
@@ -224,14 +232,18 @@
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
 ?>
-						<form method="post" action="detailSal.php" name="detailSal">
+						<form method="get" action="detailSal.php" name="detailSal">
 							<input type="hidden" name="NumC" value="">
 							<tr onclick="javascript:submitViewDetail('<?php echo $donnees['SAL_NumSalarie']; ?>', 'detailSal');" style="font-size: 14;">
-								<td><?php echo ucfirst(mb_strtolower($donnees['PER_Nom'], 'UTF-8')); ?></td>
-								<td><?php echo ucfirst(mb_strtolower($donnees['PER_Prenom'], 'UTF-8')); ?></td>
-								<td><?php echo ucfirst(mb_strtolower($donnees['PER_Adresse'], 'UTF-8')); ?></td>
-								<td><?php echo ucfirst(mb_strtolower($donnees['PER_Ville'], 'UTF-8')); ?></td>
-								<td><?php echo $donnees['PER_TelPort']; ?></td>
+								<td><?php echo formatUP($donnees['PER_Nom']); ?></td>
+								<td><?php echo formatLOW($donnees['PER_Prenom']); ?></td>
+								<td><?php echo formatLOW($donnees['PER_Adresse']); ?></td>
+								<td><?php echo formatUP($donnees['PER_Ville']); ?> <?php if(!empty($donnees['PER_CodePostal'])) echo $donnees['PER_CodePostal']; ?></td>
+								<td><?php if (!empty($donnees['PER_TelFixe'])) {
+									echo $donnees['PER_TelFixe'];
+								}else {
+									echo $donnees['PER_TelPort'];
+								} ?></td>
 								<td><?php echo $donnees['TYP_Nom']; ?></td>
 							</tr>
 						</form>

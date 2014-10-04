@@ -22,7 +22,7 @@
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
 ?>
-				        				<option value="<?php echo $donnees['CLI_NumClient']; ?>"><?php echo strtoupper($donnees['PER_Nom']); ?> <?php echo $donnees['PER_Prenom']; ?></option>
+				        				<option value="<?php echo $donnees['CLI_NumClient']; ?>"><?php echo formatUP($donnees['PER_Nom']); ?> <?php echo formatLOW($donnees['PER_Prenom']); ?></option>
 <?php
 		$i++;
 	}
@@ -113,7 +113,7 @@
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
 ?>
-														<option value="<?php echo $donnees['SAL_NumSalarie']; ?>"><?php echo strtoupper($donnees['PER_Nom']); ?> <?php echo $donnees['PER_Prenom']; ?></option>
+														<option value="<?php echo $donnees['SAL_NumSalarie']; ?>"><?php echo formatUP($donnees['PER_Nom']); ?> <?php echo formatLOW($donnees['PER_Prenom']); ?></option>
 <?php
 	}
 	mysqli_free_result($reponse);

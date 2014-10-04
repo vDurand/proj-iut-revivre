@@ -11,7 +11,6 @@
   $num=intval($_GET["NumC"]);
   if (is_numeric($_GET["NumC"]))
   {
-	//CREATE OR REPLACE VIEW ChantierEtat AS SELECT CHA_NumDevis as NumDevis, TYE_Nom as Etat, TYE_Id as Id FROM Chantiers JOIN Etat USING (CHA_NumDevis) JOIN TypeEtat USING (TYE_Id) ORDER BY TYE_Id DESC LIMIT 1;
   $reponse = mysqli_query($db, "SELECT * FROM Chantiers ch JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CNumDevis LEFT JOIN ChantierResp vre ON ch.CHA_NumDevis=vre.RNumDevis LEFT JOIN ChantierEtat cet ON ch.CHA_NumDevis=NumDevis WHERE ch.CHA_NumDevis='$num' limit 1");
   $donnees = mysqli_fetch_assoc($reponse);
   if ($donnees) {
@@ -26,11 +25,11 @@
           <table cellpadding="10" class="detailClients">
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Numéro de Devis:</th>
-              <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_Id']; ?></td>
+              <td style="text-align: center; width: 200px;"><?php echo formatUP($donnees['CHA_Id']); ?></td>
             </tr>
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Nom du Chantier:</th>
-              <td style="text-align: center; width: 250px;"><?php echo firstMaj($donnees['CHA_Intitule']); ?></td>
+              <td style="text-align: center; width: 250px;"><?php echo formatLOW($donnees['CHA_Intitule']); ?></td>
             </tr>
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Date de Début:</th>
@@ -52,7 +51,7 @@
 ?>
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Etat du Devis:</th>
-              <td style="text-align: center; width: 200px;"><div id="stateOfSite"><?php echo $donnees['Etat']; ?></div></td>
+              <td style="text-align: center; width: 200px;"><div id="stateOfSite"><?php echo formatLOW($donnees['Etat']); ?></div></td>
             </tr>
             <tr style="border-top:2px solid #eaeaea; border-bottom:1px solid #eaeaea;">
               <th style="text-align: left; width: 200px; white-space: normal;">Montant Prévu:</th>
@@ -68,7 +67,7 @@
             </tr>
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Responsable:</th>
-              <td style="text-align: center; width: 200px;"><?php echo $donnees['Resp']; ?> <?php echo $donnees['RespP']; ?></td>
+              <td style="text-align: center; width: 200px;"><?php echo formatUP($donnees['Resp']); ?> <?php echo formatLOW($donnees['RespP']); ?></td>
             </tr>
 <?php
 	if($donnees['CHA_DateFinReel']==NULL){
@@ -86,11 +85,11 @@
           <table cellpadding="10" class="detailClients">
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Nom Client:</th>
-              <td style="text-align: center; width: 200px;"><?php echo $donnees['Client']; ?></td>
+              <td style="text-align: center; width: 200px;"><?php echo formatUP($donnees['Client']); ?></td>
             </tr>
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Prénom Client:</th>
-              <td style="text-align: center; width: 200px;"><?php echo $donnees['ClientP']; ?></td>
+              <td style="text-align: center; width: 200px;"><?php echo formatLOW($donnees['ClientP']); ?></td>
             </tr>
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Tél Fixe :</th>
@@ -102,11 +101,11 @@
             </tr>
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Adresse :</th>
-              <td style="text-align: center; width: 200px;"><?php echo firstMaj($donnees['ClientAd']); ?></td>
+              <td style="text-align: center; width: 200px;"><?php echo formatLOW($donnees['ClientAd']); ?></td>
             </tr>
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Ville :</th>
-              <td style="text-align: center; width: 200px;"><?php echo $donnees['ClientV']; ?>, <?php echo $donnees['ClientCP']; ?></td>
+              <td style="text-align: center; width: 200px;"><?php echo formatUP($donnees['ClientV']); ?>, <?php echo $donnees['ClientCP']; ?></td>
             </tr>
           </table>
         </td>
@@ -193,7 +192,7 @@
   while ($donneesBis = mysqli_fetch_assoc($reponseBis))
   {
 ?>
-	          	<option value="<?php echo $donneesBis['SAL_NumSalarie']; ?>"><?php echo strtoupper($donneesBis['PER_Nom']);?> <?php echo $donneesBis['PER_Prenom'];?></option>
+	          	<option value="<?php echo $donneesBis['SAL_NumSalarie']; ?>"><?php echo formatUP($donneesBis['PER_Nom']);?> <?php echo formatLOW($donneesBis['PER_Prenom']);?></option>
 <?php
   } 
   mysqli_free_result($reponseBis);
@@ -224,10 +223,10 @@
   while ($donneesTres = mysqli_fetch_assoc($reponseTres))
   {
 ?>
-		          <option value="<?php echo $donneesTres['SAL_NumSalarie']; ?>"><?php echo strtoupper($donneesTres['PER_Nom']); ?> <?php echo $donneesTres['PER_Prenom']; ?></option>
+		          <option value="<?php echo $donneesTres['SAL_NumSalarie']; ?>"><?php echo formatUP($donneesTres['PER_Nom']); ?> <?php echo formatLOW($donneesTres['PER_Prenom']); ?></option>
 <?php             
-  	$temp1=strtoupper($donneesTres['PER_Nom']);
-  	$temp2=$donneesTres['PER_Prenom'];
+  	$temp1=formatUP($donneesTres['PER_Nom']);
+  	$temp2=formatLOW($donneesTres['PER_Prenom']);
   	$Workers[$j] = "$temp1 $temp2";
   	$Ids[$j] = $donneesTres['SAL_NumSalarie'];
   	$limitOpt = $j;
@@ -242,10 +241,10 @@
   while ($donneesTres = mysqli_fetch_assoc($reponseTres))
   {
 ?>
-		          <option value="<?php echo $donneesTres['SAL_NumSalarie']; ?>"><?php echo strtoupper($donneesTres['PER_Nom']); ?> <?php echo $donneesTres['PER_Prenom']; ?></option>
+		          <option value="<?php echo $donneesTres['SAL_NumSalarie']; ?>"><?php echo formatUP($donneesTres['PER_Nom']); ?> <?php echo formatLOW($donneesTres['PER_Prenom']); ?></option>
 <?php             
-  	$temp1=strtoupper($donneesTres['PER_Nom']);
-  	$temp2=$donneesTres['PER_Prenom'];
+  	$temp1=formatUP($donneesTres['PER_Nom']);
+  	$temp2=formatLOW($donneesTres['PER_Prenom']);
   	$Workers[$j] = "$temp1 $temp2";
   	$Ids[$j] = $donneesTres['SAL_NumSalarie'];
   	$j++;
@@ -343,7 +342,7 @@
 		{
 ?>
 	        <tr style="font-size: 14;">
-                <td><?php echo strtoupper($donnees3['PER_Nom']); ?> <?php echo $donnees3['PER_Prenom']; ?></td>
+                <td><?php echo formatUP($donnees3['PER_Nom']); ?> <?php echo formatLOW($donnees3['PER_Prenom']); ?></td>
                 <td><?php echo dater($donnees3['TRA_Date']); ?></td>
                 <td><?php echo $donnees3['TRA_Duree']; ?></td>
               </tr>
@@ -404,7 +403,7 @@
 			{
 	?>
 		        <tr style="font-size: 14;">
-	                <td><?php echo strtoupper($donnees5['PRO_Nom']); ?> (<?php echo $donnees5['PRO_Conditionnement']; ?>) <span style="float: right;">x<?php echo $donnees5['ACH_Quantite']; ?></span></td>
+	                <td><?php echo formatLOW($donnees5['PRO_Nom']); ?> (<?php echo formatLOW($donnees5['PRO_Conditionnement']); ?>) <span style="float: right;">x<?php echo $donnees5['ACH_Quantite']; ?></span></td>
 	                <td><?php echo dater($donnees5['ACH_Date']); ?></td>
 	                <td><?php echo ($donnees5['PRO_Tarif']*$donnees5['ACH_Quantite'])." €"; $totAchat += $donnees5['PRO_Tarif']*$donnees5['ACH_Quantite']; ?></td>
 	              </tr>
@@ -743,5 +742,5 @@
     	echo "<div id='error'>ERROR : WRONG NUMBER</div>";
     }
     } else {
-    	echo "<div id='error'>ERROR : DONT EVEN TRY</div>";
+    	echo "<div id='error'>ERROR : NUMBER ONLY</div>";
     } ?>

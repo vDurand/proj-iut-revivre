@@ -188,19 +188,28 @@
 	if($_POST["trieur"]==1){
 		$sorter = 'Resp';
 	}
-	$reponse = mysqli_query($db, "SELECT * FROM Chantiers ch JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CNumDevis LEFT JOIN ChantierResp vre ON ch.CHA_NumDevis=vre.RNumDevis WHERE $sorter like '$alpha' ORDER BY $sorter");
+	$reponse = mysqli_query($db, "SELECT * FROM ChantierMax Join TypeEtat ON IdMax=TYE_Id WHERE $sorter like '$alpha' ORDER BY $sorter");
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
 ?>
-						<form method="post" action="detailChantier.php" name="detailClient">
+						<form method="get" action="detailChantier.php" name="detailClient">
 							<input type="hidden" name="NumC" value="">
 							<tr onclick="javascript:submitViewDetail('<?php echo $donnees['CHA_NumDevis']; ?>', 'detailClient');" style="font-size: 14;">
-								<td><?php echo $donnees['CHA_Id']; ?></td>
-								<td><?php echo ucfirst(strtolower($donnees['CHA_Intitule'])); ?></td>
-								<td><?php echo strtoupper($donnees['Client']); ?> <?php echo $donnees['ClientP']; ?></td>
-								<td><?php echo strtoupper($donnees['Resp']); ?> <?php echo $donnees['RespP']; ?></td>
+								<td><?php echo formatUP($donnees['CHA_Id']); ?></td>
+								<td><?php echo formatLOW($donnees['CHA_Intitule']); ?></td>
+								<td><?php echo formatUP($donnees['Client']); ?> <?php echo formatLOW($donnees['ClientP']); ?></td>
+								<td><?php echo formatUP($donnees['Resp']); ?> <?php echo formatLOW($donnees['RespP']); ?></td>
 								<td><?php echo dater($donnees['CHA_DateDebut']); ?></td>
-								<td><?php echo dater($donnees['CHA_DateFinReel']); ?></td>
+								<td>
+<?php
+		if ($donnees['IdMax']==4) {
+			echo dater($donnees['CHA_DateFinReel']);
+		}
+		else {
+		  	echo $donnees['TYE_Nom'];
+		} 
+?>
+								</td>
 							</tr>
 						</form>
 <?php

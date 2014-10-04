@@ -22,7 +22,7 @@
 										<label>Numéro de Devis :</label>
 									</td>
 									<td>
-										<input id="Num" required maxlength="255" name="Num" type="text" class="inputC" value="<?php echo $donnees['CHA_Id']; ?>"> 
+										<input id="Num" required maxlength="255" name="Num" type="text" class="inputC" value="<?php echo formatUP($donnees['CHA_Id']); ?>"> 
 									</td>
 								</tr>
 								<tr id="Contact-Nom">
@@ -30,7 +30,7 @@
 										<label>Nom du Chantier :</label>
 									</td>
 									<td>
-										<input id="Nom" required maxlength="255" name="Nom" type="text" class="inputC" autofocus="autofocus" value="<?php echo $donnees['CHA_Intitule']; ?>"> 
+										<input id="Nom" required maxlength="255" name="Nom" type="text" class="inputC" autofocus="autofocus" value="<?php echo formatLOW($donnees['CHA_Intitule']); ?>"> 
 									</td>
 								</tr>
 								<tr id="Contact-Prenom">

@@ -57,16 +57,16 @@
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
 ?>
-							<form method="post" action="detailSal.php" name="detailSal">
+							<form method="get" action="detailSal.php" name="detailSal">
 									<input type="hidden" name="NumC" value="">
 									<tr onclick="javascript:submitViewDetail('<?php echo $donnees['SAL_NumSalarie']; ?>', 'detailSal');" style="font-size: 14;">
-										<td><?php echo $donnees['PER_Nom']; ?></td>
-										<td><?php echo $donnees['PER_Prenom']; ?></td>
+										<td><?php echo formatUP($donnees['PER_Nom']); ?></td>
+										<td><?php echo formatLOW($donnees['PER_Prenom']); ?></td>
 										<td><?php echo $donnees['PER_TelFixe']; ?></td>
 										<td><?php echo $donnees['PER_TelPort']; ?></td>
 										<td><?php echo $donnees['PER_Email']; ?></td>
-										<td><?php echo $donnees['PER_Adresse']; ?></td>
-										<td><?php echo $donnees['PER_Ville']; ?> <?php echo $donnees['PER_CodePostal']; ?></td>
+										<td><?php echo formatLOW($donnees['PER_Adresse']); ?></td>
+										<td><?php echo formatUP($donnees['PER_Ville']); ?> <?php echo $donnees['PER_CodePostal']; ?></td>
 									</tr>
 							</form>
 <?php

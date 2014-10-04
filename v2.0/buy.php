@@ -41,9 +41,9 @@ $reponse = mysqli_query($db, "SELECT * FROM Produits ORDER BY PRO_Nom");
 while ($donnees = mysqli_fetch_assoc($reponse))
 {
 ?>
-			        				<option value="<?php echo $donnees['PRO_Ref']; ?>"><?php echo $donnees['PRO_Ref']; ?> | <?php echo strtoupper($donnees['PRO_Nom']); ?> (<?php echo $donnees['PRO_Conditionnement']; ?>) | <?php echo $donnees['PRO_Tarif']; ?> € </option>
+			        				<option value="<?php echo $donnees['PRO_Ref']; ?>"><?php echo $donnees['PRO_Ref']; ?> | <?php echo formatLOW($donnees['PRO_Nom']); ?> (<?php echo formatLOW($donnees['PRO_Conditionnement']); ?>) | <?php echo $donnees['PRO_Tarif']; ?> € </option>
 <?php
-$Products[$j] = $donnees['PRO_Ref']." | ".$donnees['PRO_Nom']." (".$donnees['PRO_Conditionnement'].") | ".$donnees['PRO_Tarif']." € ";
+$Products[$j] = $donnees['PRO_Ref']." | ".formatLOW($donnees['PRO_Nom'])." (".formatLOW($donnees['PRO_Conditionnement']).") | ".$donnees['PRO_Tarif']." € ";
 $Ids[$j] = $donnees['PRO_Ref'];
 $j++;
 }
@@ -56,14 +56,14 @@ mysqli_free_result($reponse);
 			    				<tr>
 			    				<td>Fournisseur :</td>
 			    				<td colspan="3">
-			    				<select form="BuyProd" name="FournProd[]" style="width: 200px;">
+			    				<select form="BuyProd" id="FournProd" name="FournProd[]" style="width: 200px;">
 			    					<option value=""></option>
 <?php 
 $reponse2 = mysqli_query($db, "SELECT * FROM Fournisseurs JOIN Personnes USING (PER_Num) ORDER BY PER_Nom");
 while ($donnees2 = mysqli_fetch_assoc($reponse2))
 {
 ?>
-									<option value="<?php echo $donnees2['FOU_NumFournisseur']; ?>"><?php echo strtoupper($donnees2['PER_Nom'])." ".$donnees2['PER_Prenom']; ?></option>
+									<option value="<?php echo $donnees2['FOU_NumFournisseur']; ?>"><?php echo formatUP($donnees2['PER_Nom'])." ".formatLOW($donnees2['PER_Prenom']); ?></option>
 <?php 
 } 
 ?>			    				
@@ -75,13 +75,13 @@ while ($donnees2 = mysqli_fetch_assoc($reponse2))
 			    				<label>Réf :</label>
 			    				</td>
 			    				<td>
-			    				<input form="BuyProd" id="RefProd" name="RefProd[]" type="text">
+			    				<input form="BuyProd" id="RefProd" name="RefProd[]" type="text" placeholder="###">
 			    				</td>
 			    				<td>
 			    				<label>Nom :</label>
 			    				</td>
 			    				<td>
-			    				<input form="BuyProd" id="NomProd" name="NomProd[]" type="text">
+			    				<input form="BuyProd" id="NomProd" name="NomProd[]" type="text" placeholder="Peinture">
 			    				</td>
 			    				</tr>
 			    				<tr>
@@ -89,13 +89,13 @@ while ($donnees2 = mysqli_fetch_assoc($reponse2))
 			    				<label>Tarif :</label>
 			    				</td>
 			    				<td>
-			    				<input form="BuyProd" id="PriceProd" name="PriceProd[]" type="number">
+			    				<input form="BuyProd" id="PriceProd" name="PriceProd[]" min="0" type="number" step="0.01" placeholder="25">
 			    				</td>
 			    				<td>
 			    				<label>Conditionnement :</label>
 			    				</td>
 			    				<td>
-			    				<input form="BuyProd" id="CondProd" name="CondProd[]" type="text">
+			    				<input form="BuyProd" id="CondProd" name="CondProd[]" type="text" placeholder="Pot">
 			    				</td>
 			    				</tr>
 			    				</table>
@@ -106,7 +106,7 @@ while ($donnees2 = mysqli_fetch_assoc($reponse2))
 			    			<input form="BuyProd" type="hidden" name="NumC" value="<?php echo $num; ?>">
 			    		</td>
 			    		<td>
-			    			<input form="BuyProd" required maxlength="100" style="width: 75px;" name="Quantite[]" type="number" class="inputC"> 
+			    			<input form="BuyProd" required maxlength="100" min="1" style="width: 75px;" name="Quantite[]" type="number" class="inputC"> 
 			    		</td>
 					</tr>
 					<tr id="Ajout-Tpss">

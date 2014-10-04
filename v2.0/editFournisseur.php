@@ -18,24 +18,26 @@
 					<table align="left">
 						<td style="vertical-align:top;">
 							<table id="leftT" colcount="0" cellpadding="10">
-								<tr id="Fournisseur-Nom">
+								<tr id="Client-Nom">
 									<td style="text-align: left; width: 150px; white-space: normal;">
 										<label>Nom :</label>
 									</td>
 									<td>
-										<input id="Nom" required maxlength="255" name="Nom" type="text" class="inputC" pattern="^[A-Z].*" title="Majuscule en début obligatoire" value="<?php echo $donnees['PER_Nom']; ?>"> 
+										<input id="Nom" required maxlength="255" name="Nom" type="text" class="inputC" value="<?php echo $donnees['PER_Nom']; ?>"> 
 									</td>
 								</tr>
-								<tr id="Fournisseur-Prenom">
+								<?php if ($donnees['FOU_Structure'] != "Structure") { ?>
+								<tr id="Client-Prenom">
 									<td style="text-align: left; width: 150px; white-space: normal;">
 										<label>Prenom :</label>
 									</td>
 									<td>
-										<input id="Prenom" required maxlength="255" name="Prenom" type="text" class="inputC" pattern="^[A-Z].*" title="Majuscule en début obligatoire" value="<?php echo $donnees['PER_Prenom']; ?>"> 
+										<input id="Prenom" required maxlength="255" name="Prenom" type="text" class="inputC" value="<?php echo $donnees['PER_Prenom']; ?>"> 
 									</td>
 
 								</tr>
-								<tr id="Fournisseur-Tel_Fixe">
+								<?php } ?>
+								<tr id="Client-Tel_Fixe">
 									<td style="text-align: left; width: 150px; white-space: normal;">
 										<label>Telephone Fixe :</label>
 									</td>
@@ -43,7 +45,7 @@
 										<input id="Tel_Fixe" maxlength="255" name="Tel_Fixe" type="text" fieldtype="1" class="inputC" pattern="^[0-9][0-9](?:[\/_:-\s]?\d\d){4}$" value="<?php echo $donnees['PER_TelFixe']; ?>"> 
 									</td>
 								</tr>
-								<tr id="Fournisseur-Portable">
+								<tr id="Client-Portable">
 									<td style="text-align: left; width: 150px; white-space: normal;">
 										<label>Telephone Portable :</label>
 									</td>
@@ -51,7 +53,7 @@
 										<input id="Portable" maxlength="255" name="Portable" type="text" class="inputC" pattern="^[0-9][0-9](?:[\/_:-\s]?\d\d){4}$" value="<?php echo $donnees['PER_TelPort']; ?>"> 
 									</td>
 								</tr>
-								<tr id="Fournisseur-Fax">
+								<tr id="Client-Fax">
 									<td style="text-align: left; width: 150px; white-space: normal;">
 										<label>Fax :</label>
 									</td>
@@ -63,7 +65,7 @@
 						</td>
 						<td style="vertical-align:top;">
 							<table id="rightT" colcount="1" cellpadding="10">
-								<tr id="Fournisseur-Email">
+								<tr id="Client-Email">
 									<td style="text-align: left; width: 150px; white-space: normal;">
 										<label>Email :</label>
 									</td>
@@ -71,23 +73,23 @@
 										<input id="Email" maxlength="255" name="Email" type="text" class="inputC" title="exemple@exemple.com" pattern="^[a-zA-Z0-9\._-]+@[a-zA-Z0-9\._-]+\.[a-z]{2,3}$" value="<?php echo $donnees['PER_Email']; ?>"> 
 									</td>
 								</tr>
-								<tr id="Fournisseur-Adresse">
+								<tr id="Client-Adresse">
 									<td style="text-align: left; width: 150px; white-space: normal;">
 										<label>Adresse :</label>
 									</td>
 									<td>
-										<input id="Adresse" required maxlength="255" name="Adresse" type="text" fieldtype="1" class="inputC" delugetype="STRING" value="<?php echo $donnees['PER_Adresse']; ?>">
+										<input id="Adresse" required maxlength="255" name="Adresse" type="text" fieldtype="1" class="inputC" value="<?php echo $donnees['PER_Adresse']; ?>">
 									</td>
 								</tr>
-								<tr id="Fournisseur-Code_Postal">
+								<tr id="Client-Code_Postal">
 									<td style="text-align: left; width: 150px; white-space: normal;">
 										<label>Code Postal :</label>
 									</td>
 									<td>
-										<input id="Code_Postal" required name="Code_Postal" type="text" title="" fieldtype="5" style="width:100px;background-color:#cde5f7;" delugetype="BIGINT" maxlength="5" value="<?php echo $donnees['PER_CodePostal']; ?>">
+										<input id="Code_Postal" required name="Code_Postal" pattern="^\d{5}$" type="text" fieldtype="5" style="width:100px;background-color:#cde5f7;"  maxlength="5" value="<?php echo $donnees['PER_CodePostal']; ?>">
 									</td>
 								</tr>
-								<tr id="Fournisseur-Ville">
+								<tr id="Client-Ville">
 									<td style="text-align: left; width: 150px; white-space: normal;">
 										<label>Ville :</label>
 									</td>
@@ -95,12 +97,12 @@
 										<input id="Ville" required maxlength="255" name="Ville" type="text" fieldtype="1" class="inputC" delugetype="STRING" value="<?php echo $donnees['PER_Ville']; ?>">
 									</td>
 								</tr>
-								<tr id="Fournisseur-Structure">
+								<tr id="Client-Structure">
 									<td style="text-align: left; width: 150px; white-space: normal;">
-										<label>Structure :</label>
+										<label>&nbsp;</label>
 									</td>
 									<td>
-										<input id="Struct" maxlength="255" name="Struct" type="text" fieldtype="1" class="inputC" delugetype="STRING" value="<?php echo $donnees['FOU_Structure']; ?>">
+										<input id="Struct" maxlength="255" name="Struct" type="hidden" fieldtype="1" class="inputC" delugetype="STRING" value="<?php echo $donnees['FOU_Structure']; ?>">
 									</td>
 								</tr>
 							</table>

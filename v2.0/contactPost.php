@@ -5,15 +5,15 @@
 <?php
 // Ajout contact
   $type=addslashes($_POST["Type"]);
-  $nom=addslashes(mysqli_real_escape_string($db, $_POST["Nom"]));
-  $prenom=addslashes(mysqli_real_escape_string($db, $_POST["Prenom"]));
+  $nom=addslashes(mysqli_real_escape_string($db, formatUP($_POST["Nom"])));
+  $prenom=addslashes(mysqli_real_escape_string($db, formatLOW($_POST["Prenom"])));
   $tel=addslashes(mysqli_real_escape_string($db, $_POST["Tel_Fixe"]));
   $port=addslashes(mysqli_real_escape_string($db, $_POST["Portable"]));
   $fax=addslashes(mysqli_real_escape_string($db, $_POST["Fax"]));
   $email=addslashes(mysqli_real_escape_string($db, $_POST["Email"]));
-  $add=addslashes(mysqli_real_escape_string($db, $_POST["Adresse"]));
+  $add=addslashes(mysqli_real_escape_string($db, formatLOW($_POST["Adresse"])));
   $cp=addslashes($_POST["Code_Postal"]);
-  $ville=addslashes(mysqli_real_escape_string($db, $_POST["Ville"]));
+  $ville=addslashes(mysqli_real_escape_string($db, formatUP($_POST["Ville"])));
   $struct=addslashes($_POST["Particulier"]);
   $fonct=addslashes(mysqli_real_escape_string($db, $_POST["Fonction"]));
 
@@ -45,14 +45,31 @@
             </div>';
             if($type==0){
               $reponse = mysqli_query($db, "SELECT * FROM Clients cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE cl.PER_Num='$realNumber'");
+              $donnees = mysqli_fetch_assoc($reponse);
+              echo '<script language="Javascript">
+              <!--
+              document.location.replace("detailClient.php?NumC='.$donnees['CLI_NumClient'].'");
+              // -->
+              </script>';
             }
             if($type==1){
               $reponse = mysqli_query($db, "SELECT * FROM Fournisseurs cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE cl.PER_Num='$realNumber'");
+              $donnees = mysqli_fetch_assoc($reponse);
+              echo '<script language="Javascript">
+              <!--
+              document.location.replace("detailFournisseur.php?NumC='.$donnees['FOU_NumFournisseur'].'");
+              // -->
+              </script>';
             }
             if($type>1){
               $reponse = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE cl.PER_Num='$realNumber'");
+              $donnees = mysqli_fetch_assoc($reponse);
+              echo '<script language="Javascript">
+              <!--
+              document.location.replace("detailSal.php?NumC='.$donnees['SAL_NumSalarie'].'");
+              // -->
+              </script>';
             }
-            $donnees = mysqli_fetch_assoc($reponse);
 ?>
   <br>
   <table>

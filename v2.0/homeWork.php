@@ -189,10 +189,10 @@
 						<form method="get" action="detailChantier.php" name="detailClient">
 							<input type="hidden" name="NumC" value="">
 							<tr onclick="javascript:submitViewDetail('<?php echo $donnees['CHA_NumDevis']; ?>', 'detailClient');" style="font-size: 14;">
-								<td><?php echo $donnees['CHA_Id']; ?></td>
-								<td><?php echo ucfirst(strtolower($donnees['CHA_Intitule'])); ?></td>
-								<td><?php echo strtoupper($donnees['Client']); ?> <?php echo $donnees['ClientP']; ?></td>
-								<td><?php echo strtoupper($donnees['Resp']); ?> <?php echo $donnees['RespP']; ?></td>
+								<td><?php echo formatUP($donnees['CHA_Id']); ?></td>
+								<td><?php echo formatLOW($donnees['CHA_Intitule']); ?></td>
+								<td><?php echo formatUP($donnees['Client']); ?> <?php echo formatLOW($donnees['ClientP']); ?></td>
+								<td><?php echo formatUP($donnees['Resp']); ?> <?php echo formatLOW($donnees['RespP']); ?></td>
 								<td><?php echo dater($donnees['CHA_DateDebut']); ?></td>
 								<td>
 <?php
