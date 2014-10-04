@@ -192,7 +192,7 @@
 ?>
           <td style="text-align: center; width: 200px;">
             <span>
-              <input  name="submit" type="submit" onclick="changeEtat()" value="Etat" class="buttonC">
+              <input  name="submit" type="submit" onclick="changeEtat(<?php echo $IdEtat; ?>)" value="Etat" class="buttonC">
             </span>
           </td>
           <td style="text-align: center; width: 150px;">

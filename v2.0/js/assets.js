@@ -82,12 +82,22 @@
 	}
 	
 // A/M form changement etat (detailChantier)
-	function changeEtat()
+	function changeEtat(elem)
 	{
-		if(document.getElementById('Chang-Etat').style.display == "none")
+		if(document.getElementById('Chang-Etat').style.display == "none"){
 		  document.getElementById('Chang-Etat').style.display = "";
-		else
+		  if (elem == 3) {
+		  	document.getElementById('Chang-Etat2').style.display = "";
+		  	document.getElementById("DateFin").setAttribute("required", "");
+		  }
+		}
+		else{
 		  document.getElementById('Chang-Etat').style.display = "none";
+		  if (elem == 3) {
+		  	document.getElementById('Chang-Etat2').style.display = "none";
+		  	document.getElementById("DateFin").removeAttribute("required");
+		  }
+		}
 	}
 	
 // A/M form ajout date fin si etat fini (detailChantier)
@@ -95,10 +105,12 @@
 	{
 		if(elem.value == 4){
 			document.getElementById('Chang-Etat2').style.display = "";
+			document.getElementById("DateFin").setAttribute("required", "");
 		}
 		else {
 			document.getElementById('Chang-Etat2').style.display = "none";
 			document.getElementById('DateFin').value = "";
+			document.getElementById("DateFin").removeAttribute("required");
 		}
 	}
 // A/M creation nouveau produit
