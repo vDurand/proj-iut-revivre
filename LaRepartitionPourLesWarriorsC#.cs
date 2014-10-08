@@ -8,13 +8,7 @@ namespace ConsoleApplication2
 {
     class Program
     {
-
-        private static int RandomNumber(int min, int max)
-        {
-            Random random = new Random();
-            return random.Next(min, max);
-        }
-
+        
         static void Main(string[] args)
         {
             int i;
@@ -87,8 +81,8 @@ namespace ConsoleApplication2
                 }
             }
             Console.WriteLine("\nValentin = {0}\nPierre = {1}\nAlexandre = {2}\nJeremie = {3}\n", statV, statP, statA, statJ);
+            Console.WriteLine("Appuyez sur une touche pour continuer");
+            Console.ReadLine();
         }
-
-        public static object rand1 { get; set; }
     }
 }
