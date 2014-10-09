@@ -5,10 +5,6 @@ open System
 
 [<EntryPoint>]
 let main argv =
-    let statV = 0
-    let statJ = 0
-    let statA = 0
-    let statP = 0
 
     let assignement =
         [|
@@ -52,43 +48,42 @@ let main argv =
 
     printfn "-Repartition des taches random-\n\n"
 
+    let countV = ref 0
+    let countJ = ref 0
+    let countA = ref 0
+    let countP = ref 0
+
     let function1()=
-        let statV = 0
-        let statJ = 0
-        let statA = 0
-        let statP = 0
         for i = 0 to 25 do
-            let j =
-                let rand = new Random()
-                rand.Next(5)
+            let j = (new System.Random()).Next(0, 5)
 
             let num = i+1
             printfn "%d : %s ==> %s\n" num assignement.[i] guys.[j]
             let test1 = 
-                if assignement.[i] = "ValentinD"
+                if String.Compare(guys.[j], "ValentinD") = 0
                 then 
-                    let statV = statV + 1
+                    incr countV
                     printfn ""
 
             let test2 = 
-                if assignement.[i] = "JeremieLB"
+                if guys.[j] = "JeremieLB"
                 then 
-                    let statJ = statJ + 1
+                    incr countJ
                     printfn ""
 
             let test3 = 
-                if assignement.[i] = "PierreF"
+                if guys.[j] = "PierreF"
                 then 
-                    let statP = statP + 1
+                    incr countP
                     printfn ""
 
             let test4 = 
-                if assignement.[i] = "AlexandreF"
+                if guys.[j] = "AlexandreF"
                 then 
-                    let statA = statA + 1
+                    incr countA
                     printfn ""
             printfn ""
-        printfn "\nValentin = %d\nPierre = %d\nAlexandre = %d\nJeremie = %d\n" statV statP statA statJ
+        printfn "\nValentin = %d\nPierre = %d\nAlexandre = %d\nJeremie = %d\n" !countV !countP !countA !countJ
 
     function1()
     0 // retourne du code de sortie entier
