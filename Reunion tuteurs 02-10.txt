@@ -1,6 +1,15 @@
 - Faire les stories present/passe/futur
 - Qui a fait quoi ? pour le 16 en meme temps que le message de confirmation
 - Transfert des donnees
+	>salarie DONE
+	>referent DONE
+	>personnel
+	>benevole DONE
+	>formateur
+	>stagiaire DONE
+	>fournisseur
+	>clients
+	>chantier
 - Finir Chantier
 - Reflechier pour les Salaries
 DONE - Manger du chocolat

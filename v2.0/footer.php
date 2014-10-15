@@ -2,7 +2,7 @@
 	
 	<footer>
 		<div>
-			<a href="adminLand.php">&copy;</a> Association Revivre <?php echo date('Y');?>
+			&copy; Association Revivre <?php echo date('Y');?>
 		</div>
 	</footer>
 
