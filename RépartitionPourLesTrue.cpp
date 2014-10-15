@@ -1,4 +1,4 @@
-// ConsoleApplication2.cpp : définit le point d'entrée pour l'application console.
+// ConsoleApplication2.cpp: definit le point d'entree pour l'application console.
 //
 
 #include "stdafx.h"
