@@ -1,5 +1,6 @@
 - Faire les stories present/passe/futur
-- Qui a fait quoi ? pour le 16 en meme temps que le message de confirmation
+DONE - Qui a fait quoi ? 
+- Message de confirmation
 - Transfert des donnees
 	>salarie DONE
 	>referent DONE
