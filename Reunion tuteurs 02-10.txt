@@ -11,6 +11,28 @@ DONE - Qui a fait quoi ?
 	>fournisseur
 	>clients
 	>chantier
+	
+	Partenaire
+	Fournisseur chantier
+	Association
+	Client chantier
+	-Salarié
+	-Bénévole
+	Bailleurs
+	Formation
+	Prestataire
+	Revivre
+	Client
+	Client conditionnement
+	Personnel
+	interim
+	locataire
+	Sous traitant
+	Fournisseur fourniture
+	référent
+	BAILLEUR
+	Stagiare
+	
 - Finir Chantier
 - Reflechier pour les Salaries
 DONE - Manger du chocolat
