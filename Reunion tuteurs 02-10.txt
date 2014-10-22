@@ -11,7 +11,7 @@ DONE - Message de confirmation
 	>fournisseur
 	>clients
 	>chantier
-	T'AS OUBLIE !
+	T'AS OUBLIE ! nn parce qu'il y a pas de donnée à insérer, c'est la secrétaire qui s'en est occupé !!
 	>salarie en insertion
 	>atelier occupationnel
 	
