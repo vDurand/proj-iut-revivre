@@ -4,7 +4,7 @@ DONE - Message de confirmation
 - Transfert des donnees
 	>salarie DONE
 	>referent DONE
-	>personnel
+	>personnel DONE
 	>benevole DONE
 	>formateur
 	>stagiaire DONE
@@ -17,17 +17,17 @@ DONE - Message de confirmation
 	
 	Partenaire -> ?
 	Fournisseur chantier -> fournisseur
-	Association (5 trucs) -> Personnel
+	Association (5 trucs) -> Personnel DONE
 	Client chantier -> client
 	Salarié -> Salarié DONE
 	Bénévole -> Bénévole DONE
 	Bailleurs -> ?
-	Formation -> Formateur
+	Formation -> Formateur DONE
 	Prestataire -> ?
-	Revivre (6 trucs) -> Personnel
+	Revivre (6 trucs) -> Salarié DONE
 	Client -> Client
 	Client conditionnement -> Client
-	Personnel (1 truc) -> Personnel
+	Personnel (1 truc) -> Personnel DONE
 	interim -> ?
 	locataire -> ?
 	Sous traitant -> ?

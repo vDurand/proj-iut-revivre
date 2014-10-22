@@ -17,17 +17,15 @@
 	{
 		if(elem.value > 1){
 			document.getElementById('Contact-Fonction').style.display = "";
-			document.getElementById('Contact-Fax').style.display = "none";
 			document.getElementById('Contact-Particulier').style.display = "none";
 			document.getElementById('Contact-Prenom').style.display = "";
 			document.getElementById("Prenom").setAttribute("required", "");
 		}
 		if(elem.value < 2){
 			document.getElementById('Contact-Fonction').style.display = "none";
-			document.getElementById('Struct').value = ""; 
-			document.getElementById('Contact-Fax').style.display = "";
 			document.getElementById('Contact-Particulier').style.display = "";
 			document.getElementById('Contact-Prenom').style.display = "none";
+			document.getElementById('Contact-Prenom').value = "";
 			document.getElementById('Prenom').value = ""; 
 			document.getElementById("Prenom").removeAttribute("required");
 		}

@@ -76,7 +76,7 @@
 										<label>Adresse :</label>
 									</td>
 									<td>
-										<input id="Adresse" required maxlength="255" name="Adresse" type="text" fieldtype="1" class="inputC" delugetype="STRING" value="<?php echo $donnees['PER_Adresse']; ?>">
+										<input id="Adresse" maxlength="255" name="Adresse" type="text" fieldtype="1" class="inputC" delugetype="STRING" value="<?php echo $donnees['PER_Adresse']; ?>">
 									</td>
 								</tr>
 								<tr id="Client-Code_Postal">

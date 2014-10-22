@@ -95,14 +95,6 @@
 										<input id="Fax" maxlength="255" name="Fax" type="text" fieldtype="1" class="inputC"> 
 									</td>
 								</tr>
-								<tr id="Contact-Fonction" style="display: none;">
-									<td style="text-align: left; width: 150px; white-space: normal;">
-										<label>Fonction :</label>
-									</td>
-									<td>
-										<input id="Struct" maxlength="255" name="Fonction" type="text" fieldtype="1" class="inputC" delugetype="STRING">
-									</td>
-								</tr>
 							</table>
 						</td>
 						<td style="vertical-align:top;">
@@ -120,7 +112,7 @@
 										<label>Adresse :</label>
 									</td>
 									<td>
-										<input id="Adresse" required maxlength="255" name="Adresse" type="text" fieldtype="1" class="inputC" delugetype="STRING">
+										<input id="Adresse" maxlength="255" name="Adresse" type="text" fieldtype="1" class="inputC" delugetype="STRING">
 									</td>
 								</tr>
 								<tr id="Contact-Code_Postal">
@@ -137,6 +129,14 @@
 									</td>
 									<td>
 										<input id="Ville" required maxlength="255" name="Ville" type="text" fieldtype="1" class="inputC" delugetype="STRING">
+									</td>
+								</tr>
+								<tr id="Contact-Fonction" style="display: none;">
+									<td style="text-align: left; width: 150px; white-space: normal;">
+										<label>Fonction :</label>
+									</td>
+									<td>
+										<input id="Struct" maxlength="255" name="Fonction" type="text" fieldtype="1" class="inputC" delugetype="STRING">
 									</td>
 								</tr>
 							</table>

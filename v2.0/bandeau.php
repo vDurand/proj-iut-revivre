@@ -18,14 +18,12 @@
 <?php
 	$i=rand(1,2);
 	if($i==1){
-		echo '<link rel="icon" href="images/favicon2.png" sizes="16x16" />
-		<link rel="icon" href="images/favicon2.ico" sizes="16x16" />
-		<link rel="icon" href="images/favicon2.icns" sizes="16x16" />';
+		echo '<link rel="icon" href="images/favicon2.png" sizes="16x16"/>
+		<link rel="icon" href="images/favicon2.ico" sizes="16x16"/>';
 	}
 	else{
-		echo '<link rel="icon" href="images/favicon1.png" sizes="16x16" />
-		<link rel="icon" href="images/favicon1.ico" sizes="16x16" />
-		<link rel="icon" href="images/favicon1.icns" sizes="16x16" />';
+		echo '<link rel="icon" href="images/favicon1.png" sizes="16x16"/>
+		<link rel="icon" href="images/favicon1.ico" sizes="16x16"/>';
 	}
 ?>
 		<link rel="stylesheet" type="text/css" href="css/tooltipster.css" />
