@@ -1,4 +1,4 @@
-- Faire les stories present/passe/futur
+﻿- Faire les stories present/passe/futur
 DONE - Qui a fait quoi ? 
 - Message de confirmation
 - Transfert des donnees
@@ -11,27 +11,30 @@ DONE - Qui a fait quoi ?
 	>fournisseur
 	>clients
 	>chantier
+	T'AS OUBLIE !
+	>salarie en insertion
+	>atelier occupationnel
 	
-	Partenaire
-	Fournisseur chantier
-	Association
-	Client chantier
-	-Salarié
-	-Bénévole
-	Bailleurs
-	Formation
-	Prestataire
-	Revivre
-	Client
-	Client conditionnement
-	Personnel
-	interim
-	locataire
-	Sous traitant
-	Fournisseur fourniture
-	référent
-	BAILLEUR
-	Stagiare
+	Partenaire -> ?
+	Fournisseur chantier -> fournisseur
+	Association -> Personnel
+	Client chantier -> client
+	Salarié -> Salarié
+	Bénévole -> Bénévole
+	Bailleurs -> ?
+	Formation -> Formateur
+	Prestataire -> ?
+	Revivre -> Personnel
+	Client -> Client
+	Client conditionnement -> Client
+	Personnel -> Personnel
+	interim -> ?
+	locataire -> ?
+	Sous traitant -> ?
+	Fournisseur fourniture -> Fournisseur
+	référent -> Référent
+	BAILLEUR -> pareil que Bailleurs ? lol
+	Stagiare -> stagiaire
 	
 - Finir Chantier
 - Reflechier pour les Salaries
