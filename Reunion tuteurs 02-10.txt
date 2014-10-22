@@ -8,7 +8,7 @@ DONE - Message de confirmation
 	>benevole DONE
 	>formateur
 	>stagiaire DONE
-	>fournisseur
+	>fournisseur DONE
 	>clients
 	>chantier
 	T'AS OUBLIE ! nn parce qu'il y a pas de donnée à insérer, c'est la secrétaire qui s'en est occupé !!
@@ -16,7 +16,7 @@ DONE - Message de confirmation
 	>atelier occupationnel
 	
 	Partenaire -> ?
-	Fournisseur chantier -> fournisseur
+	Fournisseur chantier -> fournisseur DONE
 	Association (5 trucs) -> Personnel DONE
 	Client chantier -> client
 	Salarié -> Salarié DONE
@@ -31,7 +31,7 @@ DONE - Message de confirmation
 	interim -> ?
 	locataire -> ?
 	Sous traitant -> ?
-	Fournisseur fourniture -> Fournisseur
+	Fournisseur fourniture -> Fournisseur DONE
 	référent -> Référent DONE
 	BAILLEUR -> pareil que Bailleurs ? lol
 	Stagiare -> stagiaire DONE
