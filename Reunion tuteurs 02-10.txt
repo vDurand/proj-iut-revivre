@@ -1,6 +1,6 @@
-﻿- Faire les stories present/passe/futur
+DONE - Faire les stories present/passe/futur
 DONE - Qui a fait quoi ? 
-- Message de confirmation
+DONE - Message de confirmation
 - Transfert des donnees
 	>salarie DONE
 	>referent DONE
@@ -17,26 +17,26 @@ DONE - Qui a fait quoi ?
 	
 	Partenaire -> ?
 	Fournisseur chantier -> fournisseur
-	Association -> Personnel
+	Association (5 trucs) -> Personnel
 	Client chantier -> client
-	Salarié -> Salarié
-	Bénévole -> Bénévole
+	Salarié -> Salarié DONE
+	Bénévole -> Bénévole DONE
 	Bailleurs -> ?
 	Formation -> Formateur
 	Prestataire -> ?
-	Revivre -> Personnel
+	Revivre (6 trucs) -> Personnel
 	Client -> Client
 	Client conditionnement -> Client
-	Personnel -> Personnel
+	Personnel (1 truc) -> Personnel
 	interim -> ?
 	locataire -> ?
 	Sous traitant -> ?
 	Fournisseur fourniture -> Fournisseur
-	référent -> Référent
+	référent -> Référent DONE
 	BAILLEUR -> pareil que Bailleurs ? lol
-	Stagiare -> stagiaire
+	Stagiare -> stagiaire DONE
 	
 - Finir Chantier
 - Reflechier pour les Salaries
 DONE - Manger du chocolat
-- Prochaine reunion le 23
+DONE - Prochaine reunion le 23
