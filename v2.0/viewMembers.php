@@ -52,7 +52,19 @@
 										<td><?php echo $donnees['PER_TelFixe']; ?></td>
 										<td><?php echo $donnees['PER_TelPort']; ?></td>
 										<td><a href="mailto:<?php echo $donnees['PER_Email'];?>"><?php echo $donnees['PER_Email']; ?></a></td>
-										<td><?php echo formatLOW($donnees['PER_Adresse']); ?>, <?php echo formatUP($donnees['PER_Ville']); ?> <?php echo $donnees['PER_CodePostal']; ?></td>
+										<td>
+										<?php
+											if(!empty($donnees['PER_Adresse'])){
+												echo formatLOW($donnees['PER_Adresse']).", "; 
+											}
+											if(!empty($donnees['PER_Ville'])){
+												echo formatUP($donnees['PER_Ville'])." "; 
+											}
+											if(!empty($donnees['PER_CodePostal'])){
+												echo $donnees['PER_CodePostal']; 
+											}
+											?>
+										  </td>
 										<td><?php echo $donnees['TYP_Nom']; ?></td>
 									</tr>
 							</form>

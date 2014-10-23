@@ -66,7 +66,16 @@
 										<td><?php echo $donnees['PER_TelPort']; ?></td>
 										<td><?php echo $donnees['PER_Email']; ?></td>
 										<td><?php echo formatLOW($donnees['PER_Adresse']); ?></td>
-										<td><?php echo formatUP($donnees['PER_Ville']); ?> <?php echo $donnees['PER_CodePostal']; ?></td>
+										<td>
+										<?php
+											if(!empty($donnees['PER_Ville'])){
+												echo formatUP($donnees['PER_Ville'])." "; 
+											}
+											if(!empty($donnees['PER_CodePostal'])){
+												echo $donnees['PER_CodePostal']; 
+											}
+											?>
+										  </td>
 									</tr>
 							</form>
 <?php
