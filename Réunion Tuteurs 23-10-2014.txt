@@ -1,4 +1,4 @@
-- questionner Mr. Brutus sur l'utilisation de Win'Design
+﻿- questionner Mr. Brutus sur l'utilisation de Win'Design
 - diviser la répartiotion des tâches en fonctions du temps
 - attendre la réponse de Gillou pour avancer
 - Modifier bandeau en fonction des choses possibles de faire
@@ -8,4 +8,4 @@
 - Prendre un rdv avec gillou le 6
 - RDV le jeudi 13 tuteurs 15h à redéfinir + renvoyer les répartitions en fonction du temps
 - Réception du lot le 20 Novembre par Jort
-- Jeudi 4 décembre rdv Loudni 17h remise lot
+- Jeudi 4 décembre rdv Loudni 17h remise lot.
