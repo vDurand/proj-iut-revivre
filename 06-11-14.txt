@@ -1,0 +1,20 @@
+- pouvoir rentrer des nouveaux types dans la base
+- rentrer les chantiers à partir de 2015, abandonner le transfert de données
+- enlever les couleurs pour les heures
+- achats restants (en monétaire) à la place du montant des heures
+- Montant prévu -> Montant (prix du chantier pour le client) -> on doit le rentrer à la main, il ne se calcule pas automatiquement
+- on garde les barres de progression
+- retirer les graphiques
+- afficher les fournisseurs sur la liste des achats
+- rentrer manuellement tous les produits (Fournisseur, montant), faire un mémo (varchar) pour la quantité et le type (ex : 5 pots de 5L)
+- id : revivre / mdp : servicecap
+- 1 seule session
+- rajouter une adresse aux chantiers
+- pouvoir finaliser le bon de livraison (encart coordonnées client, encart coordonnées chantier+nom chantier)
+- masquer le num_devis
+- rajouter une recherche par intitulé, ainsi qu'une zone de texte
+- mise en relation avec le gestionnaire du site pour pouvoir mettre en place un htaccess sur la base (et aussi pour le unipuke.gif 404.error) #informaticien
+- #bilan => faire un tableau des activités finies annuels par mois / tableau en cours par mois (nom, encadrant, afficher les chiffres, écart achats et écarts heures totales)
+- #bilan => trier encadrant, année en cours chantiers finis, mois en cours chantiers en cours
+- garder le taux horaire (cf. feuille de note Valentin), indiquer le taux horaire pour chaque chantier (fixe)
+- restreindre nom, prénom, adresse et un téléphone pour le répertoire
