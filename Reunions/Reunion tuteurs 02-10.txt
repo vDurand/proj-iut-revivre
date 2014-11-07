@@ -1,0 +1,42 @@
+DONE - Faire les stories present/passe/futur
+DONE - Qui a fait quoi ? 
+DONE - Message de confirmation
+- Transfert des donnees
+	>salarie DONE
+	>referent DONE
+	>personnel DONE
+	>benevole DONE
+	>formateur
+	>stagiaire DONE
+	>fournisseur DONE
+	>clients
+	>chantier
+	T'AS OUBLIE ! nn parce qu'il y a pas de donnée à insérer, c'est la secrétaire qui s'en est occupé !!
+	>salarie en insertion
+	>atelier occupationnel
+	
+	Partenaire -> ?
+	Fournisseur chantier -> fournisseur DONE
+	Association (5 trucs) -> Personnel DONE
+	Client chantier -> client
+	Salarié -> Salarié DONE
+	Bénévole -> Bénévole DONE
+	Bailleurs -> ?
+	Formation -> Formateur DONE
+	Prestataire -> ?
+	Revivre (6 trucs) -> Salarié DONE
+	Client -> Client
+	Client conditionnement -> Client
+	Personnel (1 truc) -> Personnel DONE
+	interim -> ?
+	locataire -> ?
+	Sous traitant -> ?
+	Fournisseur fourniture -> Fournisseur DONE
+	référent -> Référent DONE
+	BAILLEUR -> pareil que Bailleurs ? lol
+	Stagiare -> stagiaire DONE
+	
+- Finir Chantier
+- Reflechier pour les Salaries
+DONE - Manger du chocolat
+DONE - Prochaine reunion le 23
