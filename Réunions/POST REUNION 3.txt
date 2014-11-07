@@ -1,5 +1,0 @@
-- Achat : Produit / Zone de texte Prix unitaire / Zone de texte Quantité / Zone de texte conditionnement / Remise d'achat / Liste déroulante types d'achats
-- va falloir Chromer !
-- Inverser les champs "Heures" et "Achats" dans le carnet de bord pour aligner proprement ! |:-)
-- Chantier > Salarié > Restaurant > Bénévole > Logement > N@vette > Véhicule
-- That was surprinsingly fast and quick !
