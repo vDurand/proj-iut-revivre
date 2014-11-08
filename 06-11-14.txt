@@ -7,7 +7,7 @@
 - retirer les graphiques
 - afficher les fournisseurs sur la liste des achats
 - rentrer manuellement tous les produits (Fournisseur, montant), faire un mémo (varchar) pour la quantité et le type (ex : 5 pots de 5L)
-DONE - id : revivre / mdp : servicecap
+- id : revivre / mdp : servicecap
 - 1 seule session
 - rajouter une adresse aux chantiers
 - pouvoir finaliser le bon de livraison (encart coordonnées client, encart coordonnées chantier+nom chantier)
