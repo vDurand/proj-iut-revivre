@@ -381,14 +381,14 @@ if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM Acheter JOIN Produits US
             <tbody>
             <?php
 
-            $reponse5 = mysqli_query($db, "SELECT * FROM Acheter JOIN Produits USING (PRO_Ref) WHERE CHA_NumDevis='$num' ORDER BY ACH_Date ASC");
+            $reponse5 = mysqli_query($db, "SELECT * FROM Acheter JOIN Produits USING (PRO_Ref) JOIN Fournisseurs USING (FOU_NumFournisseur) JOIN Personnes USING (PER_Num) WHERE CHA_NumDevis='$num' ORDER BY ACH_Date ASC");
             while ($donnees5 = mysqli_fetch_assoc($reponse5))
             {
                 ?>
                 <tr style="font-size: 14;">
-                    <td><?php echo formatLOW($donnees5['PRO_Nom']); ?> (<?php echo formatLOW($donnees5['PRO_Conditionnement']); ?>) <span style="float: right;">x<?php echo $donnees5['ACH_Quantite']; ?></span></td>
+                    <td><?php echo formatLOW($donnees5['PRO_Nom']); ?> (<?php echo formatLOW($donnees5['ACH_TypeAchat']); ?>) <span style="float: right;">Fournisseur : <?php echo formatUP($donnees5['PER_Nom'])." ".formatLOW($donnees5['PER_Prenom']); ?></span></td>
                     <td><?php echo dater($donnees5['ACH_Date']); ?></td>
-                    <td><?php echo ($donnees5['PRO_Tarif']*$donnees5['ACH_Quantite'])." €"; $totAchat += $donnees5['PRO_Tarif']*$donnees5['ACH_Quantite']; ?></td>
+                    <td><?php echo $donnees5['ACH_Montant']." €"; $totAchat += $donnees5['ACH_Montant']; ?></td>
                 </tr>
             <?php
             }
