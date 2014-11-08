@@ -56,7 +56,7 @@
 							<table id="rightT" colcount="1" cellpadding="10">
 								<tr id="Contact-Portable">
 									<td style="text-align: left; width: 150px; white-space: normal;">
-										<label>Montant Prévu :</label>
+										<label>Montant :</label>
 									</td>
 									<td>
 										<input id="Montant_Prev" maxlength="255" name="Montant_Prev" type="text" class="inputC" value="<?php echo $donnees['CHA_MontantPrev']; ?>"> 

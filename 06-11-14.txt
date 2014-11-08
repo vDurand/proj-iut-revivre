@@ -1,10 +1,10 @@
 - pouvoir rentrer des nouveaux types dans la base
 - rentrer les chantiers à partir de 2015, abandonner le transfert de données
-- enlever les couleurs pour les heures
-- achats restants (en monétaire) à la place du montant des heures
-- Montant prévu -> Montant (prix du chantier pour le client) -> on doit le rentrer à la main, il ne se calcule pas automatiquement
-- on garde les barres de progression
-- retirer les graphiques
+DONE - enlever les couleurs pour les heures
+DONE - achats restants (en monétaire) à la place du montant des heures
+DONE - Montant prévu -> Montant (prix du chantier pour le client) -> on doit le rentrer à la main, il ne se calcule pas automatiquement
+DONE- on garde les barres de progression
+DONE - retirer les graphiques
 - afficher les fournisseurs sur la liste des achats
 - rentrer manuellement tous les produits (Fournisseur, montant), faire un mémo (varchar) pour la quantité et le type (ex : 5 pots de 5L)
 DONE - id : revivre / mdp : servicecap
