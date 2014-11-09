@@ -126,11 +126,15 @@
 						</ul>
 						<?php
 						if (isset($_SESSION["user"])) {
-						?>
+                        ?>
 						            <form action="login.php" method="post">
 						                <input class="deco" id="deco" name="logout" type="submit" value="X">
 						            </form>
+                            <?php if($_SESSION ["user"] == "admin"){
+                            ?>
+                            <a class="deco2" id="deco2" href="adminLand.php">Administration</a>
 						            <?php
+                            }
 						}
 						?>	
 					</nav>

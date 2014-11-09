@@ -27,7 +27,21 @@
 	        // -->
 	        </script>';
 	        
-	    } else {
+	    }
+        else if ($id == "admin" && $pw == "projetRevivre") {
+            $_SESSION["user"] = "admin";
+            echo '<div id="good">
+		        <label>Id Correct</label>
+		        </div>';
+
+            echo '<script language="Javascript">
+	        <!--
+	        document.location.replace("home.php");
+	        // -->
+	        </script>';
+
+        }
+        else {
 	        echo '<div id="bad">     
 	              <label>Id incorrect</label>
 	              </div>';
