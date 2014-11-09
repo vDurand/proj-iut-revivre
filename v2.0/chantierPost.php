@@ -6,23 +6,25 @@
 // Creation d un chantier
   $client=$_POST["Client"];
   $nom=addslashes(mysqli_real_escape_string($db, formatLOW($_POST["Nom"])));
-  $num=strtoupper(addslashes(mysqli_real_escape_string($db, $_POST["Num"])));
+  $add=addslashes(mysqli_real_escape_string($db, formatLOW($_POST["Add"])));
   $ddebut=addslashes($_POST["Debut"]);
   $montantp=addslashes($_POST["Montant_Prev"]);
   $achatp=addslashes($_POST["Achats_Prev"]);
   $heurep=addslashes($_POST["Heures_Prev"]);
   $echeance=addslashes($_POST["Fin_Max"]);
   $resp=addslashes($_POST["Resp"]);
+  $tva=addslashes($_POST["tva"]);
+  $txh=addslashes($_POST["TxH"]);
   date_default_timezone_set('Europe/Paris');
   $dateNow = date('Y-m-d H:i:s', time());
 
-	$query = "INSERT INTO Chantiers (CHA_DateDebut, CHA_Intitule, CHA_Echeance, CHA_MontantPrev, CHA_AchatsPrev, CHA_HeuresPrev, CHA_Id) VALUES ('$ddebut', '$nom', '$echeance', '$montantp', '$achatp', '$heurep', '$num')";
+	$query = "INSERT INTO Chantiers (CHA_DateDebut, CHA_Intitule, CHA_Echeance, CHA_MontantPrev, CHA_AchatsPrev, CHA_HeuresPrev, CHA_Adresse, CHA_TVA, CHA_TxHoraire) VALUES ('$ddebut', '$nom', '$echeance', '$montantp', '$achatp', '$heurep', '$add', '$tva', '$txh')";
 
   $sql = mysqli_query($db, $query);
   $errr=mysqli_error($db);
 
     if($sql){
-      $numberQuery = mysqli_query($db, "SELECT * FROM Chantiers WHERE CHA_Id='$num'");
+      $numberQuery = mysqli_query($db, "SELECT * FROM Chantiers WHERE CHA_DateDebut='$ddebut' AND CHA_Intitule = '$nom' AND CHA_Echeance = '$echeance' AND CHA_MontantPrev = '$montantp'");
       $numberRep = mysqli_fetch_assoc($numberQuery);
       $realNumber = $numberRep['CHA_NumDevis'];
 

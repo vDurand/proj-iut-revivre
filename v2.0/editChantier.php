@@ -17,14 +17,6 @@
 					<table align="left">
 						<td style="vertical-align:top;">
 							<table id="leftT" colcount="0" cellpadding="10">
-								<tr id="Chantier_Num">
-									<td style="text-align: left; width: 150px; white-space: normal;">
-										<label>Numéro de Devis :</label>
-									</td>
-									<td>
-										<input id="Num" required maxlength="255" name="Num" type="text" class="inputC" value="<?php echo formatUP($donnees['CHA_Id']); ?>"> 
-									</td>
-								</tr>
 								<tr id="Contact-Nom">
 									<td style="text-align: left; width: 150px; white-space: normal;">
 										<label>Nom du Chantier :</label>
@@ -94,7 +86,7 @@
 							</form>
 						</td>
 						<td>
-							<form id="return" method="post" action="detailChantier.php" name="detailClient">
+							<form id="return" method="get" action="detailChantier.php" name="detailClient">
 								<input form="return" type="hidden" name="NumC" value="<?php echo $num; ?>">
 								<input form="return" name="submit" type="submit" value="Retour" class="buttonC">
 							</form>

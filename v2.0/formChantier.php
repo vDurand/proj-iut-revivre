@@ -7,12 +7,12 @@
         <td rowspan="2">
             <table cellpadding="10" class="detailClients">
                 <tr>
-                    <th style="text-align: left; width: 200px; white-space: normal;">Numéro de Devis:</th>
-                    <td style="text-align: center; width: 200px;"><?php echo formatUP($donnees['CHA_Id']); ?></td>
-                </tr>
-                <tr>
                     <th style="text-align: left; width: 200px; white-space: normal;">Nom du Chantier:</th>
                     <td style="text-align: center; width: 250px;"><?php echo formatLOW($donnees['CHA_Intitule']); ?></td>
+                </tr>
+                <tr>
+                    <th style="text-align: left; width: 200px; white-space: normal;">Adresse:</th>
+                    <td style="text-align: center; width: 200px;"><?php echo formatUP($donnees['CHA_Adresse']); ?></td>
                 </tr>
                 <tr>
                     <th style="text-align: left; width: 200px; white-space: normal;">Date de Début:</th>
@@ -113,6 +113,24 @@
                 </tr>
             </table>
         </td></tr>
+    <tr>
+        <td>
+            <table cellpadding="10" class="detailClients">
+                <tr>
+                    <th style="text-align: left; width: 200px; white-space: normal;">TVA:</th>
+                    <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_TVA']; ?> %</td>
+                </tr>
+            </table>
+        </td>
+        <td>
+            <table cellpadding="10" class="detailClients">
+                <tr>
+                    <th style="text-align: left; width: 200px; white-space: normal;">Tx Horaire:</th>
+                    <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_TxHoraire']; ?> € /h</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
 </table>
 <!-- Buttons Line -->
 <table id="downT">

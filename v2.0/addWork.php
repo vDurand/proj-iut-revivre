@@ -14,7 +14,7 @@
 								<label>Client</label>
 							</td>
 							<td>
-								<div class="selectType">
+								<div class="selectType2">
 		          					<select name="Client">
 <?php
 	$i = 2;
@@ -35,18 +35,10 @@
 					</table>
 				</div>
 				<br/>
-				<div style="overflow:auto;">
+				<div>
 					<table align="left">
-						<td style="vertical-align:top;">
+						<td>
 							<table id="leftT" colcount="0" cellpadding="10">
-								<tr id="Chantier_Num">
-									<td style="text-align: left; width: 150px; white-space: normal;">
-										<label>Numéro de Devis :</label>
-									</td>
-									<td>
-										<input id="Num" required maxlength="255" name="Num" type="text" class="inputC"> 
-									</td>
-								</tr>
 								<tr id="Contact-Nom">
 									<td style="text-align: left; width: 150px; white-space: normal;">
 										<label>Nom du Chantier :</label>
@@ -72,13 +64,29 @@
 										<input id="Fin_Max" maxlength="255" name="Fin_Max" type="date" class="inputC"> 
 									</td>
 								</tr>
+                                <tr id="Chantier_Ad">
+                                    <td style="text-align: left; width: 150px; white-space: normal;">
+                                        <label>Adresse Chantier :</label>
+                                    </td>
+                                    <td>
+                                        <input id="Add" required maxlength="255" name="Add" type="text" class="inputC">
+                                    </td>
+                                </tr>
+                                <tr id="Chantier_Tva">
+                                    <td style="text-align: left; width: 150px; white-space: normal;">
+                                        <label>TVA :</label>
+                                    </td>
+                                    <td>
+                                        <input id="tva" required name="tva" type="number" step="0.01" class="inputC">
+                                    </td>
+                                </tr>
 							</table>
 						</td>
-						<td style="vertical-align:top;">
+						<td>
 							<table id="rightT" colcount="1" cellpadding="10">
 								<tr id="Contact-Portable">
 									<td style="text-align: left; width: 150px; white-space: normal;">
-										<label>Montant Prévu :</label>
+										<label>Montant :</label>
 									</td>
 									<td>
 										<input id="Montant_Prev" maxlength="255" name="Montant_Prev" type="text" class="inputC" placeholder="&euro;"> 
@@ -122,6 +130,14 @@
 										          </div>
 									</td>
 								</tr>
+                                <tr id="Chantier_TxH">
+                                    <td style="text-align: left; width: 150px; white-space: normal;">
+                                        <label>Taux Horaire :</label>
+                                    </td>
+                                    <td>
+                                        <input id="TxH" required step="0.01" name="TxH" type="number" class="inputC">
+                                    </td>
+                                </tr>
 							</table>
 						</td>
 					</table>

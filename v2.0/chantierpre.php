@@ -8,7 +8,6 @@
 // Modification d un chantier
   $id=$_POST["NumC"];		
   $nom=addslashes(mysqli_real_escape_string($db, formatLOW($_POST["Nom"])));
-  $num=strtoupper(addslashes(mysqli_real_escape_string($db, $_POST["Num"])));
   $ddebut=addslashes($_POST["Debut"]);
   $montantp=addslashes($_POST["Montant_Prev"]);
   $achatp=addslashes($_POST["Achats_Prev"]);
@@ -16,7 +15,7 @@
   $echeance=addslashes($_POST["Fin_Max"]);
   date_default_timezone_set('Europe/Paris');
   
-  $query = "UPDATE Chantiers SET CHA_Id = '$num', CHA_Intitule = '$nom', CHA_DateDebut = '$ddebut', CHA_MontantPrev	 = '$montantp', CHA_AchatsPrev = '$achatp', CHA_HeuresPrev = '$heurep', CHA_Echeance = '$echeance' WHERE Chantiers.CHA_NumDevis = '$id'";
+  $query = "UPDATE Chantiers SET CHA_Intitule = '$nom', CHA_DateDebut = '$ddebut', CHA_MontantPrev	 = '$montantp', CHA_AchatsPrev = '$achatp', CHA_HeuresPrev = '$heurep', CHA_Echeance = '$echeance' WHERE Chantiers.CHA_NumDevis = '$id'";
   
   $sql = mysqli_query($db, $query);
   $errr=mysqli_error($db);

@@ -9,7 +9,7 @@ DONE - afficher les fournisseurs sur la liste des achats
 DONE - rentrer manuellement tous les produits (Fournisseur, montant), faire un mémo (varchar) pour la quantité et le type (ex : 5 pots de 5L)
 DONE - id : revivre / mdp : servicecap
 - 1 seule session
-- rajouter une adresse aux chantiers
+DONE - rajouter une adresse aux chantiers
 - pouvoir finaliser le bon de livraison (encart coordonnées client, encart coordonnées chantier+nom chantier)
 ANNULE - masquer le num_devis
 - rajouter une recherche par intitulé, ainsi qu'une zone de texte
