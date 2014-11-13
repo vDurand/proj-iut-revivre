@@ -25,6 +25,14 @@
 										<input id="Nom" required maxlength="255" name="Nom" type="text" class="inputC" autofocus="autofocus" value="<?php echo formatLOW($donnees['CHA_Intitule']); ?>"> 
 									</td>
 								</tr>
+								<tr id="Contact-Nom">
+									<td style="text-align: left; width: 150px; white-space: normal;">
+										<label>Adresse :</label>
+									</td>
+									<td>
+										<input id="Adresse" required maxlength="255" name="Adresse" type="text" class="inputC" autofocus="autofocus" value="<?php echo formatLOW($donnees['CHA_Adresse']); ?>"> 
+									</td>
+								</tr>
 								<tr id="Contact-Prenom">
 									<td style="text-align: left; width: 150px; white-space: normal;">
 										<label>Date de Début :</label>
