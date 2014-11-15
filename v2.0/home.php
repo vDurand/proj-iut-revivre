@@ -115,7 +115,7 @@
 										<td><?php echo $donnees['PER_TelFixe']; ?></td>
 										<td><?php echo $donnees['PER_TelPort']; ?></td>
 										<td><?php echo $donnees['PER_Email']; ?></td>
-										<td><?php echo formatLOW($donnees['PER_Adresse']); ?> <?php echo formatUP($donnees['PER_Ville']); ?> <?php if(!empty($donnees['PER_CodePostal'])) echo $donnees['PER_CodePostal']; ?></td>
+										<td><?php echo formatLOW($donnees['PER_Adresse']); ?><br><?php echo formatUP($donnees['PER_Ville']); ?> <?php if(!empty($donnees['PER_CodePostal'])) echo $donnees['PER_CodePostal']; ?></td>
 										<td><?php echo formatLOW($donnees['TYP_Nom']); ?></td>
 									</tr>
 							</form>
@@ -174,7 +174,7 @@
 										<td><?php echo $donnees['PER_TelFixe']; ?></td>
 										<td><?php echo $donnees['PER_TelPort']; ?></td>
 										<td><?php echo $donnees['PER_Email']; ?></td>
-										<td><?php echo formatLOW($donnees['PER_Adresse']); ?> <?php echo formatUP($donnees['PER_Ville']); ?> <?php if(!empty($donnees['PER_CodePostal'])) echo $donnees['PER_CodePostal']; ?></td>
+										<td><?php echo formatLOW($donnees['PER_Adresse']); ?><br><?php echo formatUP($donnees['PER_Ville']); ?> <?php if(!empty($donnees['PER_CodePostal'])) echo $donnees['PER_CodePostal']; ?></td>
 									</tr>
 							</form>
 <?php
@@ -224,7 +224,7 @@
 										<td><?php echo $donnees['PER_TelFixe']; ?></td>
 										<td><?php echo $donnees['PER_TelPort']; ?></td>
 										<td><?php echo $donnees['PER_Email']; ?></td>
-										<td><?php echo formatLOW($donnees['PER_Adresse']); ?> <?php echo formatUP($donnees['PER_Ville']); ?> <?php if(!empty($donnees['PER_CodePostal'])) echo $donnees['PER_CodePostal']; ?></td>
+										<td><?php echo formatLOW($donnees['PER_Adresse']); ?><br><?php echo formatUP($donnees['PER_Ville']); ?> <?php if(!empty($donnees['PER_CodePostal'])) echo $donnees['PER_CodePostal']; ?></td>
 									</tr>
 							</form>
 <?php
