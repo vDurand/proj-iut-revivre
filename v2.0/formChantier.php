@@ -86,7 +86,7 @@
                 </tr>
                 <tr>
                     <th style="text-align: left; width: 200px; white-space: normal;">Ville :</th>
-                    <td style="text-align: center; width: 200px;"><?php echo formatUP($donnees['ClientV']); ?>, <?php echo $donnees['ClientCP']; ?></td>
+                    <td style="text-align: center; width: 200px;"><?php echo formatLOW($donnees['ClientV']); ?>, <?php echo $donnees['ClientCP']; ?></td>
                 </tr>
             </table>
         </td>
