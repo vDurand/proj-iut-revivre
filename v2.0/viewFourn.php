@@ -16,10 +16,7 @@
 						<thead>
 							<tr>
 								<td class="premierCol" style="text-align: center; width: 150px;">
-									Nom
-								</td>
-								<td style="text-align: center; width: 150px;">
-									Prénom
+									Entreprise
 								</td>
 								<td class="sorttable_nosort tooltip" style="text-align: center; width: 150px; cursor: help;" title="Vous ne pouvez pas classer par telephone fixe.">
 									Tél Fixe
@@ -33,9 +30,9 @@
 								<td style="text-align: center; width: 150px;">
 									Adresse
 								</td>
-								<td style="text-align: center; width: 150px;">
-									Structure
-								</td>
+                                <td style="text-align: center; width: 150px;">
+                                    Ville
+                                </td>
 							</tr>
 						</thead>
 						<tbody>
@@ -47,8 +44,7 @@
 							<form method="get" action="detailFournisseur.php" name="detailFour">
 								<input type="hidden" name="NumC" value="">
 									<tr onclick="javascript:submitViewDetail('<?php echo $donnees['FOU_NumFournisseur']; ?>', 'detailFour');" style="font-size: 14;">
-										<td><?php echo formatUP($donnees['PER_Nom']); ?></td>
-										<td><?php echo formatLOW($donnees['PER_Prenom']); ?></td>
+										<td><?php echo formatLOW($donnees['PER_Nom']); ?></td>
 										<td><?php echo $donnees['PER_TelFixe']; ?></td>
 										<td><?php echo $donnees['PER_TelPort']; ?></td>
 										<td><a href="mailto:<?php echo $donnees['PER_Email'];?>"><?php echo $donnees['PER_Email']; ?></a></td>
@@ -57,15 +53,18 @@
 											if(!empty($donnees['PER_Adresse'])){
 												echo formatLOW($donnees['PER_Adresse']).", "; 
 											}
-											if(!empty($donnees['PER_Ville'])){
-												echo formatUP($donnees['PER_Ville'])." "; 
-											}
-											if(!empty($donnees['PER_CodePostal'])){
-												echo $donnees['PER_CodePostal']; 
-											}
 											?>
-										  </td>
-										<td><?php echo $donnees['FOU_Structure']; ?></td>
+										</td>
+                                        <td>
+                                            <?php
+                                            if(!empty($donnees['PER_Ville'])){
+                                                echo formatUP($donnees['PER_Ville'])." ";
+                                            }
+                                            if(!empty($donnees['PER_CodePostal'])){
+                                                echo $donnees['PER_CodePostal'];
+                                            }
+                                            ?>
+                                        </td>
 									</tr>
 							</form>
 <?php

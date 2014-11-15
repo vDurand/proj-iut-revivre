@@ -54,6 +54,15 @@
 					<table align="left">
 						<td style="vertical-align:top;">
 							<table id="leftT" colcount="0" cellpadding="10">
+                                <tr id="Contact-Structure">
+                                    <td style="text-align: left; width: 150px; white-space: normal;">
+                                        <label>Structure :</label>
+                                    </td>
+                                    <td>
+                                        <input id="Structure" maxlength="255" name="Structure" type="text" class="inputC" autofocus="autofocus">
+                                    </td>
+
+                                </tr>
 								<tr id="Contact-Nom">
 									<td style="text-align: left; width: 150px; white-space: normal;">
 										<label>Nom :</label>
@@ -62,7 +71,7 @@
 										<input id="Nom" required maxlength="255" name="Nom" type="text" class="inputC" autofocus="autofocus"> 
 									</td>
 								</tr>
-								<tr id="Contact-Prenom" style="display:none">
+								<tr id="Contact-Prenom">
 									<td style="text-align: left; width: 150px; white-space: normal;">
 										<label>Prénom :</label>
 									</td>
@@ -112,7 +121,7 @@
 										<label>Adresse :</label>
 									</td>
 									<td>
-										<input id="Adresse" maxlength="255" name="Adresse" type="text" fieldtype="1" class="inputC" delugetype="STRING">
+										<input id="Adresse" required maxlength="255" name="Adresse" type="text" fieldtype="1" class="inputC" delugetype="STRING">
 									</td>
 								</tr>
 								<tr id="Contact-Code_Postal">

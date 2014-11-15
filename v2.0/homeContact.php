@@ -159,14 +159,17 @@
 						<thead>
 						<tr>
 							<td class="firstCol" style="text-align: center; width: 155px;">
-								<a>Nom</a>
+								<a>Structure</a>
 							</td>
+                            <td style="text-align: center; width: 155px;">
+                                <a>Nom</a>
+                            </td>
 							<td style="text-align: center; width: 155px;">
 								<a>Prénom</a>
 							</td>
-							<td class="sorttable_nosort tooltip" style="text-align: center; width: 155px; cursor: help;" title="Vous ne pouvez pas classer par adresse.">
+							<!--<td class="sorttable_nosort tooltip" style="text-align: center; width: 155px; cursor: help;" title="Vous ne pouvez pas classer par adresse.">
 								<a>Adresse</a>
-							</td>
+							</td>-->
 							<td style="text-align: center; width: 155px;">
 								<a>Ville</a>
 							</td>
@@ -189,9 +192,10 @@
 						<form method="get" action="detailClient.php" name="detailClient">
 							<input type="hidden" name="NumC" value="">
 							<tr onclick="javascript:submitViewDetail('<?php echo $donnees['CLI_NumClient']; ?>', 'detailClient')" style="font-size: 14;">
-								<td><?php echo formatUP($donnees['PER_Nom']); ?></td>
+                                <td><?php echo formatUP($donnees['CLI_Structure']); ?></td>
+                                <td><?php echo formatLOW($donnees['PER_Nom']); ?></td>
 								<td><?php echo formatLOW($donnees['PER_Prenom']); ?></td>
-								<td><?php echo formatLOW($donnees['PER_Adresse']); ?></td>
+								<!--<td><?php /*echo formatLOW($donnees['PER_Adresse']); */?></td>-->
 								<td><?php echo formatUP($donnees['PER_Ville']); ?> <?php if(!empty($donnees['PER_CodePostal'])) echo $donnees['PER_CodePostal']; ?></td>
 								<td><?php if (!empty($donnees['PER_TelFixe'])) {
 									echo $donnees['PER_TelFixe'];
@@ -213,8 +217,9 @@
 							<input type="hidden" name="NumC" value="">
 							<tr onclick="javascript:submitViewDetail('<?php echo $donnees['FOU_NumFournisseur']; ?>', 'detailFour');" style="font-size: 14;">
 								<td><?php echo formatUP($donnees['PER_Nom']); ?></td>
-								<td><?php echo formatLOW($donnees['PER_Prenom']); ?></td>
-								<td><?php echo formatLOW($donnees['PER_Adresse']); ?></td>
+								<td> </td>
+                                <td> </td>
+								<!--<td><?php /*echo formatLOW($donnees['PER_Adresse']); */?></td>-->
 								<td><?php echo formatUP($donnees['PER_Ville']); ?> <?php if(!empty($donnees['PER_CodePostal'])) echo $donnees['PER_CodePostal']; ?></td>
 								<td><?php if (!empty($donnees['PER_TelFixe'])) {
 									echo $donnees['PER_TelFixe'];
@@ -235,9 +240,10 @@
 						<form method="get" action="detailSal.php" name="detailSal">
 							<input type="hidden" name="NumC" value="">
 							<tr onclick="javascript:submitViewDetail('<?php echo $donnees['SAL_NumSalarie']; ?>', 'detailSal');" style="font-size: 14;">
-								<td><?php echo formatUP($donnees['PER_Nom']); ?></td>
+                                <td>REVIVRE</td>
+                                <td><?php echo formatLOW($donnees['PER_Nom']); ?></td>
 								<td><?php echo formatLOW($donnees['PER_Prenom']); ?></td>
-								<td><?php echo formatLOW($donnees['PER_Adresse']); ?></td>
+								<!--<td><?php /*echo formatLOW($donnees['PER_Adresse']); */?></td>-->
 								<td><?php echo formatUP($donnees['PER_Ville']); ?> <?php if(!empty($donnees['PER_CodePostal'])) echo $donnees['PER_CodePostal']; ?></td>
 								<td><?php if (!empty($donnees['PER_TelFixe'])) {
 									echo $donnees['PER_TelFixe'];

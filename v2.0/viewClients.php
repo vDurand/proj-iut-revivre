@@ -16,8 +16,11 @@
 						<thead>
 							<tr>
 								<td class="premierCol" style="text-align: center; width: 150px;">
-									Nom
+									Structure
 								</td>
+                                <td style="text-align: center; width: 150px;">
+                                    Nom
+                                </td>
 								<td style="text-align: center; width: 150px;">
 									Prénom
 								</td>
@@ -33,20 +36,18 @@
 								<td style="text-align: center; width: 150px;">
 									Adresse
 								</td>
-								<td style="text-align: center; width: 150px;">
-									Structure
-								</td>
 							</tr>
 						</thead>
 						<tbody>
 <?php
-	$reponse = mysqli_query($db, 'SELECT * FROM Clients cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom');
+	$reponse = mysqli_query($db, 'SELECT * FROM Clients cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY CLI_Structure');
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
 ?>
 							<form method="get" action="detailClient.php" name="detailClient">
 								<input type="hidden" name="NumC" value="">
 									<tr onclick="javascript:submitViewDetail('<?php echo $donnees['CLI_NumClient']; ?>', 'detailClient');" style="font-size: 14;">
+                                        <td><?php echo formatUP($donnees['CLI_Structure']); ?></td>
 										<td><?php echo formatUP($donnees['PER_Nom']); ?></td>
 										<td><?php echo formatLOW($donnees['PER_Prenom']); ?></td>
 										<td><?php echo $donnees['PER_TelFixe']; ?></td>
@@ -65,7 +66,6 @@
 											}
 											?>
 										  </td>
-										<td><?php echo $donnees['CLI_Structure']; ?></td>
 									</tr>
 							</form>
 <?php

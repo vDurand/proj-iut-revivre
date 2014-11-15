@@ -14,7 +14,13 @@
   $add=addslashes(mysqli_real_escape_string($db, formatLOW($_POST["Adresse"])));
   $cp=addslashes($_POST["Code_Postal"]);
   $ville=addslashes(mysqli_real_escape_string($db, formatUP($_POST["Ville"])));
-  $struct=addslashes($_POST["Particulier"]);
+  $partic=addslashes($_POST["Particulier"]);
+  if($partic == "Particulier"){
+      $struct = "";
+  }
+  else{
+      $struct = addslashes(formatUP($_POST["Structure"]));
+  }
   $fonct=addslashes(mysqli_real_escape_string($db, $_POST["Fonction"]));
 
   $query = "INSERT INTO Personnes (PER_Num, PER_Nom, PER_Prenom, PER_TelFixe, PER_TelPort, PER_Fax, PER_Email, PER_Adresse, PER_CodePostal, PER_Ville) VALUES (NULL, '$nom', '$prenom', '$tel', '$port', '$fax', '$email', '$add', '$cp', '$ville')";
@@ -28,10 +34,15 @@
       $realNumber = $numberRep['PER_Num'];
 
       if($type==0){
-        $query2 = "INSERT INTO Clients (CLI_NumClient, CLI_Structure, PER_Num) VALUES (NULL, '$struct', '$realNumber')";
+          if(empty($struct)){
+              $query2 = "INSERT INTO Clients (CLI_NumClient, CLI_Structure, PER_Num) VALUES (NULL, NULL, '$realNumber')";
+          }
+          else{
+              $query2 = "INSERT INTO Clients (CLI_NumClient, CLI_Structure, PER_Num) VALUES (NULL, '$struct', '$realNumber')";
+          }
       }
       if($type==1){
-        $query2 = "INSERT INTO Fournisseurs (FOU_NumFournisseur, FOU_Structure, PER_Num) VALUES (NULL, '$struct', '$realNumber')";
+        $query2 = "INSERT INTO Fournisseurs (FOU_NumFournisseur, FOU_Structure, PER_Num) VALUES (NULL, 'Structure', '$realNumber')";
       }
       if($type>1){
         $query2 = "INSERT INTO Salaries (SAL_NumSalarie, PER_Num, SAL_Fonction, TYP_Id) VALUES (NULL, '$realNumber', '$fonct', '$type')";

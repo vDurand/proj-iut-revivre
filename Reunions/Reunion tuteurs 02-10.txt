@@ -9,24 +9,23 @@ DONE - Message de confirmation
 	>formateur
 	>stagiaire DONE
 	>fournisseur DONE
-	>clients
+	>clients DONE
 	>chantier
-	T'AS OUBLIE ! nn parce qu'il y a pas de donnée à insérer, c'est la secrétaire qui s'en est occupé !!
-	>salarie en insertion
-	>atelier occupationnel
+	>salarie en insertion DONE
+	>atelier occupationnel DONE
 	
 	Partenaire -> ?
 	Fournisseur chantier -> fournisseur DONE
 	Association (5 trucs) -> Personnel DONE
-	Client chantier -> client
+	Client chantier -> client DONE
 	Salarié -> Salarié DONE
 	Bénévole -> Bénévole DONE
 	Bailleurs -> ?
 	Formation -> Formateur DONE
 	Prestataire -> ?
 	Revivre (6 trucs) -> Salarié DONE
-	Client -> Client
-	Client conditionnement -> Client
+	Client -> Client DONE
+	Client conditionnement -> Client DONE
 	Personnel (1 truc) -> Personnel DONE
 	interim -> ?
 	locataire -> ?

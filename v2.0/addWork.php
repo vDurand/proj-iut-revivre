@@ -16,18 +16,50 @@
 							<td>
 								<div class="selectType2">
 		          					<select name="Client">
+                                        <optgroup label="Particuliers">
 <?php
 	$i = 2;
-	$reponse = mysqli_query($db, "SELECT * FROM Clients cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom");
+	$reponse = mysqli_query($db, "SELECT * FROM Clients cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE CLI_Structure IS NULL ORDER BY PER_Nom");
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
 ?>
-				        				<option value="<?php echo $donnees['CLI_NumClient']; ?>"><?php echo formatUP($donnees['PER_Nom']); ?> <?php echo formatLOW($donnees['PER_Prenom']); ?></option>
+				        				<option value="<?php echo $donnees['CLI_NumClient']; ?>"><?php
+                                            if(!empty($donnees['PER_Nom'])){
+                                                echo formatUP($donnees['PER_Nom']);
+                                                if(!empty($donnees['PER_Prenom'])){
+                                                    echo " ".formatLOW($donnees['PER_Prenom']);
+                                                }
+                                            }
+                                            ?>
+                                        </option>
 <?php
 		$i++;
 	}
 	mysqli_free_result($reponse);
-?>									
+?>									    </optgroup>
+                                        <optgroup label="Structures">
+                                            <?php
+                                            $i = 2;
+                                            $reponse = mysqli_query($db, "SELECT * FROM Clients cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE CLI_Structure IS NOT NULL ORDER BY CLI_Structure");
+                                            while ($donnees = mysqli_fetch_assoc($reponse))
+                                            {
+                                                ?>
+                                                <option value="<?php echo $donnees['CLI_NumClient']; ?>"><?php
+                                                    echo formatUP($donnees['CLI_Structure']);
+                                                    if(!empty($donnees['PER_Nom'])){
+                                                        echo " (".formatUP($donnees['PER_Nom']);
+                                                        if(!empty($donnees['PER_Prenom'])){
+                                                            echo " ".formatLOW($donnees['PER_Prenom']);
+                                                        }
+                                                        echo ")";
+                                                    }
+                                                    ?></option>
+                                                <?php
+                                                $i++;
+                                            }
+                                            mysqli_free_result($reponse);
+                                            ?>
+                                        </optgroup>
 				    				</select>
 				    			</div>
 				    		</td>
@@ -117,15 +149,28 @@
 										            <select name="Resp">
 										            	<option value=""></option>
 <?php
-	$reponse = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom");
-	while ($donnees = mysqli_fetch_assoc($reponse))
-	{
+    $reponseType = mysqli_query($db, "SELECT * FROM Type");
+    while ($donneesType = mysqli_fetch_assoc($reponseType))
+    {
+        $typeNOM = $donneesType['TYP_Nom'];
+        $typeID = $donneesType['TYP_Id'];
+?>
+                                                        <optgroup label="<?php echo $typeNOM; ?>">
+<?php
+        $reponse = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE TYP_Id=$typeID ORDER BY PER_Nom");
+        while ($donnees = mysqli_fetch_assoc($reponse))
+        {
 ?>
 														<option value="<?php echo $donnees['SAL_NumSalarie']; ?>"><?php echo formatUP($donnees['PER_Nom']); ?> <?php echo formatLOW($donnees['PER_Prenom']); ?></option>
 <?php
-	}
-	mysqli_free_result($reponse);
-?>                  
+        }
+        mysqli_free_result($reponse);
+?>
+                                                        </optgroup>
+<?php
+    }
+mysqli_free_result($reponseType);
+?>
 										            </select>
 										          </div>
 									</td>
