@@ -533,7 +533,7 @@ mysqli_free_result($reponse);
                 $reponse5 = mysqli_query($db, "SELECT * FROM Acheter JOIN Produits USING (PRO_Ref) WHERE CHA_NumDevis='$num' ORDER BY ACH_Date ASC");
                 while ($donnees5 = mysqli_fetch_assoc($reponse5))
                 {
-                    $buyTable[$i] = $donnees5['PRO_Tarif']*$donnees5['ACH_Quantite'];
+                    $buyTable[$i] = $donnees5['ACH_Montant'];
                         $calTable[$i] = $donnees5['ACH_Date'];
                         $i++;
                 }
