@@ -317,6 +317,9 @@ $graphTpsOK = 0;
 $totalHh = 0;
 if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM TempsTravail WHERE CHA_NumDevis='$num'"))) {
     ?>
+    <div style="margin-top: 15px;" id="labelCat">
+        Liste des Heures de Travail
+    </div>
     <div class="listeClients" style="margin-bottom: 15px;">
         <table cellpadding="5">
             <thead>
@@ -377,7 +380,10 @@ $graphMntOK = 0;
 if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM Acheter JOIN Produits USING (PRO_Ref) WHERE CHA_NumDevis='$num'"))) {
 
     ?>
-    <div class="listeMembers" style="margin-top: 15px; margin-bottom: 15px;">
+    <div id="labelCat">
+        Liste des Achats
+    </div>
+    <div class="listeMembers" style="margin-bottom: 15px;">
         <table cellpadding="5">
             <thead>
             <tr>
