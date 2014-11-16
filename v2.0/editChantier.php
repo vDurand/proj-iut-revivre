@@ -12,6 +12,7 @@
 			</div>
 			<br>
 			<form method="post" action="chantierpre.php" name="Chantier" formtype="1" colvalue="2">
+                <input type="hidden" name="NumC" value="<?php echo $donnees['CHA_NumDevis']; ?>">
 				<div id="labelCat">
 					<table align="center">
 						<tr>
@@ -26,7 +27,7 @@
 											$reponse = mysqli_query($db, "select * from ChantierClient where CNumDevis ='$num' limit 1");
 											$donnees = mysqli_fetch_assoc($reponse);
 										?>
-											<option value="<?php echo $donnees['CLI_NumClient']; ?>"><?php echo formatUP($donnees['Client'])." ".formatLOW($donnees['ClientP']); ?></option>
+											<option value="<?php echo $donnees['NumClient']; ?>"><?php echo formatUP($donnees['Client'])." ".formatLOW($donnees['ClientP']); ?></option>
 										</optgroup>
 										
                                         <optgroup label="Particuliers">

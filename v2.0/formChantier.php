@@ -365,7 +365,7 @@ if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM TempsTravail WHERE CHA_N
 <!--    <div id="HoursEvolution" style="height: 400px;"></div>-->
     <!-- List Achats -->
     <?php
-    $reponseT = mysqli_query($db, "SELECT TarifHoraire FROM Constante");
+    $reponseT = mysqli_query($db, "SELECT CHA_TxHoraire FROM Chantiers WHERE CHA_NumDevis='$num'");
     $donneesT = mysqli_fetch_assoc($reponseT);
 
     mysqli_free_result($reponse4);
@@ -373,7 +373,7 @@ if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM TempsTravail WHERE CHA_N
 }
 $montantHeure = 0;
 $resteHeure = 0;
-$montantHeure = $donneesT['TarifHoraire']*$totalHh;
+$montantHeure = $donneesT['CHA_TxHoraire']*$totalHh;
 $resteHeure = $Hmax-$totalHh;
 $totAchat = 0;
 $graphMntOK = 0;
