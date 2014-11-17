@@ -1,6 +1,9 @@
 <div id="labelT">
     <label>Detail du Chantier</label>
-    <div style="text-align: right; margin-top: -25px; margin-right: 5px;"><a href="printer.php"><button>Imprimer</button></a></div>
+	<form  method="post" action="printer.php" name="printer">
+		<input type="hidden" name="NumC" value="<?php echo $donnees['CHA_NumDevis']; ?>">
+		<div style="text-align: right; margin-top: -25px; margin-right: 5px;"><input type="submit" name="printer" value="Imprimer"/></div>
+	</form>
 </div>
 <br>
 <table id="fullTable" rules="all">
