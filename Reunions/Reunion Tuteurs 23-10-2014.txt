@@ -1,11 +1,11 @@
-﻿- questionner Mr. Brutus sur l'utilisation de Win'Design
-- diviser la répartiotion des tâches en fonctions du temps
-- attendre la réponse de Gillou pour avancer
-- Modifier bandeau en fonction des choses possibles de faire
-- FAUT VRAIMENT FINIR LES SALARIES !
-- Diagramme de cas d'utilisation pour les véhicules, les stories spécifiques, y réfléchir, etc ...
-- FAUT VRAIMENT FINIR L'IMPORTATION DES DONNEES !
-- Prendre un rdv avec gillou le 6
-- RDV le jeudi 13 tuteurs 15h à redéfinir + renvoyer les répartitions en fonction du temps
+﻿ANNULE - questionner Mr. Brutus sur l'utilisation de Win'Design
+- diviser la répartition des tâches en fonctions du temps
+DONE - attendre la réponse de Gillou pour avancer
+ANNULE - Modifier bandeau en fonction des choses possibles de faire
+DONE - FAUT VRAIMENT FINIR LES SALARIES !
+ANNULE - Diagramme de cas d'utilisation pour les véhicules, les stories spécifiques, y réfléchir, etc ...
+DONE/ANNULE - FAUT VRAIMENT FINIR L'IMPORTATION DES DONNEES !
+DONE - Prendre un rdv avec gillou le 6
+ANNULE - RDV le jeudi 13 tuteurs 15h à redéfinir + renvoyer les répartitions en fonction du temps
 - Réception du lot le 20 Novembre par Jort
 - Jeudi 4 décembre rdv Loudni 17h remise lot.
