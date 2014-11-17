@@ -18,3 +18,28 @@ ANNULE - masquer le num_devis
 - #bilan => trier encadrant, année en cours chantiers finis, mois en cours chantiers en cours
 - garder le taux horaire (cf. feuille de note Valentin), indiquer le taux horaire pour chaque chantier (fixe)
 - restreindre nom, prénom, adresse et un téléphone pour le répertoire
+
+#Borderau de livraison :
+
+*Client
+    - Structure
+    - Nom
+    - Prenom
+    - Adresse
+    - Ville
+    - CP
+*Chantier
+    - Intitule
+    - adresse
+    - date debut
+    - date fin
+    - montant
+    - tva
+    - achat prevu
+    - achat effectue
+    - ecart achat
+    - heure prevue
+    - heure effectuee
+    - ecart heure (MO)
+*Responsable
+    -Nom Prenom
