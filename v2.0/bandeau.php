@@ -141,5 +141,5 @@
 				</div>
 			</div>
 		</div>
-		<div id="debug"><a href="debugger.php">Signaler<br>un Bug.</a></div>
+		<div id="debug"><a href="debugger.php">Signaler<br>un Bug</a></div>
 		
