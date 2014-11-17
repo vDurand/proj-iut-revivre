@@ -1,5 +1,6 @@
 <div id="labelT">
     <label>Detail du Chantier</label>
+    <div style="text-align: right; margin-top: -25px; margin-right: 5px;"><a href="printer.php"><button>Imprimer</button></a></div>
 </div>
 <br>
 <table id="fullTable" rules="all">
