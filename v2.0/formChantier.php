@@ -2,7 +2,7 @@
     <label>Detail du Chantier</label>
 	<form  method="post" action="printer.php" name="printer">
 		<input type="hidden" name="NumC" value="<?php echo $donnees['CHA_NumDevis']; ?>">
-		<div style="text-align: right; margin-top: -25px; margin-right: 5px;"><input type="submit" name="printer" value="Imprimer"/></div>
+		<div style="text-align: right; margin-top: -25px; margin-right: 5px;"><input class="printButton" type="submit" name="printer" value="Imprimer"/></div>
 	</form>
 </div>
 <br>
