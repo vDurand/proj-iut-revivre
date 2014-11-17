@@ -266,7 +266,7 @@
                 <input required form="AddWork" id="Date" maxlength="100" style="width:140px;" name="Date[]" type="date" class="inputC2" placeholder="Date">
             </td>
             <td align="center" style="padding-top: 15px;">
-                <input required form="AddWork" id="Debut" maxlength="100" name="Debut[]" type="time" class="inputC2" placeholder="Nombre d'heures">
+                <input required form="AddWork" id="Debut" step="1" name="Debut[]" type="number" class="inputC2" placeholder="Nombre d'heures">
             </td>
             <td align="left" style="padding-top: 15px;">
                 <input name="plus" type="button" value="+" onclick="AddWorkingTime()">
@@ -353,7 +353,7 @@ if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM TempsTravail WHERE CHA_N
             <?php
             }
             mysqli_free_result($reponse3);
-            $reponse4 = mysqli_query($db, "SELECT TIME(SUM(TRA_Duree)) as total FROM TempsTravail ttps WHERE ttps.CHA_NumDevis='$num' GROUP BY CHA_NumDevis");
+            $reponse4 = mysqli_query($db, "SELECT SUM(TRA_Duree) as total FROM TempsTravail ttps WHERE ttps.CHA_NumDevis='$num' GROUP BY CHA_NumDevis");
             $donnees4 = mysqli_fetch_assoc($reponse4)
             ?>
             <tr style="font-size: 14;">
@@ -645,7 +645,7 @@ include('footer.php');
 
         var NewCell5 = NewRow2.insertCell(1);
         NewCell5.setAttribute("style","text-align: center; padding-top: 15px;");
-        NewCell5.innerHTML = '<input required form="AddWork" id="Debut" maxlength="100" name="Debut[]" type="time" class="inputC2" placeholder="Nombre dheures">';
+        NewCell5.innerHTML = '<input required form="AddWork" id="Debut" step="1" name="Debut[]" type="number" class="inputC2" placeholder="Nombre dheures">';
 
         var NewCell6 = NewRow2.insertCell(2);
         NewCell6.setAttribute("style","padding-top: 35px;");
