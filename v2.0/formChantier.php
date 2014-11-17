@@ -377,7 +377,9 @@ if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM TempsTravail WHERE CHA_N
 }
 $montantHeure = 0;
 $resteHeure = 0;
-$montantHeure = $donneesT['CHA_TxHoraire']*$totalHh;
+if(!empty($donneesT['CHA_TxHoraire'])){
+    $montantHeure = $donneesT['CHA_TxHoraire']*$totalHh;
+}
 $resteHeure = $Hmax-$totalHh;
 $totAchat = 0;
 $graphMntOK = 0;
