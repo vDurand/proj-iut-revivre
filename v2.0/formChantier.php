@@ -93,7 +93,7 @@
     </tr>
     <tr>
         <td>
-            <table cellpadding="10" class="detailClients">
+            <table cellpadding="10" class="detailClients noimprim">
                 <tr>
                     <th style="text-align: left; width: 200px; white-space: normal;">TVA :</th>
                     <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_TVA']; ?> %</td>

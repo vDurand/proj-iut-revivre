@@ -1,0 +1,65 @@
+@media print {
+    #labelCat{
+        display:none;
+    }
+	
+    #labelT{
+        display:none;
+    }
+	
+    #debug{
+        display:none;
+    }
+	
+    .listeClients{
+        display:none;
+    }
+	
+    .noimprim{
+        display:none;
+    }
+	
+    #progress-label2{
+        display:none;
+    }
+	
+    #progress-label{
+        display:none;
+    }
+	
+    .detail{
+        display:none;
+    }
+	
+    .listeMembers{
+        display:none;
+    }
+	
+	#downT{
+        display:none;
+    }
+	
+	#wrapper{
+        display:none;
+    }
+	
+	#entete{
+        display:none;
+    }
+	
+	#navi{
+        display:none;
+    }
+	
+	#champs{
+        display:none;
+    }
+	
+	#good{
+        display:none;
+    }
+	
+	#bad{
+        display:none;
+    }
+}

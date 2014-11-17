@@ -1,7 +1,8 @@
 <?php  
     include('bandeau.php');
-    ?>
+?>
     <link rel="stylesheet" href="css/jquery-ui.css">
+	<link rel="stylesheet" href="css/print.css">
     <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
     <div id="corps">
 <?php
