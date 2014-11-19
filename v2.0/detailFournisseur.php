@@ -84,6 +84,45 @@
           </tr>
         </table>
       </form>
+      <!-- List Produits -->
+      <?php
+      if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM Produits WHERE FOU_NumFournisseur='$num'"))) {
+
+          ?>
+          <div id="labelCat">
+              Liste des Produits
+          </div>
+          <div class="listeMembers" style="margin-bottom: 15px;">
+              <table>
+                  <thead>
+                  <tr>
+                      <td class="firstCol" style="text-align: center; width: 30px;">
+                          <a>#</a>
+                      </td>
+                      <td style="text-align: center;">
+                          <a>Produit</a>
+                      </td>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <?php
+                  $i = 0;
+                  $reponse5 = mysqli_query($db, "SELECT * FROM Produits WHERE FOU_NumFournisseur='$num'");
+                  while ($donnees5 = mysqli_fetch_assoc($reponse5))
+                  {
+                      ?>
+                      <tr style="font-size: 14;">
+                          <td><?php $i++; echo $i; ?></td>
+                          <td><?php echo $donnees5['PRO_Nom']; ?></td>
+                      </tr>
+                  <?php
+                  }
+                  mysqli_free_result($reponse5);
+      }
+                  ?>
+                  </tbody>
+              </table>
+          </div>
     
 <?php
   } else {

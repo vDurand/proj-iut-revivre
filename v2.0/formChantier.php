@@ -2,7 +2,7 @@
     <label>Detail du Chantier</label>
 	<form  method="post" action="printer.php" name="printer">
 		<input type="hidden" name="NumC" value="<?php echo $donnees['CHA_NumDevis']; ?>">
-		<div style="text-align: right; margin-top: -25px; margin-right: 5px;"><input class="printButton" type="submit" name="printer" value="Imprimer"/></div>
+		<div style="text-align: right; margin-top: -25px; margin-right: 5px;"><input formtarget="_blank" class="printButton" type="submit" name="printer" value="Imprimer"/></div>
 	</form>
 </div>
 <br>
@@ -266,7 +266,7 @@
                 <input required form="AddWork" id="Date" maxlength="100" style="width:140px;" name="Date[]" type="date" class="inputC2" placeholder="Date">
             </td>
             <td align="center" style="padding-top: 15px;">
-                <input required form="AddWork" id="Debut" step="1" name="Debut[]" type="number" class="inputC2" placeholder="Nombre d'heures">
+                <input required form="AddWork" id="Debut" min="1" max="24" step="1" name="Debut[]" type="number" class="inputC2" placeholder="Nombre d'heures">
             </td>
             <td align="left" style="padding-top: 15px;">
                 <input name="plus" type="button" value="+" onclick="AddWorkingTime()">
@@ -364,9 +364,9 @@ if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM TempsTravail WHERE CHA_N
             </tbody>
         </table>
     </div>
-<!--    <h style="padding-left: 12px; text-decoration: underline; color: #008000;">Evolution des heures de travail :</h>-->
+    <h style="padding-left: 12px; text-decoration: underline; color: #008000;">Evolution des heures de travail :</h>
     <!-- Graph Tps Travail -->
-<!--    <div id="HoursEvolution" style="height: 400px;"></div>-->
+    <div id="HoursEvolution" style="height: 400px;"></div>
     <!-- List Achats -->
     <?php
     $reponseT = mysqli_query($db, "SELECT CHA_TxHoraire FROM Chantiers WHERE CHA_NumDevis='$num'");
@@ -428,9 +428,9 @@ if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM Acheter JOIN Produits US
             </tbody>
         </table>
     </div>
-<!--    <h style="padding-left: 12px; text-decoration: underline; color: #1A89D3;">Evolution des achats :</h>-->
+    <h style="padding-left: 12px; text-decoration: underline; color: #1A89D3;">Evolution des achats :</h>
     <!-- Graph Achats -->
-<!--    <div id="ProductEvolution" style="height: 400px;"></div>-->
+    <div id="ProductEvolution" style="height: 400px;"></div>
     <?php
     $graphMntOK = 1;
 }
@@ -645,7 +645,7 @@ include('footer.php');
 
         var NewCell5 = NewRow2.insertCell(1);
         NewCell5.setAttribute("style","text-align: center; padding-top: 15px;");
-        NewCell5.innerHTML = '<input required form="AddWork" id="Debut" step="1" name="Debut[]" type="number" class="inputC2" placeholder="Nombre dheures">';
+        NewCell5.innerHTML = '<input required form="AddWork" id="Debut" min="1" max="24" step="1" name="Debut[]" type="number" class="inputC2" placeholder="Nombre dheures">';
 
         var NewCell6 = NewRow2.insertCell(2);
         NewCell6.setAttribute("style","padding-top: 35px;");

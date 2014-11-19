@@ -13,11 +13,24 @@
 	$resteAchat = $donnees['CHA_AchatsPrev']-$donnees5['totAchat'];
 	$content = "
 <page>
-	<h1><img src=\"images/logoBW.jpg\"> Bordereau de livraison</h1>
+    <table  style=\"width:100%;\">
+        <tr>
+            <td style=\"width:13%;\">
+            <img src=\"images/logoBW.jpg\">
+            </td>
+            <td style=\"text-align:center;width:86%;\">
+            <h1>Bordereau de livraison</h1>
+            </td>
+        </tr>
+	</table>
 	<br>
-		<h3>Client</h3>
+		<h3 style=\"background-color=gray;\">Client</h3>
 		<fieldset>
-	<table>
+	<table style=\"padding-left:10px;padding-top:5px;padding-bottom:5px;\">
+	    <tr>
+			<th style=\"width=150px;\">Structure : </th>
+			<td>".formatUP($donnees['Struct'])."</td>
+		</tr>
 		<tr>
 			<th>Nom : </th>
 			<td>".formatUP($donnees['Client'])."</td>
@@ -43,9 +56,9 @@
 	<br>
 		<h3>Chantier</h3>
 		<fieldset>
-	<table>
+	<table style=\"padding-left:10px;padding-top:5px;padding-bottom:5px;\">
 		<tr>
-			<th>Intitulé : </th>
+			<th style=\"width=150px;\">Intitulé : </th>
 			<td>".formatLOW($donnees['CHA_Intitule'])."</td>
 		</tr>
 		<tr>
@@ -97,9 +110,9 @@
 	<br>
 		<h3>Responsable</h3>
 		<fieldset>
-	<table>
+	<table style=\"padding-left:10px;padding-top:5px;padding-bottom:5px;\">
 		<tr>
-			<th>Nom : </th>
+			<th style=\"width=150px;\">Nom : </th>
 			<td>".formatUP($donnees['Resp'])."</td>
 		</tr>
 		<tr>
@@ -108,10 +121,14 @@
 		</tr>
 	</table>
 	</fieldset>
+	<div style=\"text-align:center;padding-top:370px\">".date("d/m/Y")."</div>
 </page>";
-
+    if(!empty($donnees['Struct']))
+        $title = formatUP($donnees['Struct'])."-".formatLOW($donnees['CHA_Intitule']).".pdf";
+    else
+        $title = formatUP($donnees['Client'])."_".formatLOW($donnees['ClientP'])."-".formatLOW($donnees['CHA_Intitule']).".pdf";
 	require_once('/media/fd0b1/alx22/stuff/html2pdf/html2pdf.class.php');
 	$html2pdf = new HTML2PDF('P','A4','fr');
 	$html2pdf->WriteHTML($content);
-	$html2pdf->Output('exemple.pdf');
+	$html2pdf->Output($title);
 ?>
