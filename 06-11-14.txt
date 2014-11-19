@@ -8,9 +8,9 @@ DONE - retirer les graphiques
 DONE - afficher les fournisseurs sur la liste des achats
 DONE - rentrer manuellement tous les produits (Fournisseur, montant), faire un mémo (varchar) pour la quantité et le type (ex : 5 pots de 5L)
 DONE - id : revivre / mdp : servicecap
-- 1 seule session
+DONE - 1 seule session
 DONE - rajouter une adresse aux chantiers
-- pouvoir finaliser le bon de livraison (encart coordonnées client, encart coordonnées chantier+nom chantier)
+DONE - pouvoir finaliser le bon de livraison (encart coordonnées client, encart coordonnées chantier+nom chantier)
 ANNULE - masquer le num_devis
 - rajouter une recherche par intitulé, ainsi qu'une zone de texte
 - mise en relation avec le gestionnaire du site pour pouvoir mettre en place un htaccess sur la base (et aussi pour le unipuke.gif 404.error) #informaticien

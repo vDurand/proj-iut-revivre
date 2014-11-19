@@ -4,7 +4,27 @@
     <div id="corps">
 <?php
   $num=intval($_GET["NumC"]);
-  if (is_numeric($_GET["NumC"]))
+    if(!empty($_POST['NomProd'])){
+        $nomProd = formatLOW($_POST['NomProd']);
+        $fournProd = $_POST['NumF'];
+        $query1 = "INSERT INTO Produits (PRO_Ref, PRO_Nom, FOU_NumFournisseur) VALUES (NULL, '$nomProd', '$fournProd');";
+
+        $sql1 = mysqli_query($db, $query1);
+        $errr1=mysqli_error($db);
+
+        if($sql1){
+            echo '<div id="good">
+                          <label>Produit ajouté avec succès</label>
+                          </div>';
+        }
+        else{
+            echo '<div id="bad">
+                          <label>Le produit n\'a pas pu être ajouté</label>
+                          </div>';
+        }
+        $num = $fournProd;
+    }
+  if (is_numeric($num))
   {
 
   $reponse = mysqli_query($db, "SELECT * FROM Fournisseurs cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE FOU_NumFournisseur='$num'");
@@ -72,18 +92,41 @@
           </table>
         </td>
       </table>
-      <form method="post" action="editFournisseur.php" name="EditFournisseur">
-        <input type="hidden" name="NumC" value="<?php echo $donnees['FOU_NumFournisseur']; ?>">
+<!--      Button Line-->
         <table id="downT">
           <tr>
             <td>
               <span>
-                <input name="submit" type="submit" value="Modifier" class="buttonC">
+                  <form method="post" action="editFournisseur.php" name="EditFournisseur">
+                      <input type="hidden" name="NumC" value="<?php echo $donnees['FOU_NumFournisseur']; ?>">
+                      <input name="submit" type="submit" value="Modifier" class="buttonC">
+                  </form>
               </span>
+            </td>
+            <td>
+                <span>
+                  <input name="submit" type="submit" onclick="addProd()" value="Ajouter Produit" class="buttonC">
+                </span>
             </td>
           </tr>
         </table>
-      </form>
+      <!-- Ajout Produit -->
+      <table>
+      <tr id="Ajout-Prod" style="display:none;">
+          <form method="post" action="detailFournisseur.php" name="Produit" id="Produit">
+              <input type="hidden" name="NumF" value="<?php echo $donnees['FOU_NumFournisseur']; ?>">
+              <td style="text-align: center; padding-top: 35px;">
+                  <label>Produit : </label>
+              </td>
+              <td align="center" style="padding-top: 35px;">
+                  <input form="Produit" required id="NomProd" name="NomProd" type="text" placeholder="ex: Peinture">
+              </td>
+              <td align="left" style="padding-top: 35px;">
+                  <input form="Produit" name="submit" type="submit" value="Ajouter">
+              </td>
+          </form>
+      </tr>
+      </table>
       <!-- List Produits -->
       <?php
       if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM Produits WHERE FOU_NumFournisseur='$num'"))) {
@@ -123,6 +166,7 @@
                   </tbody>
               </table>
           </div>
+
     
 <?php
   } else {

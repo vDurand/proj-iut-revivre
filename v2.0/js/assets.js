@@ -70,7 +70,16 @@
 	  else
 	    document.getElementById('Ajout-Resp').style.display = "none";
 	}
-	
+
+// A/M form ajout produit (detailFournisseur)
+function addProd()
+{
+    if(document.getElementById('Ajout-Prod').style.display == "none")
+        document.getElementById('Ajout-Prod').style.display = "";
+    else
+        document.getElementById('Ajout-Prod').style.display = "none";
+}
+
 // A/M form ajout tps travail (detailChantier)
 	function addTps()
 	{

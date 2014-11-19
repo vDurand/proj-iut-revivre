@@ -85,6 +85,57 @@
           </tr>
         </table>
       </form>
+      <!-- List Chantiers -->
+      <?php
+      if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM Chantiers JOIN Commanditer USING(CHA_NumDevis) WHERE CLI_NumClient='$num'"))) {
+
+          ?>
+          <div id="labelCat">
+              Liste des Chantiers
+          </div>
+          <div class="listeMembers" style="margin-bottom: 15px;">
+          <table>
+          <thead>
+          <tr>
+              <td class="firstCol" style="text-align: center; width: 30px;">
+                  <a>#</a>
+              </td>
+              <td style="text-align: center;">
+                  <a>Chantier</a>
+              </td>
+              <td style="text-align: center;">
+                  <a>Adresse</a>
+              </td>
+              <td style="text-align: center;">
+                  <a>Date de Début</a>
+              </td>
+              <td style="text-align: center;">
+                  <a>Echeance</a>
+              </td>
+          </tr>
+          </thead>
+          <tbody>
+          <?php
+          $i = 0;
+          $reponse5 = mysqli_query($db, "SELECT * FROM Chantiers JOIN Commanditer USING(CHA_NumDevis) WHERE CLI_NumClient='$num'");
+          while ($donnees5 = mysqli_fetch_assoc($reponse5))
+          {
+              ?>
+              <tr style="font-size: 14;">
+                  <td><?php $i++; echo $i; ?></td>
+                  <td><?php echo $donnees5['CHA_Intitule']; ?></td>
+                  <td><?php echo $donnees5['CHA_Adresse']; ?></td>
+                  <td><?php echo dater($donnees5['CHA_DateDebut']); ?></td>
+                  <td><?php echo dater($donnees5['CHA_Echeance']); ?></td>
+              </tr>
+          <?php
+          }
+          mysqli_free_result($reponse5);
+      }
+      ?>
+      </tbody>
+      </table>
+      </div>
 <?php
   } else {
   	echo "<div id='error'>ERROR : WRONG NUMBER</div>";
