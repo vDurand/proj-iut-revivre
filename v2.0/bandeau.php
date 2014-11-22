@@ -91,6 +91,7 @@
 	                       			<li><a href="addWork.php">Ajouter<br>chantier</a></li>
 									<li><a href="ongoingWorks.php">Chantiers en cours</a></li>
 									<li><a href="oldWorks.php">Archive<br>chantiers</a></li>
+                                    <li><a href="suiviEnc.php">Suivi<br>chantiers</a></li>
 	                			</ul>
 							</li>
 							<li id="champs"><a href="homeRent.php">Vehicules</a>
