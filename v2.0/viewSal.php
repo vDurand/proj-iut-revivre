@@ -1,4 +1,5 @@
-<?php  
+<?php
+$pageTitle = "Membres Revivres";
 	include('bandeau.php');
 ?>
 		<script src="js/sorttable.js"></script>

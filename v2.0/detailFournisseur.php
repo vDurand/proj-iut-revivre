@@ -1,4 +1,5 @@
-﻿<?php  
+﻿<?php
+$pageTitle = "Detail Fournisseur";
     include('bandeau.php');
 ?>
     <div id="corps">

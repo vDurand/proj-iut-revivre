@@ -1,4 +1,5 @@
-<?php  
+<?php
+$pageTitle = "Modifier Membre";
 	include('bandeau.php');
 ?>
 		<div id="corps">

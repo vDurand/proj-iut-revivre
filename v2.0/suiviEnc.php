@@ -5,6 +5,7 @@
  * Date: 22/11/14
  * Time: 18:34
  */
+    $pageTitle = "Suivi Encadrants";
     include('bandeau.php');
     if(!empty($_POST['Encad'])){
         $numEnc = $_POST['Encad'];

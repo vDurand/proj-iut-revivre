@@ -1,4 +1,5 @@
-<?php  
+<?php
+$pageTitle = "Repporter un bug";
 	include('bandeau.php');
 ?>
 		<div id="corps">

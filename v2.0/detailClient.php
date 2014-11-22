@@ -1,4 +1,5 @@
-<?php  
+<?php
+$pageTitle = "Detail Client";
     include('bandeau.php');
 ?>
     <div id="corps">

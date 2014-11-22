@@ -1,4 +1,5 @@
-<?php  
+<?php
+$pageTitle = "Ajouter Contact";
 	include('bandeau.php');
 ?>
 		<div id="corps">

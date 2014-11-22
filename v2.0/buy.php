@@ -1,4 +1,5 @@
-<?php  
+<?php
+$pageTitle = "Ajouter Achat";
 	include('bandeau.php');
 ?>
 		<div id="corps">

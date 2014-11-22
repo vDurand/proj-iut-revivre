@@ -1,4 +1,5 @@
-<?php  
+<?php
+$pageTitle = "Ajouter Chantier";
 	include('bandeau.php');
 ?>
 		<div id="corps">

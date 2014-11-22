@@ -1,4 +1,5 @@
-﻿<?php  
+﻿<?php
+$pageTitle = "Detail Chantier";
     include('bandeau.php');
 ?>
     <link rel="stylesheet" href="css/jquery-ui.css">

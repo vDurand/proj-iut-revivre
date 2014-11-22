@@ -1,4 +1,5 @@
-<?php  
+<?php
+$pageTitle = "Administration";
 	include('bandeau.php');
 ?>
 		<div id="corps">

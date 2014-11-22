@@ -1,4 +1,5 @@
 <?php
+$pageTitle = "Bordereau de Livraison";
 	include('assets.php');
 	$db = revivre();
 	$id=$_POST["NumC"];

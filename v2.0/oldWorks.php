@@ -1,4 +1,5 @@
-<?php  
+<?php
+$pageTitle = "Chantiers Archivés";
 	include('bandeau.php');
 ?>
 		<script src="js/sorttable.js"></script>

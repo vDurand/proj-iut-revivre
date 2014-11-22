@@ -5,10 +5,12 @@
 	 if (!isset($_SESSION['user']) && basename($_SERVER["PHP_SELF"]) != "login.php") {
 	     header("Location: login.php");
 	 }
+    if(!isset($pageTitle)){
+        $pageTitle = "Intranet association Revivre";
+    }
 ?>
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<link rel="stylesheet" type="text/css" href="css/index.css">
@@ -34,7 +36,7 @@
     	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     	<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     	<script src="http://cdn.oesmith.co.uk/morris-0.5.1.min.js"></script>
-		<title>Intranet association Revivre</title>
+		<title><?php echo $pageTitle; ?></title>
 		<!-- V. Durand | A. Freret | P. Friboulet | J. Le Bas | IUT Caen - DUT Info (2013-2015) -->
 	</head>
 
