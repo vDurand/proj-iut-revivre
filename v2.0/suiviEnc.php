@@ -68,6 +68,31 @@
             </thead>
             <tbody>
 <?php
+
+    /*
+     * VIEWS USED HERE :
+     *
+     * -- ChantierAchat --
+     * create or replace view ChantierAchat as
+     * select CHA_NumDevis, CHA_AchatsPrev,
+     * sum(ACH_Montant) as AchatTot,
+     * ROUND((CHA_AchatsPrev-sum(ACH_Montant)),2) as EcartAch
+     * from Chantiers
+     * JOIN Acheter USING (CHA_NumDevis)
+     * group by CHA_NumDevis;
+     *
+     * -- ChantierHeure --
+     * create or replace view ChantierHeure as
+     * select CHA_NumDevis, CHA_HeuresPrev,
+     * sum(TRA_Duree) as HeureTot,
+     * (CHA_HeuresPrev-sum(TRA_Duree)) as EcartHeure,
+     * COUNT(DISTINCT SAL_NumSalarie) as NbSalarie
+     * from Chantiers
+     * JOIN TempsTravail USING (CHA_NumDevis)
+     * group by CHA_NumDevis
+     *
+     */
+
     if($numEnc == 0){
         $query = "select CHA_Intitule, CHA_MontantPrev, ac.CHA_AchatsPrev, AchatTot, EcartAch, he.CHA_HeuresPrev, HeureTot, EcartHeure, NbSalarie
             from Chantiers ch
