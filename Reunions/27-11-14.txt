@@ -1,0 +1,27 @@
+- bilan financier = montant - achattot - htot *tauxH
+- ajout tps travail liste
+- modifier structure sur client
+- activité mensuelle -> tableau cd suvi respon avec heure/achat mensuelle
+- no control
+- achats totals => achats totaux
+- archivage personne (actif/inactif) add col bool (— liste deroulante)
+- check required
+- dropdown 1 add partenaire
+- bouger referent dans partenaire (dropdown 2)
+- retirer formateurs
+- achat =
+detail -> bon livraison
+produit -> fournisseur
+- remplacer nouveau produit par nouveau fournisseur
+
+- suivi stagiaire, salarie en insertion, atelier occupationnel
+cf formulaire^
+- super categorie contact insertion
+- changer l'ordre de la liste deroulante
+- required all sur contact insertion
+ /!\  DEADLINE  /!\  GO FAST  /!\
+
+Lot 2 : Salarie
+Lot 3 : Restauration
+
+Soutenance note commanditaire ??
