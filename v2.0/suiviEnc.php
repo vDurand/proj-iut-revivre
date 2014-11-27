@@ -147,11 +147,53 @@
      */
 
     if($numEnc == 0){
-        $query = "select CHA_Intitule, CHA_Echeance, CHA_MontantPrev, ch.CHA_AchatsPrev, AchatTot, EcartAch, he.CHA_HeuresPrev, HeureTot, EcartHeure, NbSalarie
+        if($year == 0){
+            $query = "select CHA_Intitule, CHA_Echeance, CHA_MontantPrev, ch.CHA_AchatsPrev, AchatTot, EcartAch, he.CHA_HeuresPrev, HeureTot, EcartHeure, NbSalarie
             from Chantiers ch
             LEFT JOIN ChantierAchat ac ON ch.CHA_NumDevis=ac.CHA_NumDevis
             JOIN ChantierHeure he ON ch.CHA_NumDevis=he.CHA_NumDevis
             JOIN Encadrer en ON ch.CHA_NumDevis=en.CHA_NumDevis
+            ORDER BY CHA_Intitule";
+        }
+        elseif($month == 0){
+            $query = "select CHA_Intitule, CHA_Echeance, CHA_DateDebut, CHA_DateFinReel, CHA_MontantPrev, ch.CHA_AchatsPrev, AchatTot, EcartAch, he.CHA_HeuresPrev, HeureTot, EcartHeure, NbSalarie
+            from Chantiers ch
+            LEFT JOIN ChantierAchat ac ON ch.CHA_NumDevis=ac.CHA_NumDevis
+            JOIN ChantierHeure he ON ch.CHA_NumDevis=he.CHA_NumDevis
+            JOIN Encadrer en ON ch.CHA_NumDevis=en.CHA_NumDevis
+            WHERE (CHA_Echeance >= '".$year."-"."01"."-01' OR CHA_DateFinReel >= '".$year."-"."01"."-01' OR CHA_DateFinReel is null)
+            AND CHA_DateDebut <= '".$year."-"."12"."-31'
+            ORDER BY CHA_Intitule";
+        }
+        else{
+            $query = "select CHA_Intitule, CHA_Echeance, CHA_DateDebut, CHA_DateFinReel, CHA_MontantPrev, ch.CHA_AchatsPrev, AchatTot, EcartAch, he.CHA_HeuresPrev, HeureTot, EcartHeure, NbSalarie
+            from Chantiers ch
+            LEFT JOIN ChantierAchat ac ON ch.CHA_NumDevis=ac.CHA_NumDevis
+            JOIN ChantierHeure he ON ch.CHA_NumDevis=he.CHA_NumDevis
+            JOIN Encadrer en ON ch.CHA_NumDevis=en.CHA_NumDevis
+            WHERE (CHA_Echeance >= '".$year."-".$month."-01' OR CHA_DateFinReel >= '".$year."-".$month."-01' OR CHA_DateFinReel is null)
+            AND CHA_DateDebut <= '".$year."-".$month."-31'
+            ORDER BY CHA_Intitule";
+        }
+    }
+    elseif($year == 0){
+        $query = "select CHA_Intitule, CHA_Echeance, CHA_DateDebut, CHA_DateFinReel, CHA_MontantPrev, ch.CHA_AchatsPrev, AchatTot, EcartAch, he.CHA_HeuresPrev, HeureTot, EcartHeure, NbSalarie
+            from Chantiers ch
+            LEFT JOIN ChantierAchat ac ON ch.CHA_NumDevis=ac.CHA_NumDevis
+            JOIN ChantierHeure he ON ch.CHA_NumDevis=he.CHA_NumDevis
+            JOIN Encadrer en ON ch.CHA_NumDevis=en.CHA_NumDevis
+            WHERE en.SAL_NumSalarie = $numEnc
+            ORDER BY CHA_Intitule";
+    }
+    elseif($month == 0){
+        $query = "select CHA_Intitule, CHA_Echeance, CHA_DateDebut, CHA_DateFinReel, CHA_MontantPrev, ch.CHA_AchatsPrev, AchatTot, EcartAch, he.CHA_HeuresPrev, HeureTot, EcartHeure, NbSalarie
+            from Chantiers ch
+            LEFT JOIN ChantierAchat ac ON ch.CHA_NumDevis=ac.CHA_NumDevis
+            JOIN ChantierHeure he ON ch.CHA_NumDevis=he.CHA_NumDevis
+            JOIN Encadrer en ON ch.CHA_NumDevis=en.CHA_NumDevis
+            WHERE en.SAL_NumSalarie = $numEnc
+            AND (CHA_Echeance >= '".$year."-"."01"."-01' OR CHA_DateFinReel >= '".$year."-"."01"."-01' OR CHA_DateFinReel is null)
+            AND CHA_DateDebut <= '".$year."-"."12"."-31'
             ORDER BY CHA_Intitule";
     }
     else{
