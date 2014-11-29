@@ -13,6 +13,7 @@ $pageTitle = "Repporter un bug";
 	$description = $_POST['Description'];
 	$steps = $_POST['Steps'];
 	$info = $_POST['Info'];
+    $reffer = $_POST['reffer'];
 	
 	$email_message = "<u>Detail du rapport d'erreur ci-dessous:</u><br><br>";
 	
@@ -23,7 +24,13 @@ $pageTitle = "Repporter un bug";
 	$email_message .= "<b>URL : </b><i>".$url."</i><br>";
 	$email_message .= "<b>Description : </b><i>".$description."</i><br>";
 	$email_message .= "<b>Etapes : </b><i>".$steps."</i><br>";
-	$email_message .= "<b>Autre info : </b><i>".$info."</i><br>";
+	$email_message .= "<b>Autre info : </b><i>".$info."</i><br><br>";
+    $email_message .= "======HIDDEN======<br>";
+    $email_message .= "<b>Referer : </b><i>".$reffer."</i><br>";
+    $email_message .= "<b>Agent : </b><i>".$_SERVER['HTTP_USER_AGENT']."</i><br>";
+    $email_message .= "<b>Client : </b><i>".$_SERVER['HTTP_X_FORWARDED_FOR']."</i><br>";//HTTP_X_FORWARDED_FOR HTTP_CLIENT_IP
+    $email_message .= "<b>Host : </b><i>".$_SERVER['HTTP_HOST']."</i><br>";
+    $email_message .= "<b>Addr : </b><i>".$_SERVER['REMOTE_ADDR']."</i><br><br>";
 	/*
 	// create email headers
 	 

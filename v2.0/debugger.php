@@ -46,8 +46,8 @@
 							</td>
 							<td>
 								<select required name="Nav">
+                                    <option value="Chrome">Chrome</option>
 									<option value="Firefox">Firefox</option>
-									<option value="Chrome">Chrome</option>
 									<option value="IE">Internet Explorer</option>
 									<option value="Safari">Safari</option>
 									<option value="Opera">Opera</option>
@@ -76,7 +76,7 @@
 								<label>Etapes pour reproduire le bug :</label>
 							</td>
 							<td>
-								<textarea required name="Steps" maxlength="1000" cols="25" rows="6"></textarea>
+								<textarea name="Steps" maxlength="1000" cols="25" rows="6"></textarea>
 							</td>
 						</tr>
 						<tr style="height: 50px;">
@@ -96,6 +96,7 @@
 							</td>
 						</tr>
 					</table>
+                <input type="hidden" name="reffer" value="<?php echo $_SERVER['HTTP_REFERER']; ?>">
 			</form>
 		</div>
 <?php  
