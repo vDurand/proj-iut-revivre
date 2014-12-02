@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "JE FAIS DES TESTS";
+$pageTitle = "Ajout Membre en Insertion";
 include('bandeau.php');
 ?>
 <div id="corps">
