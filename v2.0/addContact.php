@@ -41,12 +41,12 @@ $pageTitle = "Ajouter Contact";
 				<table align="center">
 					<tr id="Contact-Particulier">
 						<td style="padding-top: 0px;">
-							<input type="radio" checked onclick="javascript:showStruct();" name="Particulier" value="Structure"/>
-							<label>&nbsp; Structure</label>
+							<input type="radio" checked onclick="javascript:showStruct();" name="Particulier" id="Particulier" value="Structure"/>
+							<label for="Particulier">&nbsp; Structure</label>
 						</td>
 						<td style="padding-top: 0px;">
 							<input type="radio" onclick="javascript:showStruct();" name="Particulier" id="yesCheck" value="Particulier"/>
-							<label>&nbsp; Particulier</label>
+							<label for="yesCheck">&nbsp; Particulier</label>
 						</td>
 					</tr>
 				</table>
