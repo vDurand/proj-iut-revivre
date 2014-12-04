@@ -7,6 +7,7 @@
  */
     $pageTitle = "Suivi Encadrants";
     include('bandeau.php');
+
     if(!empty($_POST['Encad'])){
         $numEnc = $_POST['Encad'];
     }
@@ -36,6 +37,7 @@
     $totNS = 0;
 ?>
     <script src="js/sorttable.js"></script>
+    <link rel="stylesheet" href="css/print.css">
     <div id="corps">
         <div id="labelCat" style="padding-bottom: 15px;">
             <form method="post" action="suiviEnc.php" name="Encadrant">
@@ -101,6 +103,7 @@
                                 </select>
                             </div>
                         </td>
+                        <td><input formtarget="_blank" class="printButton" type="button" onclick="window.print();"name="printer" value="Imprimer"/></td>
                     </tr>
                 </table>
             </form>
