@@ -592,7 +592,7 @@ include('footer.php');
 
         // structure html tr/td/div
         var table = document.getElementById("downT");
-        var NewRow = table.insertRow(4);
+        var NewRow = table.insertRow(4+(buttonCount-1)*2);
         NewRow.id = "Ajout-Tps"+buttonCount;
         NewRow.setAttribute("style", "display:;")
 
@@ -626,7 +626,7 @@ include('footer.php');
         NewCell3.setAttribute("align","center");
 
         // next tr
-        var NewRow2 = table.insertRow(5);
+        var NewRow2 = table.insertRow(5+(buttonCount-1)*2);
         NewRow2.id = "Ajout-Tpss"+buttonCount;
         NewRow2.setAttribute("style", "display:;")
 
