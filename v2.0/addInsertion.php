@@ -8,7 +8,7 @@ include('bandeau.php');
     </div>
     <br>
 
-    <form method="post" action="http://dunno.vdurand.com" name="Insertion">
+    <form method="post" action="insertionPost.php" name="Insertion">
     <div style="overflow:auto;">
     <table align="left">
         <tr>
