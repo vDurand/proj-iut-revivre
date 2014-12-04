@@ -17,14 +17,14 @@ $pageTitle = "Repporter un bug";
 	
 	$email_message = "<u>Detail du rapport d'erreur ci-dessous:</u><br><br>";
 	
-	$email_message .= "<b>Nom : </b><i>".$name."</i><br>";
+	$email_message .= "<b>Nom : </b><i>".noAccents($name)."</i><br>";
 	$email_message .= "<b>Importance : </b><i>".$severity."</i><br>";
 	$email_message .= "<b>Frequence : </b><i>".$frequency."</i><br>";
 	$email_message .= "<b>Navigateur : </b><i>".$nav."</i><br>";
 	$email_message .= "<b>URL : </b><i>".$url."</i><br>";
-	$email_message .= "<b>Description : </b><i>".$description."</i><br>";
-	$email_message .= "<b>Etapes : </b><i>".$steps."</i><br>";
-	$email_message .= "<b>Autre info : </b><i>".$info."</i><br><br>";
+	$email_message .= "<b>Description : </b><i>".noAccents($description)."</i><br>";
+	$email_message .= "<b>Etapes : </b><i>".noAccents($steps)."</i><br>";
+	$email_message .= "<b>Autre info : </b><i>".noAccents($info)."</i><br><br>";
     $email_message .= "======HIDDEN======<br>";
     $email_message .= "<b>Referer : </b><i>".$reffer."</i><br>";
     $email_message .= "<b>Agent : </b><i>".$_SERVER['HTTP_USER_AGENT']."</i><br>";
