@@ -6,8 +6,8 @@
 - achats totals => achats totaux
 - archivage personne (actif/inactif) add col bool (— liste deroulante)
 - check required
-- dropdown 1 add partenaire
-- bouger referent dans partenaire (dropdown 2)
+DONE - dropdown 1 add partenaire
+DONE - bouger referent dans partenaire (dropdown 2)
 - retirer formateurs
 - achat =
 detail -> bon livraison

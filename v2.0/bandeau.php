@@ -63,29 +63,45 @@
 											<li><a href="viewFournFo.php">Fourniture</a></li>
 										</ul>-->
 									</li>
-									<li><a href="viewMembers.php">Membre de<br>l'association</a>
+									<li><a href="viewMembers.php">Membres de<br>l'association</a>
 										<ul>
 <?php
 	$db = revivre();
 	
 	mysqli_query($db, "SET NAMES 'utf8'");
-	$i = 2;
-	$reponse = mysqli_query($db, "SELECT * FROM Type");
+	$reponse = mysqli_query($db, "SELECT * FROM Type WHERE TYP_IsNotRevivre IS NULL");
 	
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
 ?>
 											<form method="post" action="viewSal.php" name="viewDetailMember">
-												<input type="hidden" name="TypeM" value="<?php echo $i; ?>">
-				        						<li><a onclick="javascript:submitListMember('<?php echo $i; ?>');"><?php echo $donnees['TYP_Nom']; ?><br>&nbsp;</a></li>
+												<input type="hidden" name="TypeM" value="<?php echo $donnees['TYP_Id']; ?>">
+				        						<li><a onclick="javascript:submitListMember('<?php echo $donnees['TYP_Id']; ?>');"><?php echo $donnees['TYP_Nom']; ?><br>&nbsp;</a></li>
 				        					</form>
 <?php
-		$i++;
 	}
 	mysqli_free_result($reponse);
 ?>										
 										</ul>
 									</li>
+                                    <li><a href="viewPartenaires.php">Partenaires<br>&nbsp;</a>
+                                        <ul>
+<?php
+$reponse = mysqli_query($db, "SELECT * FROM Type WHERE TYP_IsNotRevivre IS NOT NULL");
+
+while ($donnees = mysqli_fetch_assoc($reponse))
+{
+    ?>
+                                            <form method="post" action="viewSal.php" name="viewDetailMember">
+                                                <input type="hidden" name="TypeM" value="<?php echo $donnees['TYP_Id']; ?>">
+                                                <li><a onclick="javascript:submitListMember('<?php echo $donnees['TYP_Id']; ?>');"><?php echo $donnees['TYP_Nom']; ?><br>&nbsp;</a></li>
+                                            </form>
+    <?php
+}
+mysqli_free_result($reponse);
+?>
+                                        </ul>
+                                    </li>
 	                			</ul>
 							</li>
 							<li id="champs"><a href="homeWork.php">Chantiers</a>
