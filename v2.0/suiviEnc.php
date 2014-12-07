@@ -114,7 +114,7 @@
                 <td class="firstCol" style="text-align: center; width: 20%;">Intitulé</td>
                 <td style="text-align: center; width: 10%;">Montant</td>
                 <td style="text-align: center; width: 10%;">Achats Prévus</td>
-                <td style="text-align: center; width: 10%;">Achats Totals</td>
+                <td style="text-align: center; width: 10%;">Achats Totaux</td>
                 <td style="text-align: center; width: 10%;">Ecart Achat</td>
                 <td style="text-align: center; width: 10%;">Heures prévues</td>
                 <td style="text-align: center; width: 10%;">Heures Tolales</td>

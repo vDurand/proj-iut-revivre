@@ -9,10 +9,10 @@
 DONE - dropdown 1 add partenaire
 DONE - bouger referent dans partenaire (dropdown 2)
 DONE - retirer formateurs
-- achat =
-detail -> bon livraison
-produit -> fournisseur
-- remplacer nouveau produit par nouveau fournisseur
+DONE - achat =
+       detail -> bon livraison
+       produit -> fournisseur
+CANCELED - remplacer nouveau produit par nouveau fournisseur
 
 - suivi stagiaire, salarie en insertion, atelier occupationnel
 cf formulaire^
