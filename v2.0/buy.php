@@ -12,40 +12,28 @@ $pageTitle = "Ajouter Achat";
 			<input name="plus" type="button" value="-" class="buttonSmll" onclick="RmBuy()">
 			</div>
 			<br>
-			<table align="center">
-				<tr id="Contact-Particulier">
-					<td style="padding-top: 0px;">
-						<input type="radio" checked onclick="javascript:showNewProd();" name="truc"/>
-						<label>&nbsp; Existant</label>
-					</td>
-					<td style="padding-top: 0px;">
-						<input type="radio" onclick="javascript:showNewProd();" id="yesCheck" name="truc"/>
-						<label>&nbsp; Nouveau</label>
-					</td>
-				</tr>
-			</table>
 			<form method="post" action="buyPost.php" name="BuyProd" id="BuyProd">
 				<table id="BuyAjout" align="center" cellspacing="0px">
 					<tr id="Ajout-Tps">
 						<td style="text-align: right; width: 100px; padding-right: 10px;">
-							<label>Produit :</label>
+							<label>Fournisseur :</label>
 						</td>
 						<td>
 							<div id="ProdSelector" class="selectProd" style="display: ;">
-	          					<select form="BuyProd" id="ProduitExistant" name="Produit[]">
+	          					<select form="BuyProd" id="ProduitExistant" name="Fourn[]">
 <?php
 $num=$_POST["NumC"];
 $Products = array(" ");
 $Ids = array(" ");
 $j = 0;
-$reponse = mysqli_query($db, "SELECT * FROM Produits JOIN Fournisseurs USING (FOU_NumFournisseur) JOIN Personnes USING (PER_Num) ORDER BY PRO_Nom");
+$reponse = mysqli_query($db, "SELECT * FROM Fournisseurs JOIN Personnes USING (PER_Num) ORDER BY PER_Nom");
 while ($donnees = mysqli_fetch_assoc($reponse))
 {
 ?>
-			        				<option value="<?php echo $donnees['PRO_Ref']; ?>"><?php echo formatLOW($donnees['PRO_Nom']); ?> (<?php echo formatUP($donnees['PER_Nom']); ?> <?php echo formatLOW($donnees['PER_Prenom']); ?>)</option>
+			        				<option value="<?php echo $donnees['FOU_NumFournisseur']; ?>"><?php echo formatUP($donnees['PER_Nom']); ?> &nbsp;&nbsp;&nbsp; (<?php echo formatLOW($donnees['PER_Ville'])." ".$donnees['PER_CodePostal']; ?>)</option>
 <?php
-$Products[$j] = formatLOW($donnees['PRO_Nom'])." (".formatUP($donnees['PER_Nom'])." ".formatLOW($donnees['PER_Prenom']).")";
-$Ids[$j] = $donnees['PRO_Ref'];
+$Products[$j] = formatUP($donnees['PER_Nom'])." (".formatUP($donnees['PER_Ville'])." ".$donnees['PER_CodePostal'].")";
+$Ids[$j] = $donnees['FOU_NumFournisseur'];
 $j++;
 }
 mysqli_free_result($reponse);
@@ -133,13 +121,13 @@ while ($donnees2 = mysqli_fetch_assoc($reponse2))
 	  
 	  // structure html tr/td/div
 	  	var table = document.getElementById("BuyAjout");
-	  	var NewRow = table.insertRow(2);
+	  	var NewRow = table.insertRow(2+(buttonCount-1)*2);
 	  		NewRow.id = "Ajout-Tps"+buttonCount;
 	  		NewRow.setAttribute("style", "display:;")
 	  	
 	  	var NewCell1 = NewRow.insertCell(0);
 	  		NewCell1.setAttribute("style","text-align: right; width: 100px; padding-right: 10px;");
-	  		NewCell1.innerHTML = "<label>Produit :</label>";
+	  		NewCell1.innerHTML = "<label>Fournisseur :</label>";
 	  	
 	  	var NewCell2 = NewRow.insertCell(1);
 	  		NewCell2.setAttribute("style","padding-top: 20px;");
@@ -148,7 +136,7 @@ while ($donnees2 = mysqli_fetch_assoc($reponse2))
 	  		NewDiv.setAttribute("class","selectProd");
 	  
 	  // insertion array in select option via tmp
-		  	tmp = '<select required form="BuyProd" name="Produit[]">';
+		  	tmp = '<select required form="BuyProd" name="Fourn[]">';
 				for (var i in jProducts) {
 					tmp += '<option value="'+jIds[i]+'">'+jProducts[i]+"</option>\n";
 				}
@@ -166,7 +154,7 @@ while ($donnees2 = mysqli_fetch_assoc($reponse2))
 	  	NewCell4.innerHTML = '<input form="BuyProd" required min="0" step="0.01" style="width: 75px;" name="Montant[]" type="number" class="inputC">';
 	  	
 	  // next tr
-	  	var NewRow2 = table.insertRow(3);
+	  	var NewRow2 = table.insertRow(3+(buttonCount-1)*2);
 	  	NewRow2.id = "Ajout-Tpss"+buttonCount;
 	  	NewRow2.setAttribute("style", "display:;")
 	  	

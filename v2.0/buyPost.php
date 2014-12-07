@@ -15,29 +15,14 @@ $pageTitle = "Detail Chantier";
   
   $j=0;
   // Produit existant
-  if (isset($_POST["Produit"])) {
-  	foreach($_POST["Produit"] AS $a){
-  		$produits[$j] = $a;
+  if (isset($_POST["Fourn"])) {
+  	foreach($_POST["Fourn"] AS $a){
+        $Fourns[$j] = $a;
   		$j++;
   	}
   	$max = $j;
   }
-  // Nouveau produit
-  $fournProd[0] = "";
-  $j = 0;
-  foreach($_POST["FournProd"] AS $a){
-  	$fournProd[$j] = $a;
-  	$j++;
-  }
-  if ($fournProd[0]!="") {
-  	$max += $j;
-  	$max1 = $j;
-  	$j=0;
-  	foreach($_POST["NomProd"] AS $a){
-  		$nomProd[$j] = addslashes(mysqli_real_escape_string($db, formatLOW($a)));
-  		$j++;
-  	}
-  }
+
   // Gestion Achat
   $date[0] = "";
   if (isset($_POST["Montant"])&&isset($_POST["Type"])&&isset($_POST["Date"])) {
@@ -57,39 +42,11 @@ $pageTitle = "Detail Chantier";
   		$j++;
   	}
   }
-  // Ajout des nouveaux produits
-  if ($fournProd[0]!="") {
-  	for ($i = 0; $i < $max1; $i++) {
-  		$query1 = "INSERT INTO Produits (PRO_Ref, PRO_Nom, FOU_NumFournisseur) VALUES (NULL, '$nomProd[$i]', '$fournProd[$i]');";
-  		
-  		    $sql1 = mysqli_query($db, $query1);
-  		    $errr1=mysqli_error($db);
-  		
-  		      if($sql1){
-  		          echo '<div id="good">     
-  		              <label>Produit ajouté avec succès</label>
-  		              </div>';
-  		          $reponseP = mysqli_query($db, "SELECT PRO_Ref FROM Produits WHERE PRO_Nom like '$nomProd[$i]' AND FOU_NumFournisseur = $fournProd[$i]");
-  		          $donneesP = mysqli_fetch_assoc($reponseP);
-  		          if (isset($produits)) {
-  		          	array_unshift($produits , $donneesP['PRO_Ref']);
-  		          }
-  		          else {
-  		          	$produits[0] = $donneesP['PRO_Ref'];
-  		          }
-  		          mysqli_free_result($reponseP);
-  		      }
-  		      else{
-  		        echo '<div id="bad">     
-  		              <label>Le produit n\'a pas pu être ajouté</label>
-  		              </div>';
-  		      }
-  	}
-  }
+
   // Ajout des achats
   if ($date[0]!="") {
   	for ($i = 0; $i < $max; $i++) {
-  		$query = "INSERT INTO Acheter (CHA_NumDevis, ACH_TypeAchat, ACH_Date, ACH_Montant, ACH_NumAchat, PRO_Ref) VALUES ('$num', '$type[$i]', '$date[$i]', '$montant[$i]', NULL, '$produits[$i]');";
+  		$query = "INSERT INTO Acheter (CHA_NumDevis, ACH_TypeAchat, ACH_Date, ACH_Montant, ACH_NumAchat, FOU_NumFournisseur) VALUES ('$num', '$type[$i]', '$date[$i]', '$montant[$i]', NULL, '$Fourns[$i]');";
   		
   		    $sql = mysqli_query($db, $query);
   		    $errr=mysqli_error($db);
