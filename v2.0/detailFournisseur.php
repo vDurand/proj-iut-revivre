@@ -101,24 +101,30 @@ include('bandeau.php');
                     <table>
                     <thead>
                     <tr>
-                        <td class="firstCol" style="text-align: center; width: 30px;">
-                            <a>#</a>
+                        <td class="firstCol" style="text-align: center;">
+                            <a>Achat</a>
                         </td>
                         <td style="text-align: center;">
-                            <a>Produit</a>
+                            <a>Date</a>
+                        </td>
+                        <td style="text-align: center;">
+                            <a>Montant</a>
+                        </td>
+                        <td style="text-align: center;">
+                            <a>Chantier</a>
                         </td>
                     </tr>
                     </thead>
                     <tbody>
                     <?php
-                    $i = 0;
-                    $reponse5 = mysqli_query($db, "SELECT * FROM Produits WHERE FOU_NumFournisseur='$num'");
+                    $reponse5 = mysqli_query($db, "SELECT * FROM Acheter JOIN Chantiers USING (CHA_NumDevis) WHERE FOU_NumFournisseur='$num'");
                     while ($donnees5 = mysqli_fetch_assoc($reponse5)) {
                         ?>
                         <tr style="font-size: 14;">
-                            <td><?php $i++;
-                                echo $i; ?></td>
-                            <td><?php echo $donnees5['PRO_Nom']; ?></td>
+                            <td><?php echo $donnees5['ACH_TypeAchat']; ?></td>
+                            <td><?php echo dater($donnees5['ACH_Date']); ?></td>
+                            <td><?php echo $donnees5['ACH_Montant']; ?> €</td>
+                            <td><?php echo $donnees5['CHA_Intitule']; ?></td>
                         </tr>
                     <?php
                     }
