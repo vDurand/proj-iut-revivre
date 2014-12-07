@@ -8,7 +8,7 @@
 - check required
 DONE - dropdown 1 add partenaire
 DONE - bouger referent dans partenaire (dropdown 2)
-- retirer formateurs
+DONE - retirer formateurs
 - achat =
 detail -> bon livraison
 produit -> fournisseur
