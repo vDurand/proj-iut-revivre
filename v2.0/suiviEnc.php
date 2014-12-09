@@ -131,7 +131,7 @@
      * -- ChantierAchat --
      * create or replace view ChantierAchat as
      * select CHA_NumDevis, CHA_AchatsPrev,
-     * sum(ACH_Montant) as AchatTot,
+     * ROUND(sum(ACH_Montant),2) as AchatTot,
      * ROUND((CHA_AchatsPrev-sum(ACH_Montant)),2) as EcartAch
      * from Chantiers
      * JOIN Acheter USING (CHA_NumDevis)
