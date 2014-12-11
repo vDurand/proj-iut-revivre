@@ -1,0 +1,20 @@
+﻿fin de première phase
+
+Objectif : Reconduire le projet.
+
+A faire en priorité : (dans l'ordre si possible)
+	1)- Bandeau : Liste des chantiers validé. (ajouter un onglet pour avoir : chantier en cours, chantier en attente, archives chantier).
+	1)- Filtre dans répertoire des chantiers (lettre) + champs texte de recherche (partout dans tout les chantiers)
+	1)- Enlever le type personnel dans les contacts et le bandeau 
+	1)- Modifier contact : Pouvoir modifier le type 
+	1)- Ajouter contact : Liste déroulante pour la fonction ( la faire avec ceux déja rentrer) et si la fonction n'existe pas, un bouton autre qui affiche un champs texte
+		et qui fais en meme temps un insert into pour pouvoir le récuperer dans la liste déroulante ensuite.
+	2)- Salarié en insertion : Calculer l'age à la date d'entrée.
+	- Mettre le suivit des encadrants sur le serveur
+	- Pouvoir ajouter un contact (3 max) pour un fournisseur (en gros avoir un nom de personne avec le numéro de tel + détails) + un champs mémo pour mettre je sais pas dedans !
+
+
+	- implementer les boutons annuler
+	
+	
+	OBJECTIF ATTEINT, PROJET JUSQU'EN 2017 :)
