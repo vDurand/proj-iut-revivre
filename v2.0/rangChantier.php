@@ -15,6 +15,20 @@ include('bandeau.php');
     <br>
 
     <form method="post" action="rangChantier.php" name="EditClient">
+        <table>
+            <tr>
+                <td style="text-align: left; white-space: normal;">
+                    <label for="Nom">Nom :</label>
+                </td>
+                <td>
+                    <input id="Nom" maxlength="255" name="Nom" type="text"
+                           class="inputC" autofocus="autofocus">
+                    <input name="submit" type="submit" value="Rechercher">
+                </td>
+            </tr>
+        </table>
+    </form>
+    <form method="post" action="rangChantier.php" name="EditClient">
         <table id="alphaL">
             <tr>
                 <td>
@@ -199,7 +213,12 @@ include('bandeau.php');
         if ($_POST["submit"] == '#') {
             $reponse = mysqli_query($db, "SELECT * FROM ChantierMax Join TypeEtat ON IdMax=TYE_Id ORDER BY CHA_DateDebut DESC");
         } else {
-            $reponse = mysqli_query($db, "SELECT * FROM ChantierMax Join TypeEtat ON IdMax=TYE_Id WHERE $sorter like '$alpha' ORDER BY $sorter");
+            if ($_POST["submit"] == 'Rechercher') {
+                $nom = $_POST["Nom"] . '%';
+                $reponse = mysqli_query($db, "SELECT * FROM ChantierMax Join TypeEtat ON IdMax=TYE_Id WHERE upper(CHA_Intitule) like upper('$nom') ORDER BY CHA_DateDebut DESC");
+            } else {
+                $reponse = mysqli_query($db, "SELECT * FROM ChantierMax Join TypeEtat ON IdMax=TYE_Id WHERE $sorter like '$alpha' ORDER BY $sorter");
+            }
         }
         while ($donnees = mysqli_fetch_assoc($reponse)) {
             ?>

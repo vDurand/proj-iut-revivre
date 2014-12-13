@@ -14,6 +14,20 @@ include('bandeau.php');
     </div>
     <br>
     <form method="post" action="rangChantierOngoing.php" name="EditClient">
+        <table>
+            <tr>
+                <td style="text-align: left; white-space: normal;">
+                    <label for="Nom">Nom :</label>
+                </td>
+                <td>
+                    <input id="Nom" maxlength="255" name="Nom" type="text"
+                           class="inputC" autofocus="autofocus">
+                    <input name="submit" type="submit" value="Rechercher">
+                </td>
+            </tr>
+        </table>
+    </form>
+    <form method="post" action="rangChantierOngoing.php" name="EditClient">
         <table id="alphaL">
             <tr>
                 <td>

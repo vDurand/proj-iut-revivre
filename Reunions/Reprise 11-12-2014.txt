@@ -3,8 +3,9 @@
 Objectif : Reconduire le projet.
 
 A faire en priorité : (dans l'ordre si possible (mais c'est l'ordre de Ledréan donc ...))
-	1) DONE- Bandeau : Liste des chantiers validé. (ajouter un onglet pour avoir : chantier en cours, chantier en attente, archives chantier).
-	1)- Filtre dans répertoire des chantiers (lettre + check s'il en manque autre part) + champs texte de recherche sur les noms de chantier (partout dans tout les chantiers)
+	1) DONE - Bandeau : Liste des chantiers validé. (ajouter un onglet pour avoir : chantier en cours, chantier en attente, archives chantier).
+	1) DONE - Filtre dans répertoire des chantiers (lettre + check s'il en manque autre part) + champs texte de recherche sur les noms de chantier (partout dans tout les chantiers)
+		-> Need CSS Fix
 	1)- Enlever le type personnel dans les contacts et le bandeau -> c'est dans les salariés
 	1)- Modifier contact : Pouvoir modifier le type
 	1)- Pouvoir ajouter une personne en insertion
