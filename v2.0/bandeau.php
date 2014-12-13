@@ -107,6 +107,7 @@ mysqli_free_result($reponse);
 							<li id="champs"><a href="homeWork.php">Chantiers</a>
 								<ul class="subMenu">
 	                       			<li><a href="addWork.php">Ajouter<br>chantier</a></li>
+                                    <li><a href="awaitingWorks.php">Chantiers en attente</a></li>
 									<li><a href="ongoingWorks.php">Chantiers en cours</a></li>
 									<li><a href="oldWorks.php">Archive<br>chantiers</a></li>
                                     <li><a href="suiviEnc.php">Suivi<br>chantiers</a></li>

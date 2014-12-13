@@ -54,7 +54,7 @@ CREATE OR REPLACE VIEW ChantierResp AS SELECT en.CHA_NumDevis as RNumDevis, pe.P
 	
 	//SELECT *, max(Id) FROM Chantiers ch JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CNumDevis LEFT JOIN ChantierResp vre ON ch.CHA_NumDevis=vre.RNumDevis LEFT JOIN ChantierEtat cet ON ch.CHA_NumDevis=NumDevis Group By NumDevis HAVING max(Id)>4 ORDER BY ch.CHA_NumDevis DESC
 	
-	$reponse = mysqli_query($db, "SELECT * FROM ChantierMax Join TypeEtat ON IdMax=TYE_Id WHERE IdMax<4 ORDER BY CHA_DateDebut DESC");
+	$reponse = mysqli_query($db, "SELECT * FROM ChantierMax Join TypeEtat ON IdMax=TYE_Id WHERE IdMax=2 or IdMax=3 ORDER BY CHA_DateDebut DESC");
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
 ?>
