@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "Chantiers en Cours";
+$pageTitle = "Chantiers en Attente";
 include('bandeau.php');
 ?>
     <script src="js/sorttable.js"></script>
