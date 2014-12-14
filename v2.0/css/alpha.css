@@ -28,7 +28,7 @@
 	font-style:normal;
 	height:27px;
 	line-height:24px;
-	width:29px;
+	width:28px;
 	text-decoration:none;
 	text-align:center;
 	text-shadow:1px 1px 0px #ffffff;
@@ -52,7 +52,7 @@
 .selectDrop {
     padding: 0;
     margin: 0;
-    margin-right: 16px;
+    margin-right: 10px;
     margin-left: 0px;
     border: 1px solid #ccc;
     width: 165px;

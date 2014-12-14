@@ -180,22 +180,22 @@ include('bandeau.php');
     <table class="tableContact" cellpadding="5">
         <thead>
         <tr>
-            <td class="firstCol" style="text-align: center; width: 40px;">
+            <td class="firstCol" style="text-align: center; width: 41px;">
                 <a>#</a>
             </td>
-            <td style="text-align: center; width: 231px;">
+            <td style="text-align: center; width: 236px;">
                 <a>Chantier</a>
             </td>
-            <td style="text-align: center; width: 155px;">
+            <td style="text-align: center; width: 158px;">
                 <a>Client</a>
             </td>
-            <td style="text-align: center; width: 155px;">
+            <td style="text-align: center; width: 159px;">
                 <a>Responsable</a>
             </td>
-            <td style="text-align: center; width: 155px;">
+            <td style="text-align: center; width: 159px;">
                 Debut
             </td>
-            <td style="text-align: center; width: 155px;">
+            <td style="text-align: center; width: 158px;">
                 <a>Fin</a>
             </td>
         </tr>
