@@ -82,11 +82,6 @@ include('bandeau.php');
                   </form>
               </span>
                         </td>
-                        <td>
-                <span>
-                  <input name="submit" type="submit" onclick="addProd()" value="Ajouter Produit" class="buttonC">
-                </span>
-                        </td>
                     </tr>
                 </table>
                 <!-- List Produits -->
