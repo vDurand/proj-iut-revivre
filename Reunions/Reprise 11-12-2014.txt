@@ -7,7 +7,7 @@ A faire en priorité : (dans l'ordre si possible (mais c'est l'ordre de Ledréan
 	1) DONE - Filtre dans répertoire des chantiers (lettre + check s'il en manque autre part) + champs texte de recherche sur les noms de chantier (partout dans tout les chantiers)
 		-> Need CSS Fix
 	1)- Enlever le type personnel dans les contacts et le bandeau -> c'est dans les salariés
-	1)- Modifier contact : Pouvoir modifier le type
+	1) DONE - Modifier contact : Pouvoir modifier le type
 	1)- Pouvoir ajouter une personne en insertion
 	1)- Ajouter contact : Liste déroulante pour la fonction (la faire avec ceux déja rentrer) et si la fonction n'existe pas, un bouton autre qui affiche un champs texte
 		et qui fais en meme temps un insert into pour pouvoir le récuperer dans la liste déroulante ensuite.
