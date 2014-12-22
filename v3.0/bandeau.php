@@ -50,6 +50,7 @@
 							<li id="champs"><a href="home.php">Accueil</a></li>
 							<li id="champs"><a href="homeContact.php">Répertoire</a>
 								<ul class="subMenu">
+                                    <li><a href="addInsertion.php">Ajouter<br>Salarié</a></li>
 									<li><a href="addContact.php">Ajouter<br>Contact</a></li>
 	                       			<li><a href="viewClients.php">Clients<br>&nbsp;</a>
 										<!--<ul>

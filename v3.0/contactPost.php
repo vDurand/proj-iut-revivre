@@ -23,16 +23,16 @@
   }
   $fonct=addslashes(mysqli_real_escape_string($db, $_POST["Fonction"]));
 
-  $query = "INSERT INTO Personnes (PER_Num, PER_Nom, PER_Prenom, PER_TelFixe, PER_TelPort, PER_Fax, PER_Email, PER_Adresse, PER_CodePostal, PER_Ville) VALUES (NULL, '$nom', '$prenom', '$tel', '$port', '$fax', '$email', '$add', '$cp', '$ville')";
+    $numberQuery = mysqli_query($db, "SELECT MAX(PER_Num) as maxi FROM Personnes");
+    $numberRep = mysqli_fetch_assoc($numberQuery);
+    $realNumber = $numberRep['maxi']+1;
+
+  $query = "INSERT INTO Personnes (PER_Num, PER_Nom, PER_Prenom, PER_TelFixe, PER_TelPort, PER_Fax, PER_Email, PER_Adresse, PER_CodePostal, PER_Ville) VALUES ($realNumber, '$nom', '$prenom', '$tel', '$port', '$fax', '$email', '$add', '$cp', '$ville')";
 
   $sql = mysqli_query($db, $query);
   $errr=mysqli_error($db);
 
     if($sql){
-      $numberQuery = mysqli_query($db, "SELECT * FROM Personnes WHERE PER_Nom='$nom' AND PER_Prenom='$prenom' AND PER_Adresse='$add' AND PER_Adresse='$add' AND PER_Ville='$ville'");
-      $numberRep = mysqli_fetch_assoc($numberQuery);
-      $realNumber = $numberRep['PER_Num'];
-
       if($type==0){
           if(empty($struct)){
               $query2 = "INSERT INTO Clients (CLI_NumClient, CLI_Structure, PER_Num) VALUES (NULL, NULL, '$realNumber')";
@@ -44,7 +44,7 @@
       if($type==1){
         $query2 = "INSERT INTO Fournisseurs (FOU_NumFournisseur, FOU_Structure, PER_Num) VALUES (NULL, 'Structure', '$realNumber')";
       }
-      if($type>1){
+      if($type>2){
         $query2 = "INSERT INTO Salaries (SAL_NumSalarie, PER_Num, SAL_Fonction, TYP_Id) VALUES (NULL, '$realNumber', '$fonct', '$type')";
       }
       $sql2 = mysqli_query($db, $query2);

@@ -55,9 +55,10 @@
             document.getElementById('Contact-Structure').style.display = "none";
             document.getElementById('Structure').value = "";
 	    } else {
-	        document.getElementById('Contact-Prenom').style.display = "";
+	        document.getElementById('Contact-Prenom').style.display = "none";
+            document.getElementById('Prenom').value = "";
 	     	document.getElementById("Prenom").removeAttribute("required");
-            document.getElementById("Nom").removeAttribute("required");
+            document.getElementById("Nom").setAttribute("required", "");
             document.getElementById('Contact-Structure').style.display = "";
 	    }
 	}

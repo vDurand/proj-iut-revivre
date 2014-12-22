@@ -4,7 +4,7 @@ include('bandeau.php');
 ?>
     <div id="corps">
     <div id="labelT">
-        <label>Ajouter un Membre en insertion</label>
+        <label>Ajouter un Salarié en insertion</label>
     </div>
     <br>
 

@@ -20,14 +20,13 @@ include('bandeau.php');
                                 <select id="Type" name="Type" onchange="showMemberInput(this)">
                                     <option value="0">Client</option>
                                     <option value="1">Fournisseur</option>
+                                    <option value="2">Référent</option>
                                     <?php
-                                    $i = 2;
-                                    $reponse = mysqli_query($db, "SELECT * FROM Type");
+                                    $reponse = mysqli_query($db, "SELECT * FROM Type WHERE TYP_Id <> 7");
                                     while ($donnees = mysqli_fetch_assoc($reponse)) {
                                         ?>
-                                        <option value="<?php echo $i; ?>"><?php echo $donnees['TYP_Nom']; ?></option>
+                                        <option value="<?php echo $donnees['TYP_Id']; ?>"><?php echo $donnees['TYP_Nom']; ?></option>
                                         <?php
-                                        $i++;
                                     }
                                     mysqli_free_result($reponse);
                                     ?>
@@ -59,16 +58,6 @@ include('bandeau.php');
                     <tr>
                         <td style="vertical-align:top;">
                             <table id="leftT" cellpadding="10">
-                                <tr id="Contact-Structure">
-                                    <td style="text-align: left; width: 150px; white-space: normal;">
-                                        <label for="Structure">Structure :</label>
-                                    </td>
-                                    <td>
-                                        <input id="Structure" maxlength="255" name="Structure" type="text"
-                                               class="inputC" autofocus="autofocus">
-                                    </td>
-
-                                </tr>
                                 <tr id="Contact-Nom">
                                     <td style="text-align: left; width: 150px; white-space: normal;">
                                         <label for="Nom">Nom* :</label>
@@ -78,7 +67,7 @@ include('bandeau.php');
                                                autofocus="autofocus">
                                     </td>
                                 </tr>
-                                <tr id="Contact-Prenom">
+                                <tr id="Contact-Prenom" style="display: none;">
                                     <td style="text-align: left; width: 150px; white-space: normal;">
                                         <label for="Prenom">Prénom* :</label>
                                     </td>
