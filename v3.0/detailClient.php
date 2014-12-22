@@ -4,13 +4,40 @@ $pageTitle = "Detail Client";
 ?>
     <div id="corps">
 <?php
-  $num=intval($_GET["NumC"]);
-  if (is_numeric($_GET["NumC"]))
-  {
+  $numC=intval($_GET["NumC"]);
+  if (is_numeric($_GET["NumC"])){
 
-  $reponse = mysqli_query($db, "SELECT * FROM Clients cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE CLI_NumClient='$num'");
-  $donnees = mysqli_fetch_assoc($reponse);
-  if ($donnees) {
+  $queryStruc = mysqli_query($db, "SELECT * FROM Clients WHERE CLI_NumClient=$numC");
+  $donneesStruc = mysqli_fetch_assoc($queryStruc);
+  if ($donneesStruc) {
+      if(!empty($donneesStruc['CLI_Nom'])){
+          $nom = formatUP($donneesStruc['CLI_Nom']);
+          $add = formatLOW($donneesStruc['CLI_Adresse']);
+          $cp = $donneesStruc['CLI_CodePostal'];
+          $ville = formatUP($donneesStruc['CLI_Ville']);
+          $tel = $donneesStruc['CLI_Telephone'];
+          $port = $donneesStruc['CLI_Portable'];
+          $fax = $donneesStruc['CLI_Fax'];
+          $mail = $donneesStruc['CLI_Email'];
+          $struc = "Entreprise";
+      }
+      else{
+          $queryPart = mysqli_query($db, "SELECT * FROM EmployerClient em JOIN Personnes pe ON em.PER_Num=pe.PER_Num WHERE CLI_NumClient=$numC");
+          $donneesPart = mysqli_fetch_assoc($queryPart);
+
+          $nom = formatUP($donneesPart['PER_Nom']);
+          $prenom = formatLow($donneesPart['PER_Prenom']);
+          $add = formatLOW($donneesPart['PER_Adresse']);
+          $cp = $donneesPart['PER_CodePostal'];
+          $ville = formatUP($donneesPart['PER_Ville']);
+          $tel = $donneesPart['PER_TelFixe'];
+          $port = $donneesPart['PER_TelPort'];
+          $fax = $donneesPart['PER_Fax'];
+          $mail = $donneesPart['PER_Email'];
+          $struc = "Particulier";
+          mysqli_free_result($queryPart);
+      }
+  mysqli_free_result($queryStruc);
 ?>
       <div id="labelT">     
             <label>Detail du Client</label>
@@ -21,27 +48,27 @@ $pageTitle = "Detail Client";
           <table cellpadding="10" class="detailClients">
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Nom :</th>
-              <td style="text-align: left; width: 300px;"><?php echo formatUP($donnees['PER_Nom']); ?></td>
+              <td style="text-align: left; width: 300px;"><?php echo $nom; ?></td>
             </tr>
-            <?php if ($donnees['CLI_Structure'] != "Structure") { ?>
+            <?php if (!empty($prenom)) { ?>
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Prenom :</th>
-              <td style="text-align: left; width: 300px;"><?php echo formatLOW($donnees['PER_Prenom']); ?></td>
+              <td style="text-align: left; width: 300px;"><?php echo $prenom; ?></td>
             </tr>
             <?php } ?>
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Telephone Fixe :</th>
-              <td style="text-align: left; width: 300px;"><?php echo $donnees['PER_TelFixe']; ?></td>
+              <td style="text-align: left; width: 300px;"><?php echo $tel; ?></td>
             </tr>
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Telephone Portable :</th>
-              <td style="text-align: left; width: 300px;"><?php echo $donnees['PER_TelPort']; ?></td>
+              <td style="text-align: left; width: 300px;"><?php echo $port; ?></td>
             </tr>
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Fax :</th>
-              <td style="text-align: left; width: 300px;"><?php echo $donnees['PER_Fax']; ?></td>
+              <td style="text-align: left; width: 300px;"><?php echo $fax; ?></td>
             </tr>
-            <?php if ($donnees['CLI_Structure'] == "Structure") { ?>
+            <?php if (empty($prenom)) { ?>
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">&nbsp;</th>
               <td style="text-align: left; width: 300px;">&nbsp;</td>
@@ -53,29 +80,29 @@ $pageTitle = "Detail Client";
           <table cellpadding="10" class="detailClients">
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Email :</th>
-              <td style="text-align: left; width: 300px;"> 	<A HREF="mailto:<?php echo $donnees['PER_Email'];?>"> <?php echo $donnees['PER_Email']; ?></A></td>
+              <td style="text-align: left; width: 300px;"> 	<A HREF="mailto:<?php echo $mail;?>"> <?php echo $mail; ?></A></td>
             </tr>
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Adresse :</th>
-              <td style="text-align: left; width: 300px;"><?php echo formatLOW($donnees['PER_Adresse']); ?></td>
+              <td style="text-align: left; width: 300px;"><?php echo $add; ?></td>
             </tr>
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Ville :</th>
-              <td style="text-align: left; width: 300px;"><?php echo formatUP($donnees['PER_Ville']); ?></td>
+              <td style="text-align: left; width: 300px;"><?php echo $ville; ?></td>
             </tr>
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Code Postal :</th>
-              <td style="text-align: left; width: 300px;"><?php echo $donnees['PER_CodePostal']; ?></td>
+              <td style="text-align: left; width: 300px;"><?php echo $cp; ?></td>
             </tr>
             <tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Structure :</th>
-              <td style="text-align: left; width: 300px;"><?php echo $donnees['CLI_Structure']; ?></td>
+              <td style="text-align: left; width: 300px;"><?php echo $struc; ?></td>
             </tr>
           </table>
         </td>
       </table>
       <form method="post" action="editClient.php" name="EditClient">
-        <input type="hidden" name="NumC" value="<?php echo $donnees['CLI_NumClient']; ?>">
+        <input type="hidden" name="NumC" value="<?php echo $numC; ?>">
         <table id="downT">
           <tr>
             <td>
@@ -88,7 +115,7 @@ $pageTitle = "Detail Client";
       </form>
       <!-- List Chantiers -->
       <?php
-      if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM Chantiers JOIN Commanditer USING(CHA_NumDevis) WHERE CLI_NumClient='$num'"))) {
+      if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM Chantiers JOIN Commanditer USING(CHA_NumDevis) WHERE CLI_NumClient=$numC"))) {
 
           ?>
           <div id="labelCat">
@@ -118,7 +145,7 @@ $pageTitle = "Detail Client";
           <tbody>
           <?php
           $i = 0;
-          $reponse5 = mysqli_query($db, "SELECT * FROM Chantiers JOIN Commanditer USING(CHA_NumDevis) WHERE CLI_NumClient='$num'");
+          $reponse5 = mysqli_query($db, "SELECT * FROM Chantiers JOIN Commanditer USING(CHA_NumDevis) WHERE CLI_NumClient=$numC");
           while ($donnees5 = mysqli_fetch_assoc($reponse5))
           {
               ?>
@@ -144,8 +171,7 @@ $pageTitle = "Detail Client";
   } else {
   	echo "<div id='error'>ERROR : NUMBER ONLY</div>";
   }
-  
-  mysqli_free_result($reponse);
+
 ?>
 </div>
 <?php  
