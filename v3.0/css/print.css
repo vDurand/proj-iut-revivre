@@ -1,0 +1,14 @@
+@media print {
+    body{
+        background-image: url('.jpg');
+    }
+    #vrapper{display: none;}
+    footer{display: none;}
+    #entete{display: none;}
+    #debug{display: none;}
+    #corps{background-color: #FFFFFF;}
+    #labelCat{display: block;}
+    .tableContact{display: block;}
+    .printButton{display: none;}
+    @page { size: landscape; } 
+}
