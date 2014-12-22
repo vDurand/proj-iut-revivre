@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "Clients";
+    $pageTitle = "Clients";
 	include('bandeau.php');
 ?>
 		<script src="js/sorttable.js"></script>
@@ -41,37 +41,104 @@ $pageTitle = "Clients";
 						</thead>
 						<tbody>
 <?php
-	$reponse = mysqli_query($db, 'SELECT * FROM Clients cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY CLI_Structure');
-	while ($donnees = mysqli_fetch_assoc($reponse))
+// Affiche les entreprises clientes
+	$queryCliStruct = mysqli_query($db, 'SELECT * FROM Clients WHERE CLI_Nom IS NOT NULL ORDER BY CLI_Nom');
+	while ($CliStruct = mysqli_fetch_assoc($queryCliStruct))
 	{
 ?>
 							<form method="get" action="detailClient.php" name="detailClient">
 								<input type="hidden" name="NumC" value="">
-									<tr onclick="javascript:submitViewDetail('<?php echo $donnees['CLI_NumClient']; ?>', 'detailClient');" style="font-size: 14;">
-                                        <td><?php echo formatUP($donnees['CLI_Structure']); ?></td>
-										<td><?php echo formatUP($donnees['PER_Nom']); ?></td>
-										<td><?php echo formatLOW($donnees['PER_Prenom']); ?></td>
-										<td><?php echo $donnees['PER_TelFixe']; ?></td>
-										<td><?php echo $donnees['PER_TelPort']; ?></td>
-										<td><a href="mailto:<?php echo $donnees['PER_Email'];?>"><?php echo $donnees['PER_Email']; ?></a></td>
+									<tr onclick="javascript:submitViewDetail('<?php echo $CliStruct['CLI_NumClient']; ?>', 'detailClient');" style="font-size: 14;">
+                                        <td><?php echo formatUP($CliStruct['CLI_Nom']); ?></td>
+										<td>&nbsp;</td>
+										<td>&nbsp;</td>
+										<td><?php echo $CliStruct['CLI_Telephone']; ?></td>
+										<td><?php echo $CliStruct['CLI_Portable']; ?></td>
+										<td><a href="mailto:<?php echo $CliStruct['CLI_Email'];?>"><?php echo $CliStruct['CLI_Email']; ?></a></td>
 										<td>
 										<?php
-											if(!empty($donnees['PER_Adresse'])){
-												echo formatLOW($donnees['PER_Adresse']).", "; 
+											if(!empty($CliStruct['CLI_Adresse'])){
+												echo formatLOW($CliStruct['CLI_Adresse']).", ";
 											}
-											if(!empty($donnees['PER_Ville'])){
-												echo formatUP($donnees['PER_Ville'])." "; 
+											if(!empty($CliStruct['CLI_Ville'])){
+												echo formatUP($CliStruct['CLI_Ville'])." ";
 											}
-											if(!empty($donnees['PER_CodePostal'])){
-												echo $donnees['PER_CodePostal']; 
+											if(!empty($CliStruct['CLI_CodePostal'])){
+												echo $CliStruct['CLI_CodePostal'];
 											}
 											?>
 										  </td>
 									</tr>
 							</form>
-<?php
+        <?php
+        // Affiche les employers rattaches a une entreprise clients
+        $numStruct = $CliStruct['CLI_NumClient'];
+        $queryCliEmp = mysqli_query($db, 'SELECT * FROM EmployerClient cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE CLI_NumClient='.$numStruct.' ORDER BY PER_Nom');
+        while ($CliEmp = mysqli_fetch_assoc($queryCliEmp))
+        {
+            ?>
+            <form method="get" action="detailClient.php" name="detailClient">
+                <input type="hidden" name="NumC" value="">
+                <tr onclick="javascript:submitViewDetail('<?php echo $CliEmp['CLI_NumClient']; ?>', 'detailClient');" style="font-size: 14;">
+                    <td><?php echo formatUP($CliStruct['CLI_Nom']); ?></td>
+                    <td><?php echo formatUP($CliEmp['PER_Nom']); ?></td>
+                    <td><?php echo formatLOW($CliEmp['PER_Prenom']); ?></td>
+                    <td><?php echo $CliEmp['PER_TelFixe']; ?></td>
+                    <td><?php echo $CliEmp['PER_TelPort']; ?></td>
+                    <td><a href="mailto:<?php echo $CliEmp['PER_Email'];?>"><?php echo $CliEmp['PER_Email']; ?></a></td>
+                    <td>
+                        <?php
+                        if(!empty($CliEmp['PER_Adresse'])){
+                            echo formatLOW($CliEmp['PER_Adresse']).", ";
+                        }
+                        if(!empty($CliEmp['PER_Ville'])){
+                            echo formatUP($CliEmp['PER_Ville'])." ";
+                        }
+                        if(!empty($CliEmp['PER_CodePostal'])){
+                            echo $CliEmp['PER_CodePostal'];
+                        }
+                        ?>
+                    </td>
+                </tr>
+            </form>
+        <?php
+        }
+        mysqli_free_result($queryCliEmp);
 	}
-	mysqli_free_result($reponse);
+	mysqli_free_result($queryCliStruct);
+
+// Affiche les particuliers clients
+    $queryCliPart = mysqli_query($db, 'SELECT * FROM Clients cl JOIN EmployerClient em ON cl.CLI_NumClient=em.CLI_NumClient JOIN Personnes pe ON em.PER_Num=pe.PER_Num WHERE CLI_Nom IS NULL ORDER BY PER_Nom');
+    while ($CliPart = mysqli_fetch_assoc($queryCliPart))
+    {
+    ?>
+    <form method="get" action="detailClient.php" name="detailClient">
+        <input type="hidden" name="NumC" value="">
+        <tr onclick="javascript:submitViewDetail('<?php echo $CliPart['CLI_NumClient']; ?>', 'detailClient');" style="font-size: 14;">
+            <td>&nbsp;</td>
+            <td><?php echo formatUP($CliPart['PER_Nom']); ?></td>
+            <td><?php echo formatLOW($CliPart['PER_Prenom']); ?></td>
+            <td><?php echo $CliPart['PER_TelFixe']; ?></td>
+            <td><?php echo $CliPart['PER_TelPort']; ?></td>
+            <td><a href="mailto:<?php echo $CliPart['PER_Email'];?>"><?php echo $CliPart['PER_Email']; ?></a></td>
+            <td>
+                <?php
+                if(!empty($CliPart['PER_Adresse'])){
+                    echo formatLOW($CliPart['PER_Adresse']).", ";
+                }
+                if(!empty($CliPart['PER_Ville'])){
+                    echo formatUP($CliPart['PER_Ville'])." ";
+                }
+                if(!empty($CliPart['PER_CodePostal'])){
+                    echo $CliPart['PER_CodePostal'];
+                }
+                ?>
+            </td>
+        </tr>
+    </form>
+<?php
+    }
+    mysqli_free_result($queryCliPart);
 ?>
 						</tbody>
 					</table>
