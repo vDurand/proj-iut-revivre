@@ -15,20 +15,26 @@
 // Affiche/Masque formulaire specifique aux membres (addContact)
 	function showMemberInput(elem)
 	{
-		if(elem.value > 1){
+		if(elem.value > 2){
 			document.getElementById('Contact-Fonction').style.display = "";
+            document.getElementById('Contact-Prescript').style.display = "none";
 			document.getElementById('Contact-Particulier').style.display = "none";
-            document.getElementById('Contact-Structure').style.display = "none";
-            document.getElementById('Structure').value = "";
 			document.getElementById('Contact-Prenom').style.display = "";
 			document.getElementById("Prenom").setAttribute("required", "");
             document.getElementById("Nom").setAttribute("required", "");
 		}
-        if(elem.value == 1){
+        if(elem.value == 2){
+            document.getElementById('Contact-Prescript').style.display = "";
             document.getElementById('Contact-Fonction').style.display = "none";
             document.getElementById('Contact-Particulier').style.display = "none";
-            document.getElementById('Contact-Structure').style.display = "none";
-            document.getElementById('Structure').value = "";
+            document.getElementById('Contact-Prenom').style.display = "";
+            document.getElementById("Prenom").setAttribute("required", "");
+            document.getElementById("Nom").setAttribute("required", "");
+        }
+        if(elem.value == 1){
+            document.getElementById('Contact-Fonction').style.display = "none";
+            document.getElementById('Contact-Prescript').style.display = "none";
+            document.getElementById('Contact-Particulier').style.display = "none";
             document.getElementById('Contact-Prenom').style.display = "none";
             document.getElementById('Contact-Prenom').value = "";
             document.getElementById('Prenom').value = "";
@@ -36,8 +42,8 @@
         }
 		if(elem.value == 0){
 			document.getElementById('Contact-Fonction').style.display = "none";
+            document.getElementById('Contact-Prescript').style.display = "none";
 			document.getElementById('Contact-Particulier').style.display = "";
-            document.getElementById('Contact-Structure').style.display = "";
 			document.getElementById('Contact-Prenom').style.display = "";
 			document.getElementById('Prenom').value = ""; 
 			document.getElementById("Prenom").removeAttribute("required");

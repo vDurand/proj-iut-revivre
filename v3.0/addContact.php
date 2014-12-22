@@ -150,6 +150,14 @@ include('bandeau.php');
                                         <input id="Struct" maxlength="255" name="Fonction" type="text" class="inputC">
                                     </td>
                                 </tr>
+                                <tr id="Contact-Prescript" style="display: none;">
+                                    <td style="text-align: left; width: 150px; white-space: normal;">
+                                        <label for="Prescript">Prescripteur :</label>
+                                    </td>
+                                    <td>
+                                        <input id="Prescript" maxlength="255" name="Prescript" type="text" class="inputC">
+                                    </td>
+                                </tr>
                             </table>
                         </td>
                     </tr>
