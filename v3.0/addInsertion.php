@@ -10,6 +10,32 @@ include('bandeau.php');
 
     <form method="post" action="insertionPost.php" name="Insertion">
     <div style="overflow:auto;">
+    <div id="labelCat">
+        <table align="center">
+            <tr>
+                <td style="text-align: left; width: 150px;">
+                    <label for="Type">Catégorie</label>
+                </td>
+                <td>
+                    <div class="selectType">
+                        <select id="Type" name="Type">
+                            <?php
+                            $reponse = mysqli_query($db, "SELECT * FROM Type WHERE TYP_Id > 5");
+                            while ($donnees = mysqli_fetch_assoc($reponse)) {
+                                ?>
+                                <option
+                                    value="<?php echo $donnees['TYP_Id']; ?>"><?php echo $donnees['TYP_Nom']; ?></option>
+                            <?php
+                            }
+                            mysqli_free_result($reponse);
+                            ?>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br/>
     <table align="left">
         <tr>
             <td style="vertical-align:top;">
@@ -187,12 +213,9 @@ include('bandeau.php');
                             <input id="N_CAF" maxlength="255" name="N_CAF" type="text" class="inputC">
                         </td>
                     </tr>
-                    <tr id="Contact-Fonction" style="display: none;">
-                        <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Struct">Fonction :</label>
-                        </td>
-                        <td>
-                            <input id="Struct" maxlength="255" name="Fonction" type="text" class="inputC">
+                    <tr>
+                        <td colspan="2">
+                            &nbsp;&nbsp;
                         </td>
                     </tr>
                 </table>
@@ -211,11 +234,23 @@ include('bandeau.php');
                     </tr>
                     <tr>
                         <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Nom-Ref">Référent identifié :</label>
+                            <label for="Ref">Référent identifié :</label>
                         </td>
                         <td>
-                            <input id="Nom-Ref" required maxlength="255" name="Nom-Ref" type="text" class="inputC"
-                                   autofocus="autofocus">
+                            <div class="selectType">
+                                <select id="Ref" name="Ref">
+                                    <?php
+                                    $reponse2 = mysqli_query($db, "SELECT * FROM Referents JOIN Personnes USING (PER_NUM) ORDER BY PER_Nom");
+                                    while ($donnees2 = mysqli_fetch_assoc($reponse2)) {
+                                        ?>
+                                        <option
+                                            value="<?php echo $donnees2['REF_NumRef']; ?>"><?php echo $donnees2['PER_Nom'].' '.$donnees2['PER_Prenom']; ?></option>
+                                    <?php
+                                    }
+                                    mysqli_free_result($reponse2);
+                                    ?>
+                                </select>
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -250,11 +285,16 @@ include('bandeau.php');
                         <td>
                             <div class="selectType2">
                                 <select id="Convention" name="Convention" class="selectType2">
-                                    <option value="CG">CG</option>
-                                    <option value="ASH">ASH</option>
-                                    <option value="ASSH">ASSH</option>
-                                    <option value="CUCS">CUCS</option>
-                                    <option value="FAJ">FAJ</option>
+                                    <?php
+                                    $reponse2 = mysqli_query($db, "SELECT * FROM Convention ORDER BY CNV_Id");
+                                    while ($donnees2 = mysqli_fetch_assoc($reponse2)) {
+                                        ?>
+                                        <option
+                                            value="<?php echo $donnees2['CNV_Id']; ?>"><?php echo $donnees2['CNV_Nom']; ?></option>
+                                    <?php
+                                    }
+                                    mysqli_free_result($reponse2);
+                                    ?>
                                 </select>
                             </div>
                         </td>
@@ -441,13 +481,16 @@ include('bandeau.php');
                         <td>
                             <div class="selectType2">
                                 <select id="CAP" name="CAP">
-                                    <option value="GOB">GOB</option>
-                                    <option value="SOB">SOB</option>
-                                    <option value="Equipe propreté">Equipe propreté</option>
-                                    <option value="Agent de conditionnement (Filt)">Agent de conditionnement (Filt)</option>
-                                    <option value="Chauffeur-Magasinier">Chauffeur-Magasinier</option>
-                                    <option value="Agent de conditionnement">Agent de conditionnement</option>
-                                    <option value="CAP Vert">CAP Vert</option>
+                                    <option value="GOB (ACI)">GOB (ACI)</option>
+                                    <option value="SOB (ACI)">SOB (ACI)</option>
+                                    <option value="Equipe propreté (ACI)">Equipe propreté (ACI)</option>
+                                    <option value="Agent de conditionnement (Filt) (ACI)">Agent de conditionnement
+                                        (Filt) (ACI)
+                                    </option>
+                                    <option value="Chauffeur-Magasinier (ACI)">Chauffeur-Magasinier (ACI)</option>
+                                    <option value="Agent de conditionnement (AVA)">Agent de conditionnement (AVA)
+                                    </option>
+                                    <option value="CAP Vert (AUS)">CAP Vert (AUS)</option>
                                 </select>
                             </div>
                         </td>

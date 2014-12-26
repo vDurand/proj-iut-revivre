@@ -22,7 +22,7 @@ include('bandeau.php');
                                     <option value="1">Fournisseur</option>
                                     <option value="2">Référent</option>
                                     <?php
-                                    $reponse = mysqli_query($db, "SELECT * FROM Type WHERE TYP_Id <> 7");
+                                    $reponse = mysqli_query($db, "SELECT * FROM Type WHERE TYP_Id < 6");
                                     while ($donnees = mysqli_fetch_assoc($reponse)) {
                                         ?>
                                         <option value="<?php echo $donnees['TYP_Id']; ?>"><?php echo $donnees['TYP_Nom']; ?></option>
