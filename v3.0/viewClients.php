@@ -115,7 +115,7 @@
     <form method="get" action="detailClient.php" name="detailClient">
         <input type="hidden" name="NumC" value="">
         <tr onclick="javascript:submitViewDetail('<?php echo $CliPart['CLI_NumClient']; ?>', 'detailClient');" style="font-size: 14;">
-            <td>&nbsp;</td>
+            <td>PARTICULIER</td>
             <td><?php echo formatUP($CliPart['PER_Nom']); ?></td>
             <td><?php echo formatLOW($CliPart['PER_Prenom']); ?></td>
             <td><?php echo $CliPart['PER_TelFixe']; ?></td>

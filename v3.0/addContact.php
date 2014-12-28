@@ -147,7 +147,26 @@ include('bandeau.php');
                                         <label for="Struct">Fonction :</label>
                                     </td>
                                     <td>
-                                        <input id="Struct" maxlength="255" name="Fonction" type="text" class="inputC">
+                                        <div class="selectType" style="display: inline-block;">
+                                            <select id="Struct" name="Fonction">
+                                                <option value="0">--</option>
+                                                <?php
+                                                $reponse = mysqli_query($db, "SELECT * FROM Fonction ORDER BY FCT_Nom");
+                                                while ($donnees = mysqli_fetch_assoc($reponse)) {
+                                                    ?>
+                                                    <option value="<?php echo $donnees['FCT_Id']; ?>"><?php echo $donnees['FCT_Nom']; ?></option>
+                                                <?php
+                                                }
+                                                mysqli_free_result($reponse);
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <div style="display: inline-block; float: right; margin-top: 7px;">
+                                            <input name="plus" type="button" value="+" onclick="showNewFct()">
+                                        </div>
+                                        <div id="NewFonction" style="display: none;">
+                                            <input placeholder="Nouvelle fonction" id="NewFct" required maxlength="255" name="NewFct" type="text" class="inputC">
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr id="Contact-Prescript" style="display: none;">

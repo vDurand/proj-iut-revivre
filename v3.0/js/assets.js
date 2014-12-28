@@ -11,6 +11,19 @@
 		document.forms[type].NumC.value = value_p; 
 		document.forms[type].submit(); 
 	}
+
+// Detail sur clic list (all table)
+function showNewFct()
+{
+    if(document.getElementById('NewFonction').style.display == "none"){
+        document.getElementById('NewFonction').style.display = "";
+        document.getElementById('NewFct').value = "";
+    }
+    else{
+        document.getElementById('NewFonction').style.display = "none";
+        document.getElementById('NewFct').value = "";
+    }
+}
 	
 // Affiche/Masque formulaire specifique aux membres (addContact)
 	function showMemberInput(elem)
@@ -32,6 +45,7 @@
             document.getElementById("Prenom").setAttribute("required", "");
             document.getElementById("Nom").setAttribute("required", "");
             document.getElementById('Struct').value = "";
+            document.getElementById('NewFct').value = "";
         }
         if(elem.value == 1){
             document.getElementById('Contact-Fonction').style.display = "none";
@@ -42,6 +56,7 @@
             document.getElementById('Struct').value = "";
             document.getElementById('Prescript').value = "";
             document.getElementById("Prenom").removeAttribute("required");
+            document.getElementById('NewFct').value = "";
         }
 		if(elem.value == 0){
 			document.getElementById('Contact-Fonction').style.display = "none";
@@ -53,6 +68,7 @@
             document.getElementById('Prescript').value = "";
 			document.getElementById("Prenom").removeAttribute("required");
             document.getElementById("Nom").removeAttribute("required");
+            document.getElementById('NewFct').value = "";
 		}
 	}
 	

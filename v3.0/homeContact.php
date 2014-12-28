@@ -184,31 +184,77 @@ $pageTitle = "Contacts";
 					</thead>
 					<tbody>
 <?php
-	$sorter = 'PER_Nom';
+// Entreprises clientes
+    $queryCliEnt = mysqli_query($db, "SELECT * FROM Clients WHERE CLI_Nom IS NOT NULL ORDER BY CLI_Nom");
+    while ($cliEnt = mysqli_fetch_assoc($queryCliEnt))
+    {
+    ?>
+    <form method="get" action="detailClient.php" name="detailClient">
+        <input type="hidden" name="NumC" value="">
+        <tr onclick="javascript:submitViewDetail('<?php echo $cliEnt['CLI_NumClient']; ?>', 'detailClient')" style="font-size: 14;">
+            <td><?php echo formatUP($cliEnt['CLI_Nom']); ?></td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><?php echo formatUP($cliEnt['CLI_Ville']); ?> <?php if(!empty($cliEnt['CLI_CodePostal'])) echo $cliEnt['CLI_CodePostal']; ?></td>
+            <td><?php if (!empty($cliEnt['CLI_Telephone'])) {
+                    echo $cliEnt['CLI_Telephone'];
+                }else {
+                    echo $cliEnt['CLI_Portable'];
+                } ?></td>
+            <td>Client</td>
+        </tr>
+    </form>
+<?php
+    // Employes clients
+        $numStruct = $cliEnt['CLI_NumClient'];
+        $queryCliEmp = mysqli_query($db, "SELECT * FROM EmployerClient cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE CLI_NumClient=$numStruct ORDER BY PER_Nom");
+        while ($cliEmp = mysqli_fetch_assoc($queryCliEmp))
+        {
+    ?>
+    <form method="get" action="detailClient.php" name="detailClient">
+        <input type="hidden" name="NumC" value="">
+        <tr onclick="javascript:submitViewDetail('<?php echo $cliEmp['CLI_NumClient']; ?>', 'detailClient')" style="font-size: 14;">
+            <td><?php echo formatUP($cliEnt['CLI_Nom']); ?></td>
+            <td><?php echo formatLOW($cliEmp['PER_Nom']); ?></td>
+            <td><?php echo formatLOW($cliEmp['PER_Prenom']); ?></td>
+            <td><?php echo formatUP($cliEmp['PER_Ville']); ?> <?php if(!empty($cliEmp['PER_CodePostal'])) echo $cliEmp['PER_CodePostal']; ?></td>
+            <td><?php if (!empty($cliEmp['PER_TelFixe'])) {
+                    echo $cliEmp['PER_TelFixe'];
+                }else {
+                    echo $cliEmp['PER_TelPort'];
+                } ?></td>
+            <td>Client</td>
+        </tr>
+    </form>
+<?php
+        }
+        mysqli_free_result($queryCliEmp);
+    }
+    mysqli_free_result($queryCliEnt);
 
-	$reponse = mysqli_query($db, "SELECT * FROM Clients cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom");
-	while ($donnees = mysqli_fetch_assoc($reponse))
+// Particuliers clients
+	$queryCliPart = mysqli_query($db, "SELECT * FROM Clients cl JOIN EmployerClient em ON cl.CLI_NumClient=em.CLI_NumClient JOIN Personnes pe ON em.PER_Num=pe.PER_Num WHERE CLI_Nom IS NULL ORDER BY PER_Nom");
+	while ($cliPart = mysqli_fetch_assoc($queryCliPart))
 	{
 ?>
 						<form method="get" action="detailClient.php" name="detailClient">
 							<input type="hidden" name="NumC" value="">
-							<tr onclick="javascript:submitViewDetail('<?php echo $donnees['CLI_NumClient']; ?>', 'detailClient')" style="font-size: 14;">
-                                <td><?php echo formatUP($donnees['CLI_Structure']); ?></td>
-                                <td><?php echo formatLOW($donnees['PER_Nom']); ?></td>
-								<td><?php echo formatLOW($donnees['PER_Prenom']); ?></td>
-								<!--<td><?php /*echo formatLOW($donnees['PER_Adresse']); */?></td>-->
-								<td><?php echo formatUP($donnees['PER_Ville']); ?> <?php if(!empty($donnees['PER_CodePostal'])) echo $donnees['PER_CodePostal']; ?></td>
-								<td><?php if (!empty($donnees['PER_TelFixe'])) {
-									echo $donnees['PER_TelFixe'];
+							<tr onclick="javascript:submitViewDetail('<?php echo $cliPart['CLI_NumClient']; ?>', 'detailClient')" style="font-size: 14;">
+                                <td>PARTICULIER</td>
+                                <td><?php echo formatLOW($cliPart['PER_Nom']); ?></td>
+								<td><?php echo formatLOW($cliPart['PER_Prenom']); ?></td>
+								<td><?php echo formatUP($cliPart['PER_Ville']); ?> <?php if(!empty($cliPart['PER_CodePostal'])) echo $cliPart['PER_CodePostal']; ?></td>
+								<td><?php if (!empty($cliPart['PER_TelFixe'])) {
+									echo $cliPart['PER_TelFixe'];
 								}else {
-									echo $donnees['PER_TelPort'];
+									echo $cliPart['PER_TelPort'];
 								} ?></td>
 								<td>Client</td>
 							</tr>
 						</form>
 <?php
 	}
-	mysqli_free_result($reponse);
+	mysqli_free_result($queryCliPart);
 
 	$reponse = mysqli_query($db, 'SELECT * FROM Fournisseurs cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom');
 	while ($donnees = mysqli_fetch_assoc($reponse))
