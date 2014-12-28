@@ -165,7 +165,7 @@ include('bandeau.php');
                                             <input name="plus" type="button" value="+" onclick="showNewFct()">
                                         </div>
                                         <div id="NewFonction" style="display: none;">
-                                            <input placeholder="Nouvelle fonction" id="NewFct" required maxlength="255" name="NewFct" type="text" class="inputC">
+                                            <input placeholder="Nouvelle fonction" id="NewFct" maxlength="255" name="NewFct" type="text" class="inputC">
                                         </div>
                                     </td>
                                 </tr>
