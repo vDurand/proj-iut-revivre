@@ -18,10 +18,16 @@ function showNewFct()
     if(document.getElementById('NewFonction').style.display == "none"){
         document.getElementById('NewFonction').style.display = "";
         document.getElementById('NewFct').value = "";
+        document.getElementById("NewFct").setAttribute("required", "");
+        document.getElementById('Struct').value = "0";
+        document.getElementById("Struct").removeAttribute("required");
     }
     else{
         document.getElementById('NewFonction').style.display = "none";
         document.getElementById('NewFct').value = "";
+        document.getElementById("NewFct").removeAttribute("required");
+        document.getElementById('Struct').value = "0";
+        document.getElementById("Struct").setAttribute("required", "");
     }
 }
 	
