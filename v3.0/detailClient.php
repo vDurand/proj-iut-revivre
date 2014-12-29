@@ -152,14 +152,17 @@ $pageTitle = "Detail Client";
           while ($empl = mysqli_fetch_assoc($queryEmpl))
           {
               ?>
-              <tr style="font-size: 14;">
-                  <td><?php $i++; echo $i; ?></td>
-                  <td><?php echo $empl['PER_Nom']; ?></td>
-                  <td><?php echo $empl['PER_Prenom']; ?></td>
-                  <td><?php echo $empl['PER_TelFixe']; ?></td>
-                  <td><?php echo $empl['PER_TelPort']; ?></td>
-                  <td><?php echo $empl['PER_Email']; ?></td>
-              </tr>
+              <form method="get" action="detailEmploye.php" name="detailEmploye">
+                  <input type="hidden" name="NumC" value="">
+                  <tr onclick="javascript:submitViewDetail('<?php echo $empl['PER_Num']; ?>', 'detailEmploye')" style="font-size: 14;">
+                      <td><?php $i++; echo $i; ?></td>
+                      <td><?php echo $empl['PER_Nom']; ?></td>
+                      <td><?php echo $empl['PER_Prenom']; ?></td>
+                      <td><?php echo $empl['PER_TelFixe']; ?></td>
+                      <td><?php echo $empl['PER_TelPort']; ?></td>
+                      <td><?php echo $empl['PER_Email']; ?></td>
+                  </tr>
+              </form>
           <?php
           }
           mysqli_free_result($queryEmpl);

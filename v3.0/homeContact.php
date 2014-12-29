@@ -211,9 +211,9 @@ $pageTitle = "Contacts";
         while ($cliEmp = mysqli_fetch_assoc($queryCliEmp))
         {
     ?>
-    <form method="get" action="detailClient.php" name="detailClient">
+    <form method="get" action="detailEmploye.php" name="detailEmploye">
         <input type="hidden" name="NumC" value="">
-        <tr onclick="javascript:submitViewDetail('<?php echo $cliEmp['CLI_NumClient']; ?>', 'detailClient')" style="font-size: 14;">
+        <tr onclick="javascript:submitViewDetail('<?php echo $cliEmp['PER_Num']; ?>', 'detailEmploye')" style="font-size: 14;">
             <td><?php echo formatUP($cliEnt['CLI_Nom']); ?></td>
             <td><?php echo formatLOW($cliEmp['PER_Nom']); ?></td>
             <td><?php echo formatLOW($cliEmp['PER_Prenom']); ?></td>

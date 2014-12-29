@@ -14,18 +14,18 @@ include('bandeau.php');
     if (is_numeric($_GET["NumC"])){
         $queryEmploye = mysqli_query($db, "SELECT * FROM EmployerClient em JOIN Personnes pe ON em.PER_Num=pe.PER_Num WHERE em.PER_Num=$numC");
         $donneesEmp = mysqli_fetch_assoc($queryEmploye);
-
-        $nom = formatUP($donneesEmp['PER_Nom']);
-        $prenom = formatLow($donneesEmp['PER_Prenom']);
-        $add = formatLOW($donneesEmp['PER_Adresse']);
-        $cp = $donneesEmp['PER_CodePostal'];
-        $ville = formatUP($donneesEmp['PER_Ville']);
-        $tel = $donneesEmp['PER_TelFixe'];
-        $port = $donneesEmp['PER_TelPort'];
-        $fax = $donneesEmp['PER_Fax'];
-        $mail = $donneesEmp['PER_Email'];
-        $fct = $donneesEmp['EMC_Fonction'];
-        mysqli_free_result($queryPart);
+        if ($donneesEmp) {
+            $nom = formatUP($donneesEmp['PER_Nom']);
+            $prenom = formatLow($donneesEmp['PER_Prenom']);
+            $add = formatLOW($donneesEmp['PER_Adresse']);
+            $cp = $donneesEmp['PER_CodePostal'];
+            $ville = formatUP($donneesEmp['PER_Ville']);
+            $tel = $donneesEmp['PER_TelFixe'];
+            $port = $donneesEmp['PER_TelPort'];
+            $fax = $donneesEmp['PER_Fax'];
+            $mail = $donneesEmp['PER_Email'];
+            $fct = $donneesEmp['EMC_Fonction'];
+            mysqli_free_result($queryPart);
 ?>
             <div id="labelT">
                 <label>Detail de l'employé</label>
