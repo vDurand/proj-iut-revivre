@@ -162,19 +162,66 @@
 						<tbody>
 <?php
 	$i = 0;
-	$reponse = mysqli_query($db, 'SELECT * FROM Clients cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY CLI_NumClient DESC');
+	$reponse = mysqli_query($db, '(SELECT CLI_NumClient, CLI_Nom, CLI_Adresse, CLI_CodePostal, CLI_Ville, CLI_Portable, CLI_Telephone, CLI_Email, CLI_Fax,
+        NULL as PER_Nom, NULL as PER_Prenom, NULL as PER_TelFixe, NULL as PER_TelPort, NULL as PER_FAX, NULL as PER_Email, NULL as PER_Adresse, NULL as PER_CodePostal, NULL as PER_Ville
+        FROM Clients WHERE CLI_Nom IS NOT NULL)
+        UNION
+        (SELECT CLI_NumClient, CLI_Nom, CLI_Adresse, CLI_CodePostal, CLI_Ville, CLI_Portable, CLI_Telephone, CLI_Email, CLI_Fax,
+        PER_Nom, PER_Prenom, PER_TelFixe, PER_TelPort, PER_FAX, PER_Email, PER_Adresse, PER_CodePostal, PER_Ville
+        FROM Clients JOIN EmployerClient USING (CLI_NumClient) JOIN Personnes USING (PER_Num) WHERE CLI_Nom IS NULL)
+        ORDER BY CLI_NumClient DESC');
 	while (($donnees = mysqli_fetch_assoc($reponse))&&($i<3))
 	{ 
 		?>					<form method="get" action="detailClient.php" name="detailClient">
 								<input type="hidden" name="NumC" value="">
 									<tr onclick="javascript:submitViewDetail('<?php echo $donnees['CLI_NumClient']; ?>', 'detailClient');" style="font-size: 14;">
-                                        <td><?php echo formatUP($donnees['CLI_Structure']); ?></td>
+                                        <td><?php echo formatUP($donnees['CLI_Nom']); ?></td>
                                         <td><?php echo formatLOW($donnees['PER_Nom']); ?></td>
 										<td><?php echo formatLOW($donnees['PER_Prenom']); ?></td>
-										<td><?php echo $donnees['PER_TelFixe']; ?></td>
-										<td><?php echo $donnees['PER_TelPort']; ?></td>
-										<td><?php echo $donnees['PER_Email']; ?></td>
-										<td><?php echo formatLOW($donnees['PER_Adresse']); ?><br><?php echo formatUP($donnees['PER_Ville']); ?> <?php if(!empty($donnees['PER_CodePostal'])) echo $donnees['PER_CodePostal']; ?></td>
+										<td>
+                                            <?php
+                                            if(empty($donnees['PER_TelFixe'])){
+                                                echo $donnees['CLI_Telephone'];
+                                            }
+                                            else{
+                                                echo $donnees['PER_TelFixe'];
+                                            }
+                                            ?>
+                                        </td>
+										<td>
+                                            <?php
+                                            if(empty($donnees['PER_TelPort'])){
+                                                echo $donnees['CLI_Portable'];
+                                            }
+                                            else{
+                                                echo $donnees['PER_TelPort'];
+                                            }
+                                            ?>
+                                        </td>
+										<td>
+                                            <?php
+                                            if(empty($donnees['PER_Email'])){
+                                                echo $donnees['CLI_Email'];
+                                            }
+                                            else{
+                                                echo $donnees['PER_Email'];
+                                            }
+                                            ?>
+                                        </td>
+										<td>
+                                            <?php
+                                            if(empty($donnees['PER_Adresse'])&&empty($donnees['PER_Ville'])&&empty($donnees['PER_CodePostal'])){
+                                                echo formatLOW($donnees['CLI_Adresse'])."<br>".formatUP($donnees['CLI_Ville']);
+                                                if(!empty($donnees['CLI_CodePostal']))
+                                                    echo " ".$donnees['CLI_CodePostal'];
+                                            }
+                                            else{
+                                                echo formatLOW($donnees['PER_Adresse'])."<br>".formatUP($donnees['PER_Ville']);
+                                                if(!empty($donnees['PER_CodePostal']))
+                                                    echo " ".$donnees['PER_CodePostal'];
+                                            }
+                                            ?>
+                                        </td>
 									</tr>
 							</form>
 <?php
@@ -214,17 +261,17 @@
 						<tbody>
 <?php
 	$i = 0;
-	$reponse = mysqli_query($db, 'SELECT * FROM Fournisseurs cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY FOU_NumFournisseur DESC');
+	$reponse = mysqli_query($db, 'SELECT * FROM Fournisseurs ORDER BY FOU_NumFournisseur DESC');
 	while (($donnees = mysqli_fetch_assoc($reponse))&&($i<3))
 	{
 		?>					<form method="get" action="detailFournisseur.php" name="detailFour">
 								<input type="hidden" name="NumC" value="">
 									<tr onclick="javascript:submitViewDetail('<?php echo $donnees['FOU_NumFournisseur']; ?>', 'detailFour');" style="font-size: 14;">
-										<td><?php echo formatUP($donnees['PER_Nom']); ?></td>
-										<td><?php echo $donnees['PER_TelFixe']; ?></td>
-										<td><?php echo $donnees['PER_TelPort']; ?></td>
-										<td><?php echo $donnees['PER_Email']; ?></td>
-										<td><?php echo formatLOW($donnees['PER_Adresse']); ?><br><?php echo formatUP($donnees['PER_Ville']); ?> <?php if(!empty($donnees['PER_CodePostal'])) echo $donnees['PER_CodePostal']; ?></td>
+										<td><?php echo formatUP($donnees['FOU_Nom']); ?></td>
+										<td><?php echo $donnees['FOU_Telephone']; ?></td>
+										<td><?php echo $donnees['FOU_Portable']; ?></td>
+										<td><?php echo $donnees['FOU_Email']; ?></td>
+										<td><?php echo formatLOW($donnees['FOU_Adresse']); ?><br><?php echo formatUP($donnees['FOU_Ville']); ?> <?php if(!empty($donnees['FOU_CodePostal'])) echo $donnees['FOU_CodePostal']; ?></td>
 									</tr>
 							</form>
 <?php

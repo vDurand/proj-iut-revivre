@@ -148,7 +148,7 @@ include('bandeau.php');
                                     </td>
                                     <td>
                                         <div class="selectType" style="display: inline-block;">
-                                            <select id="Struct" required name="Fonction">
+                                            <select id="Struct" name="Fonction">
                                                 <option value="">--</option>
                                                 <?php
                                                 $reponse = mysqli_query($db, "SELECT * FROM Fonction ORDER BY FCT_Nom");

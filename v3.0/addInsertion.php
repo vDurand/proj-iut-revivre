@@ -9,7 +9,6 @@ include('bandeau.php');
     <br>
 
     <form method="post" action="insertionPost.php" name="Insertion">
-    <div style="overflow:auto;">
     <div id="labelCat">
         <table align="center">
             <tr>
@@ -572,7 +571,6 @@ include('bandeau.php');
             </td>
         </tr>
     </table>
-    </div>
     <table id="downT">
         <tr>
             <td>
