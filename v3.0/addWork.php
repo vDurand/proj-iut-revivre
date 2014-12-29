@@ -39,7 +39,7 @@ include('bandeau.php');
                                     <optgroup label="Structures">
                                         <?php
                                         $i = 2;
-                                        $reponse = mysqli_query($db, "SELECT * FROM Clients cl WHERE CLI_Structure IS NOT NULL ORDER BY CLI_Structure");
+                                        $reponse = mysqli_query($db, "SELECT * FROM Clients cl WHERE CLI_Nom IS NOT NULL ORDER BY CLI_Nom");
                                         while ($donnees = mysqli_fetch_assoc($reponse)) {
                                             ?>
                                             <option value="<?php echo $donnees['CLI_NumClient']; ?>"><?php
