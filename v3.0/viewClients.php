@@ -77,9 +77,9 @@
         while ($CliEmp = mysqli_fetch_assoc($queryCliEmp))
         {
             ?>
-            <form method="get" action="detailClient.php" name="detailClient">
+            <form method="get" action="detailEmploye.php" name="detailEmploye">
                 <input type="hidden" name="NumC" value="">
-                <tr onclick="javascript:submitViewDetail('<?php echo $CliEmp['CLI_NumClient']; ?>', 'detailClient');" style="font-size: 14;">
+                <tr onclick="javascript:submitViewDetail('<?php echo $CliEmp['PER_Num']; ?>', 'detailEmploye');" style="font-size: 14;">
                     <td><?php echo formatUP($CliStruct['CLI_Nom']); ?></td>
                     <td><?php echo formatUP($CliEmp['PER_Nom']); ?></td>
                     <td><?php echo formatLOW($CliEmp['PER_Prenom']); ?></td>
