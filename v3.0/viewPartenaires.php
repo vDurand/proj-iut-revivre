@@ -45,9 +45,9 @@ include('bandeau.php');
                 while ($donnees = mysqli_fetch_assoc($reponse))
                 {
                     ?>
-                    <form method="get" action="detailSal.php" name="detailSal">
+                    <form method="get" action="detailRef.php" name="detailRef">
                         <input type="hidden" name="NumC" value="">
-                        <tr onclick="javascript:submitViewDetail('<?php echo $donnees['SAL_NumSalarie']; ?>', 'detailSal');" style="font-size: 14;">
+                        <tr onclick="javascript:submitViewDetail('<?php echo $donnees['REF_NumRef']; ?>', 'detailRef');" style="font-size: 14;">
                             <td><?php echo formatUP($donnees['PER_Nom']); ?></td>
                             <td><?php echo formatLOW($donnees['PER_Prenom']); ?></td>
                             <td><?php echo $donnees['PER_TelFixe']; ?></td>
