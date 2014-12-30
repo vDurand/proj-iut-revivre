@@ -8,9 +8,9 @@ include('bandeau.php');
 
         if (is_numeric($num)) {
 
-            $reponse = mysqli_query($db, "SELECT * FROM Fournisseurs cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE FOU_NumFournisseur='$num'");
-            $donnees = mysqli_fetch_assoc($reponse);
-            if ($donnees) {
+            $queryFourn = mysqli_query($db, "SELECT * FROM Fournisseurs WHERE FOU_NumFournisseur='$num'");
+            $fourn = mysqli_fetch_assoc($queryFourn);
+            if ($fourn) {
                 ?>
                 <div id="labelT">
                     <label>Detail du Fournisseur</label>
@@ -22,28 +22,22 @@ include('bandeau.php');
                             <table cellpadding="10" class="detailClients">
                                 <tr>
                                     <th style="text-align: left; width: 200px; white-space: normal;">Nom :</th>
-                                    <td style="text-align: left; width: 300px;"><?php echo formatUP($donnees['PER_Nom']); ?></td>
+                                    <td style="text-align: left; width: 300px;"><?php echo formatUP($fourn['FOU_Nom']); ?></td>
                                 </tr>
-                                <?php if ($donnees['FOU_Structure'] != "Structure") { ?>
-                                    <tr>
-                                        <th style="text-align: left; width: 200px; white-space: normal;">Prenom :</th>
-                                        <td style="text-align: left; width: 300px;"><?php echo formatLOW($donnees['PER_Prenom']); ?></td>
-                                    </tr>
-                                <?php } ?>
                                 <tr>
                                     <th style="text-align: left; width: 200px; white-space: normal;">Telephone Fixe :
                                     </th>
-                                    <td style="text-align: left; width: 300px;"><?php echo $donnees['PER_TelFixe']; ?></td>
+                                    <td style="text-align: left; width: 300px;"><?php echo $fourn['FOU_Telephone']; ?></td>
                                 </tr>
                                 <tr>
                                     <th style="text-align: left; width: 200px; white-space: normal;">Telephone Portable
                                         :
                                     </th>
-                                    <td style="text-align: left; width: 300px;"><?php echo $donnees['PER_TelPort']; ?></td>
+                                    <td style="text-align: left; width: 300px;"><?php echo $fourn['FOU_Portable']; ?></td>
                                 </tr>
                                 <tr>
                                     <th style="text-align: left; width: 200px; white-space: normal;">Fax :</th>
-                                    <td style="text-align: left; width: 300px;"><?php echo $donnees['PER_Fax']; ?></td>
+                                    <td style="text-align: left; width: 300px;"><?php echo $fourn['FOU_Fax']; ?></td>
                                 </tr>
                             </table>
                         </td>
@@ -52,20 +46,20 @@ include('bandeau.php');
                                 <tr>
                                     <th style="text-align: left; width: 200px; white-space: normal;">Email :</th>
                                     <td style="text-align: left; width: 300px;"><A
-                                            HREF="mailto:<?php echo $donnees['PER_Email']; ?>"> <?php echo $donnees['PER_Email']; ?></A>
+                                            HREF="mailto:<?php echo $fourn['FOU_Email']; ?>"> <?php echo $fourn['FOU_Email']; ?></A>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th style="text-align: left; width: 200px; white-space: normal;">Adresse :</th>
-                                    <td style="text-align: left; width: 300px;"><?php echo formatLOW($donnees['PER_Adresse']); ?></td>
+                                    <td style="text-align: left; width: 300px;"><?php echo formatLOW($fourn['FOU_Adresse']); ?></td>
                                 </tr>
                                 <tr>
                                     <th style="text-align: left; width: 200px; white-space: normal;">Ville :</th>
-                                    <td style="text-align: left; width: 300px;"><?php echo formatUP($donnees['PER_Ville']); ?></td>
+                                    <td style="text-align: left; width: 300px;"><?php echo formatUP($fourn['FOU_Ville']); ?></td>
                                 </tr>
                                 <tr>
                                     <th style="text-align: left; width: 200px; white-space: normal;">Code Postal :</th>
-                                    <td style="text-align: left; width: 300px;"><?php echo $donnees['PER_CodePostal']; ?></td>
+                                    <td style="text-align: left; width: 300px;"><?php echo $fourn['FOU_CodePostal']; ?></td>
                                 </tr>
                             </table>
                         </td>
@@ -77,7 +71,7 @@ include('bandeau.php');
                         <td>
               <span>
                   <form method="post" action="editFournisseur.php" name="EditFournisseur">
-                      <input type="hidden" name="NumC" value="<?php echo $donnees['FOU_NumFournisseur']; ?>">
+                      <input type="hidden" name="NumC" value="<?php echo $fourn['FOU_NumFournisseur']; ?>">
                       <input name="submit" type="submit" value="Modifier" class="buttonC">
                   </form>
               </span>
@@ -112,18 +106,18 @@ include('bandeau.php');
                     </thead>
                     <tbody>
                     <?php
-                    $reponse5 = mysqli_query($db, "SELECT * FROM Acheter JOIN Chantiers USING (CHA_NumDevis) WHERE FOU_NumFournisseur='$num'");
-                    while ($donnees5 = mysqli_fetch_assoc($reponse5)) {
+                    $queryAchat = mysqli_query($db, "SELECT * FROM Acheter JOIN Chantiers USING (CHA_NumDevis) WHERE FOU_NumFournisseur='$num'");
+                    while ($achat = mysqli_fetch_assoc($queryAchat)) {
                         ?>
                         <tr style="font-size: 14;">
-                            <td><?php echo $donnees5['ACH_TypeAchat']; ?></td>
-                            <td><?php echo dater($donnees5['ACH_Date']); ?></td>
-                            <td><?php echo $donnees5['ACH_Montant']; ?> €</td>
-                            <td><?php echo $donnees5['CHA_Intitule']; ?></td>
+                            <td><?php echo $achat['ACH_TypeAchat']; ?></td>
+                            <td><?php echo dater($achat['ACH_Date']); ?></td>
+                            <td><?php echo $achat['ACH_Montant']; ?> €</td>
+                            <td><?php echo $achat['CHA_Intitule']; ?></td>
                         </tr>
                     <?php
                     }
-                    mysqli_free_result($reponse5);
+                    mysqli_free_result($queryAchat);
                 }
                 ?>
                 </tbody>
@@ -138,7 +132,7 @@ include('bandeau.php');
         } else {
             echo "<div id='error'>ERROR : NUMBER ONLY</div>";
         }
-        mysqli_free_result($reponse);
+        mysqli_free_result($queryFourn);
         ?>
     </div>
 <?php

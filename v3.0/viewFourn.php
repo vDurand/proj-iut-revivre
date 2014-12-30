@@ -19,6 +19,12 @@ $pageTitle = "Fournisseurs";
 								<td class="premierCol" style="text-align: center; width: 150px;">
 									Entreprise
 								</td>
+                                <td style="text-align: center; width: 150px;">
+                                    Nom
+                                </td>
+                                <td style="text-align: center; width: 150px;">
+                                    Prénom
+                                </td>
 								<td class="sorttable_nosort tooltip" style="text-align: center; width: 150px; cursor: help;" title="Vous ne pouvez pas classer par telephone fixe.">
 									Tél Fixe
 								</td>
@@ -31,46 +37,75 @@ $pageTitle = "Fournisseurs";
 								<td style="text-align: center; width: 150px;">
 									Adresse
 								</td>
-                                <td style="text-align: center; width: 150px;">
-                                    Ville
-                                </td>
 							</tr>
 						</thead>
 						<tbody>
 <?php
-	$reponse = mysqli_query($db, 'SELECT * FROM Fournisseurs cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom');
-	while ($donnees = mysqli_fetch_assoc($reponse))
+	$queryFourn = mysqli_query($db, 'SELECT * FROM Fournisseurs ORDER BY FOU_Nom');
+	while ($donneeFourn = mysqli_fetch_assoc($queryFourn))
 	{
 ?>
 							<form method="get" action="detailFournisseur.php" name="detailFour">
 								<input type="hidden" name="NumC" value="">
-									<tr onclick="javascript:submitViewDetail('<?php echo $donnees['FOU_NumFournisseur']; ?>', 'detailFour');" style="font-size: 14;">
-										<td><?php echo formatLOW($donnees['PER_Nom']); ?></td>
-										<td><?php echo $donnees['PER_TelFixe']; ?></td>
-										<td><?php echo $donnees['PER_TelPort']; ?></td>
-										<td><a href="mailto:<?php echo $donnees['PER_Email'];?>"><?php echo $donnees['PER_Email']; ?></a></td>
+									<tr onclick="javascript:submitViewDetail('<?php echo $donneeFourn['FOU_NumFournisseur']; ?>', 'detailFour');" style="font-size: 14;">
+										<td><?php echo formatUP($donneeFourn['FOU_Nom']); ?></td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+										<td><?php echo $donneeFourn['FOU_Telephone']; ?></td>
+										<td><?php echo $donneeFourn['FOU_Portable']; ?></td>
+										<td><a href="mailto:<?php echo $donneeFourn['FOU_Email'];?>"><?php echo $donneeFourn['FOU_Email']; ?></a></td>
 										<td>
 										<?php
-											if(!empty($donnees['PER_Adresse'])){
-												echo formatLOW($donnees['PER_Adresse']).", "; 
+											if(!empty($donneeFourn['FOU_Adresse'])){
+												echo formatLOW($donneeFourn['FOU_Adresse']).", ";
 											}
+                                            if(!empty($donneeFourn['FOU_Ville'])){
+                                                echo formatUP($donneeFourn['FOU_Ville'])." ";
+                                            }
+                                            if(!empty($donneeFourn['FOU_CodePostal'])){
+                                                echo $donneeFourn['FOU_CodePostal'];
+                                            }
 											?>
 										</td>
-                                        <td>
-                                            <?php
-                                            if(!empty($donnees['PER_Ville'])){
-                                                echo formatUP($donnees['PER_Ville'])." ";
-                                            }
-                                            if(!empty($donnees['PER_CodePostal'])){
-                                                echo $donnees['PER_CodePostal'];
-                                            }
-                                            ?>
-                                        </td>
 									</tr>
 							</form>
 <?php
+        $nFourn = $donneeFourn['FOU_NumFournisseur'];
+        $queryEmploye = mysqli_query($db, 'SELECT * FROM EmployerFourn JOIN Personnes USING (PER_Num) WHERE FOU_NumFournisseur = '.$nFourn.' ORDER BY PER_Nom');
+        while ($donneeEmp = mysqli_fetch_assoc($queryEmploye))
+        {
+    ?>
+                            <form method="get" action="detailEmployeF.php" name="detailEmp">
+                                <input type="hidden" name="NumC" value="">
+                                <tr onclick="javascript:submitViewDetail('<?php echo $donneeEmp['PER_Num']; ?>', 'detailEmp');" style="font-size: 14;">
+                                    <td><?php echo formatUP($donneeFourn['FOU_Nom']); ?></td>
+                                    <td><?php echo formatUP($donneeEmp['PER_Nom']); ?></td>
+                                    <td><?php echo formatLOW($donneeEmp['PER_Prenom']); ?></td>
+                                    <td><?php echo $donneeEmp['PER_TelFixe']; ?></td>
+                                    <td><?php echo $donneeEmp['PER_TelPort']; ?></td>
+                                    <td><a href="mailto:<?php echo $donneeEmp['PER_Email'];?>"><?php echo $donneeEmp['PER_Email']; ?></a></td>
+                                    <td>
+                                        <?php
+                                        if(!empty($donneeEmp['PER_Adresse'])){
+                                            echo formatLOW($donneeEmp['PER_Adresse']).", ";
+                                        }
+                                        if(!empty($donneeEmp['PER_Ville'])){
+                                            echo formatUP($donneeEmp['PER_Ville'])." ";
+                                        }
+                                        if(!empty($donneeEmp['PER_CodePostal'])){
+                                            echo $donneeEmp['PER_CodePostal'];
+                                        }
+                                        ?>
+                                    </td>
+                                </tr>
+                            </form>
+<?php
+        }
+        mysqli_free_result($queryEmploye);
+?>
+<?php
 	}
-	mysqli_free_result($reponse);
+	mysqli_free_result($queryFourn);
 ?>
 						</tbody>
 					</table>
