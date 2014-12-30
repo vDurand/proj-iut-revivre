@@ -41,7 +41,7 @@ include('bandeau.php');
                 </thead>
                 <tbody>
                 <?php
-                $reponse = mysqli_query($db, 'SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num JOIN Type ty ON cl.TYP_Id=ty.TYP_Id WHERE ty.TYP_IsNotRevivre IS NOT NULL ORDER BY PER_Nom');
+                $reponse = mysqli_query($db, 'SELECT * FROM Referents cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom');
                 while ($donnees = mysqli_fetch_assoc($reponse))
                 {
                     ?>
@@ -66,7 +66,7 @@ include('bandeau.php');
                                 }
                                 ?>
                             </td>
-                            <td><?php echo $donnees['TYP_Nom']; ?></td>
+                            <td>Référent</td>
                         </tr>
                     </form>
                 <?php

@@ -8,7 +8,7 @@ $pageTitle = "Detail Salarié";
   if (is_numeric($_GET["NumC"]))
   {
 
-  $reponse = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num JOIN Type ty ON cl.TYP_Id=ty.TYP_Id WHERE SAL_NumSalarie='$num' ORDER BY PER_Nom");
+  $reponse = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num JOIN Type ty ON cl.TYP_Id=ty.TYP_Id JOIN Fonction fc ON cl.FCT_Id=fc.FCT_Id WHERE SAL_NumSalarie='$num' ORDER BY PER_Nom");
   $donnees = mysqli_fetch_assoc($reponse);
   if ($donnees) {
 ?>
@@ -69,7 +69,7 @@ $pageTitle = "Detail Salarié";
             </tr>
 			<tr>
               <th style="text-align: left; width: 200px; white-space: normal;">Fonction :</th>
-              <td style="text-align: left; width: 300px;"><?php echo formatLOW($donnees['SAL_Fonction']); ?></td>
+              <td style="text-align: left; width: 300px;"><?php echo formatLOW($donnees['FCT_Nom']); ?></td>
             </tr>
           </table>
         </td>
