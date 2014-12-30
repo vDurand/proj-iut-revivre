@@ -152,7 +152,7 @@ $pageTitle = "Detail Client";
           while ($empl = mysqli_fetch_assoc($queryEmpl))
           {
               ?>
-              <form method="get" action="detailEmploye.php" name="detailEmploye">
+              <form method="get" action="detailEmployeC.php" name="detailEmploye">
                   <input type="hidden" name="NumC" value="">
                   <tr onclick="javascript:submitViewDetail('<?php echo $empl['PER_Num']; ?>', 'detailEmploye')" style="font-size: 14;">
                       <td><?php $i++; echo $i; ?></td>

@@ -12,7 +12,7 @@ include('bandeau.php');
 <?php
     $numC=intval($_GET["NumC"]);
     if (is_numeric($_GET["NumC"])){
-        $queryEmploye = mysqli_query($db, "SELECT * FROM EmployerClient em JOIN Personnes pe ON em.PER_Num=pe.PER_Num WHERE em.PER_Num=$numC");
+        $queryEmploye = mysqli_query($db, "SELECT * FROM Clients cl JOIN EmployerClient em ON cl.CLI_NumClient=em.CLI_NumClient JOIN Personnes pe ON em.PER_Num=pe.PER_Num WHERE em.PER_Num=$numC");
         $donneesEmp = mysqli_fetch_assoc($queryEmploye);
         if ($donneesEmp) {
             $nom = formatUP($donneesEmp['PER_Nom']);
@@ -25,10 +25,11 @@ include('bandeau.php');
             $fax = $donneesEmp['PER_Fax'];
             $mail = $donneesEmp['PER_Email'];
             $fct = $donneesEmp['EMC_Fonction'];
+            $struc = $donneesEmp['CLI_Nom'];
             mysqli_free_result($queryPart);
 ?>
             <div id="labelT">
-                <label>Detail de l'employé</label>
+                <label><?php echo $struc; ?> : Detail de l'employé</label>
             </div>
             <br>
             <table id="fullTable" rules="all">

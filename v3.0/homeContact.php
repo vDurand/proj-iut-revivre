@@ -211,7 +211,7 @@ $pageTitle = "Contacts";
         while ($cliEmp = mysqli_fetch_assoc($queryCliEmp))
         {
     ?>
-    <form method="get" action="detailEmploye.php" name="detailEmploye">
+    <form method="get" action="detailEmployeC.php" name="detailEmploye">
         <input type="hidden" name="NumC" value="">
         <tr onclick="javascript:submitViewDetail('<?php echo $cliEmp['PER_Num']; ?>', 'detailEmploye')" style="font-size: 14;">
             <td><?php echo formatUP($cliEnt['CLI_Nom']); ?></td>
@@ -255,30 +255,53 @@ $pageTitle = "Contacts";
 <?php
 	}
 	mysqli_free_result($queryCliPart);
-
-	$reponse = mysqli_query($db, 'SELECT * FROM Fournisseurs cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom');
-	while ($donnees = mysqli_fetch_assoc($reponse))
+// Fournisseurs
+	$queryFourn = mysqli_query($db, 'SELECT * FROM Fournisseurs ORDER BY FOU_Nom');
+	while ($fourn = mysqli_fetch_assoc($queryFourn))
 	{
 ?>
 						<form method="get" action="detailFournisseur.php" name="detailFour">
 							<input type="hidden" name="NumC" value="">
-							<tr onclick="javascript:submitViewDetail('<?php echo $donnees['FOU_NumFournisseur']; ?>', 'detailFour');" style="font-size: 14;">
-								<td><?php echo formatUP($donnees['PER_Nom']); ?></td>
+							<tr onclick="javascript:submitViewDetail('<?php echo $fourn['FOU_NumFournisseur']; ?>', 'detailFour');" style="font-size: 14;">
+								<td><?php echo formatUP($fourn['FOU_Nom']); ?></td>
 								<td> </td>
                                 <td> </td>
-								<!--<td><?php /*echo formatLOW($donnees['PER_Adresse']); */?></td>-->
-								<td><?php echo formatUP($donnees['PER_Ville']); ?> <?php if(!empty($donnees['PER_CodePostal'])) echo $donnees['PER_CodePostal']; ?></td>
-								<td><?php if (!empty($donnees['PER_TelFixe'])) {
-									echo $donnees['PER_TelFixe'];
+								<td><?php echo formatUP($fourn['FOU_Ville']); ?> <?php if(!empty($fourn['FOU_CodePostal'])) echo $fourn['FOU_CodePostal']; ?></td>
+								<td><?php if (!empty($fourn['FOU_Telephone'])) {
+									echo $fourn['FOU_Telephone'];
 								}else {
-									echo $donnees['PER_TelPort'];
+									echo $fourn['FOU_Portable'];
 								} ?></td>
 								<td>Fournisseur</td>
 							</tr>
-						</form>	
+						</form>
 <?php
+        // Employes Fournisseurs
+        $numF = $fourn['FOU_NumFournisseur'];
+        $queryFouEmp = mysqli_query($db, 'SELECT * FROM Fournisseurs fo JOIN EmployerFourn em ON fo.FOU_NumFournisseur=em.FOU_NumFournisseur JOIN Personnes pe ON em.PER_Num=pe.PER_Num WHERE fo.FOU_NumFournisseur='.$numF.' ORDER BY PER_Nom');
+        while ($fouEmp = mysqli_fetch_assoc($queryFouEmp))
+        {
+        ?>
+        <form method="get" action="detailEmployeF.php" name="detailEmpF">
+            <input type="hidden" name="NumC" value="">
+            <tr onclick="javascript:submitViewDetail('<?php echo $fouEmp['PER_Num']; ?>', 'detailEmpF');" style="font-size: 14;">
+                <td><?php echo formatUP($fourn['FOU_Nom']); ?></td>
+                <td><?php echo formatUP($fouEmp['PER_Nom']); ?></td>
+                <td><?php echo formatLOW($fouEmp['PER_Prenom']); ?></td>
+                <td><?php echo formatUP($fouEmp['PER_Ville']); ?> <?php if(!empty($fouEmp['PER_CodePostal'])) echo $fouEmp['PER_CodePostal']; ?></td>
+                <td><?php if (!empty($fouEmp['PER_TelFixe'])) {
+                        echo $fouEmp['PER_TelFixe'];
+                    }else {
+                        echo $fouEmp['PER_TelPort'];
+                    } ?></td>
+                <td>Fournisseur</td>
+            </tr>
+        </form>
+<?php
+        }
+        mysqli_free_result($queryFouEmp);
 	}
-	mysqli_free_result($reponse);
+	mysqli_free_result($queryFourn);
 
 	$reponse = mysqli_query($db, 'SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num JOIN Type ty ON cl.TYP_Id=ty.TYP_Id ORDER BY PER_Nom');
 	while ($donnees = mysqli_fetch_assoc($reponse))

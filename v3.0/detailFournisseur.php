@@ -78,6 +78,64 @@ include('bandeau.php');
                         </td>
                     </tr>
                 </table>
+                <!-- List Employes -->
+                <?php
+                if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM EmployerFourn WHERE FOU_NumFournisseur=$num"))) {
+
+                    ?>
+                    <div id="labelCat">
+                        Liste des Employés
+                    </div>
+                    <div class="listeMembers" style="margin-bottom: 15px;">
+                    <table>
+                    <thead>
+                    <tr>
+                        <td class="firstCol" style="text-align: center; width: 30px;">
+                            <a>#</a>
+                        </td>
+                        <td style="text-align: center;">
+                            <a>Nom</a>
+                        </td>
+                        <td style="text-align: center;">
+                            <a>Prénom</a>
+                        </td>
+                        <td style="text-align: center;">
+                            <a>Téléphone</a>
+                        </td>
+                        <td style="text-align: center;">
+                            <a>Portable</a>
+                        </td>
+                        <td style="text-align: center;">
+                            <a>Email</a>
+                        </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    $i = 0;
+                    $queryEmpl = mysqli_query($db, "SELECT * FROM EmployerFourn em JOIN Personnes pe ON em.PER_Num=pe.PER_Num WHERE FOU_NumFournisseur=$num");
+                    while ($empl = mysqli_fetch_assoc($queryEmpl))
+                    {
+                        ?>
+                        <form method="get" action="detailEmployeF.php" name="detailEmploye">
+                            <input type="hidden" name="NumC" value="">
+                            <tr onclick="javascript:submitViewDetail('<?php echo $empl['PER_Num']; ?>', 'detailEmploye')" style="font-size: 14;">
+                                <td><?php $i++; echo $i; ?></td>
+                                <td><?php echo $empl['PER_Nom']; ?></td>
+                                <td><?php echo $empl['PER_Prenom']; ?></td>
+                                <td><?php echo $empl['PER_TelFixe']; ?></td>
+                                <td><?php echo $empl['PER_TelPort']; ?></td>
+                                <td><?php echo $empl['PER_Email']; ?></td>
+                            </tr>
+                        </form>
+                    <?php
+                    }
+                    mysqli_free_result($queryEmpl);
+                }
+                ?>
+                </tbody>
+                </table>
+                </div>
                 <!-- List Produits -->
                 <?php
                 if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM Acheter WHERE FOU_NumFournisseur='$num'"))) {
