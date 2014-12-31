@@ -335,9 +335,16 @@ include('bandeau.php');
                         <td>
                             <div class="selectType2">
                                 <select id="Contrat" name="Contrat">
-                                    <option value="AVA">AVA</option>
-                                    <option value="ACI">ACI</option>
-                                    <option value="CAP VERT">CAP VERT</option>
+                                    <?php
+                                    $reponse3 = mysqli_query($db, "SELECT * FROM Contrat ORDER BY CNT_Id");
+                                    while ($donnees3 = mysqli_fetch_assoc($reponse3)) {
+                                        ?>
+                                        <option
+                                            value="<?php echo $donnees3['CNT_Id']; ?>"><?php echo $donnees3['CNT_Nom']; ?></option>
+                                    <?php
+                                    }
+                                    mysqli_free_result($reponse3);
+                                    ?>
                                 </select>
                             </div>
                         </td>
@@ -402,13 +409,13 @@ include('bandeau.php');
                             &nbsp;&nbsp;
                         </td>
                     </tr>
-                    <tr id="Diplôme">
+                    <tr id="Diplome">
                         <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Diplôme">Diplôme :</label>
+                            <label for="Diplome">Diplôme :</label>
                         </td>
                         <td>
                             <div class="selectType2">
-                                <select id="Diplôme" name="Diplôme">
+                                <select id="Diplome" name="Diplome">
                                     <option value="Sans">Sans</option>
                                     <option value="Brevet des collèges">Brevet des collèges</option>
                                     <option value="CAP - BEP">CAP - BEP</option>
