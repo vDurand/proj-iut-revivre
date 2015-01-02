@@ -276,8 +276,8 @@ include('bandeau.php');
             </td>
             </tr>
             </table>
-            <form method="post" action="editIns.php" name="EditSal">
-                <input type="hidden" name="NumC" value="<?php echo $donnees['SAL_NumSalarie']; ?>">
+            <form method="post" action="editIns.php" name="EditIns">
+                <input type="hidden" name="NumC" value="<?php echo $num; ?>">
                 <table id="downT">
                     <tr>
                         <td>
