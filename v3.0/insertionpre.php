@@ -73,7 +73,7 @@ include('bandeau.php');
 
             if ($sql3) {
                 echo '<div id="good">
-        <label>Salarié édité avec succès</label>
+        <label>Edité avec succès</label>
         </div>';
                 $reponse0 = mysqli_query($db,"select SAL_NumSalarie from Salaries WHERE PER_Num='$num'");
                 $reponse0 = mysqli_fetch_assoc($reponse0);
