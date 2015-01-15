@@ -355,8 +355,8 @@ include('bandeau.php');
                         </td>
                         <td>
                             <input type="radio" id="Reconnaissance" name="Reconnaissance"
-                                   value="Oui">Oui<br>
-                            <input type="radio" id="Reconnaissance" name="Reconnaissance" value="Non"
+                                   value="1">Oui<br>
+                            <input type="radio" id="Reconnaissance" name="Reconnaissance" value="0"
                                    checked>Non<br>
                         </td>
                     </tr>
@@ -390,8 +390,8 @@ include('bandeau.php');
                             <label for="Permis">Permis :</label>
                         </td>
                         <td>
-                            <input type="radio" id="Permis" name="Permis" value="Oui">Oui<br>
-                            <input type="radio" id="Permis" name="Permis" value="Non" checked>Non<br>
+                            <input type="radio" id="Permis" name="Permis" value="1">Oui<br>
+                            <input type="radio" id="Permis" name="Permis" value="0" checked>Non<br>
                         </td>
                     </tr>
                 </table>
@@ -530,8 +530,8 @@ include('bandeau.php');
                             <label for="Repas">Repas :</label>
                         </td>
                         <td>
-                            <input type="radio" id="Repas" name="Repas" value="Oui">Oui<br>
-                            <input type="radio" id="Repas" name="Repas" value="Non" checked>Non<br>
+                            <input type="radio" id="Repas" name="Repas" value="1">Oui<br>
+                            <input type="radio" id="Repas" name="Repas" value="0" checked>Non<br>
                         </td>
                     </tr>
                 </table>

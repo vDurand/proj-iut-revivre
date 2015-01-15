@@ -6,7 +6,7 @@ include('bandeau.php');
     <?php
     $num = $_POST["NumC"];
     $reponse1 = mysqli_query($db,
-        "SELECT * FROM Personnes JOIN Salaries USING (PER_Num) JOIN Insertion USING (SAL_NumSalarie)
+        "SELECT * FROM Personnes JOIN Salaries USING (PER_Num) JOIN Insertion USING (SAL_NumSalarie) JOIN Type using (TYP_Id)
                 WHERE SAL_NumSalarie='$num' ORDER BY PER_Nom");
     $personne = mysqli_fetch_assoc($reponse1);
 
@@ -19,7 +19,7 @@ include('bandeau.php');
     $contrat = mysqli_fetch_assoc($reponse3);
 
     $numRef = $personne['REF_NumRef'];
-    $reponse4 = mysqli_query($db, "SELECT * FROM Personnes JOIN Referents USING (PER_Num) WHERE PER_Num in (SELECT PER_Num FROM Referents WHERE REF_NumRef='$numRef')");
+    $reponse4 = mysqli_query($db, "SELECT * FROM Personnes JOIN Referents USING (PER_Num) JOIN Prescripteurs USING (PRE_Id) WHERE PER_Num in (SELECT PER_Num FROM Referents WHERE REF_NumRef='$numRef')");
     $referent = mysqli_fetch_assoc($reponse4);
 
     $numType = $personne['TYP_Id'];
@@ -31,7 +31,8 @@ include('bandeau.php');
     </div>
     <br>
 
-    <form method="post" action="insertionPre.php" name="Insertion">
+    <form method="post" action="insertionpre.php" name="Insertion">
+    <input type="hidden" name="NumC" value="<?php echo $personne['PER_Num']; ?>">
     <br/>
     <table align="left">
         <tr>
@@ -82,18 +83,25 @@ include('bandeau.php');
                             <label for="Type">Catégorie</label>
                         </td>
                         <td>
-                            <div class="selectType">
+                            <div class="selectType2">
                                 <select id="Type" name="Type">
-                                    <?php
-                                    $reponse = mysqli_query($db, "SELECT * FROM Type WHERE TYP_Id > 5");
-                                    while ($donnees = mysqli_fetch_assoc($reponse)) {
+                                    <optgroup label="Catégorie actuel">
+                                        <option value="<?php echo $personne['TYP_Id']; ?>" selected>
+                                            <?php echo $personne['TYP_Nom']; ?>
+                                        </option>
+                                    </optgroup>
+                                    <optgroup label="Catégories disponibles">
+                                        <?php
+                                        $reponse = mysqli_query($db, "SELECT * FROM Type WHERE TYP_Id > 5");
+                                        while ($donnees = mysqli_fetch_assoc($reponse)) {
+                                            ?>
+                                            <option
+                                                value="<?php echo $donnees['TYP_Id']; ?>"><?php echo $donnees['TYP_Nom']; ?></option>
+                                        <?php
+                                        }
+                                        mysqli_free_result($reponse);
                                         ?>
-                                        <option
-                                            value="<?php echo $donnees['TYP_Id']; ?>"><?php echo $donnees['TYP_Nom']; ?></option>
-                                    <?php
-                                    }
-                                    mysqli_free_result($reponse);
-                                    ?>
+                                    </optgroup>
                                 </select>
                             </div>
                         </td>
@@ -261,16 +269,23 @@ include('bandeau.php');
                         <td>
                             <div class="selectType2">
                                 <select id="Ref" name="Ref">
-                                    <?php
-                                    $reponse2 = mysqli_query($db, "SELECT * FROM Referents JOIN Personnes USING (PER_NUM) JOIN Prescripteurs USING (PRE_Id) ORDER BY PER_Nom");
-                                    while ($donnees2 = mysqli_fetch_assoc($reponse2)) {
+                                    <optgroup label="Référent actuel">
+                                        <option value="<?php echo $referent['REF_NumRef']; ?>" selected>
+                                            <?php echo $referent['PER_Nom'] . ' ' . $referent['PER_Prenom'] . ' (' . $referent['PRE_Nom'] . ')'; ?>
+                                        </option>
+                                    </optgroup>
+                                    <optgroup label="Référents disponibles">
+                                        <?php
+                                        $reponse2 = mysqli_query($db, "SELECT * FROM Referents JOIN Personnes USING (PER_NUM) JOIN Prescripteurs USING (PRE_Id) ORDER BY PER_Nom");
+                                        while ($donnees2 = mysqli_fetch_assoc($reponse2)) {
+                                            ?>
+                                            <option
+                                                value="<?php echo $donnees2['REF_NumRef']; ?>"><?php echo $donnees2['PER_Nom'] . ' ' . $donnees2['PER_Prenom'] . ' (' . $donnees2['PRE_Nom'] . ')'; ?></option>
+                                        <?php
+                                        }
+                                        mysqli_free_result($reponse2);
                                         ?>
-                                        <option
-                                            value="<?php echo $donnees2['REF_NumRef']; ?>"><?php echo $donnees2['PER_Nom'] . ' ' . $donnees2['PER_Prenom'] . ' (' . $donnees2['PRE_Nom'] . ')'; ?></option>
-                                    <?php
-                                    }
-                                    mysqli_free_result($reponse2);
-                                    ?>
+                                    </optgroup>
                                 </select>
                             </div>
                         </td>
@@ -281,19 +296,25 @@ include('bandeau.php');
                         </td>
                         <td>
                             <div class="selectType2">
-                                <select id="Convention" name="Convention" class="selectType2">
-                                    <?php
-                                    $reponse2 = mysqli_query($db, "SELECT * FROM Convention ORDER BY CNV_Id");
-                                    while ($donnees2 = mysqli_fetch_assoc($reponse2)) {
+                                <select id="Convention" name="Convention">
+                                    <optgroup label="Convention actuelle">
+                                        <option value="<?php echo $convention['CNV_Id']; ?>" selected>
+                                            <?php echo $convention['CNV_Nom']; ?>
+                                        </option>
+                                    </optgroup>
+                                    <optgroup label="Conventions disponibles">
+                                        <?php
+                                        $reponse2 = mysqli_query($db, "SELECT * FROM Convention ORDER BY CNV_Id");
+                                        while ($donnees2 = mysqli_fetch_assoc($reponse2)) {
+                                            ?>
+                                            <option
+                                                value="<?php echo $donnees2['CNV_Id']; ?>"><?php echo $donnees2['CNV_Nom']; ?></option>
+                                        <?php
+                                        }
+                                        mysqli_free_result($reponse2);
                                         ?>
-                                        <option
-                                            value="<?php echo $donnees2['CNV_Id']; ?>"><?php echo $donnees2['CNV_Nom']; ?></option>
-                                    <?php
-                                    }
-                                    mysqli_free_result($reponse2);
-                                    ?>
+                                    </optgroup>
                                 </select>
-                            </div>
                         </td>
                     </tr>
                     <tr id="Jours-Travailles">
@@ -325,16 +346,23 @@ include('bandeau.php');
                         <td>
                             <div class="selectType2">
                                 <select id="Contrat" name="Contrat">
-                                    <?php
-                                    $reponse3 = mysqli_query($db, "SELECT * FROM Contrat ORDER BY CNT_Id");
-                                    while ($donnees3 = mysqli_fetch_assoc($reponse3)) {
+                                    <optgroup label="Contrat actuel">
+                                        <option value="<?php echo $contrat['CNT_Id']; ?>" selected>
+                                            <?php echo $contrat['CNT_Nom']; ?>
+                                        </option>
+                                    </optgroup>
+                                    <optgroup label="Contrats disponibles">
+                                        <?php
+                                        $reponse3 = mysqli_query($db, "SELECT * FROM Contrat ORDER BY CNT_Id");
+                                        while ($donnees3 = mysqli_fetch_assoc($reponse3)) {
+                                            ?>
+                                            <option
+                                                value="<?php echo $donnees3['CNT_Id']; ?>"><?php echo $donnees3['CNT_Nom']; ?></option>
+                                        <?php
+                                        }
+                                        mysqli_free_result($reponse3);
                                         ?>
-                                        <option
-                                            value="<?php echo $donnees3['CNT_Id']; ?>"><?php echo $donnees3['CNT_Nom']; ?></option>
-                                    <?php
-                                    }
-                                    mysqli_free_result($reponse3);
-                                    ?>
+                                    </optgroup>
                                 </select>
                             </div>
                         </td>
@@ -381,6 +409,7 @@ include('bandeau.php');
                                         <option value="5">5</option>
                                         <option value="5 Bis">5 Bis</option>
                                         <option value="6">6</option>
+                                    </optgroup>
                                 </select>
                             </div>
                         </td>
@@ -393,13 +422,13 @@ include('bandeau.php');
                             <?php
                             if ($personne['INS_RecoTH'] == 0) {
                                 ?>
-                                <input type="radio" id="Reconnaissance" name="Reconnaissance" value="Oui">Oui<br>
-                                <input type="radio" id="Reconnaissance" name="Reconnaissance" value="Non"
+                                <input type="radio" id="Reconnaissance" name="Reconnaissance" value="1">Oui<br>
+                                <input type="radio" id="Reconnaissance" name="Reconnaissance" value="0"
                                        checked>Non<br>
                             <?php } else { ?>
-                                <input type="radio" id="Reconnaissance" name="Reconnaissance" value="Oui"
+                                <input type="radio" id="Reconnaissance" name="Reconnaissance" value="1"
                                        checked>Oui<br>
-                                <input type="radio" id="Reconnaissance" name="Reconnaissance" value="Non">Non<br>
+                                <input type="radio" id="Reconnaissance" name="Reconnaissance" value="0">Non<br>
                             <?php
                             }
                             ?>
@@ -421,7 +450,7 @@ include('bandeau.php');
                         </td>
                         <td>
                             <div class="selectType2">
-                                <select id="Niveau" name="Niveau">
+                                <select id="Diplome" name="Diplome">
                                     <optgroup label="Diplôme actuel">
                                         <option value="<?php echo $personne['INS_Diplome']; ?>" selected>
                                             <?php echo $personne['INS_Diplome']; ?>
@@ -446,13 +475,13 @@ include('bandeau.php');
                             <?php
                             if ($personne['INS_Permis'] == 0) {
                                 ?>
-                                <input type="radio" id="Permis" name="Permis" value="Oui">Oui<br>
-                                <input type="radio" id="Permis" name="Permis" value="Non"
+                                <input type="radio" id="Permis" name="Permis" value="1">Oui<br>
+                                <input type="radio" id="Permis" name="Permis" value="0"
                                        checked>Non<br>
                             <?php } else { ?>
-                                <input type="radio" id="Permis" name="Permis" value="Oui"
+                                <input type="radio" id="Permis" name="Permis" value="1"
                                        checked>Oui<br>
-                                <input type="radio" id="Permis" name="Permis" value="Non">Non<br>
+                                <input type="radio" id="Permis" name="Permis" value="0">Non<br>
                             <?php
                             }
                             ?>
@@ -463,172 +492,214 @@ include('bandeau.php');
         </tr>
     </table>
     <table align="left">
-        <tr>
-            <td style="vertical-align:top;">
-                <table id="leftT" cellpadding="10">
-                    <tr>
-                        <td colspan="2">
-                            &nbsp;&nbsp;
-                        </td>
-                    </tr>
-                    <tr id="Revenus-Type">
-                        <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Revenus-Type">Revenus :</label>
-                        </td>
-                        <td>
-                            <div class="selectType2">
-                                <select id="Revenus-Type" name="Revenus-Type">
-                                    <option value="RSA">RSA</option>
-                                    <option value="ASS">ASS</option>
-                                    <option value="ARE">ARE</option>
-                                    <option value="AAH">AAH</option>
-                                    <option value="Autre">Autre, précisez :</option>
-                                    <option value="Aucun">Aucun</option>
-                                </select>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr id="Inscrit-Pole">
-                        <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Inscrit-Pole">Inscription Pôle Emploi depuis :</label>
-                        </td>
-                        <td>
-                            <div class="selectType2">
-                                <select id="Inscrit-Pole" name="Inscrit-Pole">
-                                    <option value="Non inscrit">Non inscrit</option>
-                                    <option value="Moins de 6 mois">Moins de 6 mois</option>
-                                    <option value="De 6 à 11 mois">De 6 à 11 mois</option>
-                                    <option value="De 12 à 23 mois">De 12 à 23 mois</option>
-                                    <option value="De 24 mois et plus">De 24 mois et plus</option>
-                                </select>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr id="CAP">
-                        <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="CAP">Positionnement sur l'atelier du CAP :</label>
-                        </td>
-                        <td>
-                            <div class="selectType2">
-                                <select id="CAP" name="CAP">
-                                    <option value="GOB (ACI)">GOB (ACI)</option>
-                                    <option value="SOB (ACI)">SOB (ACI)</option>
-                                    <option value="Equipe propreté (ACI)">Equipe propreté (ACI)</option>
-                                    <option value="Agent de conditionnement (Filt) (ACI)">Agent de conditionnement
-                                        (Filt) (ACI)
-                                    </option>
-                                    <option value="Chauffeur-Magasinier (ACI)">Chauffeur-Magasinier (ACI)</option>
-                                    <option value="Agent de conditionnement (AVA)">Agent de conditionnement (AVA)
-                                    </option>
-                                    <option value="CAP Vert (AUS)">CAP Vert (AUS)</option>
-                                </select>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr id="Situation-Geo">
-                        <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Situation-Geo">Situation géograhique :</label>
-                        </td>
-                        <td>
-                            <?php
-                            if ($personne['INS_SituGeo'] == "CUCS") {
-                                ?>
-                                <input type="radio" id="Situation-Geo" name="Situation-Geo" value="ZUS">ZUS<br>
-                                <input type="radio" id="Situation-Geo" name="Situation-Geo" value="CUCS"
-                                       checked>CUCS<br>
-                            <?php } else { ?>
-                                <input type="radio" id="Situation-Geo" name="Situation-Geo" value="ZUS"
-                                       checked>ZUS<br>
-                                <input type="radio" id="Situation-Geo" name="Situation-Geo" value="CUCS">CUCS<br>
-                            <?php
-                            }
-                            ?>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-            <td style="vertical-align:top;">
-                <table id="rightT" cellpadding="10">
-                    <tr>
-                        <td colspan="2">
-                            &nbsp;&nbsp;
-                        </td>
-                    </tr>
-                    <tr id="Revenus-Durée">
-                        <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Revenus-Durée">Depuis :</label>
-                        </td>
-                        <td>
-                            <div class="selectType2">
-                                <select id="Revenus-Durée" name="Revenus-Durée">
-                                    <option value="Moins de 6 mois">Moins de 6 mois</option>
-                                    <option value="De 6 à 11 mois">De 6 à 11 mois</option>
-                                    <option value="De 12 à 23 mois">De 12 à 23 mois</option>
-                                    <option value="De 24 mois et plus">De 24 mois et plus</option>
-                                </select>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr id="Sans-Emploi">
-                        <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Sans-Emploi">Sans emploi depuis :</label>
-                        </td>
-                        <td>
-                            <div class="selectType2">
-                                <select id="Sans-Emploi" name="Sans-Emploi">
-                                    <option value="Moins de 6 mois">Moins de 6 mois</option>
-                                    <option value="De 6 à 11 mois">De 6 à 11 mois</option>
-                                    <option value="De 12 à 23 mois">De 12 à 23 mois</option>
-                                    <option value="De 24 mois et plus">De 24 mois et plus</option>
-                                    <option value="Primo demandeur">Primo demandeur</option>
-                                </select>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr id="Mutuelle">
-                        <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Mutuelle">Mutuelle :</label>
-                        </td>
-                        <td>
-                            <div class="selectType2">
-                                <select id="Mutuelle" name="Mutuelle">
-                                    <option value="CMU">CMU</option>
-                                    <option value="CMU Complémentaire">CMU Complémentaire</option>
-                                    <option value="Autre mutuelle">Autre mutuelle</option>
-                                    <option value="Pas de mutuelle">Pas de mutuelle</option>
-                                </select>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr id="Repas">
-                        <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Repas">Repas :</label>
-                        </td>
-                        <td>
-                            <?php
-                            if ($personne['INS_Repas'] == 0) {
-                                ?>
-                                <input type="radio" id="Repas" name="Repas" value="Oui">Oui<br>
-                                <input type="radio" id="Repas" name="Repas" value="Non"
-                                       checked>Non<br>
-                            <?php } else { ?>
-                                <input type="radio" id="Repas" name="Repas" value="Oui"
-                                       checked>Oui<br>
-                                <input type="radio" id="Repas" name="Repas" value="Non">Non<br>
-                            <?php
-                            }
-                            ?>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
+    <tr>
+    <td style="vertical-align:top;">
+        <table id="leftT" cellpadding="10">
+            <tr>
+                <td colspan="2">
+                    &nbsp;&nbsp;
+                </td>
+            </tr>
+            <tr id="Revenus-Type">
+                <td style="text-align: left; width: 150px; white-space: normal;">
+                    <label for="Revenus-Type">Revenus :</label>
+                </td>
+                <td>
+                    <div class="selectType2">
+                        <select id="Revenus-Type" name="Revenus-Type">
+                            <optgroup label="Revenu actuel">
+                                <option value="<?php echo $personne['INS_Revenu']; ?>" selected>
+                                    <?php echo $personne['INS_Revenu']; ?>
+                                </option>
+                            </optgroup>
+                            <optgroup label="Revenus disponibles">
+                                <option value="RSA">RSA</option>
+                                <option value="ASS">ASS</option>
+                                <option value="ARE">ARE</option>
+                                <option value="AAH">AAH</option>
+                                <option value="Autre">Autre, précisez :</option>
+                                <option value="Aucun">Aucun</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <tr id="Inscrit-Pole">
+                <td style="text-align: left; width: 150px; white-space: normal;">
+                    <label for="Inscrit-Pole">Inscription Pôle Emploi depuis :</label>
+                </td>
+                <td>
+                    <div class="selectType2">
+                        <select id="Inscrit-Pole" name="Inscrit-Pole">
+                            <optgroup label="Période actuelle">
+                                <option value="<?php echo $personne['INS_PEDupuis']; ?>" selected>
+                                    <?php echo $personne['INS_PEDupuis']; ?>
+                                </option>
+                            </optgroup>
+                            <optgroup label="Périodes disponibles">
+                                <option value="Non inscrit">Non inscrit</option>
+                                <option value="Moins de 6 mois">Moins de 6 mois</option>
+                                <option value="De 6 à 11 mois">De 6 à 11 mois</option>
+                                <option value="De 12 à 23 mois">De 12 à 23 mois</option>
+                                <option value="De 24 mois et plus">De 24 mois et plus</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <tr id="CAP">
+                <td style="text-align: left; width: 150px; white-space: normal;">
+                    <label for="CAP">Positionnement sur l'atelier du CAP :</label>
+                </td>
+                <td>
+                    <div class="selectType2">
+                        <select id="CAP" name="CAP">
+                            <optgroup label="Positionnement actuelle">
+                                <option value="<?php echo $personne['INS_Positionmt']; ?>" selected>
+                                    <?php echo $personne['INS_Positionmt']; ?>
+                                </option>
+                            </optgroup>
+                            <optgroup label="Positionnements disponibles">
+                                <option value="GOB (ACI)">GOB (ACI)</option>
+                                <option value="SOB (ACI)">SOB (ACI)</option>
+                                <option value="Equipe propreté (ACI)">Equipe propreté (ACI)</option>
+                                <option value="Agent de conditionnement (Filt) (ACI)">Agent de conditionnement
+                                    (Filt) (ACI)
+                                </option>
+                                <option value="Chauffeur-Magasinier (ACI)">Chauffeur-Magasinier (ACI)</option>
+                                <option value="Agent de conditionnement (AVA)">Agent de conditionnement (AVA)
+                                </option>
+                                <option value="CAP Vert (AUS)">CAP Vert (AUS)</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <tr id="Situation-Geo">
+                <td style="text-align: left; width: 150px; white-space: normal;">
+                    <label for="Situation-Geo">Situation géograhique :</label>
+                </td>
+                <td>
+                    <?php
+                    if ($personne['INS_SituGeo'] == "CUCS") {
+                        ?>
+                        <input type="radio" id="Situation-Geo" name="Situation-Geo" value="ZUS">ZUS<br>
+                        <input type="radio" id="Situation-Geo" name="Situation-Geo" value="CUCS"
+                               checked>CUCS<br>
+                    <?php } else { ?>
+                        <input type="radio" id="Situation-Geo" name="Situation-Geo" value="ZUS"
+                               checked>ZUS<br>
+                        <input type="radio" id="Situation-Geo" name="Situation-Geo" value="CUCS">CUCS<br>
+                    <?php
+                    }
+                    ?>
+                </td>
+            </tr>
+        </table>
+    </td>
+    <td style="vertical-align:top;">
+        <table id="rightT" cellpadding="10">
+            <tr>
+                <td colspan="2">
+                    &nbsp;&nbsp;
+                </td>
+            </tr>
+            <tr id="Revenus-Durée">
+                <td style="text-align: left; width: 150px; white-space: normal;">
+                    <label for="Revenus-Durée">Depuis :</label>
+                </td>
+                <td>
+                    <div class="selectType2">
+                        <select id="Revenus-Durée" name="Revenus-Durée">
+                            <optgroup label="Période actuelle">
+                                <option value="<?php echo $personne['INS_RevenuDepuis']; ?>" selected>
+                                    <?php echo $personne['INS_RevenuDepuis']; ?>
+                                </option>
+                            </optgroup>
+                            <optgroup label="Périodes disponibles">
+                                <option value="Moins de 6 mois">Moins de 6 mois</option>
+                                <option value="De 6 à 11 mois">De 6 à 11 mois</option>
+                                <option value="De 12 à 23 mois">De 12 à 23 mois</option>
+                                <option value="De 24 mois et plus">De 24 mois et plus</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <tr id="Sans-Emploi">
+                <td style="text-align: left; width: 150px; white-space: normal;">
+                    <label for="Sans-Emploi">Sans emploi depuis :</label>
+                </td>
+                <td>
+                    <div class="selectType2">
+                        <select id="Sans-Emploi" name="Sans-Emploi">
+                            <optgroup label="Période actuelle">
+                                <option value="<?php echo $personne['INS_SEDepuis']; ?>" selected>
+                                    <?php echo $personne['INS_SEDepuis']; ?>
+                                </option>
+                            </optgroup>
+                            <optgroup label="Périodes disponibles">
+                                <option value="Moins de 6 mois">Moins de 6 mois</option>
+                                <option value="De 6 à 11 mois">De 6 à 11 mois</option>
+                                <option value="De 12 à 23 mois">De 12 à 23 mois</option>
+                                <option value="De 24 mois et plus">De 24 mois et plus</option>
+                                <option value="Primo demandeur">Primo demandeur</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <tr id="Mutuelle">
+                <td style="text-align: left; width: 150px; white-space: normal;">
+                    <label for="Mutuelle">Mutuelle :</label>
+                </td>
+                <td>
+                    <div class="selectType2">
+                        <select id="Mutuelle" name="Mutuelle">
+                            <optgroup label="Mutuelle actuelle">
+                                <option value="<?php echo $personne['INS_Mutuelle']; ?>" selected>
+                                    <?php echo $personne['INS_Mutuelle']; ?>
+                                </option>
+                            </optgroup>
+                            <optgroup label="Mutuelles disponibles">
+                                <option value="CMU">CMU</option>
+                                <option value="CMU Complémentaire">CMU Complémentaire</option>
+                                <option value="Autre mutuelle">Autre mutuelle</option>
+                                <option value="Pas de mutuelle">Pas de mutuelle</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <tr id="Repas">
+                <td style="text-align: left; width: 150px; white-space: normal;">
+                    <label for="Repas">Repas :</label>
+                </td>
+                <td>
+                    <?php
+                    if ($personne['INS_Repas'] == 0) {
+                        ?>
+                        <input type="radio" id="Repas" name="Repas" value="1">Oui<br>
+                        <input type="radio" id="Repas" name="Repas" value="0"
+                               checked>Non<br>
+                    <?php } else { ?>
+                        <input type="radio" id="Repas" name="Repas" value="1"
+                               checked>Oui<br>
+                        <input type="radio" id="Repas" name="Repas" value="0">Non<br>
+                    <?php
+                    }
+                    ?>
+                </td>
+            </tr>
+        </table>
+    </td>
+    </tr>
     </table>
     <table id="downT">
         <tr>
             <td>
 							<span>
-								<input name="submit" type="submit" value="Ajouter" class="buttonC">&nbsp;&nbsp;
+								<input name="submit" type="submit" value="Valider" class="buttonC">&nbsp;&nbsp;
 								<input name="reset" type="reset" value="Annuler" class="buttonC">
 							</span>
             </td>

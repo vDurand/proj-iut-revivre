@@ -17,7 +17,9 @@ include('bandeau.php');
         $type = addslashes($_POST["Type"]);
         $fonction = addslashes($_POST["Fonction"]);
 
-        $query = "UPDATE Personnes SET PER_Nom = '$nom', PER_Prenom = '$prenom', PER_TelFixe = '$tel', PER_TelPort = '$port', PER_Fax = '$fax', PER_Email = '$email', PER_Adresse = '$add', PER_CodePostal = '$cp', PER_Ville = '$ville' WHERE Personnes.PER_Num = '$num'";
+        $query = "UPDATE Personnes SET PER_Nom = '$nom', PER_Prenom = '$prenom', PER_TelFixe = '$tel', PER_TelPort = '$port',
+                  PER_Fax = '$fax', PER_Email = '$email', PER_Adresse = '$add', PER_CodePostal = '$cp', PER_Ville = '$ville'
+                  WHERE Personnes.PER_Num = '$num'";
 
         $sql = mysqli_query($db, $query);
         $errr = mysqli_error($db);
