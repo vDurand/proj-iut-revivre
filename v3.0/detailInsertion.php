@@ -21,7 +21,7 @@ include('bandeau.php');
         $contrat = mysqli_fetch_assoc($reponse3);
 
         $numRef = $personne['REF_NumRef'];
-        $reponse4 = mysqli_query($db, "SELECT * FROM Personnes JOIN Referents USING (PER_Num) WHERE PER_Num in (SELECT PER_Num FROM Referents WHERE REF_NumRef='$numRef')");
+        $reponse4 = mysqli_query($db, "SELECT * FROM Personnes JOIN Referents USING (PER_Num) JOIN Prescripteurs USING (PRE_Id) WHERE PER_Num in (SELECT PER_Num FROM Referents WHERE REF_NumRef='$numRef')");
         $referent = mysqli_fetch_assoc($reponse4);
 
         $numType = $personne['TYP_Id'];
@@ -97,7 +97,7 @@ include('bandeau.php');
                     <tr>
                         <th style="text-align: left; width: 200px; white-space: normal;">Prescripteur :
                         </th>
-                        <td style="text-align: left; width: 300px;"><?php echo $referent['REF_Prescripteur']; ?></td>
+                        <td style="text-align: left; width: 300px;"><?php echo $referent['PRE_Nom']; ?></td>
                     </tr>
                     <tr>
                         <th style="text-align: left; width: 200px; white-space: normal;">Convention :
@@ -139,7 +139,7 @@ include('bandeau.php');
                     <tr>
                         <th style="text-align: left; width: 200px; white-space: normal;">Pôle Emploi depuis :
                         </th>
-                        <td style="text-align: left; width: 300px;"><?php echo $personne['INS_PEDepuis']; ?></td>
+                        <td style="text-align: left; width: 300px;"><?php echo $personne['INS_PEDupuis']; ?></td>
                     </tr>
                     <tr>
                         <th style="text-align: left; width: 200px; white-space: normal;">Positionnement CAP :

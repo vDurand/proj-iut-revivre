@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "Ajout Membre en Insertion";
+$pageTitle = "Editer Membre en Insertion";
 include('bandeau.php');
 ?>
     <div id="corps">
@@ -112,7 +112,8 @@ include('bandeau.php');
                             <label for="LieuNai">Lieu de naissance :</label>
                         </td>
                         <td>
-                            <input id="LieuNai" required maxlength="255" name="LieuNai" type="text" class="inputC" value="<?php echo $personne['INS_LieuN']; ?>">
+                            <input id="LieuNai" required maxlength="255" name="LieuNai" type="text" class="inputC"
+                                   value="<?php echo $personne['INS_LieuN']; ?>">
                         </td>
                     </tr>
                     <tr id="Contact-Situation">
@@ -120,7 +121,8 @@ include('bandeau.php');
                             <label for="Situation">Situation familiale :</label>
                         </td>
                         <td>
-                            <input id="Situation" maxlength="255" name="Situation" type="text" class="inputC" value="<?php echo $personne['INS_SituationF']; ?>">
+                            <input id="Situation" maxlength="255" name="Situation" type="text" class="inputC"
+                                   value="<?php echo $personne['INS_SituationF']; ?>">
                         </td>
                     </tr>
                 </table>
@@ -151,7 +153,8 @@ include('bandeau.php');
                             <label for="Ville">Ville :</label>
                         </td>
                         <td>
-                            <input id="Ville" required maxlength="255" name="Ville" type="text" class="inputC" value="<?php echo formatUP($personne['PER_Ville']); ?>">
+                            <input id="Ville" required maxlength="255" name="Ville" type="text" class="inputC"
+                                   value="<?php echo formatUP($personne['PER_Ville']); ?>">
                         </td>
                     </tr>
                     <tr id="Contact-Tel_Fixe">
@@ -159,7 +162,8 @@ include('bandeau.php');
                             <label for="Tel_Fixe">Téléphone Fixe :</label>
                         </td>
                         <td>
-                            <input id="Tel_Fixe" maxlength="255" name="Tel_Fixe" type="text" class="inputC" value="<?php echo $personne['PER_TelFixe']; ?>">
+                            <input id="Tel_Fixe" maxlength="255" name="Tel_Fixe" type="text" class="inputC"
+                                   value="<?php echo $personne['PER_TelFixe']; ?>">
                         </td>
                     </tr>
                     <tr id="Contact-Portable">
@@ -167,7 +171,8 @@ include('bandeau.php');
                             <label for="Portable">Téléphone Portable :</label>
                         </td>
                         <td>
-                            <input id="Portable" maxlength="255" name="Portable" type="text" class="inputC" value="<?php echo $personne['PER_TelPort']; ?>">
+                            <input id="Portable" maxlength="255" name="Portable" type="text" class="inputC"
+                                   value="<?php echo $personne['PER_TelPort']; ?>">
                         </td>
                     </tr>
                     <tr id="Contact-Fax">
@@ -175,7 +180,8 @@ include('bandeau.php');
                             <label for="Fax">Fax :</label>
                         </td>
                         <td>
-                            <input id="Fax" maxlength="255" name="Fax" type="text" class="inputC" value="<?php echo $personne['PER_Fax']; ?>">
+                            <input id="Fax" maxlength="255" name="Fax" type="text" class="inputC"
+                                   value="<?php echo $personne['PER_Fax']; ?>">
                         </td>
                     </tr>
                 </table>
@@ -203,7 +209,8 @@ include('bandeau.php');
                         <td>
                             <input id="Email" maxlength="255" name="Email" type="text" class="inputC"
                                    title="exemple@exemple.com"
-                                   pattern="^[a-zA-Z0-9\._-]+@[a-zA-Z0-9\._-]+\.[a-z]{2,3}$" value="<?php echo $personne['PER_Email']; ?>">
+                                   pattern="^[a-zA-Z0-9\._-]+@[a-zA-Z0-9\._-]+\.[a-z]{2,3}$"
+                                   value="<?php echo $personne['PER_Email']; ?>">
                         </td>
                     </tr>
                     <tr id="Contact-Pole">
@@ -211,7 +218,8 @@ include('bandeau.php');
                             <label for="N_Pole">N° Pôle Emploi :</label>
                         </td>
                         <td>
-                            <input id="N_Pole" maxlength="255" name="N_Pole" type="text" class="inputC" value="<?php echo $personne['INS_NPoleEmp']; ?>">
+                            <input id="N_Pole" maxlength="255" name="N_Pole" type="text" class="inputC"
+                                   value="<?php echo $personne['INS_NPoleEmp']; ?>">
                         </td>
                     </tr>
                     <tr id="Contact-Secu">
@@ -219,7 +227,8 @@ include('bandeau.php');
                             <label for="N_Secu">N° Sécurité sociale :</label>
                         </td>
                         <td>
-                            <input id="N_Secu" maxlength="255" name="N_Secu" type="text" class="inputC" value="<?php echo $personne['INS_NSecu']; ?>">
+                            <input id="N_Secu" maxlength="255" name="N_Secu" type="text" class="inputC"
+                                   value="<?php echo $personne['INS_NSecu']; ?>">
                         </td>
                     </tr>
                     <tr id="Contact-CAF">
@@ -227,7 +236,13 @@ include('bandeau.php');
                             <label for="N_CAF">N° CAF :</label>
                         </td>
                         <td>
-                            <input id="N_CAF" maxlength="255" name="N_CAF" type="text" class="inputC" value="<?php echo $personne['INS_NCaf']; ?>">
+                            <input id="N_CAF" maxlength="255" name="N_CAF" type="text" class="inputC"
+                                   value="<?php echo $personne['INS_NCaf']; ?>">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            &nbsp;&nbsp;
                         </td>
                     </tr>
                 </table>
@@ -240,52 +255,22 @@ include('bandeau.php');
             <td style="vertical-align:top;">
                 <table id="leftT" cellpadding="10">
                     <tr>
-                        <td colspan="2">
-                            &nbsp;&nbsp;
-                        </td>
-                    </tr>
-                    <tr>
                         <td style="text-align: left; width: 150px; white-space: normal;">
                             <label for="Ref">Référent identifié :</label>
                         </td>
                         <td>
-                            <div class="selectType">
+                            <div class="selectType2">
                                 <select id="Ref" name="Ref">
                                     <?php
-                                    $reponse2 = mysqli_query($db, "SELECT * FROM Referents JOIN Personnes USING (PER_NUM) ORDER BY PER_Nom");
+                                    $reponse2 = mysqli_query($db, "SELECT * FROM Referents JOIN Personnes USING (PER_NUM) JOIN Prescripteurs USING (PRE_Id) ORDER BY PER_Nom");
                                     while ($donnees2 = mysqli_fetch_assoc($reponse2)) {
                                         ?>
                                         <option
-                                            value="<?php echo $donnees2['REF_NumRef']; ?>"><?php echo $donnees2['PER_Nom'] . ' ' . $donnees2['PER_Prenom']; ?></option>
+                                            value="<?php echo $donnees2['REF_NumRef']; ?>"><?php echo $donnees2['PER_Nom'] . ' ' . $donnees2['PER_Prenom'] . ' (' . $donnees2['PRE_Nom'] . ')'; ?></option>
                                     <?php
                                     }
                                     mysqli_free_result($reponse2);
                                     ?>
-                                </select>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Prescipteur">Prescripteur :</label>
-                        </td>
-                        <td>
-                            <div class="selectType2">
-                                <select id="Prescipteur" name="Prescripteur">
-                                    <option value="Mission Locale">Mission Locale</option>
-                                    <option value="CCAS Mairie">CCAS Mairie</option>
-                                    <option value="Organisme de formation">Organisme de formation</option>
-                                    <option value="Structures médicales">Structures médicales</option>
-                                    <option value="Servies judiciaires">Services judiciaires</option>
-                                    <option value="Structure d'urgence">Structure d'urgence</option>
-                                    <option value="Tremplin">Tremplin</option>
-                                    <option value="Service secteur social">Service secteur social</option>
-                                    <option value="CAO - SSE">CAO - SSE</option>
-                                    <option value="SAJD / SAP / SPMO">SAJD / SAP / SPMO</option>
-                                    <option value="Pôle emploi">Pôle emploi</option>
-                                    <option value="Organisme de tutelles">Organisme de tutelles</option>
-                                    <option value="CHRS">CHRS</option>
-                                    <option value="Maison Relais">Maison Relais</option>
                                 </select>
                             </div>
                         </td>
@@ -316,29 +301,21 @@ include('bandeau.php');
                             <label for="Jours">Jours travaillés :</label>
                         </td>
                         <td>
-                            <input id="Jours" maxlength="255" name="Jours" type="number" min="0" class="inputC">
+                            <input id="Jours" maxlength="255" name="Jours" type="number" min="0" class="inputC"
+                                   value="<?php echo($personne['INS_NbJours']); ?>">
                         </td>
                     </tr>
                 </table>
             </td>
             <td style="vertical-align:top;">
                 <table id="rightT" cellpadding="10">
-                    <tr>
-                        <td colspan="2">
-                            &nbsp;&nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            &nbsp;&nbsp;
-                        </td>
-                    </tr>
                     <tr id="Date-Entree">
                         <td style="text-align: left; width: 150px; white-space: normal;">
                             <label for="Entree">Date d'entrée :</label>
                         </td>
                         <td>
-                            <input id="Entree" required name="Entree" type="date" class="inputC">
+                            <input id="Entree" required name="Entree" type="date" class="inputC"
+                                   value="<?php echo($personne['INS_DateEntree']); ?>">
                         </td>
                     </tr>
                     <tr>
@@ -368,7 +345,7 @@ include('bandeau.php');
                         </td>
                         <td>
                             <input id="N_Heures" maxlength="255" name="N_Heures" type="number" min="0"
-                                   class="inputC">
+                                   class="inputC" value="<?php echo($personne['INS_NbHeures']); ?>">
                         </td>
                     </tr>
                 </table>
@@ -392,12 +369,18 @@ include('bandeau.php');
                         <td>
                             <div class="selectType2">
                                 <select id="Niveau" name="Niveau">
-                                    <option value="Non scolarisé">Non scolarisé</option>
-                                    <option value="3 et +">3 et +</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="5 Bis">5 Bis</option>
-                                    <option value="6">6</option>
+                                    <optgroup label="Niveau actuel">
+                                        <option value="<?php echo $personne['INS_NivScol']; ?>" selected>
+                                            <?php echo $personne['INS_NivScol']; ?>
+                                        </option>
+                                    </optgroup>
+                                    <optgroup label="Niveaux disponibles">
+                                        <option value="Non scolarisé">Non scolarisé</option>
+                                        <option value="3 et +">3 et +</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="5 Bis">5 Bis</option>
+                                        <option value="6">6</option>
                                 </select>
                             </div>
                         </td>
@@ -407,10 +390,20 @@ include('bandeau.php');
                             <label for="Reconnaissance">Reconnaissance TH:</label>
                         </td>
                         <td>
-                            <input type="radio" id="Reconnaissance" name="Reconnaissance"
-                                   value="Oui">Oui<br>
-                            <input type="radio" id="Reconnaissance" name="Reconnaissance" value="Non"
-                                   checked>Non<br>
+                            <?php
+                            if ($personne['INS_RecoTH'] == 0) {
+                                ?>
+                                <input type="radio" id="Reconnaissance" name="Reconnaissance" value="Oui">Oui<br>
+                                <input type="radio" id="Reconnaissance" name="Reconnaissance" value="Non"
+                                       checked>Non<br>
+                            <?php } else { ?>
+                                <input type="radio" id="Reconnaissance" name="Reconnaissance" value="Oui"
+                                       checked>Oui<br>
+                                <input type="radio" id="Reconnaissance" name="Reconnaissance" value="Non">Non<br>
+                            <?php
+                            }
+                            ?>
+                            <inp
                         </td>
                     </tr>
                 </table>
@@ -428,12 +421,19 @@ include('bandeau.php');
                         </td>
                         <td>
                             <div class="selectType2">
-                                <select id="Diplome" name="Diplome">
-                                    <option value="Sans">Sans</option>
-                                    <option value="Brevet des collèges">Brevet des collèges</option>
-                                    <option value="CAP - BEP">CAP - BEP</option>
-                                    <option value="BAC">BAC</option>
-                                    <option value="Et plus">Et plus</option>
+                                <select id="Niveau" name="Niveau">
+                                    <optgroup label="Diplôme actuel">
+                                        <option value="<?php echo $personne['INS_Diplome']; ?>" selected>
+                                            <?php echo $personne['INS_Diplome']; ?>
+                                        </option>
+                                    </optgroup>
+                                    <optgroup label="Diplômes disponibles">
+                                        <option value="Sans">Sans</option>
+                                        <option value="Brevet des collèges">Brevet des collèges</option>
+                                        <option value="CAP - BEP">CAP - BEP</option>
+                                        <option value="BAC">BAC</option>
+                                        <option value="Et plus">Et plus</option>
+                                    </optgroup>
                                 </select>
                             </div>
                         </td>
@@ -443,8 +443,19 @@ include('bandeau.php');
                             <label for="Permis">Permis :</label>
                         </td>
                         <td>
-                            <input type="radio" id="Permis" name="Permis" value="Oui">Oui<br>
-                            <input type="radio" id="Permis" name="Permis" value="Non" checked>Non<br>
+                            <?php
+                            if ($personne['INS_Permis'] == 0) {
+                                ?>
+                                <input type="radio" id="Permis" name="Permis" value="Oui">Oui<br>
+                                <input type="radio" id="Permis" name="Permis" value="Non"
+                                       checked>Non<br>
+                            <?php } else { ?>
+                                <input type="radio" id="Permis" name="Permis" value="Oui"
+                                       checked>Oui<br>
+                                <input type="radio" id="Permis" name="Permis" value="Non">Non<br>
+                            <?php
+                            }
+                            ?>
                         </td>
                     </tr>
                 </table>
@@ -519,9 +530,19 @@ include('bandeau.php');
                             <label for="Situation-Geo">Situation géograhique :</label>
                         </td>
                         <td>
-                            <input type="radio" id="Situation-Geo" name="Situation-Geo" value="ZUS">ZUS<br>
-                            <input type="radio" id="Situation-Geo" name="Situation-Geo" value="CUCS"
-                                   checked>CUCS<br>
+                            <?php
+                            if ($personne['INS_SituGeo'] == "CUCS") {
+                                ?>
+                                <input type="radio" id="Situation-Geo" name="Situation-Geo" value="ZUS">ZUS<br>
+                                <input type="radio" id="Situation-Geo" name="Situation-Geo" value="CUCS"
+                                       checked>CUCS<br>
+                            <?php } else { ?>
+                                <input type="radio" id="Situation-Geo" name="Situation-Geo" value="ZUS"
+                                       checked>ZUS<br>
+                                <input type="radio" id="Situation-Geo" name="Situation-Geo" value="CUCS">CUCS<br>
+                            <?php
+                            }
+                            ?>
                         </td>
                     </tr>
                 </table>
@@ -584,8 +605,19 @@ include('bandeau.php');
                             <label for="Repas">Repas :</label>
                         </td>
                         <td>
-                            <input type="radio" id="Repas" name="Repas" value="Oui">Oui<br>
-                            <input type="radio" id="Repas" name="Repas" value="Non" checked>Non<br>
+                            <?php
+                            if ($personne['INS_Repas'] == 0) {
+                                ?>
+                                <input type="radio" id="Repas" name="Repas" value="Oui">Oui<br>
+                                <input type="radio" id="Repas" name="Repas" value="Non"
+                                       checked>Non<br>
+                            <?php } else { ?>
+                                <input type="radio" id="Repas" name="Repas" value="Oui"
+                                       checked>Oui<br>
+                                <input type="radio" id="Repas" name="Repas" value="Non">Non<br>
+                            <?php
+                            }
+                            ?>
                         </td>
                     </tr>
                 </table>

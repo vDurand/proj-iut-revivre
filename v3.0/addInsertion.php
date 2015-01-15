@@ -227,52 +227,22 @@ include('bandeau.php');
             <td style="vertical-align:top;">
                 <table id="leftT" cellpadding="10">
                     <tr>
-                        <td colspan="2">
-                            &nbsp;&nbsp;
-                        </td>
-                    </tr>
-                    <tr>
                         <td style="text-align: left; width: 150px; white-space: normal;">
                             <label for="Ref">Référent identifié :</label>
                         </td>
                         <td>
-                            <div class="selectType">
+                            <div class="selectType2">
                                 <select id="Ref" name="Ref">
                                     <?php
-                                    $reponse2 = mysqli_query($db, "SELECT * FROM Referents JOIN Personnes USING (PER_NUM) ORDER BY PER_Nom");
+                                    $reponse2 = mysqli_query($db, "SELECT * FROM Referents JOIN Personnes USING (PER_NUM) JOIN Prescripteurs USING (PRE_Id) ORDER BY PER_Nom");
                                     while ($donnees2 = mysqli_fetch_assoc($reponse2)) {
                                         ?>
                                         <option
-                                            value="<?php echo $donnees2['REF_NumRef']; ?>"><?php echo $donnees2['PER_Nom'].' '.$donnees2['PER_Prenom']; ?></option>
+                                            value="<?php echo $donnees2['REF_NumRef']; ?>"><?php echo $donnees2['PER_Nom'].' '.$donnees2['PER_Prenom'].' ('.$donnees2['PRE_Nom'].')'; ?></option>
                                     <?php
                                     }
                                     mysqli_free_result($reponse2);
                                     ?>
-                                </select>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Prescipteur">Prescripteur :</label>
-                        </td>
-                        <td>
-                            <div class="selectType2">
-                                <select id="Prescipteur" name="Prescripteur">
-                                    <option value="Mission Locale">Mission Locale</option>
-                                    <option value="CCAS Mairie">CCAS Mairie</option>
-                                    <option value="Organisme de formation">Organisme de formation</option>
-                                    <option value="Structures médicales">Structures médicales</option>
-                                    <option value="Servies judiciaires">Services judiciaires</option>
-                                    <option value="Structure d'urgence">Structure d'urgence</option>
-                                    <option value="Tremplin">Tremplin</option>
-                                    <option value="Service secteur social">Service secteur social</option>
-                                    <option value="CAO - SSE">CAO - SSE</option>
-                                    <option value="SAJD / SAP / SPMO">SAJD / SAP / SPMO</option>
-                                    <option value="Pôle emploi">Pôle emploi</option>
-                                    <option value="Organisme de tutelles">Organisme de tutelles</option>
-                                    <option value="CHRS">CHRS</option>
-                                    <option value="Maison Relais">Maison Relais</option>
                                 </select>
                             </div>
                         </td>
@@ -310,16 +280,6 @@ include('bandeau.php');
             </td>
             <td style="vertical-align:top;">
                 <table id="rightT" cellpadding="10">
-                    <tr>
-                        <td colspan="2">
-                            &nbsp;&nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            &nbsp;&nbsp;
-                        </td>
-                    </tr>
                     <tr id="Date-Entree">
                         <td style="text-align: left; width: 150px; white-space: normal;">
                             <label for="Entree">Date d'entrée :</label>

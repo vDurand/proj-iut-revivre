@@ -24,7 +24,6 @@ include('bandeau.php');
         $nSecu = addslashes($_POST["N_Secu"]);
         $nCaf = addslashes($_POST["N_CAF"]);
         $numRef = addslashes($_POST["Ref"]);
-        $prescripteur = addslashes($_POST["Prescipteur"]);
         $convention = addslashes($_POST["Convention"]);
         $nbJours = addslashes($_POST["Jours"]);
         $dateEntree = addslashes($_POST["Entree"]);
@@ -64,7 +63,7 @@ include('bandeau.php');
             if ($sql) {
                 $insertIns = "INSERT INTO Insertion(SAL_NumSalarie, INS_DateEntretien, INS_DateN, INS_LieuN, INS_Nation, INS_SituationF, INS_NPoleEmp, INS_NSecu,
                 INS_NCaf, INS_NivScol, INS_Diplome, INS_Permis, INS_RecoTH, INS_Revenu, INS_Mutuelle, CNV_Id, CNT_Id, INS_DateEntree, INS_NbHeures, INS_NbJours,
-                INS_RevenuDepuis, INS_SEDepuis, INS_PEDepuis, INS_Repas, INS_Positionmt, INS_SituGeo, REF_NumRef)
+                INS_RevenuDepuis, INS_SEDepuis, INS_PEDupuis, INS_Repas, INS_Positionmt, INS_SituGeo, REF_NumRef)
                 VALUES ($salMax, '$dateEntretien', '$dateN', '$lieuN', '$nation', '$situationF', '$nPoleEmploi', '$nSecu', '$nCaf', '$nivScol', '$diplome', '$permis', '$recoTH',
                 '$revenu', '$mutuelle', '$convention', '$contrat', '$dateEntree', '$nbHeures', '$nbJours', '$revenuDepuis', '$SEDepuis', '$PEDepuis', '$repas', '$positionement', '$situGeo', '$numRef')";
                 $sql3 = mysqli_query($db, $insertIns);
