@@ -102,7 +102,7 @@ include('bandeau.php');
 
                 ?>
                 <div id="labelT">
-                    <label>Detail du Salarié en insertion</label>
+                    <label>Detail <?php echo $type['TYP_Nom']; ?></label>
                 </div>
                 <br>
                 <table id="fullTable" rules="all">

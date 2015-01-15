@@ -73,7 +73,7 @@ include('bandeau.php');
 
         if ($sql3) {
             echo '<div id="good">
-        <label>Salarié ajouté avec succès</label>
+        <label>Ajout Réussi</label>
         </div>';
         } else {
             echo '<div id="bad">

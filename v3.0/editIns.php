@@ -27,7 +27,7 @@ include('bandeau.php');
     $type = mysqli_fetch_assoc($reponse5);
     ?>
     <div id="labelT">
-        <label>Editer un Salarié en insertion</label>
+        <label>Edition <?php echo $type['TYP_Nom']; ?></label>
     </div>
     <br>
 
