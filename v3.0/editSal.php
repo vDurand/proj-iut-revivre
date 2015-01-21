@@ -163,7 +163,7 @@ include('bandeau.php');
                                                 </optgroup>
                                                 <optgroup label="Fonctions disponibles">
                                                     <?php
-                                                    $reponse2 = mysqli_query($db, "SELECT * FROM Fonction WHERE FCT_Id not in (SELECT FCT_Id FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num JOIN Type ty ON cl.TYP_Id=ty.TYP_Id WHERE SAL_NumSalarie='$num' ORDER BY PER_Nom)");
+                                                    $reponse2 = mysqli_query($db, "SELECT * FROM Fonction WHERE FCT_Id not in (SELECT FCT_Id FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num JOIN Type ty ON cl.TYP_Id=ty.TYP_Id WHERE SAL_NumSalarie='$num' ORDER BY PER_Nom) AND FCT_Id>0 ORDER BY FCT_Nom");
                                                     while ($donnees2 = mysqli_fetch_assoc($reponse2)) {
                                                         ?>
                                                         <option value="<?php echo $donnees2['FCT_Id']; ?>">
