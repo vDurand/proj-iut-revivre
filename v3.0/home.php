@@ -46,7 +46,17 @@
 							<tr onclick="javascript:submitViewDetail('<?php echo $donnees['CHA_NumDevis']; ?>', 'detailChantier');" style="font-size: 14;">
 								<td><?php echo formatUP($donnees['CHA_NumDevis']); ?></td>
 								<td><?php echo formatLOW($donnees['CHA_Intitule']); ?></td>
-								<td><?php echo formatUP($donnees['Client']); ?><br/><?php echo formatLOW($donnees['ClientP']); ?></td>
+                                <td><?php
+                                    if(empty($donnees['Client'])){
+                                        $cliN=$donnees['NumClient'];
+                                        $reponse2 = mysqli_query($db, "select PER_Nom, PER_Prenom from EmployerClient join Personnes USING (PER_Num) where CLI_NumClient=$cliN");
+                                        $donnees2 = mysqli_fetch_assoc($reponse2);
+                                        echo formatUP($donnees2['PER_Nom'])." ".formatLOW($donnees2['PER_Prenom']);
+                                    }
+                                    else{
+                                        echo formatUP($donnees['Client']);
+                                    }
+                                    ?></td>
 								<td><?php echo formatUP($donnees['Resp']); ?><br/><?php echo formatLOW($donnees['RespP']); ?></td>
 								<td><?php echo dater($donnees['CHA_DateDebut']); ?></td>
 								<td>
