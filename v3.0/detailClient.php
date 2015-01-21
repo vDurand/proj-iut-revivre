@@ -40,7 +40,7 @@ $pageTitle = "Detail Client";
   mysqli_free_result($queryStruc);
 ?>
       <div id="labelT">     
-            <label>Detail du Client</label>
+            <label>Détail du Client</label>
       </div>
       <br>
       <table id="fullTable" rules="all">

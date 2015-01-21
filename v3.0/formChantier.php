@@ -64,35 +64,45 @@
             </table>
         </td>
         <td>
+<?php
+    if(!empty($donnees['Client'])){
+        $nom = formatUP($donnees['Client']);
+        $tel = $donnees['ClientTel'];
+        $address = formatLOW($donnees['ClientAd']);
+        $ville = formatLOW($donnees['ClienV'])." ".$donnees['ClientCP'];
+    }
+    else{
+        $nCli = $donnees['NumClient'];
+        $queryParticulier = "SELECT * FROM EmployerClient JOIN Personnes USING (PER_Num) WHERE CLI_NumClient=$nCli";
+        $repParticulier = mysqli_query($db, $queryParticulier);
+        $dataParticulier = mysqli_fetch_assoc($repParticulier);
+        $nom = formatUP($dataParticulier['PER_Nom'])." ".formatLOW($dataParticulier['PER_Prenom']);
+        $tel = $dataParticulier['PER_TelFixe'];
+        $address = formatLOW($dataParticulier['PER_Adresse']);
+        $ville = formatLOW($dataParticulier['PER_Ville'])." ".$dataParticulier['PER_CodePostal'];
+    }
+?>
             <table cellpadding="10" class="detailClients">
                 <tr>
                     <th style="text-align: left; width: 200px; white-space: normal;">Client:</th>
-                <?php
-                    if(empty($donnees['Structure'])){
-                ?>
-                    <td style="text-align: center; width: 200px;"><?php echo formatUP($donnees['Client'])." ".formatLOW($donnees['ClientP']); ?></td>
-                <?php
-                    }
-                    else{
-                ?>
-                    <td style="text-align: center; width: 200px;"><?php echo formatUP($donnees['Structure']); ?></td>
-                <?php
-                    }
-                ?>
+                    <td style="text-align: center; width: 200px;"><?php echo $nom; ?></td>
                 </tr>
                 <tr>
                     <th style="text-align: left; width: 200px; white-space: normal;">Tél Fixe :</th>
-                    <td style="text-align: center; width: 200px;"><?php echo $donnees['ClientTel']; ?></td>
+                    <td style="text-align: center; width: 200px;"><?php echo $tel; ?></td>
                 </tr>
                 <tr>
                     <th style="text-align: left; width: 200px; white-space: normal;">Adresse :</th>
-                    <td style="text-align: center; width: 200px;"><?php echo formatLOW($donnees['ClientAd']); ?></td>
+                    <td style="text-align: center; width: 200px;"><?php echo $address; ?></td>
                 </tr>
                 <tr>
                     <th style="text-align: left; width: 200px; white-space: normal;">Ville :</th>
-                    <td style="text-align: center; width: 200px;"><?php echo formatLOW($donnees['ClientV']); ?>, <?php echo $donnees['ClientCP']; ?></td>
+                    <td style="text-align: center; width: 200px;"><?php echo $ville; ?></td>
                 </tr>
             </table>
+<?php
+
+?>
         </td>
     </tr>
     <tr>

@@ -13,7 +13,7 @@ include('bandeau.php');
             if ($fourn) {
                 ?>
                 <div id="labelT">
-                    <label>Detail du Fournisseur</label>
+                    <label>Détail du Fournisseur</label>
                 </div>
                 <br>
                 <table id="fullTable" rules="all">
