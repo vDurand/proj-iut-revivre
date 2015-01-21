@@ -1,58 +1,39 @@
 <?php
-$pageTitle = "Ajouter Contact";
+/**
+ * Created by Valentin Durand
+ * IUT Caen - DUT Informatique
+ * Date: 21/01/15
+ * Time: 19:51
+ */
+$pageTitle = "Ajouter Employé";
 include('bandeau.php');
+if(!empty($_POST['NumC'])){
+    $typeEntreprise = "client";
+    $num = $_POST['NumC'];
+    $queryEnt = "SELECT CLI_Nom FROM Clients WHERE CLI_NumClient = $num";
+    $repEnt = mysqli_query($db, $queryEnt);
+    $dataEnt = mysqli_fetch_assoc($repEnt);
+    $nom = $dataEnt['CLI_Nom'];
+}
+else if(!empty($_POST['NumF'])){
+    $typeEntreprise = "fournisseur";
+    $num = $_POST['NumF'];
+    $queryEnt = "SELECT FOU_Nom FROM Fournisseurs WHERE FOU_NumFournisseur = $num";
+    $repEnt = mysqli_query($db, $queryEnt);
+    $dataEnt = mysqli_fetch_assoc($repEnt);
+    $nom = $dataEnt['FOU_Nom'];
+}
+else{
+    echo "ERROR";
+}
 ?>
     <div id="corps">
         <div id="labelT">
-            <label>Ajouter un Contact</label>
+            <label>Ajouter un employé du <?php echo $typeEntreprise." ".$nom; ?></label>
         </div>
         <br>
 
-        <form method="post" action="contactPost.php" name="Contact">
-            <div id="labelCat">
-                <table align="center">
-                    <tr>
-                        <td style="text-align: left; width: 150px;">
-                            <label for="Type">Catégorie</label>
-                        </td>
-                        <td>
-                            <div class="selectType">
-                                <select id="Type" name="Type" onchange="showMemberInput(this)">
-                                    <option value="0">Client</option>
-                                    <option value="1">Fournisseur</option>
-                                    <option value="2">Référent</option>
-                                    <?php
-                                    $reponse = mysqli_query($db, "SELECT * FROM Type WHERE TYP_Id < 6");
-                                    while ($donnees = mysqli_fetch_assoc($reponse)) {
-                                        ?>
-                                        <option value="<?php echo $donnees['TYP_Id']; ?>"><?php echo $donnees['TYP_Nom']; ?></option>
-                                        <?php
-                                    }
-                                    mysqli_free_result($reponse);
-                                    ?>
-                                </select>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <br/>
-            <table align="center">
-                <tr id="Contact-Particulier">
-                    <td style="padding-top: 0;">
-                        <input type="radio" checked onclick="showStruct();" name="Particulier" id="Particulier"
-                               value="Structure"/>
-                        <label for="Particulier">&nbsp; Structure</label>
-                    </td>
-                    <td style="padding-top: 0;">
-                        <input type="radio" onclick="showStruct();" name="Particulier" id="yesCheck"
-                               value="Particulier"/>
-                        <label for="yesCheck">&nbsp; Particulier</label>
-                    </td>
-                </tr>
-            </table>
-            <br/>
-
+        <form method="post" action="employePost.php" name="Employe">
             <div style="overflow:auto;">
                 <table align="left">
                     <tr>
@@ -147,34 +128,8 @@ include('bandeau.php');
                                         <label for="Struct">Fonction :</label>
                                     </td>
                                     <td>
-                                        <div class="selectType" style="display: inline-block;">
-                                            <select id="Struct" name="Fonction">
-                                                <option value="">--</option>
-                                                <?php
-                                                $reponse = mysqli_query($db, "SELECT * FROM Fonction WHERE FCT_Id <> 0 ORDER BY FCT_Nom");
-                                                while ($donnees = mysqli_fetch_assoc($reponse)) {
-                                                    ?>
-                                                    <option value="<?php echo $donnees['FCT_Id']; ?>"><?php echo $donnees['FCT_Nom']; ?></option>
-                                                <?php
-                                                }
-                                                mysqli_free_result($reponse);
-                                                ?>
-                                            </select>
-                                        </div>
-                                        <div style="display: inline-block; float: right; margin-top: 7px;">
-                                            <input name="plus" type="button" value="+" onclick="showNewFct()">
-                                        </div>
-                                        <div id="NewFonction" style="display: none;">
-                                            <input placeholder="Nouvelle fonction" id="NewFct" maxlength="255" name="NewFct" type="text" class="inputC">
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr id="Contact-Prescript" style="display: none;">
-                                    <td style="text-align: left; width: 150px; white-space: normal;">
-                                        <label for="Prescript">Prescripteur :</label>
-                                    </td>
-                                    <td>
-                                        <input id="Prescript" maxlength="255" name="Prescript" type="text" class="inputC">
+                                        <input id="Fonction" maxlength="255" name="Fonction" type="text"
+                                               class="inputC">
                                     </td>
                                 </tr>
                             </table>
@@ -186,7 +141,7 @@ include('bandeau.php');
                 <tr>
                     <td>
 							<span>
-								<input name="submit" type="submit" value="Ajouter" class="buttonC">&nbsp;&nbsp; 
+								<input name="submit" type="submit" value="Ajouter" class="buttonC">&nbsp;&nbsp;
 								<input name="reset" type="reset" value="Annuler" class="buttonC">
 							</span>
                     </td>

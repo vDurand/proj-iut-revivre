@@ -69,13 +69,21 @@ include('bandeau.php');
                 <table id="downT">
                     <tr>
                         <td>
-              <span>
-                  <form method="post" action="editFournisseur.php" name="EditFournisseur">
-                      <input type="hidden" name="NumC" value="<?php echo $fourn['FOU_NumFournisseur']; ?>">
-                      <input name="submit" type="submit" value="Modifier" class="buttonC">
-                  </form>
-              </span>
+                            <span>
+                                <form method="post" action="editFournisseur.php" name="EditFournisseur">
+                                    <input type="hidden" name="NumC" value="<?php echo $fourn['FOU_NumFournisseur']; ?>">
+                                    <input name="submit" type="submit" value="Modifier" class="buttonC">
+                                </form>
+                            </span>
                         </td>
+                        <form method="post" action="addEmploye.php" name="AddEmploye">
+                            <input type="hidden" name="NumF" value="<?php echo $fourn['FOU_NumFournisseur']; ?>">
+                            <td>
+                            <span>
+                                <input name="submit" type="submit" value="Ajouter Employé" class="buttonC">
+                            </span>
+                            </td>
+                        </form>
                     </tr>
                 </table>
                 <!-- List Employes -->

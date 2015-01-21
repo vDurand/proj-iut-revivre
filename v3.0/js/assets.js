@@ -19,7 +19,7 @@ function showNewFct()
         document.getElementById('NewFonction').style.display = "";
         document.getElementById('NewFct').value = "";
         document.getElementById("NewFct").setAttribute("required", "");
-        document.getElementById('Struct').value = "0";
+        document.getElementById('Struct').value = "";
         document.getElementById("Struct").removeAttribute("required");
     }
     else{

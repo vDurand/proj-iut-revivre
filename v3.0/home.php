@@ -44,7 +44,7 @@
 						<form method="get" action="detailChantier.php" name="detailChantier">
 							<input type="hidden" name="NumC" value="">
 							<tr onclick="javascript:submitViewDetail('<?php echo $donnees['CHA_NumDevis']; ?>', 'detailChantier');" style="font-size: 14;">
-								<td><?php echo formatUP($donnees['CHA_Id']); ?></td>
+								<td><?php echo formatUP($donnees['CHA_NumDevis']); ?></td>
 								<td><?php echo formatLOW($donnees['CHA_Intitule']); ?></td>
 								<td><?php echo formatUP($donnees['Client']); ?><br/><?php echo formatLOW($donnees['ClientP']); ?></td>
 								<td><?php echo formatUP($donnees['Resp']); ?><br/><?php echo formatLOW($donnees['RespP']); ?></td>
