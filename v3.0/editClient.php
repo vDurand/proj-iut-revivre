@@ -5,10 +5,10 @@ include('bandeau.php');
     <div id="corps">
         <?php
         $numC = $_POST["NumC"];
-
         $queryStruc = mysqli_query($db, "SELECT * FROM Clients WHERE CLI_NumClient=$numC");
         $donneesStruc = mysqli_fetch_assoc($queryStruc);
         if (!empty($donneesStruc['CLI_Nom'])) {
+            $num = $donneesStruc['CLI_NumClient'];
             $nom = formatUP($donneesStruc['CLI_Nom']);
             $add = formatLOW($donneesStruc['CLI_Adresse']);
             $cp = $donneesStruc['CLI_CodePostal'];

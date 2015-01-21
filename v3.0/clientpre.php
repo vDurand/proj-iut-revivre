@@ -7,7 +7,9 @@ include('bandeau.php');
         // Modification client
         $num = $_POST["NumC"];
         $nom = addslashes(mysqli_real_escape_string($db, formatUP($_POST["Nom"])));
-        $prenom = addslashes(mysqli_real_escape_string($db, formatLOW($_POST["Prenom"])));
+        if (!empty ($_POST["Prenom"])) {
+            $prenom = addslashes(mysqli_real_escape_string($db, formatLOW($_POST["Prenom"])));
+        }
         $tel = addslashes(mysqli_real_escape_string($db, $_POST["Tel_Fixe"]));
         $port = addslashes(mysqli_real_escape_string($db, $_POST["Portable"]));
         $fax = addslashes(mysqli_real_escape_string($db, $_POST["Fax"]));
@@ -18,7 +20,9 @@ include('bandeau.php');
         $struct = addslashes($_POST["Struct"]);
 
         if ($struc = "Particulier") {
-            $query = "UPDATE Personnes SET PER_Nom = '$nom', PER_Prenom = '$prenom', PER_TelFixe = '$tel', PER_TelPort = '$port', PER_Fax = '$fax', PER_Email = '$email', PER_Adresse = '$add', PER_CodePostal = '$cp', PER_Ville = '$ville' WHERE Personnes.PER_Num = '$num'";
+            $query = "UPDATE Personnes SET PER_Nom = '$nom', PER_Prenom = '$prenom', PER_TelFixe = '$tel',
+            PER_TelPort = '$port', PER_Fax = '$fax', PER_Email = '$email', PER_Adresse = '$add', PER_CodePostal = '$cp',
+            PER_Ville = '$ville' WHERE Personnes.PER_Num = '$num'";
 
             $sql = mysqli_query($db, $query);
             $errr = mysqli_error($db);
@@ -27,7 +31,17 @@ include('bandeau.php');
             $donneesNum = mysqli_fetch_assoc($queryNum);
             $numC = $donneesNum['CLI_NumClient'];
         }
-        if ($sql) {
+
+        if ($struc = "Entreprise") {
+            $query = "UPDATE Clients SET CLI_Nom = '$nom', CLI_Telephone = '$tel', CLI_Portable = '$port', CLI_Fax = '$fax',
+            CLI_Email = '$email', CLI_Adresse = '$add', CLI_CodePostal = '$cp', CLI_Ville = '$ville' WHERE Clients.CLI_NumClient = '$num'";
+
+            $sq2 = mysqli_query($db, $query);
+            $errr = mysqli_error($db);
+            $numC = $num;
+        }
+
+        if ($sql || $sql2) {
             echo '<div id="good">
             <label>Client modifie avec succes</label>
             </div>';
@@ -142,7 +156,8 @@ include('bandeau.php');
               <label>Le client n a pas pu etre modifie</label>
               </div>';
         }
-        mysqli_free_result($reponse);
+        mysqli_free_result($sql1);
+        mysqli_free_result($sql2);
         ?>
     </div>
 <?php
