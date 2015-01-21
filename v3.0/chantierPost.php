@@ -48,65 +48,12 @@
 	        echo '<div id="good">     
 	            <label>Chantier ajouté avec succès</label>
 	            </div>';
-	            $reponse = mysqli_query($db, "SELECT * FROM Chantiers ch JOIN Commanditer co ON co.CHA_NumDevis=ch.CHA_NumDevis JOIN Clients cl ON cl.CLI_NumClient=co.CLI_NumClient JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE ch.CHA_NumDevis='$realNumber'");
-	            
-	            $donnees = mysqli_fetch_assoc($reponse);
 ?>
   <br>
-  <table>
-  <td>
-  <table cellpadding="10" class="submitClients">
-    <tr>
-      <th style="text-align: left; width: 150px; white-space: normal;">Numéro de Devis:</th>
-      <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_Id']; ?></td>
-    </tr>
-    <tr>
-      <th style="text-align: left; width: 150px; white-space: normal;">Nom du Chantier:</th>
-      <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_Intitule']; ?></td>
-    </tr>
-    <tr>
-      <th style="text-align: left; width: 150px; white-space: normal;">Date de Début:</th>
-      <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_DateDebut']; ?></td>
-    </tr>
-    <tr>
-      <th style="text-align: left; width: 150px; white-space: normal;">Echéance:</th>
-      <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_Echeance']; ?></td>
-    </tr>
-    <tr>
-      <th style="text-align: left; width: 150px; white-space: normal;">Montant Prévu:</th>
-      <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_MontantPrev']; ?> &euro;</td>
-    </tr>
-  </table>
-</td>
-<td>
-  <table cellpadding="10" class="submitClients">
-    <tr>
-      <th style="text-align: left; width: 150px; white-space: normal;">Nom Client:</th>
-      <td style="text-align: center; width: 200px;"><?php echo $donnees['PER_Nom']; ?></td>
-    </tr>
-    <tr>
-      <th style="text-align: left; width: 150px; white-space: normal;">Tél Fixe :</th>
-      <td style="text-align: center; width: 200px;"><?php echo $donnees['PER_TelFixe']; ?></td>
-    </tr>
-    <tr>
-      <th style="text-align: left; width: 150px; white-space: normal;">Email :</th>
-      <td style="text-align: center; width: 200px;"><?php echo $donnees['PER_Email']; ?></td>
-    </tr>
-    <tr>
-      <th style="text-align: left; width: 150px; white-space: normal;">Adresse :</th>
-      <td style="text-align: center; width: 200px;"><?php echo $donnees['PER_Adresse']; ?></td>
-    </tr>
-    <tr>
-      <th style="text-align: left; width: 150px; white-space: normal;">Ville :</th>
-      <td style="text-align: center; width: 200px;"><?php echo $donnees['PER_Ville']; ?>, <?php echo $donnees['PER_CodePostal']; ?></td>
-    </tr>
-  </table>
-</td>
-</table>
 <?php
 	      echo '<script language="Javascript">
 	      <!--
-	      document.location.replace("detailChantier.php?NumC='.$donnees['CHA_NumDevis'].'");
+	      document.location.replace("detailChantier.php?NumC='.$realNumber.'");
 	      // -->
 	      </script>';
 	      }
