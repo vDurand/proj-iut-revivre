@@ -26,48 +26,19 @@ $num=$_POST["NumC"];
 $Products = array(" ");
 $Ids = array(" ");
 $j = 0;
-$reponse = mysqli_query($db, "SELECT * FROM Fournisseurs JOIN Personnes USING (PER_Num) ORDER BY PER_Nom");
+$reponse = mysqli_query($db, "SELECT * FROM Fournisseurs ORDER BY FOU_Nom");
 while ($donnees = mysqli_fetch_assoc($reponse))
 {
 ?>
-			        				<option value="<?php echo $donnees['FOU_NumFournisseur']; ?>"><?php echo formatUP($donnees['PER_Nom']); ?> &nbsp;&nbsp;&nbsp; (<?php echo formatLOW($donnees['PER_Ville'])." ".$donnees['PER_CodePostal']; ?>)</option>
+			        				<option value="<?php echo $donnees['FOU_NumFournisseur']; ?>"><?php echo formatUP($donnees['FOU_Nom']); ?> &nbsp;&nbsp;&nbsp; (<?php echo formatLOW($donnees['FOU_Ville'])." ".$donnees['FOU_CodePostal']; ?>)</option>
 <?php
-$Products[$j] = formatUP($donnees['PER_Nom'])." (".formatUP($donnees['PER_Ville'])." ".$donnees['PER_CodePostal'].")";
+$Products[$j] = formatUP($donnees['FOU_Nom'])." (".formatUP($donnees['FOU_Ville'])." ".$donnees['FOU_CodePostal'].")";
 $Ids[$j] = $donnees['FOU_NumFournisseur'];
 $j++;
 }
 mysqli_free_result($reponse);
 ?>									
 			    				</select>
-			    			</div>
-			    			<div id="ProdCreator" style="display: none;">
-			    				<table>
-			    				<tr>
-			    				<td>Fournisseur :</td>
-			    				<td>
-			    				<select form="BuyProd" id="FournProd" name="FournProd[]" style="width: 200px;">
-			    					<option value=""></option>
-<?php 
-$reponse2 = mysqli_query($db, "SELECT * FROM Fournisseurs JOIN Personnes USING (PER_Num) ORDER BY PER_Nom");
-while ($donnees2 = mysqli_fetch_assoc($reponse2))
-{
-?>
-									<option value="<?php echo $donnees2['FOU_NumFournisseur']; ?>"><?php echo formatUP($donnees2['PER_Nom'])." ".formatLOW($donnees2['PER_Prenom']); ?></option>
-<?php 
-} 
-?>			    				
-			    				</select>
-			    				</td>
-			    				</tr>
-			    				<tr>
-			    				<td>
-                                    <label>Nom :</label>
-			    				</td>
-			    				<td>
-                                    <input form="BuyProd" id="NomProd" name="NomProd[]" type="text" placeholder="Peinture">
-			    				</td>
-			    				</tr>
-			    				</table>
 			    			</div>
 			    		</td>
 			    		<td style="text-align: right; width: 100px; padding-right: 10px;">
