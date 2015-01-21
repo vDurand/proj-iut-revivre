@@ -348,7 +348,7 @@ include('bandeau.php');
             ?>
             <form method="get" action="detailRef.php" name="detailRef">
                 <input type="hidden" name="NumC" value="">
-                <tr onclick="javascript:submitViewDetail('<?php echo $dataRef['PER_Num']; ?>', 'detailRef');"
+                <tr onclick="javascript:submitViewDetail('<?php echo $dataRef['REF_NumRef']; ?>', 'detailRef');"
                     style="font-size: 14;">
                     <td><?php echo formatUP($dataRef['PRE_Nom']); ?></td>
                     <td><?php echo formatUP($dataRef['PER_Nom']); ?></td>
