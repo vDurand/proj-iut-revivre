@@ -53,16 +53,17 @@
                                     <li><a href="addInsertion.php">Ajouter<br>en Insertion</a></li>
 									<li><a href="addContact.php">Ajouter<br>Contact</a></li>
 	                       			<li><a href="viewClients.php">Clients<br>&nbsp;</a>
-										<!--<ul>
-											<li><a href="viewClientCh.php">Chantier<br>&nbsp;</a></li>
-											<li><a href="viewClientCo.php">Conditionnement</a></li>
-										</ul>-->
+										<ul>
+											<li><a href="viewClientPart.php">Particuliers</a></li>
+											<li><a href="viewClientEnt.php">Entreprises</a></li>
+                                            <li><a href="viewClientEmp.php">Employés</a></li>
+										</ul>
 									</li>
 									<li><a href="viewFourn.php">Fournisseurs<br>&nbsp;</a>
-										<!--<ul>
-											<li><a href="viewFournCh.php">Chantier<br>&nbsp;</a></li>
-											<li><a href="viewFournFo.php">Fourniture</a></li>
-										</ul>-->
+										<ul>
+                                            <li><a href="viewFournEnt.php">Entreprises</a></li>
+                                            <li><a href="viewFournEmp.php">Employés</a></li>
+										</ul>
 									</li>
 									<li><a href="viewMembers.php">Membres de<br>l'association</a>
 										<ul>
