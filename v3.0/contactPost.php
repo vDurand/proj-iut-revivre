@@ -16,8 +16,9 @@
     $ville=addslashes(mysqli_real_escape_string($db, formatUP($_POST["Ville"])));
     $partic=addslashes($_POST["Particulier"]);
     $fonct=addslashes(mysqli_real_escape_string($db, $_POST["Fonction"]));
-    $prescript=addslashes(mysqli_real_escape_string($db, formatLOW($_POST["Prescript"])));
     $newfct = addslashes(mysqli_real_escape_string($db, formatLOW($_POST["NewFct"])));
+    $presc=addslashes(mysqli_real_escape_string($db, $_POST["Prescript"]));
+    $newpresc = addslashes(mysqli_real_escape_string($db, formatLOW($_POST["NewPresc"])));
 
     $queryPerMax = mysqli_query($db, "SELECT MAX(PER_Num) as maxi FROM Personnes");
     $resultPerMax = mysqli_fetch_assoc($queryPerMax);
@@ -66,6 +67,17 @@
 
 // ajout referent
     if($type==2){
+        if(!empty($newpresc)){
+            $queryPreMax = mysqli_query($db, "SELECT MAX(PRE_Id) as maxi FROM Prescripteurs");
+            $resultPreMax = mysqli_fetch_assoc($queryPreMax);
+            $preMax = $resultPreMax['maxi']+1;
+
+            $insertPre = "INSERT INTO Prescripteurs (PRE_Id, PRE_Nom) VALUES ($preMax, '$newpresc')";
+            $sql3 = mysqli_query($db, $insertPre);
+            $errr3 = mysqli_error($db);
+
+            $presc = $preMax;
+        }
         $insertPersonne = "INSERT INTO Personnes (PER_Num, PER_Nom, PER_Prenom, PER_TelFixe, PER_TelPort, PER_Fax, PER_Email, PER_Adresse, PER_CodePostal, PER_Ville) VALUES ($perMax, '$nom', '$prenom', '$tel', '$port', '$fax', '$email', '$add', '$cp', '$ville')";
         $sql2 = mysqli_query($db, $insertPersonne);
         $errr2 = mysqli_error($db);
@@ -75,7 +87,7 @@
             $resultRefMax = mysqli_fetch_assoc($queryRefMax);
             $refMax = $resultRefMax['maxi']+1;
 
-            $insertRef = "INSERT INTO Referents (REF_NumRef, PER_Num, REF_Prescripteur) VALUES ($refMax, $perMax, '$prescript')";
+            $insertRef = "INSERT INTO Referents (REF_NumRef, PER_Num, PRE_Id) VALUES ($refMax, $perMax, '$presc')";
             $sql = mysqli_query($db, $insertRef);
             $errr = mysqli_error($db);
         }
@@ -130,7 +142,7 @@
         if($type==2){
             echo '<script language="Javascript">
             <!--
-            document.location.replace("detailFournisseur.php?NumC='.$refMax.'");
+            document.location.replace("detailRef.php?NumC='.$refMax.'");
             // -->
             </script>';
         }

@@ -174,7 +174,26 @@ include('bandeau.php');
                                         <label for="Prescript">Prescripteur :</label>
                                     </td>
                                     <td>
-                                        <input id="Prescript" maxlength="255" name="Prescript" type="text" class="inputC">
+                                        <div class="selectType" style="display: inline-block;">
+                                            <select id="Prescript" name="Prescript">
+                                                <option value="">--</option>
+                                                <?php
+                                                $reponse = mysqli_query($db, "SELECT * FROM Prescripteurs ORDER BY PRE_Nom");
+                                                while ($donnees = mysqli_fetch_assoc($reponse)) {
+                                                    ?>
+                                                    <option value="<?php echo $donnees['PRE_Id']; ?>"><?php echo $donnees['PRE_Nom']; ?></option>
+                                                <?php
+                                                }
+                                                mysqli_free_result($reponse);
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <div style="display: inline-block; float: right; margin-top: 7px;">
+                                            <input name="plus" type="button" value="+" onclick="showNewPresc()">
+                                        </div>
+                                        <div id="NewPresc" style="display: none;">
+                                            <input placeholder="Nouveau Prescripteur" id="Newpresc" maxlength="255" name="NewPresc" type="text" class="inputC">
+                                        </div>
                                     </td>
                                 </tr>
                             </table>

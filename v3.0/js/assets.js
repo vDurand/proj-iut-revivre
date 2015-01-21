@@ -26,8 +26,26 @@ function showNewFct()
         document.getElementById('NewFonction').style.display = "none";
         document.getElementById('NewFct').value = "";
         document.getElementById("NewFct").removeAttribute("required");
-        document.getElementById('Struct').value = "0";
+        document.getElementById('Struct').value = "";
         document.getElementById("Struct").setAttribute("required", "");
+    }
+}
+
+function showNewPresc()
+{
+    if(document.getElementById('NewPresc').style.display == "none"){
+        document.getElementById('NewPresc').style.display = "";
+        document.getElementById('Newpresc').value = "";
+        document.getElementById("Newpresc").setAttribute("required", "");
+        document.getElementById('Prescript').value = "";
+        document.getElementById("Prescript").removeAttribute("required");
+    }
+    else{
+        document.getElementById('NewPresc').style.display = "none";
+        document.getElementById('Newpresc').value = "";
+        document.getElementById("Newpresc").removeAttribute("required");
+        document.getElementById('Prescript').value = "0";
+        document.getElementById("Prescript").setAttribute("required", "");
     }
 }
 	

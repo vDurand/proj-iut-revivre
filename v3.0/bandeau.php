@@ -88,10 +88,7 @@
 									</li>
                                     <li><a href="viewPartenaires.php">Partenaires<br>&nbsp;</a>
                                         <ul>
-                                            <form method="post" action="viewSal.php" name="viewDetailMember">
-                                                <input type="hidden" name="TypeM" value="0">
-                                                <li><a onclick="javascript:submitListMember('0');">Référent<br>&nbsp;</a></li>
-                                            </form>
+                                            <li><a href="viewRef.php">Référent<br>&nbsp;</a></li>
                                         </ul>
                                     </li>
 	                			</ul>
