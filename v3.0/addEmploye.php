@@ -14,6 +14,7 @@ if(!empty($_POST['NumC'])){
     $repEnt = mysqli_query($db, $queryEnt);
     $dataEnt = mysqli_fetch_assoc($repEnt);
     $nom = $dataEnt['CLI_Nom'];
+    echo "<input name=\"NumC\" value=\"".$num."\" type=\"hidden\" form=\"Employe\">";
 }
 else if(!empty($_POST['NumF'])){
     $typeEntreprise = "fournisseur";
@@ -22,6 +23,7 @@ else if(!empty($_POST['NumF'])){
     $repEnt = mysqli_query($db, $queryEnt);
     $dataEnt = mysqli_fetch_assoc($repEnt);
     $nom = $dataEnt['FOU_Nom'];
+    echo "<input name=\"NumF\" value=\"".$num."\" type=\"hidden\" form=\"Employe\">";
 }
 else{
     echo "ERROR";
@@ -32,8 +34,7 @@ else{
             <label>Ajouter un employé du <?php echo $typeEntreprise." ".$nom; ?></label>
         </div>
         <br>
-
-        <form method="post" action="employePost.php" name="Employe">
+        <form method="post" action="employePost.php" id="Employe" name="Employe">
             <div style="overflow:auto;">
                 <table align="left">
                     <tr>
@@ -48,12 +49,12 @@ else{
                                                autofocus="autofocus">
                                     </td>
                                 </tr>
-                                <tr id="Contact-Prenom" style="display: none;">
+                                <tr id="Contact-Prenom">
                                     <td style="text-align: left; width: 150px; white-space: normal;">
                                         <label for="Prenom">Prénom* :</label>
                                     </td>
                                     <td>
-                                        <input id="Prenom" maxlength="255" name="Prenom" type="text" class="inputC">
+                                        <input id="Prenom" required maxlength="255" name="Prenom" type="text" class="inputC">
                                     </td>
 
                                 </tr>
@@ -123,7 +124,7 @@ else{
                                                class="inputC">
                                     </td>
                                 </tr>
-                                <tr id="Contact-Fonction" style="display: none;">
+                                <tr id="Contact-Fonction">
                                     <td style="text-align: left; width: 150px; white-space: normal;">
                                         <label for="Struct">Fonction :</label>
                                     </td>
