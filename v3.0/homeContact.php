@@ -305,7 +305,7 @@ include('bandeau.php');
             mysqli_free_result($queryFouEmp);
         }
         mysqli_free_result($queryFourn);
-
+        // membres revivre
         $reponse = mysqli_query($db, 'SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num JOIN Type ty ON cl.TYP_Id=ty.TYP_Id ORDER BY PER_Nom');
         while ($donnees = mysqli_fetch_assoc($reponse)) {
             if ($donnees['TYP_Id'] < 6) {
@@ -342,6 +342,29 @@ include('bandeau.php');
         <?php
         }
         mysqli_free_result($reponse);
+        // referents
+        $queryRef = mysqli_query($db, 'SELECT * FROM Referents cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num JOIN Prescripteurs USING(PRE_Id) ORDER BY PER_Nom');
+        while ($dataRef = mysqli_fetch_assoc($queryRef)) {
+            ?>
+            <form method="get" action="detailRef.php" name="detailRef">
+                <input type="hidden" name="NumC" value="">
+                <tr onclick="javascript:submitViewDetail('<?php echo $dataRef['PER_Num']; ?>', 'detailRef');"
+                    style="font-size: 14;">
+                    <td><?php echo formatUP($dataRef['PRE_Nom']); ?></td>
+                    <td><?php echo formatUP($dataRef['PER_Nom']); ?></td>
+                    <td><?php echo formatLOW($dataRef['PER_Prenom']); ?></td>
+                    <td><?php echo formatUP($dataRef['PER_Ville']); ?> <?php if (!empty($dataRef['PER_CodePostal'])) echo $dataRef['PER_CodePostal']; ?></td>
+                    <td><?php if (!empty($dataRef['PER_TelFixe'])) {
+                            echo $dataRef['PER_TelFixe'];
+                        } else {
+                            echo $dataRef['PER_TelPort'];
+                        } ?></td>
+                    <td>Référent</td>
+                </tr>
+            </form>
+        <?php
+        }
+        mysqli_free_result($queryRef);
         ?>
         </tbody>
     </table>
