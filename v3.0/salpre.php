@@ -3,7 +3,7 @@ include('bandeau.php');
 ?>
     <div id="corps">
         <?php
-        // Modification client
+        // Modification salarié
         $num = $_POST["NumC"];
         $nom = addslashes(mysqli_real_escape_string($db, formatUP($_POST["Nom"])));
         $prenom = addslashes(mysqli_real_escape_string($db, formatLOW($_POST["Prenom"])));
@@ -23,9 +23,8 @@ include('bandeau.php');
 
         $sql = mysqli_query($db, $query);
         $errr = mysqli_error($db);
-
         if ($sql) {
-            $query2 = "UPDATE Salaries SET SAL_Fonction = '$fonction' WHERE Salaries.PER_Num = '$num'";
+            $query2 = "UPDATE Salaries SET FCT_Id = '$fonction' WHERE Salaries.PER_Num = '$num'";
 
             $sql2 = mysqli_query($db, $query2);
             $errr2 = mysqli_error($db);
@@ -40,7 +39,7 @@ include('bandeau.php');
                     echo '<div id="good">
             <label>Membre modifie avec succes</label>
             </div>';
-                    $reponse = mysqli_query($db, "SELECT * FROM Salaries sal JOIN Personnes pe ON sal.PER_Num=pe.PER_Num JOIN Type ty ON sal.TYP_Id=ty.TYP_Id WHERE sal.PER_Num='$num' ORDER BY PER_Nom");
+                    $reponse = mysqli_query($db, "SELECT * FROM Salaries sal JOIN Personnes pe ON sal.PER_Num=pe.PER_Num JOIN Type ty ON sal.TYP_Id=ty.TYP_Id JOIN Fonction USING (FCT_Id) WHERE sal.PER_Num='$num' ORDER BY PER_Nom");
                     $donnees = mysqli_fetch_assoc($reponse);
                     ?>
                     <div id="labelT">
@@ -105,7 +104,7 @@ include('bandeau.php');
                                 </tr>
                                 <tr>
                                     <th style="text-align: left; width: 200px; white-space: normal;">Fonction :</th>
-                                    <td style="text-align: left; width: 300px;"><?php echo formatLOW($donnees['SAL_Fonction']); ?></td>
+                                    <td style="text-align: left; width: 300px;"><?php echo formatLOW($donnees['FCT_Nom']); ?></td>
                                 </tr>
                             </table>
                         </td>

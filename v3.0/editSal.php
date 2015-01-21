@@ -6,7 +6,7 @@ include('bandeau.php');
         <?php
         $num = $_POST["NumC"];
 
-        $reponse = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num JOIN Type ty ON cl.TYP_Id=ty.TYP_Id WHERE SAL_NumSalarie='$num' ORDER BY PER_Nom");
+        $reponse = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num JOIN Type ty ON cl.TYP_Id=ty.TYP_Id Join Fonction USING (FCT_Id) WHERE SAL_NumSalarie='$num' ORDER BY PER_Nom");
         $donnees = mysqli_fetch_assoc($reponse);
         ?>
         <div id="labelT">
@@ -154,9 +154,28 @@ include('bandeau.php');
                                         <label for="Fonction">Fonction :</label>
                                     </td>
                                     <td>
-                                        <input id="Fonction" maxlength="255" name="Fonction" type="text"
-                                               class="inputC"
-                                               value="<?php echo $donnees['SAL_Fonction']; ?>">
+                                        <div class="selectType2">
+                                            <select id="Fonction" name="Fonction">
+                                                <optgroup label="Fonction actuelles">
+                                                    <option value="<?php echo formatLOW($donnees['FCT_Id']); ?>">
+                                                        <?php echo formatLOW($donnees['FCT_Nom']); ?>
+                                                    </option>
+                                                </optgroup>
+                                                <optgroup label="Fonctions disponibles">
+                                                    <?php
+                                                    $reponse2 = mysqli_query($db, "SELECT * FROM Fonction WHERE FCT_Id not in (SELECT FCT_Id FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num JOIN Type ty ON cl.TYP_Id=ty.TYP_Id WHERE SAL_NumSalarie='$num' ORDER BY PER_Nom)");
+                                                    while ($donnees2 = mysqli_fetch_assoc($reponse2)) {
+                                                        ?>
+                                                        <option value="<?php echo $donnees2['FCT_Id']; ?>">
+                                                            <?php echo formatLOW($donnees2['FCT_Nom']); ?>
+                                                        </option>
+                                                    <?php
+                                                    }
+                                                    mysqli_free_result($reponse2);
+                                                    ?>
+                                                </optgroup>
+                                            </select>
+                                        </div>
                                     </td>
                                 </tr>
                             </table>
