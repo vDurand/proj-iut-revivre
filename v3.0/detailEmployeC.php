@@ -25,7 +25,7 @@ include('bandeau.php');
             $fax = $donneesEmp['PER_Fax'];
             $mail = $donneesEmp['PER_Email'];
             $fct = $donneesEmp['EMC_Fonction'];
-            $struc = $donneesEmp['CLI_Nom'];
+            $struc = formatLOW($donneesEmp['CLI_Nom']);
             mysqli_free_result($queryPart);
 ?>
             <div id="labelT">
@@ -90,7 +90,7 @@ include('bandeau.php');
                     </table>
                 </td>
             </table>
-            <form method="post" action="editClient.php" name="EditClient">
+            <form method="post" action="editEmployerC.php" name="EditClient">
                 <input type="hidden" name="NumC" value="<?php echo $numC; ?>">
                 <table id="downT">
                     <tr>
