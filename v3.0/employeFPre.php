@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "Detail Employé Client";
+$pageTitle = "Detail Employé Fournisseur";
 include('bandeau.php');
 ?>
     <div id="corps">
@@ -26,7 +26,7 @@ include('bandeau.php');
 
         if ($sql) {
 
-            $query = "UPDATE EmployerClient SET EMC_Fonction = '$fonction' WHERE PER_Num = '$num'";
+            $query = "UPDATE EmployerFourn SET EMF_Fonction = '$fonction' WHERE PER_Num = '$num'";
             $sql2 = mysqli_query($db, $query);
 
             if ($sql2) {
@@ -34,7 +34,7 @@ include('bandeau.php');
             <label>Employé modifié avec succes</label>
             </div>';
 
-                $queryEmploye = mysqli_query($db, "SELECT * FROM Clients cl JOIN EmployerClient em ON cl.CLI_NumClient=em.CLI_NumClient JOIN Personnes pe ON em.PER_Num=pe.PER_Num WHERE em.PER_Num=$num");
+                $queryEmploye = mysqli_query($db, "SELECT * FROM Fournisseurs fo JOIN EmployerFourn em ON fo.FOU_NumFournisseur=em.FOU_NumFournisseur JOIN Personnes pe ON em.PER_Num=pe.PER_Num WHERE em.PER_Num=$num");
                 $donneesEmp = mysqli_fetch_assoc($queryEmploye);
                 $nom = formatUP($donneesEmp['PER_Nom']);
                 $prenom = formatLow($donneesEmp['PER_Prenom']);
@@ -45,13 +45,13 @@ include('bandeau.php');
                 $port = $donneesEmp['PER_TelPort'];
                 $fax = $donneesEmp['PER_Fax'];
                 $mail = $donneesEmp['PER_Email'];
-                $fct = formatLOW($donneesEmp['EMC_Fonction']);
-                $struc = $donneesEmp['CLI_Nom'];
+                $fct = formatLOW($donneesEmp['EMF_Fonction']);
+                $struc = $donneesEmp['FOU_Nom'];
                 mysqli_free_result($queryPart);
 
                 ?>
                 <div id="labelT">
-                    <label><?php echo $struc; ?> : Detail de l'employé</label>
+                <label><?php echo $struc; ?> : Détail de l'employé</label>
                 </div>
                 <br>
                 <table id="fullTable" rules="all">
@@ -61,12 +61,10 @@ include('bandeau.php');
                                 <th style="text-align: left; width: 200px; white-space: normal;">Nom :</th>
                                 <td style="text-align: left; width: 300px;"><?php echo $nom; ?></td>
                             </tr>
-                            <?php if (!empty($prenom)) { ?>
-                                <tr>
-                                    <th style="text-align: left; width: 200px; white-space: normal;">Prenom :</th>
-                                    <td style="text-align: left; width: 300px;"><?php echo $prenom; ?></td>
-                                </tr>
-                            <?php } ?>
+                            <tr>
+                                <th style="text-align: left; width: 200px; white-space: normal;">Prenom :</th>
+                                <td style="text-align: left; width: 300px;"><?php echo $prenom; ?></td>
+                            </tr>
                             <tr>
                                 <th style="text-align: left; width: 200px; white-space: normal;">Telephone Fixe :</th>
                                 <td style="text-align: left; width: 300px;"><?php echo $tel; ?></td>
@@ -79,12 +77,6 @@ include('bandeau.php');
                                 <th style="text-align: left; width: 200px; white-space: normal;">Fax :</th>
                                 <td style="text-align: left; width: 300px;"><?php echo $fax; ?></td>
                             </tr>
-                            <?php if (empty($prenom)) { ?>
-                                <tr>
-                                    <th style="text-align: left; width: 200px; white-space: normal;">&nbsp;</th>
-                                    <td style="text-align: left; width: 300px;">&nbsp;</td>
-                                </tr>
-                            <?php } ?>
                         </table>
                     </td>
                     <td>
@@ -112,7 +104,7 @@ include('bandeau.php');
                         </table>
                     </td>
                 </table>
-                <form method="post" action="editEmployerC.php" name="EditClient">
+                <form method="post" action="editEmployeF.php" name="EditEmp">
                     <input type="hidden" name="NumC" value="<?php echo $num; ?>">
                     <table id="downT">
                         <tr>

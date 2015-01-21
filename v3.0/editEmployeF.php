@@ -1,11 +1,11 @@
 <?php
-$pageTitle = "Modifier Employé Client";
+$pageTitle = "Modifier Employé Fournisseur";
 include('bandeau.php');
 ?>
     <div id="corps">
         <?php
-        $numC = $_POST["NumC"];
-        $queryEmploye = mysqli_query($db, "SELECT * FROM Clients cl JOIN EmployerClient em ON cl.CLI_NumClient=em.CLI_NumClient JOIN Personnes pe ON em.PER_Num=pe.PER_Num WHERE em.PER_Num=$numC");
+        $numC = intval($_POST["NumC"]);
+        $queryEmploye = mysqli_query($db, "SELECT * FROM Fournisseurs fo JOIN EmployerFourn em ON fo.FOU_NumFournisseur=em.FOU_NumFournisseur JOIN Personnes pe ON em.PER_Num=pe.PER_Num WHERE em.PER_Num=$numC");
         $donneesEmp = mysqli_fetch_assoc($queryEmploye);
         $nom = formatUP($donneesEmp['PER_Nom']);
         $prenom = formatLow($donneesEmp['PER_Prenom']);
@@ -16,19 +16,17 @@ include('bandeau.php');
         $port = $donneesEmp['PER_TelPort'];
         $fax = $donneesEmp['PER_Fax'];
         $mail = $donneesEmp['PER_Email'];
-        $fct = formatLOW($donneesEmp['EMC_Fonction']);
-        $struc = $donneesEmp['CLI_Nom'];
+        $fct = formatLOW($donneesEmp['EMF_Fonction']);
+        $struc = $donneesEmp['FOU_Nom'];
         mysqli_free_result($queryPart);
         ?>
         <div id="labelT">
-            <label> Modifier Employé </label>
+            <label><?php echo $struc; ?> : Détail de l'employé</label>
         </div>
         <br>
 
-        <form method="post" action="employerCPre.php" name="Client">
-            <input type="hidden" name="NumC" value="<?php echo $numC; ?>">
-
-            <div style="overflow:auto;">
+        <div style="overflow:auto;">
+            <form method="post" action="employeFPre.php" name="EditEmp">
                 <table align="left">
                     <tr>
                         <td style="vertical-align:top;">
@@ -141,17 +139,18 @@ include('bandeau.php');
                         </td>
                     </tr>
                 </table>
-            </div>
-            <table id="downT">
-                <tr>
-                    <td>
+        </div>
+        <input type="hidden" name="NumC" value="<?php echo $numC; ?>">
+        <table id="downT">
+            <tr>
+                <td>
 							<span>
-								<input name="submit" type="submit" value="Valider" class="buttonC">&nbsp;&nbsp; 
+								<input name="submit" type="submit" value="Valider" class="buttonC">&nbsp;&nbsp;
 								<input name="reset" type="reset" value="Annuler" class="buttonC">
 							</span>
-                    </td>
-                </tr>
-            </table>
+                </td>
+            </tr>
+        </table>
         </form>
     </div>
 <?php

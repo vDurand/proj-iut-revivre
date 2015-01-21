@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by Valentin Durand
- * IUT Caen - DUT Informatique
- * Date: 29/12/14
- * Time: 01:58
- */
 $pageTitle = "Detail Employé Client";
 include('bandeau.php');
 ?>
@@ -24,8 +18,8 @@ include('bandeau.php');
             $port = $donneesEmp['PER_TelPort'];
             $fax = $donneesEmp['PER_Fax'];
             $mail = $donneesEmp['PER_Email'];
-            $fct = $donneesEmp['EMC_Fonction'];
-            $struc = formatLOW($donneesEmp['CLI_Nom']);
+            $fct = formatLOW($donneesEmp['EMC_Fonction']);
+            $struc = $donneesEmp['CLI_Nom'];
             mysqli_free_result($queryPart);
 ?>
             <div id="labelT">

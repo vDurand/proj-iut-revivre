@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by Valentin Durand
- * IUT Caen - DUT Informatique
- * Date: 30/12/14
- * Time: 01:19
- */
 $pageTitle = "Detail Employé Fournisseur";
 include('bandeau.php');
 ?>
@@ -24,7 +18,7 @@ include('bandeau.php');
                 $port = $donneesEmp['PER_TelPort'];
                 $fax = $donneesEmp['PER_Fax'];
                 $mail = $donneesEmp['PER_Email'];
-                $fct = $donneesEmp['EMF_Fonction'];
+                $fct = formatLOW($donneesEmp['EMF_Fonction']);
                 $struc = $donneesEmp['FOU_Nom'];
                 mysqli_free_result($queryPart);
                 ?>
