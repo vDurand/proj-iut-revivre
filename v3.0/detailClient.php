@@ -4,13 +4,13 @@ include('bandeau.php');
 ?>
     <div id="corps">
     <?php
-    $numC=intval($_GET["NumC"]);
-    if (is_numeric($_GET["NumC"])){
+    $numC = intval($_GET["NumC"]);
+    if (is_numeric($_GET["NumC"])) {
 
         $queryStruc = mysqli_query($db, "SELECT * FROM Clients WHERE CLI_NumClient=$numC");
         $donneesStruc = mysqli_fetch_assoc($queryStruc);
         if ($donneesStruc) {
-            if(!empty($donneesStruc['CLI_Nom'])){
+            if (!empty($donneesStruc['CLI_Nom'])) {
                 $nom = formatUP($donneesStruc['CLI_Nom']);
                 $add = formatLOW($donneesStruc['CLI_Adresse']);
                 $cp = $donneesStruc['CLI_CodePostal'];
@@ -20,8 +20,7 @@ include('bandeau.php');
                 $fax = $donneesStruc['CLI_Fax'];
                 $mail = $donneesStruc['CLI_Email'];
                 $struc = "Entreprise";
-            }
-            else{
+            } else {
                 $queryPart = mysqli_query($db, "SELECT * FROM EmployerClient em JOIN Personnes pe ON em.PER_Num=pe.PER_Num WHERE CLI_NumClient=$numC");
                 $donneesPart = mysqli_fetch_assoc($queryPart);
 
@@ -80,7 +79,8 @@ include('bandeau.php');
                     <table cellpadding="10" class="detailClients">
                         <tr>
                             <th style="text-align: left; width: 200px; white-space: normal;">Email :</th>
-                            <td style="text-align: left; width: 300px;"> 	<A HREF="mailto:<?php echo $mail;?>"> <?php echo $mail; ?></A></td>
+                            <td style="text-align: left; width: 300px;"><A
+                                    HREF="mailto:<?php echo $mail; ?>"> <?php echo $mail; ?></A></td>
                         </tr>
                         <tr>
                             <th style="text-align: left; width: 200px; white-space: normal;">Adresse :</th>
@@ -124,60 +124,61 @@ include('bandeau.php');
 
             <!-- List Employes -->
             <?php
-            if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM EmployerClient WHERE CLI_NumClient=$numC"))&&($struc == "Entreprise")) {
+            if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM EmployerClient WHERE CLI_NumClient=$numC")) && ($struc == "Entreprise")) {
 
                 ?>
                 <div id="labelCat">
                     Liste des Employés
                 </div>
                 <div class="listeMembers" style="margin-bottom: 15px;">
-                <table>
-                <thead>
-                <tr>
-                    <td class="firstCol" style="text-align: center; width: 30px;">
-                        <a>#</a>
-                    </td>
-                    <td style="text-align: center;">
-                        <a>Nom</a>
-                    </td>
-                    <td style="text-align: center;">
-                        <a>Prénom</a>
-                    </td>
-                    <td style="text-align: center;">
-                        <a>Téléphone</a>
-                    </td>
-                    <td style="text-align: center;">
-                        <a>Portable</a>
-                    </td>
-                    <td style="text-align: center;">
-                        <a>Email</a>
-                    </td>
-                </tr>
-                </thead>
-                <tbody>
-                <?php
-                $i = 0;
-                $queryEmpl = mysqli_query($db, "SELECT * FROM EmployerClient em JOIN Personnes pe ON em.PER_Num=pe.PER_Num WHERE CLI_NumClient=$numC");
-                while ($empl = mysqli_fetch_assoc($queryEmpl))
-                {
-                    ?>
-                    <form method="get" action="detailEmployeC.php" name="detailEmploye">
-                        <input type="hidden" name="NumC" value="">
-                        <tr onclick="javascript:submitViewDetail('<?php echo $empl['PER_Num']; ?>', 'detailEmploye')" style="font-size: 14;">
-                            <td><?php $i++; echo $i; ?></td>
-                            <td><?php echo $empl['PER_Nom']; ?></td>
-                            <td><?php echo $empl['PER_Prenom']; ?></td>
-                            <td><?php echo $empl['PER_TelFixe']; ?></td>
-                            <td><?php echo $empl['PER_TelPort']; ?></td>
-                            <td><?php echo $empl['PER_Email']; ?></td>
+                    <table>
+                        <thead>
+                        <tr>
+                            <td class="firstCol" style="text-align: center; width: 30px;">
+                                <a>#</a>
+                            </td>
+                            <td style="text-align: center;">
+                                <a>Nom</a>
+                            </td>
+                            <td style="text-align: center;">
+                                <a>Prénom</a>
+                            </td>
+                            <td style="text-align: center;">
+                                <a>Téléphone</a>
+                            </td>
+                            <td style="text-align: center;">
+                                <a>Portable</a>
+                            </td>
+                            <td style="text-align: center;">
+                                <a>Email</a>
+                            </td>
                         </tr>
-                    </form>
-                <?php
-                }
-                mysqli_free_result($queryEmpl);
-                ?>
-                </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        <?php
+                        $i = 0;
+                        $queryEmpl = mysqli_query($db, "SELECT * FROM EmployerClient em JOIN Personnes pe ON em.PER_Num=pe.PER_Num WHERE CLI_NumClient=$numC");
+                        while ($empl = mysqli_fetch_assoc($queryEmpl)) {
+                            ?>
+                            <form method="get" action="detailEmployeC.php" name="detailEmploye">
+                                <input type="hidden" name="NumC" value="">
+                                <tr onclick="javascript:submitViewDetail('<?php echo $empl['PER_Num']; ?>', 'detailEmploye')"
+                                    style="font-size: 14;">
+                                    <td><?php $i++;
+                                        echo $i; ?></td>
+                                    <td><?php echo $empl['PER_Nom']; ?></td>
+                                    <td><?php echo $empl['PER_Prenom']; ?></td>
+                                    <td><?php echo $empl['PER_TelFixe']; ?></td>
+                                    <td><?php echo $empl['PER_TelPort']; ?></td>
+                                    <td><?php echo $empl['PER_Email']; ?></td>
+                                </tr>
+                            </form>
+                        <?php
+                        }
+                        mysqli_free_result($queryEmpl);
+                        ?>
+                        </tbody>
+                    </table>
                 </div>
                 <!-- List Chantiers -->
             <?php
@@ -190,46 +191,50 @@ include('bandeau.php');
                     Liste des Chantiers
                 </div>
                 <div class="listeMembers" style="margin-bottom: 15px;">
-                <table>
-                <thead>
-                <tr>
-                    <td class="firstCol" style="text-align: center; width: 30px;">
-                        <a>#</a>
-                    </td>
-                    <td style="text-align: center;">
-                        <a>Chantier</a>
-                    </td>
-                    <td style="text-align: center;">
-                        <a>Adresse</a>
-                    </td>
-                    <td style="text-align: center;">
-                        <a>Date de Début</a>
-                    </td>
-                    <td style="text-align: center;">
-                        <a>Echeance</a>
-                    </td>
-                </tr>
-                </thead>
-                <tbody>
-                <?php
-                $i = 0;
-                $queryChantiers = mysqli_query($db, "SELECT * FROM Chantiers JOIN Commanditer USING(CHA_NumDevis) WHERE CLI_NumClient=$numC");
-                while ($chantiers = mysqli_fetch_assoc($queryChantiers))
-                {
-                    ?>
-                    <tr style="font-size: 14;">
-                        <td><?php $i++; echo $i; ?></td>
-                        <td><?php echo $chantiers['CHA_Intitule']; ?></td>
-                        <td><?php echo $chantiers['CHA_Adresse']; ?></td>
-                        <td><?php echo dater($chantiers['CHA_DateDebut']); ?></td>
-                        <td><?php echo dater($chantiers['CHA_Echeance']); ?></td>
-                    </tr>
-                <?php
-                }
-                mysqli_free_result($queryChantiers);
-                ?>
-                </tbody>
-                </table>
+                    <table>
+                        <thead>
+                        <tr>
+                            <td class="firstCol" style="text-align: center; width: 30px;">
+                                <a>#</a>
+                            </td>
+                            <td style="text-align: center;">
+                                <a>Chantier</a>
+                            </td>
+                            <td style="text-align: center;">
+                                <a>Adresse</a>
+                            </td>
+                            <td style="text-align: center;">
+                                <a>Date de Début</a>
+                            </td>
+                            <td style="text-align: center;">
+                                <a>Echeance</a>
+                            </td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        $i = 0;
+                        $queryChantiers = mysqli_query($db, "SELECT * FROM Chantiers JOIN Commanditer USING(CHA_NumDevis) WHERE CLI_NumClient=$numC");
+                        while ($chantiers = mysqli_fetch_assoc($queryChantiers)) {
+                            ?>
+                            <form method="get" action="detailChantier.php" name="detailChantier">
+                                <input type="hidden" name="NumC" value="">
+                                <tr style="font-size: 14;"
+                                    onclick="javascript:submitViewDetail('<?php echo $chantiers['CHA_NumDevis']; ?>', 'detailChantier');">
+                                    <td><?php $i++;
+                                        echo $i; ?></td>
+                                    <td><?php echo $chantiers['CHA_Intitule']; ?></td>
+                                    <td><?php echo $chantiers['CHA_Adresse']; ?></td>
+                                    <td><?php echo dater($chantiers['CHA_DateDebut']); ?></td>
+                                    <td><?php echo dater($chantiers['CHA_Echeance']); ?></td>
+                                </tr>
+                            </form>
+                        <?php
+                        }
+                        mysqli_free_result($queryChantiers);
+                        ?>
+                        </tbody>
+                    </table>
                 </div>
             <?php
             }
