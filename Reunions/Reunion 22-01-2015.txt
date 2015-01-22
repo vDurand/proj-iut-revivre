@@ -1,0 +1,14 @@
+- Changer entreprise en structure
+- Changer employé en contact
+- afficher le numéro d'identifiant du devis sur le pdf
+- impression pop-up d'avertissement si chantier non fini
+- ->!!!!!heures de travail -> faut gérer les minutes (par 5)
+- ->!!!!!modifier le temps de temps de travail
+- afficher atelier occupationnel dans les heures de travail
+- ->!!!!!pouvoir modifier les achats
+- detail achat -> type achat (liste déroulante avec possiblité d'ajout)
+- augmenter la taille des adresses, des noms de structure
+- augmenter le temps avant la déconnexion -> 4 heures
+- vérification des doublons
+- champ de recherche sur le répertoire
+- dans le responsable d'un chantier -> personne avec fonction encadrant
