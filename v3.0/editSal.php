@@ -134,7 +134,7 @@ include('bandeau.php');
                                                 </optgroup>
                                                 <optgroup label="Types disponibles">
                                                     <?php
-                                                    $reponse2 = mysqli_query($db, "SELECT * FROM Type WHERE TYP_Nom not in (SELECT TYP_Nom FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num JOIN Type ty ON cl.TYP_Id=ty.TYP_Id WHERE SAL_NumSalarie='$num' ORDER BY PER_Nom)");
+                                                    $reponse2 = mysqli_query($db, "SELECT * FROM Type WHERE TYP_Nom not in (SELECT TYP_Nom FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num JOIN Type ty ON cl.TYP_Id=ty.TYP_Id WHERE SAL_NumSalarie='$num' ORDER BY PER_Nom) and TYP_Id < 6");
                                                     while ($donnees2 = mysqli_fetch_assoc($reponse2)) {
                                                         ?>
                                                         <option value="<?php echo $donnees2['TYP_Id']; ?>">
