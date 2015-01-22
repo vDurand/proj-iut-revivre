@@ -8,7 +8,7 @@
 - ->!!!!!pouvoir modifier les achats
 - detail achat -> type achat (liste déroulante avec possiblité d'ajout)
 - augmenter la taille des adresses, des noms de structure
-- augmenter le temps avant la déconnexion -> 4 heures
+DONE - augmenter le temps avant la déconnexion -> 4 heures
 - vérification des doublons
 - champ de recherche sur le répertoire
 - dans le responsable d'un chantier -> personne avec fonction encadrant

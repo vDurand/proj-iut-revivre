@@ -1,5 +1,6 @@
 <?php  
 	include('assets.php');
+    session_set_cookie_params(14400,"/");
 	 session_start();
 	 date_default_timezone_set('Europe/Paris');
 	 if (!isset($_SESSION['user']) && basename($_SERVER["PHP_SELF"]) != "login.php") {
@@ -32,6 +33,7 @@
     	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.0.min.js"></script>
     	<script type="text/javascript" src="js/jquery.tooltipster.min.js"></script>
     	<script type="text/javascript" src="js/assets.js"></script>
+        <script type="text/javascript" src="js/angular.min.js"></script>
     	<link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.5.1.css">
     	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     	<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
@@ -151,4 +153,4 @@
 			</div>
 		</div>
 		<div id="debug"><a href="debugger.php">Signaler<br>un Bug</a></div>
-		
+		<?php //echo session_cache_expire(); ?>
