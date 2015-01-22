@@ -175,13 +175,14 @@ include('bandeau.php');
                 <?php
                 }
                 mysqli_free_result($queryEmpl);
-            }
-            ?>
-            </tbody>
-            </table>
-            </div>
-            <!-- List Chantiers -->
+                ?>
+                </tbody>
+                </table>
+                </div>
+                <!-- List Chantiers -->
             <?php
+            }
+
             if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM Chantiers JOIN Commanditer USING(CHA_NumDevis) WHERE CLI_NumClient=$numC"))) {
 
                 ?>
@@ -226,12 +227,13 @@ include('bandeau.php');
                 <?php
                 }
                 mysqli_free_result($queryChantiers);
+                ?>
+                </tbody>
+                </table>
+                </div>
+            <?php
             }
-            ?>
-            </tbody>
-            </table>
-            </div>
-        <?php
+
         } else {
             echo "<div id='error'>ERROR : WRONG NUMBER</div>";
         }

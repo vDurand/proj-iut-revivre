@@ -139,13 +139,13 @@ include('bandeau.php');
                     <?php
                     }
                     mysqli_free_result($queryEmpl);
-                }
-                ?>
-                </tbody>
-                </table>
-                </div>
-                <!-- List Produits -->
+                    ?>
+                    </tbody>
+                    </table>
+                    </div>
+                    <!-- List Produits -->
                 <?php
+                }
                 if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM Acheter WHERE FOU_NumFournisseur='$num'"))) {
 
                     ?>
@@ -184,14 +184,12 @@ include('bandeau.php');
                     <?php
                     }
                     mysqli_free_result($queryAchat);
+                    ?>
+                    </tbody>
+                    </table>
+                    </div>
+                <?php
                 }
-                ?>
-                </tbody>
-                </table>
-                </div>
-
-
-            <?php
             } else {
                 echo "<div id='error'>ERROR : WRONG NUMBER</div>";
             }
