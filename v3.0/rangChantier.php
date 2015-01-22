@@ -226,9 +226,9 @@ include('bandeau.php');
                 <input type="hidden" name="NumC" value="">
                 <tr onclick="javascript:submitViewDetail('<?php echo $donnees['CHA_NumDevis']; ?>', 'detailClient');"
                     style="font-size: 14;">
-                    <td><?php echo formatUP($donnees['CHA_Id']); ?></td>
+                    <td><?php echo formatUP($donnees['CHA_NumDevis']); ?></td>
                     <td><?php echo formatLOW($donnees['CHA_Intitule']); ?></td>
-                    <td><?php echo formatUP($donnees['Client']); ?> <?php echo formatLOW($donnees['ClientP']); ?></td>
+                    <td><?php echo formatUP($donnees['Client']); ?></td>
                     <td><?php echo formatUP($donnees['Resp']); ?> <?php echo formatLOW($donnees['RespP']); ?></td>
                     <td><?php echo dater($donnees['CHA_DateDebut']); ?></td>
                     <td>
@@ -245,6 +245,34 @@ include('bandeau.php');
         <?php
         }
         mysqli_free_result($reponse);
+        if($_POST["submit"] != '#' && $_POST["submit"] != 'Rechercher'){
+            $reponse = mysqli_query($db, "SELECT * FROM ChantierMax Join TypeEtat ON IdMax=TYE_Id JOIN EmployerClient ON NumClient=CLI_NumClient JOIN Personnes USING(PER_Num) WHERE PER_Nom like '$alpha' ORDER BY PER_Nom");
+            while ($donnees = mysqli_fetch_assoc($reponse)) {
+                ?>
+                <form method="get" action="detailChantier.php" name="detailClient">
+                    <input type="hidden" name="NumC" value="">
+                    <tr onclick="javascript:submitViewDetail('<?php echo $donnees['CHA_NumDevis']; ?>', 'detailClient');"
+                        style="font-size: 14;">
+                        <td><?php echo formatUP($donnees['CHA_NumDevis']); ?></td>
+                        <td><?php echo formatLOW($donnees['CHA_Intitule']); ?></td>
+                        <td><?php echo formatUP($donnees['PER_Nom'])." ".formatLOW($donnees['PER_Prenom']); ?></td>
+                        <td><?php echo formatUP($donnees['Resp']); ?> <?php echo formatLOW($donnees['RespP']); ?></td>
+                        <td><?php echo dater($donnees['CHA_DateDebut']); ?></td>
+                        <td>
+                            <?php
+                            if ($donnees['IdMax'] == 4) {
+                                echo dater($donnees['CHA_DateFinReel']);
+                            } else {
+                                echo $donnees['TYE_Nom'];
+                            }
+                            ?>
+                        </td>
+                    </tr>
+                </form>
+            <?php
+            }
+            mysqli_free_result($reponse);
+        }
         ?>
         </tbody>
     </table>
