@@ -140,8 +140,8 @@
      * -- ChantierHeure --
      * create or replace view ChantierHeure as
      * select CHA_NumDevis, CHA_HeuresPrev,
-     * sum(TRA_Duree) as HeureTot,
-     * (CHA_HeuresPrev-sum(TRA_Duree)) as EcartHeure,
+     * TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(TRA_Duree))), '%H:%i') as HeureTot,
+     * TIME_FORMAT(SEC_TO_TIME(TIME_TO_SEC(TIME(CHA_HeuresPrev*10000)) - SUM(TIME_TO_SEC(TRA_Duree))), '%H:%i') as EcartHeure,
      * COUNT(DISTINCT SAL_NumSalarie) as NbSalarie
      * from Chantiers
      * JOIN TempsTravail USING (CHA_NumDevis)
