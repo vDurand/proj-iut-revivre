@@ -33,7 +33,7 @@ $pageTitle = "Detail Chantier";
   	}
   	$j=0;
   	foreach($_POST["Type"] AS $a){
-  		$type[$j] = addslashes(mysqli_real_escape_string($db, formatLOW($a)));
+  		$type[$j] = $a;
   		$j++;
   	}
   	$j=0;
@@ -46,7 +46,7 @@ $pageTitle = "Detail Chantier";
   // Ajout des achats
   if ($date[0]!="") {
   	for ($i = 0; $i < $max; $i++) {
-  		$query = "INSERT INTO Acheter (CHA_NumDevis, ACH_TypeAchat, ACH_Date, ACH_Montant, ACH_NumAchat, FOU_NumFournisseur) VALUES ('$num', '$type[$i]', '$date[$i]', '$montant[$i]', NULL, '$Fourns[$i]');";
+  		$query = "INSERT INTO Acheter (CHA_NumDevis, TAC_Id, ACH_Date, ACH_Montant, ACH_NumAchat, FOU_NumFournisseur) VALUES ('$num', '$type[$i]', '$date[$i]', '$montant[$i]', NULL, '$Fourns[$i]');";
   		
   		    $sql = mysqli_query($db, $query);
   		    $errr=mysqli_error($db);

@@ -53,9 +53,28 @@ mysqli_free_result($reponse);
 						<td style="text-align: right; width: 100px; padding-right: 10px;">
 							<label>Detail :</label>
 						</td>
-						<td>
-							<input form="BuyProd" placeholder="Conditionnement, Quantité, etc..." required maxlength="255" style="width: 297px;" name="Type[]" type="text" class="inputC">
-						</td>
+                        <td>
+                            <div id="ProdSelector" class="selectProd" style="display: ;">
+                                <select form="BuyProd" id="ProduitType" name="Type[]">
+                                    <?php
+                                    $Type = array(" ");
+                                    $Idt = array(" ");
+                                    $j = 0;
+                                    $reponse = mysqli_query($db, "SELECT * FROM TypeAchat ORDER BY TAC_Type");
+                                    while ($donnees = mysqli_fetch_assoc($reponse))
+                                    {
+                                        ?>
+                                        <option value="<?php echo $donnees['TAC_Id']; ?>"><?php echo formatLow($donnees['TAC_Type']); ?></option>
+                                        <?php
+                                        $Type[$j] = formatLow($donnees['TAC_Type']);
+                                        $Idt[$j] = $donnees['TAC_Id'];
+                                        $j++;
+                                    }
+                                    mysqli_free_result($reponse);
+                                    ?>
+                                </select>
+                            </div>
+                        </td>
 						<td style="text-align: right; width: 100px; padding-right: 10px;">
 							<label>Date d'achat :</label>
 						</td>
@@ -89,6 +108,8 @@ mysqli_free_result($reponse);
 	  // conversion php array to js array
 	  	var jProducts= <?php echo json_encode($Products); ?>;
 	  	var jIds= <?php echo json_encode($Ids); ?>;
+        var jType= <?php echo json_encode($Type); ?>;
+        var jIdt= <?php echo json_encode($Idt); ?>;
 	  
 	  // structure html tr/td/div
 	  	var table = document.getElementById("BuyAjout");
@@ -132,9 +153,19 @@ mysqli_free_result($reponse);
 	  	var NewCell5 = NewRow2.insertCell(0);
 	  	NewCell5.setAttribute("style","text-align: right; width: 100px; padding-right: 10px;");
 	  	NewCell5.innerHTML = "<label>Detail :</label>";
-	  	
+
+        var NewDivv = document.createElement("div");
+        NewDivv.setAttribute("class","selectProd");
+
 	  	var NewCell6 = NewRow2.insertCell(1);
-	  	NewCell6.innerHTML = '<input form="BuyProd" required placeholder="Conditionnement, Quantité, etc..." maxlength="255" style="width: 297px;" name="Type[]" type="text" class="inputC">';
+        tmp2 = '<select required form="BuyProd" name="Type[]">';
+        for (var i in jType) {
+            tmp2 += '<option value="'+jIdt[i]+'">'+jType[i]+"</option>\n";
+        }
+        tmp2 += "</select>";
+
+        NewDivv.innerHTML = tmp2;
+        NewCell6.appendChild(NewDivv);
 	  	
 	  	var NewCell7 = NewRow2.insertCell(2);
 	  	NewCell7.setAttribute("style","text-align: right; width: 100px; padding-right: 10px;");
