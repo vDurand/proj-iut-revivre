@@ -2,7 +2,14 @@
     <label>Detail du Chantier</label>
 	<form  method="post" action="printer.php" name="printer">
 		<input type="hidden" name="NumC" value="<?php echo $donnees['CHA_NumDevis']; ?>">
-		<div style="text-align: right; margin-top: -25px; margin-right: 5px;"><input formtarget="_blank" class="printButton" type="submit" name="printer" value="Imprimer"/></div>
+		<div style="text-align: right; margin-top: -25px; margin-right: 5px;"><input formtarget="_blank" class="printButton" type="submit" name="printer" value="Imprimer"
+<?php
+                    if(empty($donnees['CHA_DateFinReel'])){
+                        echo "onclick=\"return confirm('Le chantier n\'est pas terminé. Etes vous sûr de vouloir imprimer le bordereau?');\"";
+                    }
+                ?>
+                />
+                </div>
 	</form>
 </div>
 <br>
