@@ -230,7 +230,7 @@
                         <optgroup label="Stagiaires">
                             <?php
                             $j = 0;
-                            $reponseTres = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num Where TYP_Id = 7 ORDER BY PER_Nom");
+                            $reponseTres = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num Where TYP_Id = 6 ORDER BY PER_Nom");
                             while ($donneesTres = mysqli_fetch_assoc($reponseTres))
                             {
                                 ?>
@@ -247,6 +247,23 @@
                             ?>
                         </optgroup>
                         <optgroup label="Salariés en Insertion">
+                            <?php
+                            $reponseTres = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num Where TYP_Id = 7 ORDER BY PER_Nom");
+                            while ($donneesTres = mysqli_fetch_assoc($reponseTres))
+                            {
+                                ?>
+                                <option value="<?php echo $donneesTres['SAL_NumSalarie']; ?>"><?php echo formatUP($donneesTres['PER_Nom']); ?> <?php echo formatLOW($donneesTres['PER_Prenom']); ?></option>
+                                <?php
+                                $temp1=formatUP($donneesTres['PER_Nom']);
+                                $temp2=formatLOW($donneesTres['PER_Prenom']);
+                                $Workers[$j] = "$temp1 $temp2";
+                                $Ids[$j] = $donneesTres['SAL_NumSalarie'];
+                                $j++;
+                            }
+                            mysqli_free_result($reponseTres);
+                            ?>
+                        </optgroup>
+                        <optgroup label="Atelier Occupationnel">
                             <?php
                             $reponseTres = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num Where TYP_Id = 8 ORDER BY PER_Nom");
                             while ($donneesTres = mysqli_fetch_assoc($reponseTres))

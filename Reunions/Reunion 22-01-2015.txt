@@ -1,10 +1,10 @@
 DONE - Changer entreprise en structure
 DONE - Changer employé en contact
-- afficher le numéro d'identifiant du devis sur le pdf
+DONE - afficher le numéro d'identifiant du devis sur le pdf
 - impression pop-up d'avertissement si chantier non fini
 DONE - ->!!!!!heures de travail -> faut gérer les minutes (par 5)
 - ->!!!!!modifier le temps de temps de travail
-- afficher atelier occupationnel dans les heures de travail
+DONE - afficher atelier occupationnel dans les heures de travail
 - ->!!!!!pouvoir modifier les achats
 - detail achat -> type achat (liste déroulante avec possiblité d'ajout)
 - augmenter la taille des adresses, des noms de structure
