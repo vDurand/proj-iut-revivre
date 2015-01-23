@@ -92,7 +92,7 @@ include('bandeau.php');
 
                     ?>
                     <div id="labelCat">
-                        Liste des Employés
+                        Liste des Contacts
                     </div>
                     <div class="listeMembers" style="margin-bottom: 15px;">
                     <table>

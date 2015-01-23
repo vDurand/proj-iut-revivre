@@ -19,7 +19,7 @@ include('bandeau.php');
                 $port = $donneesStruc['CLI_Portable'];
                 $fax = $donneesStruc['CLI_Fax'];
                 $mail = $donneesStruc['CLI_Email'];
-                $struc = "Entreprise";
+                $struc = "Structure";
             } else {
                 $queryPart = mysqli_query($db, "SELECT * FROM EmployerClient em JOIN Personnes pe ON em.PER_Num=pe.PER_Num WHERE CLI_NumClient=$numC");
                 $donneesPart = mysqli_fetch_assoc($queryPart);
@@ -95,7 +95,7 @@ include('bandeau.php');
                             <td style="text-align: left; width: 300px;"><?php echo $cp; ?></td>
                         </tr>
                         <tr>
-                            <th style="text-align: left; width: 200px; white-space: normal;">Structure :</th>
+                            <th style="text-align: left; width: 200px; white-space: normal;">Type :</th>
                             <td style="text-align: left; width: 300px;"><?php echo $struc; ?></td>
                         </tr>
                     </table>
@@ -124,11 +124,11 @@ include('bandeau.php');
 
             <!-- List Employes -->
             <?php
-            if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM EmployerClient WHERE CLI_NumClient=$numC")) && ($struc == "Entreprise")) {
+            if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM EmployerClient WHERE CLI_NumClient=$numC")) && ($struc == "Structure")) {
 
                 ?>
                 <div id="labelCat">
-                    Liste des Employés
+                    Liste des Contacts
                 </div>
                 <div class="listeMembers" style="margin-bottom: 15px;">
                     <table>

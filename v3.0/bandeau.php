@@ -58,14 +58,14 @@
 	                       			<li><a href="viewClients.php">Clients<br>&nbsp;</a>
 										<ul>
 											<li><a href="viewClientPart.php">Particuliers</a></li>
-											<li><a href="viewClientEnt.php">Entreprises</a></li>
-                                            <li><a href="viewClientEmp.php">Employés</a></li>
+											<li><a href="viewClientEnt.php">Structures</a></li>
+                                            <li><a href="viewClientEmp.php">Contacts</a></li>
 										</ul>
 									</li>
 									<li><a href="viewFourn.php">Fournisseurs<br>&nbsp;</a>
 										<ul>
-                                            <li><a href="viewFournEnt.php">Entreprises</a></li>
-                                            <li><a href="viewFournEmp.php">Employés</a></li>
+                                            <li><a href="viewFournEnt.php">Structures</a></li>
+                                            <li><a href="viewFournEmp.php">Contacts</a></li>
 										</ul>
 									</li>
 									<li><a href="viewMembers.php">Membres de<br>l'association</a>
