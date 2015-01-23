@@ -81,6 +81,11 @@ footer div a:link, footer div a:visited{
 	color:#ffffff;
 }
 
+footer div a:hover{
+    text-decoration: underline;
+    color:#ffffff;
+}
+
 img {
 	float:top left;
 }
