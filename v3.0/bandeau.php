@@ -3,8 +3,9 @@
     session_set_cookie_params(14400,"/");
 	 session_start();
 	 date_default_timezone_set('Europe/Paris');
-	 if (!isset($_SESSION['user']) && basename($_SERVER["PHP_SELF"]) != "login.php") {
-	     header("Location: login.php");
+	 if (!isset($_SESSION['user']) && basename($_SERVER["PHP_SELF"]) != "login.php" && basename($_SERVER["PHP_SELF"]) != "maintenance.php") {
+	     //header("Location: login.php");
+         header("Location: maintenance.php");
 	 }
     if(!isset($pageTitle)){
         $pageTitle = "Intranet association Revivre";

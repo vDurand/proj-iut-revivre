@@ -186,3 +186,9 @@ img {
     color:#ffffff;
     cursor: pointer;
 }
+
+#construc {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
