@@ -52,6 +52,10 @@ $pageTitle = "Bordereau de Livraison";
                     <fieldset>
                 <table style=\"padding-left:10px;padding-top:5px;padding-bottom:5px;\">
                     <tr>
+                        <th>Numero : </th>
+                        <td>".formatUP($donnees['CHA_NumDevis'])."</td>
+                    </tr>
+                    <tr>
                         <th style=\"width=150px;\">Intitulé : </th>
                         <td>".formatLOW($donnees['CHA_Intitule'])."</td>
                     </tr>
@@ -171,6 +175,10 @@ $pageTitle = "Bordereau de Livraison";
                     <h3>Chantier</h3>
                     <fieldset>
                 <table style=\"padding-left:10px;padding-top:5px;padding-bottom:5px;\">
+                    <tr>
+                        <th>Numero : </th>
+                        <td>".formatUP($donnees['CHA_NumDevis'])."</td>
+                    </tr>
                     <tr>
                         <th style=\"width=150px;\">Intitulé : </th>
                         <td>".formatLOW($donnees['CHA_Intitule'])."</td>
