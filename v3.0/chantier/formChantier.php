@@ -1,16 +1,20 @@
 <div id="labelT">
     <label>Detail du Chantier</label>
-	<form  method="post" action="printer.php" name="printer">
-		<input type="hidden" name="NumC" value="<?php echo $donnees['CHA_NumDevis']; ?>">
-		<div style="text-align: right; margin-top: -25px; margin-right: 5px;"><input formtarget="_blank" class="printButton" type="submit" name="printer" value="Imprimer"
-<?php
-                    if(empty($donnees['CHA_DateFinReel'])){
-                        echo "onclick=\"return confirm('Le chantier n\'est pas terminé. Etes vous sûr de vouloir imprimer le bordereau?');\"";
-                    }
+
+    <form method="post" action="printer.php" name="printer">
+        <input type="hidden" name="NumC" value="<?php echo $donnees['CHA_NumDevis']; ?>">
+
+        <div style="text-align: right; margin-top: -25px; margin-right: 5px;"><input formtarget="_blank"
+                                                                                     class="printButton" type="submit"
+                                                                                     name="printer" value="Imprimer"
+                <?php
+                if (empty($donnees['CHA_DateFinReel'])) {
+                    echo "onclick=\"return confirm('Le chantier n\'est pas terminé. Etes vous sûr de vouloir imprimer le bordereau?');\"";
+                }
                 ?>
                 />
-                </div>
-	</form>
+        </div>
+    </form>
 </div>
 <br>
 <table id="fullTable" rules="all">
@@ -35,22 +39,23 @@
                 </tr>
                 <tr style="height: 40px;">
                     <th style="text-align: left; width: 200px; white-space: normal;">Fin:</th>
-                <?php
-                if($donnees['CHA_DateFinReel']!=NULL){
-                    ?>
+                    <?php
+                    if ($donnees['CHA_DateFinReel'] != NULL) {
+                        ?>
                         <td style="text-align: center; width: 200px;"><?php echo dater($donnees['CHA_DateFinReel']); ?></td>
-                <?php
-                }
-                else{
-                ?>
-                    <td style="text-align: center; width: 200px;">--</td>
-                <?php
-                }
-                ?>
+                    <?php
+                    } else {
+                        ?>
+                        <td style="text-align: center; width: 200px;">--</td>
+                    <?php
+                    }
+                    ?>
                 </tr>
                 <tr style="height: 40px;">
                     <th style="text-align: left; width: 200px; white-space: normal;">Etat du Devis:</th>
-                    <td style="text-align: center; width: 200px;"><div id="stateOfSite"><?php echo formatLOW($donnees['Etat']); ?></div></td>
+                    <td style="text-align: center; width: 200px;">
+                        <div id="stateOfSite"><?php echo formatLOW($donnees['Etat']); ?></div>
+                    </td>
                 </tr>
                 <tr>
                     <th style="text-align: left; width: 200px; white-space: normal;">Montant:</th>
@@ -58,11 +63,15 @@
                 </tr>
                 <tr>
                     <th style="text-align: left; width: 200px; white-space: normal;">Achats Prévus:</th>
-                    <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_AchatsPrev']; $MontantMax = $donnees['CHA_AchatsPrev']; ?> &euro;</td>
+                    <td style="text-align: center; width: 200px;"><?php echo $donnees['CHA_AchatsPrev'];
+                        $MontantMax = $donnees['CHA_AchatsPrev']; ?> &euro;</td>
                 </tr>
                 <tr>
                     <th style="text-align: left; width: 200px; white-space: normal;">Heures Prévues:</th>
-                    <td style="text-align: center; width: 200px;"><div id="hoursOnSite"><?php echo $donnees['CHA_HeuresPrev']; $Hmax = $donnees['CHA_HeuresPrev'];?></div></td>
+                    <td style="text-align: center; width: 200px;">
+                        <div id="hoursOnSite"><?php echo $donnees['CHA_HeuresPrev'];
+                            $Hmax = $donnees['CHA_HeuresPrev']; ?></div>
+                    </td>
                 </tr>
                 <tr>
                     <th style="text-align: left; width: 200px; white-space: normal;">Responsable:</th>
@@ -71,24 +80,23 @@
             </table>
         </td>
         <td>
-<?php
-    if(!empty($donnees['Client'])){
-        $nom = formatUP($donnees['Client']);
-        $tel = $donnees['ClientTel'];
-        $address = formatLOW($donnees['ClientAd']);
-        $ville = formatLOW($donnees['ClienV'])." ".$donnees['ClientCP'];
-    }
-    else{
-        $nCli = $donnees['NumClient'];
-        $queryParticulier = "SELECT * FROM EmployerClient JOIN Personnes USING (PER_Num) WHERE CLI_NumClient=$nCli";
-        $repParticulier = mysqli_query($db, $queryParticulier);
-        $dataParticulier = mysqli_fetch_assoc($repParticulier);
-        $nom = formatUP($dataParticulier['PER_Nom'])." ".formatLOW($dataParticulier['PER_Prenom']);
-        $tel = $dataParticulier['PER_TelFixe'];
-        $address = formatLOW($dataParticulier['PER_Adresse']);
-        $ville = formatLOW($dataParticulier['PER_Ville'])." ".$dataParticulier['PER_CodePostal'];
-    }
-?>
+            <?php
+            if (!empty($donnees['Client'])) {
+                $nom = formatUP($donnees['Client']);
+                $tel = $donnees['ClientTel'];
+                $address = formatLOW($donnees['ClientAd']);
+                $ville = formatLOW($donnees['ClienV']) . " " . $donnees['ClientCP'];
+            } else {
+                $nCli = $donnees['NumClient'];
+                $queryParticulier = "SELECT * FROM EmployerClient JOIN Personnes USING (PER_Num) WHERE CLI_NumClient=$nCli";
+                $repParticulier = mysqli_query($db, $queryParticulier);
+                $dataParticulier = mysqli_fetch_assoc($repParticulier);
+                $nom = formatUP($dataParticulier['PER_Nom']) . " " . formatLOW($dataParticulier['PER_Prenom']);
+                $tel = $dataParticulier['PER_TelFixe'];
+                $address = formatLOW($dataParticulier['PER_Adresse']);
+                $ville = formatLOW($dataParticulier['PER_Ville']) . " " . $dataParticulier['PER_CodePostal'];
+            }
+            ?>
             <table cellpadding="10" class="detailClients">
                 <tr>
                     <th style="text-align: left; width: 200px; white-space: normal;">Client:</th>
@@ -107,9 +115,9 @@
                     <td style="text-align: center; width: 200px;"><?php echo $ville; ?></td>
                 </tr>
             </table>
-<?php
+            <?php
 
-?>
+            ?>
         </td>
     </tr>
     <tr>
@@ -131,19 +139,31 @@
             <table cellpadding="10" class="detailClients">
                 <tr>
                     <th style="text-align: left; width: 200px; white-space: normal;">Achats :</th>
-                    <td style="text-align: center; width: 200px;"><div id="progressbar2"><div class="progress-label2"></div></div></td>
+                    <td style="text-align: center; width: 200px;">
+                        <div id="progressbar2">
+                            <div class="progress-label2"></div>
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <th style="text-align: left; width: 200px; white-space: normal;">Heures en cours :</th>
-                    <td style="text-align: center; width: 200px;"><div id="progressbar"><div class="progress-label"></div></div></td>
+                    <td style="text-align: center; width: 200px;">
+                        <div id="progressbar">
+                            <div class="progress-label"></div>
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <th style="text-align: left; width: 200px; white-space: normal;">Heures restantes :</th>
-                    <td style="text-align: center; width: 200px;"><div id="heureRestante"></div></td>
+                    <td style="text-align: center; width: 200px;">
+                        <div id="heureRestante"></div>
+                    </td>
                 </tr>
                 <tr>
                     <th style="text-align: left; width: 200px; white-space: normal;">Achat Restant :</th>
-                    <td style="text-align: center; width: 200px;"><div id="achatRestant"></div></td>
+                    <td style="text-align: center; width: 200px;">
+                        <div id="achatRestant"></div>
+                    </td>
                 </tr>
             </table>
         </td>
@@ -161,21 +181,20 @@
             </form>
         </td>
         <?php
-        $IdEtat=$donnees['Id'];
-        if($donnees['Resp']==""){
+        $IdEtat = $donnees['Id'];
+        if ($donnees['Resp'] == "") {
             ?>
             <td style="text-align: center; width: 200px;">
             <span>
-              <input  name="submit" type="submit" onclick="addResp()" value="Responsable" class="buttonC">
+              <input name="submit" type="submit" onclick="addResp()" value="Responsable" class="buttonC">
             </span>
             </td>
         <?php
-        }
-        else{
+        } else {
             ?>
             <td style="text-align: center; width: 200px;">
             <span>
-              <input  name="submit" type="submit" onclick="addTps()" value="Travail" class="buttonC">
+              <input name="submit" type="submit" onclick="addTps()" value="Travail" class="buttonC">
             </span>
             </td>
         <?php
@@ -183,7 +202,8 @@
         ?>
         <td style="text-align: center; width: 200px;">
             <span>
-              <input  name="submit" type="submit" onclick="changeEtat(<?php echo $IdEtat; ?>)" value="Etat" class="buttonC">
+              <input name="submit" type="submit" onclick="changeEtat(<?php echo $IdEtat; ?>)" value="Etat"
+                     class="buttonC">
             </span>
         </td>
         <td style="text-align: center; width: 150px;">
@@ -207,10 +227,10 @@
                     <select required name="Resp">
                         <?php
                         $reponseBis = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Fonction USING (FCT_Id) JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE FCT_Id=4 ORDER BY PER_Nom");
-                        while ($donneesBis = mysqli_fetch_assoc($reponseBis))
-                        {
+                        while ($donneesBis = mysqli_fetch_assoc($reponseBis)) {
                             ?>
-                            <option value="<?php echo $donneesBis['SAL_NumSalarie']; ?>"><?php echo formatUP($donneesBis['PER_Nom']);?> <?php echo formatLOW($donneesBis['PER_Prenom']);?></option>
+                            <option
+                                value="<?php echo $donneesBis['SAL_NumSalarie']; ?>"><?php echo formatUP($donneesBis['PER_Nom']); ?> <?php echo formatLOW($donneesBis['PER_Prenom']); ?></option>
                         <?php
                         }
                         mysqli_free_result($reponseBis);
@@ -238,13 +258,13 @@
                             <?php
                             $j = 0;
                             $reponseTres = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num Where TYP_Id = 6 ORDER BY PER_Nom");
-                            while ($donneesTres = mysqli_fetch_assoc($reponseTres))
-                            {
+                            while ($donneesTres = mysqli_fetch_assoc($reponseTres)) {
                                 ?>
-                                <option value="<?php echo $donneesTres['SAL_NumSalarie']; ?>"><?php echo formatUP($donneesTres['PER_Nom']); ?> <?php echo formatLOW($donneesTres['PER_Prenom']); ?></option>
+                                <option
+                                    value="<?php echo $donneesTres['SAL_NumSalarie']; ?>"><?php echo formatUP($donneesTres['PER_Nom']); ?> <?php echo formatLOW($donneesTres['PER_Prenom']); ?></option>
                                 <?php
-                                $temp1=formatUP($donneesTres['PER_Nom']);
-                                $temp2=formatLOW($donneesTres['PER_Prenom']);
+                                $temp1 = formatUP($donneesTres['PER_Nom']);
+                                $temp2 = formatLOW($donneesTres['PER_Prenom']);
                                 $Workers[$j] = "$temp1 $temp2";
                                 $Ids[$j] = $donneesTres['SAL_NumSalarie'];
                                 $limitOpt = $j;
@@ -256,13 +276,13 @@
                         <optgroup label="Salariés en Insertion">
                             <?php
                             $reponseTres = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num Where TYP_Id = 7 ORDER BY PER_Nom");
-                            while ($donneesTres = mysqli_fetch_assoc($reponseTres))
-                            {
+                            while ($donneesTres = mysqli_fetch_assoc($reponseTres)) {
                                 ?>
-                                <option value="<?php echo $donneesTres['SAL_NumSalarie']; ?>"><?php echo formatUP($donneesTres['PER_Nom']); ?> <?php echo formatLOW($donneesTres['PER_Prenom']); ?></option>
+                                <option
+                                    value="<?php echo $donneesTres['SAL_NumSalarie']; ?>"><?php echo formatUP($donneesTres['PER_Nom']); ?> <?php echo formatLOW($donneesTres['PER_Prenom']); ?></option>
                                 <?php
-                                $temp1=formatUP($donneesTres['PER_Nom']);
-                                $temp2=formatLOW($donneesTres['PER_Prenom']);
+                                $temp1 = formatUP($donneesTres['PER_Nom']);
+                                $temp2 = formatLOW($donneesTres['PER_Prenom']);
                                 $Workers[$j] = "$temp1 $temp2";
                                 $Ids[$j] = $donneesTres['SAL_NumSalarie'];
                                 $j++;
@@ -273,13 +293,13 @@
                         <optgroup label="Atelier Occupationnel">
                             <?php
                             $reponseTres = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num Where TYP_Id = 8 ORDER BY PER_Nom");
-                            while ($donneesTres = mysqli_fetch_assoc($reponseTres))
-                            {
+                            while ($donneesTres = mysqli_fetch_assoc($reponseTres)) {
                                 ?>
-                                <option value="<?php echo $donneesTres['SAL_NumSalarie']; ?>"><?php echo formatUP($donneesTres['PER_Nom']); ?> <?php echo formatLOW($donneesTres['PER_Prenom']); ?></option>
+                                <option
+                                    value="<?php echo $donneesTres['SAL_NumSalarie']; ?>"><?php echo formatUP($donneesTres['PER_Nom']); ?> <?php echo formatLOW($donneesTres['PER_Prenom']); ?></option>
                                 <?php
-                                $temp1=formatUP($donneesTres['PER_Nom']);
-                                $temp2=formatLOW($donneesTres['PER_Prenom']);
+                                $temp1 = formatUP($donneesTres['PER_Nom']);
+                                $temp2 = formatLOW($donneesTres['PER_Prenom']);
                                 $Workers[$j] = "$temp1 $temp2";
                                 $Ids[$j] = $donneesTres['SAL_NumSalarie'];
                                 $j++;
@@ -297,10 +317,12 @@
         </tr>
         <tr id="Ajout-Tpss" style="display:none;">
             <td style="text-align: center; padding-top: 15px;">
-                <input required form="AddWork" id="Date" maxlength="100" style="width:140px;" name="Date[]" type="date" class="inputC2" placeholder="Date">
+                <input required form="AddWork" id="Date" maxlength="100" style="width:140px;" name="Date[]" type="date"
+                       class="inputC2" placeholder="Date">
             </td>
             <td align="center" style="padding-top: 15px;">
-                <input required form="AddWork" id="Debut" step="300" name="Debut[]" type="time" class="inputC2" placeholder="Nombre d'heures">
+                <input required form="AddWork" id="Debut" step="300" name="Debut[]" type="time" class="inputC2"
+                       placeholder="Nombre d'heures">
             </td>
             <td align="left" style="padding-top: 15px;">
                 <input name="plus" type="button" value="+" onclick="AddWorkingTime()">
@@ -321,10 +343,10 @@
                     <select name="EtatA" onchange="showFin(this)">
                         <?php
                         $reponse4 = mysqli_query($db, "SELECT * FROM TypeEtat WHERE TYE_Id>$IdEtat ORDER BY TYE_Id");
-                        while ($donnees4 = mysqli_fetch_assoc($reponse4))
-                        {
+                        while ($donnees4 = mysqli_fetch_assoc($reponse4)) {
                             ?>
-                            <option value="<?php echo $donnees4['TYE_Id']; ?>"><?php echo $donnees4['TYE_Nom']; ?></option>
+                            <option
+                                value="<?php echo $donnees4['TYE_Id']; ?>"><?php echo $donnees4['TYE_Nom']; ?></option>
                         <?php
                         }
                         mysqli_free_result($reponse4);
@@ -375,15 +397,18 @@ if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM TempsTravail WHERE CHA_N
             </thead>
             <tbody>
             <?php
-            $reponse3 = mysqli_query($db, "SELECT PER_Nom, PER_Prenom, TRA_Date, TIME_FORMAT(TRA_Duree, '%H:%i') as TRA_Duree FROM TempsTravail ttps JOIN Salaries sal ON ttps.SAL_NumSalarie=sal.SAL_NumSalarie JOIN Personnes pe ON pe.PER_Num=sal.PER_Num WHERE ttps.CHA_NumDevis='$num' ORDER BY ttps.TRA_Date ASC");
-            while ($donnees3 = mysqli_fetch_assoc($reponse3))
-            {
+            $reponse3 = mysqli_query($db, "SELECT TRA_NumTravail, PER_Nom, PER_Prenom, TRA_Date, TIME_FORMAT(TRA_Duree, '%H:%i') as TRA_Duree FROM TempsTravail ttps JOIN Salaries sal ON ttps.SAL_NumSalarie=sal.SAL_NumSalarie JOIN Personnes pe ON pe.PER_Num=sal.PER_Num WHERE ttps.CHA_NumDevis='$num' ORDER BY ttps.TRA_Date ASC");
+            while ($donnees3 = mysqli_fetch_assoc($reponse3)) {
                 ?>
-                <tr style="font-size: 14;">
-                    <td><?php echo formatUP($donnees3['PER_Nom']); ?> <?php echo formatLOW($donnees3['PER_Prenom']); ?></td>
-                    <td><?php echo dater($donnees3['TRA_Date']); ?></td>
-                    <td><?php echo $donnees3['TRA_Duree']; ?></td>
-                </tr>
+                <form method="post" action="editTemps.php" name="editTemps">
+                    <input type="hidden" name="NumC" value="">
+                    <tr onclick="javascript:submitViewDetail('<?php echo $donnees3['TRA_NumTravail']; ?>', 'editTemps');"
+                        style="font-size: 14;">
+                        <td><?php echo formatUP($donnees3['PER_Nom']); ?> <?php echo formatLOW($donnees3['PER_Prenom']); ?></td>
+                        <td><?php echo dater($donnees3['TRA_Date']); ?></td>
+                        <td><?php echo $donnees3['TRA_Duree']; ?></td>
+                    </tr>
+                </form>
             <?php
             }
             mysqli_free_result($reponse3);
@@ -392,8 +417,9 @@ if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM TempsTravail WHERE CHA_N
             ?>
             <tr style="font-size: 14;">
                 <td></td>
-                <td style="font-weight: bold;">Heures Totales : </td>
-                <td style="font-weight: bold;"><?php echo $donnees4['total']; $totalHh = $donnees4['total'];?></td>
+                <td style="font-weight: bold;">Heures Totales :</td>
+                <td style="font-weight: bold;"><?php echo $donnees4['total'];
+                    $totalHh = $donnees4['total']; ?></td>
             </tr>
             </tbody>
         </table>
@@ -411,10 +437,10 @@ if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM TempsTravail WHERE CHA_N
 }
 $montantHeure = 0;
 $resteHeure = 0;
-if(!empty($donneesT['CHA_TxHoraire'])){
-    $montantHeure = $donneesT['CHA_TxHoraire']*$totalHh;
+if (!empty($donneesT['CHA_TxHoraire'])) {
+    $montantHeure = $donneesT['CHA_TxHoraire'] * $totalHh;
 }
-$resteHeure = $Hmax-$totalHh;
+$resteHeure = $Hmax - $totalHh;
 $totAchat = 0;
 $graphMntOK = 0;
 if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM Acheter WHERE CHA_NumDevis='$num'"))) {
@@ -442,13 +468,15 @@ if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM Acheter WHERE CHA_NumDev
             <?php
 
             $reponse5 = mysqli_query($db, "SELECT * FROM Acheter JOIN TypeAchat USING(TAC_Id) JOIN Fournisseurs USING (FOU_NumFournisseur) WHERE CHA_NumDevis='$num' ORDER BY ACH_Date ASC");
-            while ($donnees5 = mysqli_fetch_assoc($reponse5))
-            {
+            while ($donnees5 = mysqli_fetch_assoc($reponse5)) {
                 ?>
                 <tr style="font-size: 14;">
-                    <td><?php echo formatLOW($donnees5['TAC_Type']); ?> <span style="float: right;">Fournisseur : <?php echo formatUP($donnees5['FOU_Nom']); ?></span></td>
+                    <td><?php echo formatLOW($donnees5['TAC_Type']); ?> <span
+                            style="float: right;">Fournisseur : <?php echo formatUP($donnees5['FOU_Nom']); ?></span>
+                    </td>
                     <td><?php echo dater($donnees5['ACH_Date']); ?></td>
-                    <td><?php echo $donnees5['ACH_Montant']." €"; $totAchat += $donnees5['ACH_Montant']; ?></td>
+                    <td><?php echo $donnees5['ACH_Montant'] . " €";
+                        $totAchat += $donnees5['ACH_Montant']; ?></td>
                 </tr>
             <?php
             }
@@ -456,7 +484,7 @@ if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM Acheter WHERE CHA_NumDev
             ?>
             <tr style="font-size: 14;">
                 <td></td>
-                <td style="font-weight: bold;">Montant Total : </td>
+                <td style="font-weight: bold;">Montant Total :</td>
                 <td style="font-weight: bold;"><?php echo $totAchat; ?> €</td>
             </tr>
             </tbody>
@@ -472,7 +500,7 @@ mysqli_free_result($reponse);
 ?>
 </div>
 <script type="text/javascript">
-    window.onload=function(){
+    window.onload = function () {
         // Affiche heure restant et montant des heures dans le haut de la page
         <?php if ($resteHeure < 0) { ?>
         document.getElementById('heureRestante').innerHTML = "Depassé de <?php echo -$resteHeure; ?>h";
@@ -537,7 +565,10 @@ mysqli_free_result($reponse);
               }
 
               for ($i = 0; $i < $k+1; $i++) {?>
-                { y: '<?php echo $distinctDate[$i]; ?>', a: <?php $croissance = $croissance + $sommeTable[$i]; echo $croissance; ?>},
+                {
+                    y: '<?php echo $distinctDate[$i]; ?>',
+                    a: <?php $croissance = $croissance + $sommeTable[$i]; echo $croissance; ?>
+                },
                 <?php
                 }
                 ?>
@@ -553,7 +584,7 @@ mysqli_free_result($reponse);
         <?php } ?>
         var current = <?php if($croissance!=""){echo $croissance;}else{echo "0";} ?>;
         var maxxx = <?php echo $Hmax; ?>;
-        if (maxxx<current) {
+        if (maxxx < current) {
             //document.getElementById('hoursOnSite').style.backgroundColor = 'red';
             //document.getElementById('hoursOnSite').style.color = 'white';
         }
@@ -596,7 +627,7 @@ mysqli_free_result($reponse);
 
                     for ($i = 0; $i < $k+1; $i++) {
                 ?>
-                { y: '<?php echo $distinctCal[$i]; ?>', a: <?php $achats = $achats + $sumTable[$i]; echo $achats; ?>},
+                {y: '<?php echo $distinctCal[$i]; ?>', a: <?php $achats = $achats + $sumTable[$i]; echo $achats; ?>},
                 <?php
                     }
                 ?>
@@ -618,33 +649,32 @@ include('../footer.php');
 <script type="text/javascript">
     var buttonCount = 1;
     // Add tps travail form ++ (detailChantier)
-    function AddWorkingTime()
-    {
+    function AddWorkingTime() {
         // conversion php array to js array
-        var jWorkers= <?php echo json_encode($Workers); ?>;
-        var jIds= <?php echo json_encode($Ids); ?>;
+        var jWorkers = <?php echo json_encode($Workers); ?>;
+        var jIds = <?php echo json_encode($Ids); ?>;
 
         // structure html tr/td/div
         var table = document.getElementById("downT");
-        var NewRow = table.insertRow(4+(buttonCount-1)*2);
-        NewRow.id = "Ajout-Tps"+buttonCount;
+        var NewRow = table.insertRow(4 + (buttonCount - 1) * 2);
+        NewRow.id = "Ajout-Tps" + buttonCount;
         NewRow.setAttribute("style", "display:;")
 
         var NewCell1 = NewRow.insertCell(0);
-        NewCell1.setAttribute("style","text-align: center; padding-top: 35px;");
+        NewCell1.setAttribute("style", "text-align: center; padding-top: 35px;");
         NewCell1.innerHTML = "<label>Membres : </label>";
 
         var NewCell2 = NewRow.insertCell(1);
-        NewCell2.setAttribute("style","padding-top: 35px;");
-        NewCell2.setAttribute("align","center");
+        NewCell2.setAttribute("style", "padding-top: 35px;");
+        NewCell2.setAttribute("align", "center");
 
         var NewDiv = document.createElement("div");
-        NewDiv.setAttribute("class","selectType");
+        NewDiv.setAttribute("class", "selectType");
 
         // insertion array in select option via tmp
         tmp = '<select required form="AddWork" name="Member[]">\n<option></option>\n<optgroup label="Stagiaires"> ';
         for (var i in jWorkers) {
-            tmp += '<option value="'+jIds[i]+'">'+jWorkers[i]+"</option>\n";
+            tmp += '<option value="' + jIds[i] + '">' + jWorkers[i] + "</option>\n";
             if (i == <?php echo $limitOpt; ?>) {
                 tmp += '</optgroup>\n<optgroup label="Salariés en Insertion">';
             }
@@ -656,16 +686,16 @@ include('../footer.php');
         NewCell2.appendChild(NewDiv);
 
         var NewCell3 = NewRow.insertCell(2);
-        NewCell3.setAttribute("style","padding-top: 35px;");
-        NewCell3.setAttribute("align","center");
+        NewCell3.setAttribute("style", "padding-top: 35px;");
+        NewCell3.setAttribute("align", "center");
 
         // next tr
-        var NewRow2 = table.insertRow(5+(buttonCount-1)*2);
-        NewRow2.id = "Ajout-Tpss"+buttonCount;
+        var NewRow2 = table.insertRow(5 + (buttonCount - 1) * 2);
+        NewRow2.id = "Ajout-Tpss" + buttonCount;
         NewRow2.setAttribute("style", "display:;")
 
         var NewCell4 = NewRow2.insertCell(0);
-        NewCell4.setAttribute("style","text-align: center; padding-top: 15px;");
+        NewCell4.setAttribute("style", "text-align: center; padding-top: 15px;");
 
         /*var NewDiv2 = document.createElement("div");
 
@@ -678,12 +708,12 @@ include('../footer.php');
         NewCell4.innerHTML = '<input required form="AddWork" id="Date" style="width:140px;" maxlength="100" name="Date[]" type="date" class="inputC2" placeholder="Date">';
 
         var NewCell5 = NewRow2.insertCell(1);
-        NewCell5.setAttribute("style","text-align: center; padding-top: 15px;");
+        NewCell5.setAttribute("style", "text-align: center; padding-top: 15px;");
         NewCell5.innerHTML = '<input required form="AddWork" id="Debut" step="300" name="Debut[]" type="time" class="inputC2" placeholder="Nombre dheures">';
 
         var NewCell6 = NewRow2.insertCell(2);
-        NewCell6.setAttribute("style","padding-top: 35px;");
-        NewCell6.setAttribute("align","center");
+        NewCell6.setAttribute("style", "padding-top: 35px;");
+        NewCell6.setAttribute("align", "center");
 
         /*var AllDiv = document.createElement("div");
          AllDiv.appendChild(NewRow);
@@ -692,8 +722,7 @@ include('../footer.php');
         buttonCount++;
     }
     // Remove tps travail form -- (detailChantier)
-    function RmWorkingTime()
-    {
+    function RmWorkingTime() {
         if (buttonCount > 1) {
             $("#placeholder_row_bottom").prev().remove();
             buttonCount--;
@@ -702,32 +731,32 @@ include('../footer.php');
     }
 </script>
 <script>
-    $(function() {
-        $(function() {
-            var progressbar = $( "#progressbar" ),
-                progressLabel = $( ".progress-label" );
+    $(function () {
+        $(function () {
+            var progressbar = $("#progressbar"),
+                progressLabel = $(".progress-label");
 
             progressbar.progressbar({
                 value: <?php echo round($croissance*100/$Hmax, 2) ; ?>,
             });
             <?php if ($croissance*100/$Hmax > 100) {?>
-            progressLabel.text( "<?php echo round($croissance*100/$Hmax, 2) ; ?> %" );
+            progressLabel.text("<?php echo round($croissance*100/$Hmax, 2) ; ?> %");
             <?php } else { ?>
-            progressLabel.text( progressbar.progressbar( "value" ) + "%" );
+            progressLabel.text(progressbar.progressbar("value") + "%");
             <?php }?>
 
         });
-        $(function() {
-            var progressbar = $( "#progressbar2" ),
-                progressLabel = $( ".progress-label2" );
+        $(function () {
+            var progressbar = $("#progressbar2"),
+                progressLabel = $(".progress-label2");
 
             progressbar.progressbar({
                 value: <?php echo round($totAchat*100/$MontantMax, 2) ; ?>,
             });
             <?php if ($totAchat*100/$MontantMax > 100) {?>
-            progressLabel.text( "<?php echo round($totAchat*100/$MontantMax, 2) ; ?> %" );
+            progressLabel.text("<?php echo round($totAchat*100/$MontantMax, 2) ; ?> %");
             <?php } else { ?>
-            progressLabel.text( progressbar.progressbar( "value" ) + "%" );
+            progressLabel.text(progressbar.progressbar("value") + "%");
             <?php }?>
 
         });
@@ -735,48 +764,45 @@ include('../footer.php');
 </script>
 <style>
     #progressbar .ui-progressbar-value {
-    <?php if ($croissance*100/$Hmax > 100) {?>
-        background-color: #EB0C0C;
-    <?php } else { ?>
-        background-color: #2FB044;
+    <?php if ($croissance*100/$Hmax > 100) {?> background-color: #EB0C0C;
+    <?php } else { ?> background-color: #2FB044;
     <?php }?>
     }
+
     #progressbar2 .ui-progressbar-value {
-    <?php if ($totAchat*100/$MontantMax > 100) {?>
-        background-color: #E00B0B;
-    <?php } else { ?>
-        background-color: #2F72B0;
+    <?php if ($totAchat*100/$MontantMax > 100) {?> background-color: #E00B0B;
+    <?php } else { ?> background-color: #2F72B0;
     <?php }?>
     }
+
     .ui-progressbar {
         position: relative;
     }
+
     .progress-label {
         position: absolute;
         right: 35%;
         font-weight: bold;
         font-size: 12px;
-    <?php if ($croissance*100/$Hmax > 50) {?>
-        color: #fff;
+    <?php if ($croissance*100/$Hmax > 50) {?> color: #fff;
         text-shadow: 1px 1px 0 #000;
-    <?php } else { ?>
-        color: #000;
+    <?php } else { ?> color: #000;
         text-shadow: 1px 1px 0 #fff;
     <?php }?>
     }
+
     .ui-progressbar2 {
         position: relative;
     }
+
     .progress-label2 {
         position: absolute;
         right: 35%;
         font-weight: bold;
         font-size: 12px;
-    <?php if ($totAchat*100/$MontantMax > 50) {?>
-        color: #fff;
+    <?php if ($totAchat*100/$MontantMax > 50) {?> color: #fff;
         text-shadow: 1px 1px 0 #000;
-    <?php } else { ?>
-        color: #000;
+    <?php } else { ?> color: #000;
         text-shadow: 1px 1px 0 #fff;
     <?php }?>
 
