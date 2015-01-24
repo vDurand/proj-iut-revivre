@@ -12,7 +12,7 @@ include('../bandeau.php');
     <div id="corps">
     <div id="labelT">
         <form name="search" id="search" method="post" action="search.php" style="display: inline-block; float: left; margin-left: 10px;">
-            <input type="text" name="searching">
+            <input type="text" placeholder="nom, prenom, structure" name="searching">
             <input type="submit" value="Rechercher">
         </form>
         <label style="margin-right: 207px;">Liste des Contacts</label>

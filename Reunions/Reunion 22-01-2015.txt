@@ -11,7 +11,7 @@ DONE  (liste déroulante avec possiblité d'ajout)
 DONE - augmenter la taille des adresses, des noms de structure
 DONE - augmenter le temps avant la déconnexion -> 4 heures
 - vérification des doublons
-- champ de recherche sur le répertoire
+DONE - champ de recherche sur le répertoire
 DONE - dans le responsable d'un chantier -> personne avec fonction encadrant
 
 bonus post reunion

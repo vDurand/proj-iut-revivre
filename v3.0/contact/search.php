@@ -8,6 +8,7 @@
 $pageTitle = "Résultat de recherche";
 $pwd='../';
 include('../bandeau.php');
+$found = 0;
 $search = addslashes(mysqli_real_escape_string($db, $_POST["searching"]));
 ?>
     <script src="../js/sorttable.js"></script>
@@ -22,7 +23,7 @@ $search = addslashes(mysqli_real_escape_string($db, $_POST["searching"]));
             <input type="text" name="searching">
             <input type="submit" value="Rechercher">
         </form>
-        <label style="margin-right: 207px;">Recherche : <?php echo $search; ?></label>
+        <label style="margin-right: 207px;">Recherche : <b><?php echo $search; ?></b></label>
     </div>
     <br>
 
@@ -220,6 +221,7 @@ $search = addslashes(mysqli_real_escape_string($db, $_POST["searching"]));
             </tr>
         </form>
         <?php
+        $found = 1;
     }
     mysqli_free_result($queryCliEnt);
 
@@ -244,6 +246,7 @@ $search = addslashes(mysqli_real_escape_string($db, $_POST["searching"]));
             </tr>
         </form>
     <?php
+        $found = 1;
     }
     mysqli_free_result($queryCliEmp);
 
@@ -268,6 +271,7 @@ $search = addslashes(mysqli_real_escape_string($db, $_POST["searching"]));
             </tr>
         </form>
     <?php
+        $found = 1;
     }
     mysqli_free_result($queryCliPart);
     // Fournisseurs
@@ -291,6 +295,7 @@ $search = addslashes(mysqli_real_escape_string($db, $_POST["searching"]));
             </tr>
         </form>
         <?php
+        $found = 1;
     }
     mysqli_free_result($queryFourn);
 
@@ -315,6 +320,7 @@ $search = addslashes(mysqli_real_escape_string($db, $_POST["searching"]));
             </tr>
         </form>
     <?php
+        $found = 1;
     }
     mysqli_free_result($queryFouEmp);
 
@@ -353,6 +359,7 @@ $search = addslashes(mysqli_real_escape_string($db, $_POST["searching"]));
         </tr>
         </form>
     <?php
+        $found = 1;
     }
     mysqli_free_result($reponse);
     // referents
@@ -376,8 +383,12 @@ $search = addslashes(mysqli_real_escape_string($db, $_POST["searching"]));
             </tr>
         </form>
     <?php
+        $found = 1;
     }
     mysqli_free_result($queryRef);
+    if($found != 1){
+        echo "<tr><td colspan='6'>Pas de Résultat</td></tr>";
+    }
     ?>
     </tbody>
     </table>
