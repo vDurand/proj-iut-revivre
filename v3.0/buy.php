@@ -1,17 +1,48 @@
 <?php
 $pageTitle = "Ajouter Achat";
 	include('bandeau.php');
+    $num=$_POST["NumC"];
 ?>
 		<div id="corps">
+<?php
+    if(!empty($_POST['new-type'])){
+        $newtype = addslashes(mysqli_real_escape_string($db, formatLow($_POST["new-type"])));
+        $insertQuery = "INSERT INTO TypeAchat VALUES(NULL, '$newtype')";
+        $sql = mysqli_query($db, $insertQuery);
+        $err=mysqli_error($db);
+        if($sql){
+            echo '<div id="good">
+              <label>Type ajouté avec succès</label>
+              </div>';
+        }
+        else{
+            echo '<div id="bad">
+              <label>Le type n\'a pas pu être ajouté</label>
+              </div>';
+        }
+    }
+?>
 			<div id="labelT">     
 				<label>Ajouter un Achat</label>
 			</div>
 			<br>
 			<div align="center">
-			<input name="plus" type="button" value="+" class="buttonSmll" onclick="AddBuy()">&nbsp;&nbsp;
-			<input name="plus" type="button" value="-" class="buttonSmll" onclick="RmBuy()">
+			    <input name="plus" type="button" value="+" class="buttonSmll" onclick="AddBuy()">&nbsp;&nbsp;
+			    <input name="plus" type="button" value="-" class="buttonSmll" onclick="RmBuy()">&nbsp;&nbsp;
+                <input name="plus" type="button" value="Nouveau Type" style="width: 120px;" class="buttonSmll" onclick="showNewType()">
 			</div>
 			<br>
+            <div id="NewType" style="display: none; text-align: center;">
+                <br>
+                <form method="post" action="buy.php" name="newprod" id="newprod">
+                    <label>Nouveau Type de Produit : </label>
+                    <input name="new-type" type="text" class="inputC" form="newprod" style="margin-left: 10px; margin-right: 10px;">
+                    <input type="submit" value="Ajouter" form="newprod">
+                    <input type="hidden" value="<?php echo $num; ?>" name="NumC">
+                </form>
+                <br>
+            </div>
+            <br>
 			<form method="post" action="buyPost.php" name="BuyProd" id="BuyProd">
 				<table id="BuyAjout" align="center" cellspacing="0px">
 					<tr id="Ajout-Tps">
@@ -22,7 +53,6 @@ $pageTitle = "Ajouter Achat";
 							<div id="ProdSelector" class="selectProd" style="display: ;">
 	          					<select form="BuyProd" id="ProduitExistant" name="Fourn[]">
 <?php
-$num=$_POST["NumC"];
 $Products = array(" ");
 $Ids = array(" ");
 $j = 0;
@@ -46,12 +76,12 @@ mysqli_free_result($reponse);
 			    			<input form="BuyProd" type="hidden" name="NumC" value="<?php echo $num; ?>">
 			    		</td>
 			    		<td>
-			    			<input form="BuyProd" required min="0" style="width: 75px;" name="Montant[]" type="number" step="0.01" class="inputC">
+			    			<input form="BuyProd" required min="0" style="width: 125px;" name="Montant[]" type="number" step="0.01" class="inputC">&nbsp;&nbsp;€
 			    		</td>
 					</tr>
 					<tr id="Ajout-Tpss">
 						<td style="text-align: right; width: 100px; padding-right: 10px;">
-							<label>Detail :</label>
+							<label>Type :</label>
 						</td>
                         <td>
                             <div id="ProdSelector" class="selectProd" style="display: ;">
@@ -89,8 +119,8 @@ mysqli_free_result($reponse);
 					<tr>
 						<td>
 							<span>
-								<input form="BuyProd" name="submit" type="submit" value="Ajouter" class="buttonC">&nbsp;&nbsp; 
-								<input form="BuyProd" name="reset" type="reset" value="Annuler" class="buttonC">
+								<input form="BuyProd" name="submit" type="submit" value="Acheter" class="buttonC">&nbsp;&nbsp;
+								<button class="buttonC" onclick="window.location.href='detailChantier.php?NumC=<?php echo $num; ?>'">Retour</button>
 							</span>
 						</td>
 					</tr>
@@ -143,7 +173,7 @@ mysqli_free_result($reponse);
 	  		NewCell3.innerHTML = "<label>Montant :</label>";
 	  		
 	  	var NewCell4 = NewRow.insertCell(3);
-	  	NewCell4.innerHTML = '<input form="BuyProd" required min="0" step="0.01" style="width: 75px;" name="Montant[]" type="number" class="inputC">';
+	  	NewCell4.innerHTML = '<input form="BuyProd" required min="0" step="0.01" style="width: 125px;" name="Montant[]" type="number" class="inputC">&nbsp;&nbsp;€';
 	  	
 	  // next tr
 	  	var NewRow2 = table.insertRow(3+(buttonCount-1)*2);
@@ -152,7 +182,7 @@ mysqli_free_result($reponse);
 	  	
 	  	var NewCell5 = NewRow2.insertCell(0);
 	  	NewCell5.setAttribute("style","text-align: right; width: 100px; padding-right: 10px;");
-	  	NewCell5.innerHTML = "<label>Detail :</label>";
+	  	NewCell5.innerHTML = "<label>Type :</label>";
 
         var NewDivv = document.createElement("div");
         NewDivv.setAttribute("class","selectProd");

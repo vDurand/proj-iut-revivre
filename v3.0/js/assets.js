@@ -48,7 +48,21 @@ function showNewPresc()
         document.getElementById("Prescript").setAttribute("required", "");
     }
 }
-	
+
+function showNewType()
+{
+    if(document.getElementById('NewType').style.display == "none"){
+        document.getElementById('NewType').style.display = "";
+        document.getElementById('new-type').value = "";
+        document.getElementById("new-type").setAttribute("required", "");
+    }
+    else{
+        document.getElementById('NewType').style.display = "none";
+        document.getElementById('type').value = "";
+        document.getElementById("type").removeAttribute("required");
+    }
+}
+
 // Affiche/Masque formulaire specifique aux membres (addContact)
 	function showMemberInput(elem)
 	{
