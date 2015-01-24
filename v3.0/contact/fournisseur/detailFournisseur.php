@@ -173,11 +173,11 @@ include('../../bandeau.php');
                     </thead>
                     <tbody>
                     <?php
-                    $queryAchat = mysqli_query($db, "SELECT * FROM Acheter JOIN Chantiers USING (CHA_NumDevis) WHERE FOU_NumFournisseur='$num'");
+                    $queryAchat = mysqli_query($db, "SELECT * FROM Acheter JOIN Chantiers USING (CHA_NumDevis) JOIN TypeAchat USING(TAC_Id) WHERE FOU_NumFournisseur='$num'");
                     while ($achat = mysqli_fetch_assoc($queryAchat)) {
                         ?>
                         <tr style="font-size: 14;">
-                            <td><?php echo $achat['ACH_TypeAchat']; ?></td>
+                            <td><?php echo $achat['TAC_Type']; ?></td>
                             <td><?php echo dater($achat['ACH_Date']); ?></td>
                             <td><?php echo $achat['ACH_Montant']; ?> €</td>
                             <td><?php echo $achat['CHA_Intitule']; ?></td>
