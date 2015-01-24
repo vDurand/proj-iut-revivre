@@ -121,7 +121,7 @@ mysqli_free_result($reponse);
 						<td>
 							<span>
 								<input form="BuyProd" name="submit" type="submit" value="Acheter" class="buttonC">&nbsp;&nbsp;
-								<button class="buttonC" onclick="window.location.href='detailChantier.php?NumC=<?php echo $num; ?>'">Retour</button>
+								<button type="reset" class="buttonC" onclick="window.location.href='detailChantier.php?NumC=<?php echo $num; ?>'">Retour</button>
 							</span>
 						</td>
 					</tr>

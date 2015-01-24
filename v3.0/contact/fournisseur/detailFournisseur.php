@@ -177,7 +177,7 @@ include('../../bandeau.php');
                     while ($achat = mysqli_fetch_assoc($queryAchat)) {
                         ?>
                         <tr style="font-size: 14;">
-                            <td><?php echo $achat['TAC_Type']; ?></td>
+                            <td><?php echo formatLOW($achat['TAC_Type']); ?></td>
                             <td><?php echo dater($achat['ACH_Date']); ?></td>
                             <td><?php echo $achat['ACH_Montant']; ?> €</td>
                             <td><?php echo $achat['CHA_Intitule']; ?></td>

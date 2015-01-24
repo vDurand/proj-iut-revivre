@@ -1,6 +1,6 @@
 <?php  
 	include('assets.php');
-    session_set_cookie_params(14400,"/");
+    session_set_cookie_params(0);
 	 session_start();
 	 date_default_timezone_set('Europe/Paris');
 	 if (!isset($_SESSION['user']) && basename($_SERVER["PHP_SELF"]) != "login.php" && basename($_SERVER["PHP_SELF"]) != "maintenance.php") {

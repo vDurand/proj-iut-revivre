@@ -43,11 +43,30 @@ include('bandeau.php');
             <ul type="square">
                 <li>liste des chantiers dans le détail des clients</li>
                 <li>liste des achats dans le détail des fournisseurs</li>
+                <li>liste déroulante pour les fonctions des membres</li>
+                <li>formulaire d'ajout d'une fonction</li>
             </ul>
             <br>
             <h2>v2.8</h2>
             <ul type="square">
                 <li>module d'achat par bordereau de livraison sans produit</li>
+                <li>recherche sur les intitulés de chantier</li>
+                <li>édition du type de personne pour les membres de l'association</li>
+            </ul>
+            <br>
+            <h2>v2.7</h2>
+            <ul type="square">
+                <li>tableau de suivis des chantier par encadrant</li>
+                <li>impression pdf du bordereau de livraison des chantiers</li>
+                <li>temps de travail passé en heures pleine (pas de minute)</li>
+            </ul>
+            <h2>v2.6.1</h2>
+            <ul type="square">
+                <li>suppression des graphiques</li>
+            </ul>
+            <h2>v2.6.0</h2>
+            <ul type="square">
+                <li>réorganisation du tableau de bord des chantiers</li>
             </ul>
         </div>
     </div>
