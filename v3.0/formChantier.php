@@ -206,7 +206,7 @@
                 <div class="selectType">
                     <select required name="Resp">
                         <?php
-                        $reponseBis = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num ORDER BY PER_Nom");
+                        $reponseBis = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Fonction USING (FCT_Id) JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE FCT_Id=4 ORDER BY PER_Nom");
                         while ($donneesBis = mysqli_fetch_assoc($reponseBis))
                         {
                             ?>

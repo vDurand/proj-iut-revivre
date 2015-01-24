@@ -7,9 +7,9 @@ DONE - ->!!!!!heures de travail -> faut gérer les minutes (par 5)
 DONE - afficher atelier occupationnel dans les heures de travail
 - ->!!!!!pouvoir modifier les achats
 DONE - detail achat -> type achat 
-PENDING  (liste déroulante avec possiblité d'ajout)
+DONE  (liste déroulante avec possiblité d'ajout)
 DONE - augmenter la taille des adresses, des noms de structure
 DONE - augmenter le temps avant la déconnexion -> 4 heures
 - vérification des doublons
 - champ de recherche sur le répertoire
-- dans le responsable d'un chantier -> personne avec fonction encadrant
+DONE - dans le responsable d'un chantier -> personne avec fonction encadrant

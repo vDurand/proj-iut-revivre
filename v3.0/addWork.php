@@ -146,26 +146,14 @@ include('bandeau.php');
                                             <select id="Resp" name="Resp">
                                                 <option value=""></option>
                                                 <?php
-                                                $reponseType = mysqli_query($db, "SELECT * FROM Type");
-                                                while ($donneesType = mysqli_fetch_assoc($reponseType)) {
-                                                    $typeNOM = $donneesType['TYP_Nom'];
-                                                    $typeID = $donneesType['TYP_Id'];
+                                                $reponse = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Fonction USING(FCT_Id) JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE FCT_Id=4 ORDER BY PER_Nom");
+                                                while ($donnees = mysqli_fetch_assoc($reponse)) {
                                                     ?>
-                                                    <optgroup label="<?php echo $typeNOM; ?>">
-                                                        <?php
-                                                        $reponse = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE TYP_Id=$typeID ORDER BY PER_Nom");
-                                                        while ($donnees = mysqli_fetch_assoc($reponse)) {
-                                                            ?>
-                                                            <option
-                                                                value="<?php echo $donnees['SAL_NumSalarie']; ?>"><?php echo formatUP($donnees['PER_Nom']); ?> <?php echo formatLOW($donnees['PER_Prenom']); ?></option>
-                                                        <?php
-                                                        }
-                                                        mysqli_free_result($reponse);
-                                                        ?>
-                                                    </optgroup>
+                                                    <option
+                                                        value="<?php echo $donnees['SAL_NumSalarie']; ?>"><?php echo formatUP($donnees['PER_Nom']); ?> <?php echo formatLOW($donnees['PER_Prenom']); ?></option>
                                                 <?php
                                                 }
-                                                mysqli_free_result($reponseType);
+                                                mysqli_free_result($reponse);
                                                 ?>
                                             </select>
                                         </div>
