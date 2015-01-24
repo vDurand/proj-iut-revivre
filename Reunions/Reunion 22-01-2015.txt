@@ -13,3 +13,6 @@ DONE - augmenter le temps avant la déconnexion -> 4 heures
 - vérification des doublons
 - champ de recherche sur le répertoire
 DONE - dans le responsable d'un chantier -> personne avec fonction encadrant
+
+bonus post reunion
+- export excel des salariés en insertion, stagiaire, atelier occupationnel

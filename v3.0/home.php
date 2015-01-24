@@ -41,7 +41,7 @@
 	while (($donnees = mysqli_fetch_assoc($reponse))&&($i<3))
 	{
 ?>
-						<form method="get" action="detailChantier.php" name="detailChantier">
+						<form method="get" action="chantier/detailChantier.php" name="detailChantier">
 							<input type="hidden" name="NumC" value="">
 							<tr onclick="javascript:submitViewDetail('<?php echo $donnees['CHA_NumDevis']; ?>', 'detailChantier');" style="font-size: 14;">
 								<td><?php echo formatUP($donnees['CHA_NumDevis']); ?></td>
@@ -117,7 +117,7 @@
 	$reponse = mysqli_query($db, 'SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num JOIN Type ty ON cl.TYP_Id=ty.TYP_Id ORDER BY SAL_NumSalarie DESC');
 	while (($donnees = mysqli_fetch_assoc($reponse))&&($i<3))
 	{
-		?>					<form method="get" action="detailSal.php" name="detailSal">
+		?>					<form method="get" action="contact/membre/detailSal.php" name="detailSal">
 									<input type="hidden" name="NumC" value="">
 									<tr onclick="javascript:submitViewDetail('<?php echo $donnees['SAL_NumSalarie']; ?>', 'detailSal');" style="font-size: 14;">
 										<td><?php echo formatUP($donnees['PER_Nom']); ?></td>
@@ -182,7 +182,7 @@
         ORDER BY CLI_NumClient DESC');
 	while (($donnees = mysqli_fetch_assoc($reponse))&&($i<3))
 	{ 
-		?>					<form method="get" action="detailClient.php" name="detailClient">
+		?>					<form method="get" action="contact/client/detailClient.php" name="detailClient">
 								<input type="hidden" name="NumC" value="">
 									<tr onclick="javascript:submitViewDetail('<?php echo $donnees['CLI_NumClient']; ?>', 'detailClient');" style="font-size: 14;">
                                         <td><?php echo formatUP($donnees['CLI_Nom']); ?></td>
@@ -274,7 +274,7 @@
 	$reponse = mysqli_query($db, 'SELECT * FROM Fournisseurs ORDER BY FOU_NumFournisseur DESC');
 	while (($donnees = mysqli_fetch_assoc($reponse))&&($i<3))
 	{
-		?>					<form method="get" action="detailFournisseur.php" name="detailFour">
+		?>					<form method="get" action="contact/fournisseur/detailFournisseur.php" name="detailFour">
 								<input type="hidden" name="NumC" value="">
 									<tr onclick="javascript:submitViewDetail('<?php echo $donnees['FOU_NumFournisseur']; ?>', 'detailFour');" style="font-size: 14;">
 										<td><?php echo formatUP($donnees['FOU_Nom']); ?></td>
