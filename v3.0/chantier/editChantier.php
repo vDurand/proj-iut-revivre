@@ -28,14 +28,25 @@ $pwd='../';
 										<?php
 											$reponse = mysqli_query($db, "select * from ChantierClient where CNumDevis ='$num' limit 1");
 											$donnees = mysqli_fetch_assoc($reponse);
+                                            if(!empty($donnees['Client'])){
+                                        ?>
+                                                <option value="<?php echo $donnees['NumClient']; ?>"><?php echo formatUP($donnees['Client']); ?></option>
+                                        <?php
+                                            }
+                                            else{
+                                                $numclient = $donnees['NumClient'];
+                                                $reponsee = mysqli_query($db, "SELECT * FROM Clients cl JOIN EmployerClient em ON cl.CLI_NumClient=em.CLI_NumClient JOIN Personnes pe ON em.PER_Num=pe.PER_Num WHERE CLI_Nom IS NULL AND cl.CLI_NumClient=$numclient ORDER BY PER_Nom");
+                                                $donneess = mysqli_fetch_assoc($reponsee);
+                                        ?>
+                                                <option value="<?php echo $donneess['NumClient']; ?>"><?php echo formatUP($donneess['PER_Nom'])." ".formatLow($donneess['PER_Prenom']); ?></option>
+                                        <?php
+                                            }
 										?>
-											<option value="<?php echo $donnees['NumClient']; ?>"><?php echo formatUP($donnees['Client'])." ".formatLOW($donnees['ClientP']); ?></option>
 										</optgroup>
 										
                                         <optgroup label="Particuliers">
 <?php
-	$i = 2;
-	$reponse = mysqli_query($db, "SELECT * FROM Clients cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE CLI_Structure IS NULL ORDER BY PER_Nom");
+	$reponse = mysqli_query($db, "SELECT * FROM Clients cl JOIN EmployerClient em ON cl.CLI_NumClient=em.CLI_NumClient JOIN Personnes pe ON em.PER_Num=pe.PER_Num WHERE CLI_Nom IS NULL ORDER BY PER_Nom");
 	while ($donnees = mysqli_fetch_assoc($reponse))
 	{
 ?>
@@ -49,29 +60,19 @@ $pwd='../';
                                             ?>
                                         </option>
 <?php
-		$i++;
 	}
 	mysqli_free_result($reponse);
 ?>									    </optgroup>
                                         <optgroup label="Structures">
                                             <?php
-                                            $i = 2;
-                                            $reponse = mysqli_query($db, "SELECT * FROM Clients cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE CLI_Structure IS NOT NULL ORDER BY CLI_Structure");
+                                            $reponse = mysqli_query($db, "SELECT * FROM Clients cl WHERE CLI_Nom IS NOT NULL ORDER BY CLI_Nom");
                                             while ($donnees = mysqli_fetch_assoc($reponse))
                                             {
                                                 ?>
                                                 <option value="<?php echo $donnees['CLI_NumClient']; ?>"><?php
-                                                    echo formatUP($donnees['CLI_Structure']);
-                                                    if(!empty($donnees['PER_Nom'])){
-                                                        echo " (".formatUP($donnees['PER_Nom']);
-                                                        if(!empty($donnees['PER_Prenom'])){
-                                                            echo " ".formatLOW($donnees['PER_Prenom']);
-                                                        }
-                                                        echo ")";
-                                                    }
+                                                    echo formatUP($donnees['CLI_Nom']);
                                                     ?></option>
                                                 <?php
-                                                $i++;
                                             }
                                             mysqli_free_result($reponse);
                                             ?>
