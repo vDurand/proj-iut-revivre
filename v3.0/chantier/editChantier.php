@@ -38,7 +38,7 @@ $pwd='../';
                                                 $reponsee = mysqli_query($db, "SELECT * FROM Clients cl JOIN EmployerClient em ON cl.CLI_NumClient=em.CLI_NumClient JOIN Personnes pe ON em.PER_Num=pe.PER_Num WHERE CLI_Nom IS NULL AND cl.CLI_NumClient=$numclient ORDER BY PER_Nom");
                                                 $donneess = mysqli_fetch_assoc($reponsee);
                                         ?>
-                                                <option value="<?php echo $donneess['NumClient']; ?>"><?php echo formatUP($donneess['PER_Nom'])." ".formatLow($donneess['PER_Prenom']); ?></option>
+                                                <option value="<?php echo $donneess['CLI_NumClient']; ?>"><?php echo formatUP($donneess['PER_Nom'])." ".formatLow($donneess['PER_Prenom']); ?></option>
                                         <?php
                                             }
 										?>
