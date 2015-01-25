@@ -3,9 +3,9 @@ DONE - Changer employé en contact
 DONE - afficher le numéro d'identifiant du devis sur le pdf
 DONE - impression pop-up d'avertissement si chantier non fini
 DONE - ->!!!!!heures de travail -> faut gérer les minutes (par 5)
-- ->!!!!!modifier le temps de temps de travail
+DONE by Mr P. - ->!!!!!modifier le temps de temps de travail
 DONE - afficher atelier occupationnel dans les heures de travail
-- ->!!!!!pouvoir modifier les achats
+DONE by Mr P. - ->!!!!!pouvoir modifier les achats
 DONE - detail achat -> type achat 
 DONE  (liste déroulante avec possiblité d'ajout)
 DONE - augmenter la taille des adresses, des noms de structure
