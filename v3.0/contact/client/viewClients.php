@@ -3,7 +3,7 @@
 $pwd='../../';
 	include('../../bandeau.php');
 ?>
-		<script src="js/sorttable.js"></script>
+		<script src="../../js/sorttable.js"></script>
 		<script>
         $(document).ready(function() {
             $('.tooltip').tooltipster();
@@ -35,7 +35,7 @@ $pwd='../../';
 								<td style="text-align: center; width: 150px;">
 									Email
 								</td>
-								<td style="text-align: center; width: 150px;">
+								<td style="text-align: center; width: 350px;">
 									Adresse
 								</td>
 							</tr>
@@ -47,7 +47,7 @@ $pwd='../../';
 	while ($CliStruct = mysqli_fetch_assoc($queryCliStruct))
 	{
 ?>
-							<form method="get" action="contact/detailClient.php" name="detailClient">
+							<form method="get" action="detailClient.php" name="detailClient">
 								<input type="hidden" name="NumC" value="">
 									<tr onclick="javascript:submitViewDetail('<?php echo $CliStruct['CLI_NumClient']; ?>', 'detailClient');" style="font-size: 14;">
                                         <td><?php echo formatUP($CliStruct['CLI_Nom']); ?></td>
@@ -78,7 +78,7 @@ $pwd='../../';
         while ($CliEmp = mysqli_fetch_assoc($queryCliEmp))
         {
             ?>
-            <form method="get" action="contact/detailEmployeC.php" name="detailEmploye">
+            <form method="get" action="detailEmployeC.php" name="detailEmploye">
                 <input type="hidden" name="NumC" value="">
                 <tr onclick="javascript:submitViewDetail('<?php echo $CliEmp['PER_Num']; ?>', 'detailEmploye');" style="font-size: 14;">
                     <td><?php echo formatUP($CliStruct['CLI_Nom']); ?></td>
@@ -113,7 +113,7 @@ $pwd='../../';
     while ($CliPart = mysqli_fetch_assoc($queryCliPart))
     {
     ?>
-    <form method="get" action="contact/detailClient.php" name="detailClient">
+    <form method="get" action="detailClient.php" name="detailClient">
         <input type="hidden" name="NumC" value="">
         <tr onclick="javascript:submitViewDetail('<?php echo $CliPart['CLI_NumClient']; ?>', 'detailClient');" style="font-size: 14;">
             <td>PARTICULIER</td>

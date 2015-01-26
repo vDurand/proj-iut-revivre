@@ -6,6 +6,7 @@
  * Time: 09:05
  */
 $pageTitle = "Crédit";
+$pwd="";
 include('bandeau.php');
 ?>
     <div id="corps">

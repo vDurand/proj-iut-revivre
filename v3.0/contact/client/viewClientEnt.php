@@ -9,7 +9,7 @@ $pageTitle = "Clients Entreprises";
 $pwd='../../';
 include('../../bandeau.php');
 ?>
-    <script src="js/sorttable.js"></script>
+    <script src="../../js/sorttable.js"></script>
     <script>
         $(document).ready(function() {
             $('.tooltip').tooltipster();
@@ -41,7 +41,7 @@ include('../../bandeau.php');
                     <td style="text-align: center; width: 150px;">
                         Email
                     </td>
-                    <td style="text-align: center; width: 150px;">
+                    <td style="text-align: center; width: 350px;">
                         Adresse
                     </td>
                 </tr>
@@ -53,7 +53,7 @@ include('../../bandeau.php');
                 while ($CliStruct = mysqli_fetch_assoc($queryCliStruct))
                 {
                     ?>
-                    <form method="get" action="contact/detailClient.php" name="detailClient">
+                    <form method="get" action="detailClient.php" name="detailClient">
                         <input type="hidden" name="NumC" value="">
                         <tr onclick="javascript:submitViewDetail('<?php echo $CliStruct['CLI_NumClient']; ?>', 'detailClient');" style="font-size: 14;">
                             <td><?php echo formatUP($CliStruct['CLI_Nom']); ?></td>
@@ -86,5 +86,5 @@ include('../../bandeau.php');
         </div>
     </div>
 <?php
-include('footer.php');
+include('../../footer.php');
 ?>

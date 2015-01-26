@@ -3,7 +3,7 @@ $pageTitle = "Contacts Revivres";
 $pwd='../../';
 include('../../bandeau.php');
 ?>
-    <script src="js/sorttable.js"></script>
+    <script src="../../js/sorttable.js"></script>
     <script>
         $(document).ready(function () {
             $('.tooltip').tooltipster();

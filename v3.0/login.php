@@ -1,4 +1,5 @@
 <?php
+$pwd="";
 $pageTitle = "Login Revivre";
 include('bandeau.php');
 if (isset($_POST['logout'])) {

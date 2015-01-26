@@ -2,11 +2,12 @@
 $pageTitle = "Bordereau de Livraison";
 	include('../assets.php');
 	$db = revivre();
+    mysqli_query($db, "SET NAMES 'utf8'");
 	$id=$_POST["NumC"];
 	$totAchat=0;
 	$reponse5 = mysqli_query($db, "SELECT ROUND(SUM(ACH_MONTANT), 2) as totAchat FROM Acheter WHERE CHA_NumDevis='$id' GROUP BY CHA_NumDevis");
 	$donnees5 = mysqli_fetch_assoc($reponse5);
-	$reponse4 = mysqli_query($db, "SELECT SUM(TRA_Duree) as total FROM TempsTravail ttps WHERE ttps.CHA_NumDevis='$id' GROUP BY CHA_NumDevis");
+	$reponse4 = mysqli_query($db, "SELECT TIME_FORMAT(SUM(TRA_Duree), '%H:%i') as total FROM TempsTravail ttps WHERE ttps.CHA_NumDevis='$id' GROUP BY CHA_NumDevis");
     $donnees4 = mysqli_fetch_assoc($reponse4);
 	$reponse = mysqli_query($db, "SELECT * FROM ChantierMax WHERE CHA_NumDevis='$id' limit 1");
 	$donnees = mysqli_fetch_assoc($reponse);
@@ -18,7 +19,7 @@ $pageTitle = "Bordereau de Livraison";
                 <table  style=\"width:100%;\">
                     <tr>
                         <td style=\"width:13%;\">
-                        <img src=\"images/logoBW.jpg\">
+                        <img src=\"../images/logoBW.jpg\">
                         </td>
                         <td style=\"text-align:center;width:86%;\">
                         <h1>Bordereau de livraison</h1>
@@ -138,7 +139,7 @@ $pageTitle = "Bordereau de Livraison";
                 <table  style=\"width:100%;\">
                     <tr>
                         <td style=\"width:13%;\">
-                        <img src=\"images/logoBW.jpg\">
+                        <img src=\"../images/logoBW.jpg\">
                         </td>
                         <td style=\"text-align:center;width:86%;\">
                         <h1>Bordereau de livraison</h1>

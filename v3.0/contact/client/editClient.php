@@ -59,7 +59,7 @@ include('../../bandeau.php');
                                                value="<?php echo $nom; ?>">
                                     </td>
                                 </tr>
-                                <?php if (!empty($prenom)) { ?>
+                                <?php if ($struc == "Particulier") { ?>
                                     <tr id="Client-Prenom">
                                         <td style="text-align: left; width: 150px; white-space: normal;">
                                             <label for="Prenom">Prenom :</label>

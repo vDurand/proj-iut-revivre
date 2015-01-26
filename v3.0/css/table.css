@@ -293,11 +293,11 @@
 }
 .listeClients td{
 	vertical-align:middle;
-		background:-o-linear-gradient(bottom, #b5dafc 5%, #ffffff 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #b5dafc), color-stop(1, #ffffff) ); 
+	/*	background:-o-linear-gradient(bottom, #b5dafc 5%, #ffffff 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #b5dafc), color-stop(1, #ffffff) );
 	background:-moz-linear-gradient( center top, #b5dafc 5%, #ffffff 100% );
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#b5dafc", endColorstr="#ffffff");	background: -o-linear-gradient(top,#b5dafc,ffffff);
 
-	background-color:#b5dafc;
+	background-color:#b5dafc;*/
 
 	border:1px solid #00345b;
 	border-width:0px 1px 1px 0px;
@@ -307,7 +307,12 @@
 	font-family:Arial;
 	font-weight:normal;
 	color:#000000;
-}.listeClients tr:last-child td{
+}
+
+.listeClients tr:nth-child(odd){ background-color:#eaeaea; }
+.listeClients tr:nth-child(even)    { background-color:#ffffff; }
+
+.listeClients tr:last-child td{
 	border-width:0px 1px 0px 0px;
 }.listeClients tr td:last-child{
 	border-width:0px 0px 1px 0px;
@@ -403,11 +408,11 @@
 }
 .listeMembers td{
 	vertical-align:middle;
-		background:-o-linear-gradient(bottom, #6da7e0 5%, #e3effc 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #6da7e0), color-stop(1, #e3effc) ); 
+	/*	background:-o-linear-gradient(bottom, #6da7e0 5%, #e3effc 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #6da7e0), color-stop(1, #e3effc) );
 	background:-moz-linear-gradient( center top, #6da7e0 5%, #e3effc 100% );
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#6da7e0", endColorstr="#e3effc");	background: -o-linear-gradient(top,#6da7e0,e3effc);
 
-	background-color:#6da7e0;
+	background-color:#6da7e0;*/
 
 	border:1px solid #003f7f;
 	border-width:0px 1px 1px 0px;
@@ -417,7 +422,10 @@
 	font-family:Arial;
 	font-weight:normal;
 	color:#000000;
-}.listeMembers tr:last-child td{
+}
+.listeMembers tr:nth-child(odd){ background-color:#eaeaea; }
+.listeMembers tr:nth-child(even)    { background-color:#ffffff; }
+.listeMembers tr:last-child td{
 	border-width:0px 1px 0px 0px;
 }.listeMembers tr td:last-child{
 	border-width:0px 0px 1px 0px;
@@ -498,11 +506,11 @@
 }
 .listeFourn td{
 	vertical-align:middle;
-		background:-o-linear-gradient(bottom, #D7FFFC 5%, #82E4DA 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #D7FFFC), color-stop(1, #82E4DA) ); 
+	/*	background:-o-linear-gradient(bottom, #D7FFFC 5%, #82E4DA 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #D7FFFC), color-stop(1, #82E4DA) );
 	background:-moz-linear-gradient( center top, #D7FFFC 5%, #82E4DA 100% );
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#D7FFFC", endColorstr="#82E4DA");	background: -o-linear-gradient(top,#D7FFFC,82E4DA);
 
-	background-color:#D7FFFC;
+	background-color:#D7FFFC;*/
 
 	border:1px solid #06342F;
 	border-width:0px 1px 1px 0px;
@@ -512,7 +520,10 @@
 	font-family:Arial;
 	font-weight:normal;
 	color:#000000;
-}.listeFourn tr:last-child td{
+}
+.listeFourn tr:nth-child(odd){ background-color:#eaeaea; }
+.listeFourn tr:nth-child(even)    { background-color:#ffffff; }
+.listeFourn tr:last-child td{
 	border-width:0px 1px 0px 0px;
 }.listeFourn tr td:last-child{
 	border-width:0px 0px 1px 0px;
@@ -543,6 +554,93 @@
 }
 .listeFourn thead tr td:last-child{
 	border-width:0px 0px 1px 1px;
+}
+
+
+.listeRef a:link, .listeRef a:visited{
+    text-decoration: none;
+    font-family:Arial;
+    color:#000;
+}
+.listeRef {
+    margin:0px;padding:0px;
+    width:100%;
+    border:1px solid #02380c;
+
+    -moz-border-radius-bottomleft:6px;
+    -webkit-border-bottom-left-radius:6px;
+    border-bottom-left-radius:6px;
+
+    -moz-border-radius-bottomright:6px;
+    -webkit-border-bottom-right-radius:6px;
+    border-bottom-right-radius:6px;
+
+    -moz-border-radius-topright:6px;
+    -webkit-border-top-right-radius:6px;
+    border-top-right-radius:6px;
+
+    -moz-border-radius-topleft:6px;
+    -webkit-border-top-left-radius:6px;
+    border-top-left-radius:6px;
+}.listeRef table{
+     border-collapse: collapse;
+     border-spacing: 0;
+     width:100%;
+     height:100%;
+     margin:0px;padding:0px;
+ }.listeRef tbody tr:last-child td:last-child {
+      -moz-border-radius-bottomright:6px;
+      -webkit-border-bottom-right-radius:6px;
+      border-bottom-right-radius:6px;
+  }
+.listeRef table thead tr td:last-child {
+    -moz-border-radius-topright:6px;
+    -webkit-border-top-right-radius:6px;
+    border-top-right-radius:6px;
+}.listeRef tbody tr:last-child td:first-child{
+     -moz-border-radius-bottomleft:6px;
+     -webkit-border-bottom-left-radius:6px;
+     border-bottom-left-radius:6px;
+ }
+.listeRef td{
+    vertical-align:middle;
+
+    border:1px solid #02380c;
+    border-width:0px 1px 1px 0px;
+    text-align:left;
+    padding:7px;
+    font-size:12px;
+    font-family:Arial;
+    font-weight:normal;
+    color:#000000;
+}
+.listeRef tr:nth-child(odd){ background-color:#eaeaea; }
+.listeRef tr:nth-child(even)    { background-color:#ffffff; }
+.listeRef tr:last-child td{
+    border-width:0px 1px 0px 0px;
+}
+.listeRef tr td:last-child{
+     border-width:0px 0px 1px 0px;
+ }
+.listeRef tr:last-child td:last-child{
+      border-width:0px 0px 0px 0px;
+  }
+.listeRef thead tr td{
+    background-color: #00ac67;
+    border:0px solid #02380c;
+    text-align:center;
+    border-width:0px 0px 1px 1px;
+    font-size:14px;
+    font-family:Arial;
+    color:#fff;
+    cursor: pointer;
+}
+.listeRef tbody tr:hover td{
+    background-color: #a0e7cc;
+    cursor: pointer;
+}
+.listeRef thead tr td:last-child{
+    border-width:0px 0px 1px 1px;
 }
 
 .printButton {

@@ -35,7 +35,7 @@ $pwd='../../';
 								<td style="text-align: center; width: 150px;">
 									Email
 								</td>
-								<td style="text-align: center; width: 150px;">
+								<td style="text-align: center; width: 350px;">
 									Adresse
 								</td>
 							</tr>

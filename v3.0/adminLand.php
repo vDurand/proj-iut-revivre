@@ -1,5 +1,6 @@
 <?php
 $pageTitle = "Administration";
+$pwd="";
 	include('bandeau.php');
 ?>
 		<div id="corps">

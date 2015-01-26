@@ -12,7 +12,7 @@
 // Connexion a la base Revivre
 	function revivre()
 	{
-		if($db = MySQLi_connect("localhost","Kepha",'pfudor', 'RevivreV4', 0, '/media/fd0b1/alx22/private/mysql/socket'))
+		if($db = MySQLi_connect("localhost","Vlad",'pfudorr', 'test2', 0, '/media/fd0b1/alx22/private/mysql/socket'))
 			return $db;
 		else
 			echo 'Erreur';

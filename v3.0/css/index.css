@@ -36,7 +36,7 @@ body{
 .bandeau a{
 	font-style:italic;
 	display: block;
-	padding: 4px 6px;
+	padding: 5px 6px 6px 6px;
 	color: #1d4c82;
 	font-size: 1.01em;
 	background-color:#fff;

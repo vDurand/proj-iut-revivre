@@ -1,4 +1,5 @@
-<?php  
+<?php
+$pwd="";
 	include('bandeau.php');
 ?>
 		<div id="corps">

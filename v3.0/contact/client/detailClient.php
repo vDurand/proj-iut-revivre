@@ -50,7 +50,7 @@ include('../../bandeau.php');
                             <th style="text-align: left; width: 200px; white-space: normal;">Nom :</th>
                             <td style="text-align: left; width: 300px;"><?php echo $nom; ?></td>
                         </tr>
-                        <?php if (!empty($prenom)) { ?>
+                        <?php if ($struc =="Particulier") { ?>
                             <tr>
                                 <th style="text-align: left; width: 200px; white-space: normal;">Prenom :</th>
                                 <td style="text-align: left; width: 300px;"><?php echo $prenom; ?></td>
@@ -112,6 +112,9 @@ include('../../bandeau.php');
                             </span>
                         </td>
                     </form>
+                    <?php
+                    if($struc !="Particulier"){
+                    ?>
                     <form method="post" action="../addEmploye.php" name="AddEmploye">
                         <input type="hidden" name="NumC" value="<?php echo $numC; ?>">
                         <td>
@@ -120,6 +123,9 @@ include('../../bandeau.php');
                             </span>
                         </td>
                     </form>
+                    <?php
+                    }
+                    ?>
                 </tr>
             </table>
 

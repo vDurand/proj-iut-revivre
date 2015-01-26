@@ -67,7 +67,7 @@
 										<ul>
 <?php
 	$db = revivre();
-	
+
 	mysqli_query($db, "SET NAMES 'utf8'");
 	$reponse = mysqli_query($db, "SELECT * FROM Type WHERE TYP_IsNotRevivre IS NULL");
 	

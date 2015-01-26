@@ -13,7 +13,7 @@ include('../../bandeau.php');
         <div id="labelT">
             <label>Liste des Partenaires de l'association</label>
         </div><br>
-        <div class="listeMembers">
+        <div class="listeRef">
             <table class="sortable" cellpadding="5">
                 <thead>
                 <tr>
@@ -32,7 +32,7 @@ include('../../bandeau.php');
                     <td style="text-align: center; width: 150px;">
                         Email
                     </td>
-                    <td style="text-align: center; width: 150px;">
+                    <td style="text-align: center; width: 350px;">
                         Adresse
                     </td>
                     <td style="text-align: center; width: 150px;">

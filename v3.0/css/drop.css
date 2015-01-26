@@ -12,9 +12,6 @@ nav ul li {
 	width: 129.35px;
 	
 }
-nav ul li:hover {
-	background: #4b545f;
-}	
 nav ul ul {
 	border-radius: 0px; padding: 0;
 	position: absolute; top: 100%;
@@ -24,9 +21,6 @@ nav ul ul li {
 	border-top: 1px solid #6b727c;
 	border-bottom: 1px solid #575f6a;
 	position: relative;
-}		
-nav ul ul li a:hover {
-	background: #4b545f;
 }
 nav ul ul ul {
 	position: absolute; left: 100%; top:0px;
@@ -39,7 +33,7 @@ nav ul ul ul li {
 }
 
 #navi {
-	margin-top: -4px;
+	margin-top: -3px;
 	height: 26px;
 	background-color: #fff;
 }
@@ -48,7 +42,7 @@ nav ul ul ul li {
 }
 
 .subMenu li {
-	height: 40px;
+	height: 37px;
 	vertical-align: middle;
 	font-size: 14px;
 }
@@ -58,5 +52,5 @@ nav ul ul ul li {
 	font-size: 12px;
 }
 .subMenu li li a{
-	height: 17px;
+	height: 15px;
 }

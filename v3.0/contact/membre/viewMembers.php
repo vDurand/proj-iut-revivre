@@ -3,7 +3,7 @@ $pageTitle = "Membres";
 $pwd='../../';
 include('../../bandeau.php');
 ?>
-    <script src="js/sorttable.js"></script>
+    <script src="../../js/sorttable.js"></script>
     <script>
         $(document).ready(function () {
             $('.tooltip').tooltipster();
@@ -36,7 +36,7 @@ include('../../bandeau.php');
                     <td style="text-align: center; width: 150px;">
                         Email
                     </td>
-                    <td style="text-align: center; width: 150px;">
+                    <td style="text-align: center; width: 350px;">
                         Adresse
                     </td>
                     <td style="text-align: center; width: 150px;">

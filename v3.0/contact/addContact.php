@@ -21,7 +21,7 @@ include('../bandeau.php');
                                 <select id="Type" name="Type" onchange="showMemberInput(this)">
                                     <option value="0">Client</option>
                                     <option value="1">Fournisseur</option>
-                                    <option value="2">Référent</option>
+                                    <option value="3">Référent</option>
                                     <?php
                                     $reponse = mysqli_query($db, "SELECT * FROM Type WHERE TYP_Id < 6");
                                     while ($donnees = mysqli_fetch_assoc($reponse)) {

@@ -59,7 +59,7 @@ $pwd='../';
   		      }
   		      else{
   		        echo '<div id="bad">     
-  		              <label>L\'achat n\'a pas pu être ajouté</label>
+  		              <label>L\'achat n\'a pas pu être ajouté '.$errr.'</label>
   		              </div>';
   		      }
   	}

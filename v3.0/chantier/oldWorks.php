@@ -207,7 +207,7 @@ include('../bandeau.php');
             <?php
             $sorter = 'CHA_DateDebut';
 
-            $reponse = mysqli_query($db, "SELECT * FROM ChantierMax Join TypeEtat ON IdMax=TYE_Id WHERE IdMax>3 ORDER BY CHA_DateDebut DESC");
+            $reponse = mysqli_query($db, "SELECT * FROM ChantierMax Join TypeEtat ON IdMax=TYE_Id WHERE IdMax>3 ORDER BY CHA_NumDevis DESC");
             while ($donnees = mysqli_fetch_assoc($reponse)) {
                 ?>
                 <form method="get" action="detailChantier.php" name="detailClient">
@@ -231,11 +231,11 @@ include('../bandeau.php');
                         <td><?php echo dater($donnees['CHA_DateDebut']); ?></td>
                         <td>
                             <?php
-                            if ($donnees['max(Id)'] == 4) {
+                            if ($donnees['IdMax'] == 4) {
                                 echo dater($donnees['CHA_DateFinReel']);
                             }
-                            if ($donnees['max(Id)'] == 5) {
-                                echo Refuse;
+                            else{
+                                echo Refusé;
                             }
                             ?>
                         </td>

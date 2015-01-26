@@ -27,7 +27,7 @@
                 </tr>
                 <tr>
                     <th style="text-align: left; width: 200px; white-space: normal;">Adresse:</th>
-                    <td style="text-align: center; width: 200px;"><?php echo formatUP($donnees['CHA_Adresse']); ?></td>
+                    <td style="text-align: center; width: 200px;"><?php echo formatLOW($donnees['CHA_Adresse']); ?></td>
                 </tr>
                 <tr>
                     <th style="text-align: left; width: 200px; white-space: normal;">Date de Début:</th>

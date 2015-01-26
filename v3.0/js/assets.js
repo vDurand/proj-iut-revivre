@@ -66,7 +66,7 @@ function showNewType()
 // Affiche/Masque formulaire specifique aux membres (addContact)
 	function showMemberInput(elem)
 	{
-		if(elem.value > 2){
+		if(elem.value > 3){
 			document.getElementById('Contact-Fonction').style.display = "";
             document.getElementById('Contact-Prescript').style.display = "none";
 			document.getElementById('Contact-Particulier').style.display = "none";
@@ -76,6 +76,15 @@ function showNewType()
             document.getElementById('Prescript').value = "";
 		}
         if(elem.value == 2){
+            document.getElementById('Contact-Fonction').style.display = "";
+            document.getElementById('Contact-Prescript').style.display = "none";
+            document.getElementById('Contact-Particulier').style.display = "none";
+            document.getElementById('Contact-Prenom').style.display = "";
+            document.getElementById("Prenom").setAttribute("required", "");
+            document.getElementById("Nom").setAttribute("required", "");
+            document.getElementById('Prescript').value = "";
+        }
+        if(elem.value == 3){
             document.getElementById('Contact-Prescript').style.display = "";
             document.getElementById('Contact-Fonction').style.display = "none";
             document.getElementById('Contact-Particulier').style.display = "none";

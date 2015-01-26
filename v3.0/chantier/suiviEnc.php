@@ -6,8 +6,8 @@
  * Time: 18:34
  */
     $pageTitle = "Suivi Encadrants";
-$pwd='../../';
-    include('../../bandeau.php');
+$pwd='../';
+    include('../bandeau.php');
 
     if(!empty($_POST['Encad'])){
         $numEnc = $_POST['Encad'];
@@ -37,8 +37,8 @@ $pwd='../../';
     $totEH = 0;
     $totNS = 0;
 ?>
-    <script src="../../js/sorttable.js"></script>
-    <link rel="stylesheet" href="../../css/print.css">
+    <script src="../js/sorttable.js"></script>
+    <link rel="stylesheet" href="../css/print.css">
     <div id="corps">
         <div id="labelCat" style="padding-bottom: 15px;">
             <form method="post" action="suiviEnc.php" name="Encadrant">
@@ -219,7 +219,7 @@ $pwd='../../';
                 <td><?php echo formatLOW($donnees['CHA_Intitule']); ?></td>
                 <td><?php echo $donnees['CHA_MontantPrev']." €"; $totMP += $donnees['CHA_MontantPrev']; ?></td>
                 <td><?php echo $donnees['CHA_AchatsPrev']." €"; $totAP += $donnees['CHA_AchatsPrev']; ?></td>
-                <td><?php if(!empty($donnees['AchatTot'])){ echo $donnees['AchatTot']." €"; $totAT += $donnees['AchatTot'];} else echo "0 €"; ?></td>
+                <td><?php if(!empty($donnees['AchatTot'])){ echo number_format($donnees['AchatTot'], 2)." €"; $totAT += $donnees['AchatTot'];} else echo "0 €"; ?></td>
                 <td><?php if(!empty($donnees['EcartAch'])){ echo $donnees['EcartAch']." €"; $totEA += $donnees['EcartAch'];} else echo "0 €"; ?></td>
                 <td><?php echo $donnees['CHA_HeuresPrev']; $totHP += $donnees['CHA_HeuresPrev']; ?></td>
                 <td><?php echo $donnees['HeureTot']; $totHT += $donnees['HeureTot']; ?></td>
@@ -247,5 +247,5 @@ $pwd='../../';
         </table>
     </div>
 <?php
-include('../../footer.php');
+include('../footer.php');
 ?>

@@ -6,6 +6,7 @@
  * Time: 17:59
  */
 $pageTitle = "Maintenance en cours";
+$pwd="";
 include('bandeau.php');
 ?>
     <div id="corps">
