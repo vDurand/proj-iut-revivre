@@ -77,7 +77,7 @@ mysqli_free_result($reponse);
 			    			<input form="BuyProd" type="hidden" name="NumC" value="<?php echo $num; ?>">
 			    		</td>
 			    		<td>
-			    			<input form="BuyProd" required min="0" style="width: 125px;" name="Montant[]" type="number" step="0.01" class="inputC">&nbsp;&nbsp;€
+			    			<input form="BuyProd" required min="0.01" style="width: 125px;" name="Montant[]" type="number" step="0.01" class="inputC">&nbsp;&nbsp;€
 			    		</td>
 					</tr>
 					<tr id="Ajout-Tpss">
@@ -174,7 +174,7 @@ mysqli_free_result($reponse);
 	  		NewCell3.innerHTML = "<label>Montant :</label>";
 	  		
 	  	var NewCell4 = NewRow.insertCell(3);
-	  	NewCell4.innerHTML = '<input form="BuyProd" required min="0" step="0.01" style="width: 125px;" name="Montant[]" type="number" class="inputC">&nbsp;&nbsp;€';
+	  	NewCell4.innerHTML = '<input form="BuyProd" required min="0.01" step="0.01" style="width: 125px;" name="Montant[]" type="number" class="inputC">&nbsp;&nbsp;€';
 	  	
 	  // next tr
 	  	var NewRow2 = table.insertRow(3+(buttonCount-1)*2);

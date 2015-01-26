@@ -205,11 +205,13 @@ include('../bandeau.php');
         <?php
         $sorter = 'CHA_DateDebut';
         $alpha = $_POST["submit"] . '%';
-        if ($_POST["trieur"] == 0) {
-            $sorter = 'Client';
-        }
-        if ($_POST["trieur"] == 1) {
-            $sorter = 'Resp';
+        if(isset($_POST["trieur"])){
+            if ($_POST["trieur"] == 0) {
+                $sorter = 'Client';
+            }
+            if ($_POST["trieur"] == 1) {
+                $sorter = 'Resp';
+            }
         }
         if ($_POST["submit"] == '#') {
             $reponse = mysqli_query($db, "SELECT * FROM ChantierMax Join TypeEtat ON IdMax=TYE_Id ORDER BY CHA_DateDebut DESC");
@@ -229,7 +231,17 @@ include('../bandeau.php');
                     style="font-size: 14;">
                     <td><?php echo formatUP($donnees['CHA_NumDevis']); ?></td>
                     <td><?php echo formatLOW($donnees['CHA_Intitule']); ?></td>
-                    <td><?php echo formatUP($donnees['Client']); ?></td>
+                    <td><?php
+                        if(!empty($donnees['Client'])){
+                            echo formatUP($donnees['Client']);
+                        }
+                        else{
+                            $cliN=$donnees['NumClient'];
+                            $reponse2 = mysqli_query($db, "select PER_Nom, PER_Prenom from EmployerClient join Personnes USING (PER_Num) where CLI_NumClient=$cliN");
+                            $donnees2 = mysqli_fetch_assoc($reponse2);
+                            echo formatUP($donnees2['PER_Nom'])." ".formatLOW($donnees2['PER_Prenom']);
+                        }
+                         ?></td>
                     <td><?php echo formatUP($donnees['Resp']); ?> <?php echo formatLOW($donnees['RespP']); ?></td>
                     <td><?php echo dater($donnees['CHA_DateDebut']); ?></td>
                     <td>
