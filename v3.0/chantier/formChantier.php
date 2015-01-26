@@ -257,7 +257,7 @@
                         <optgroup label="Stagiaires">
                             <?php
                             $j = 0;
-                            $reponseTres = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num Where TYP_Id = 6 ORDER BY PER_Nom");
+                            $reponseTres = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num Where TYP_Id = 7 ORDER BY PER_Nom");
                             while ($donneesTres = mysqli_fetch_assoc($reponseTres)) {
                                 ?>
                                 <option
@@ -275,7 +275,7 @@
                         </optgroup>
                         <optgroup label="Salariés en Insertion">
                             <?php
-                            $reponseTres = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num Where TYP_Id = 7 ORDER BY PER_Nom");
+                            $reponseTres = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num Where TYP_Id = 8 ORDER BY PER_Nom");
                             while ($donneesTres = mysqli_fetch_assoc($reponseTres)) {
                                 ?>
                                 <option
@@ -292,7 +292,7 @@
                         </optgroup>
                         <optgroup label="Atelier Occupationnel">
                             <?php
-                            $reponseTres = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num Where TYP_Id = 8 ORDER BY PER_Nom");
+                            $reponseTres = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num Where TYP_Id = 9 ORDER BY PER_Nom");
                             while ($donneesTres = mysqli_fetch_assoc($reponseTres)) {
                                 ?>
                                 <option

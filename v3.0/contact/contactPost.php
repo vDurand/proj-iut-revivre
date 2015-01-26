@@ -67,7 +67,7 @@ $pwd='../';
     }
 
 // ajout referent
-    if($type==2){
+    if($type==3){
         if(!empty($newpresc)){
             $queryPreMax = mysqli_query($db, "SELECT MAX(PRE_Id) as maxi FROM Prescripteurs");
             $resultPreMax = mysqli_fetch_assoc($queryPreMax);
@@ -95,7 +95,7 @@ $pwd='../';
     }
 
 // ajout membre
-    if($type>2){
+    if($type==2||$type>3){
         if(!empty($newfct)){
             $queryFctMax = mysqli_query($db, "SELECT MAX(FCT_Id) as maxi FROM Fonction");
             $resultFctMax = mysqli_fetch_assoc($queryFctMax);
@@ -140,14 +140,14 @@ $pwd='../';
             // -->
             </script>';
         }
-        if($type==2){
+        if($type==3){
             echo '<script language="Javascript">
             <!--
             document.location.replace("partenaire/detailRef.php?NumC='.$refMax.'");
             // -->
             </script>';
         }
-        if($type>1){
+        if($type>3||$type==2){
             echo '<script language="Javascript">
             <!--
             document.location.replace("membre/detailSal.php?NumC='.$salMax.'");
