@@ -20,7 +20,7 @@ include('../../bandeau.php');
         $ville = addslashes(mysqli_real_escape_string($db, formatUP($_POST["Ville"])));
         $struct = addslashes($_POST["Struct"]);
 
-        if ($struc = "Particulier") {
+        if ($struct == "Particulier") {
             $query = "UPDATE Personnes SET PER_Nom = '$nom', PER_Prenom = '$prenom', PER_TelFixe = '$tel',
             PER_TelPort = '$port', PER_Fax = '$fax', PER_Email = '$email', PER_Adresse = '$add', PER_CodePostal = '$cp',
             PER_Ville = '$ville' WHERE Personnes.PER_Num = '$num'";
@@ -33,13 +33,14 @@ include('../../bandeau.php');
             $numC = $donneesNum['CLI_NumClient'];
         }
 
-        if ($struc = "Entreprise") {
+        if ($struct == "Entreprise") {
             $query = "UPDATE Clients SET CLI_Nom = '$nom', CLI_Telephone = '$tel', CLI_Portable = '$port', CLI_Fax = '$fax',
             CLI_Email = '$email', CLI_Adresse = '$add', CLI_CodePostal = '$cp', CLI_Ville = '$ville' WHERE Clients.CLI_NumClient = '$num'";
 
-            $sq2 = mysqli_query($db, $query);
+            $sql2 = mysqli_query($db, $query);
             $errr = mysqli_error($db);
             $numC = $num;
+
         }
 
         if ($sql || $sql2) {
@@ -62,7 +63,6 @@ include('../../bandeau.php');
             } else {
                 $queryPart = mysqli_query($db, "SELECT * FROM EmployerClient em JOIN Personnes pe ON em.PER_Num=pe.PER_Num WHERE CLI_NumClient=$numC");
                 $donneesPart = mysqli_fetch_assoc($queryPart);
-
                 $nom = formatUP($donneesPart['PER_Nom']);
                 $prenom = formatLow($donneesPart['PER_Prenom']);
                 $add = formatLOW($donneesPart['PER_Adresse']);
