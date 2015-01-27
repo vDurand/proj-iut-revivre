@@ -20,13 +20,13 @@ include('../bandeau.php');
     define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
     /** Include PHPExcel */
-    require_once dirname(__FILE__) . '../Classes/PHPExcel.php';
+    require_once dirname(__FILE__) . '/Classes/PHPExcel.php';
     // require_once('/Classes/PHPExcel/Cell/DataType.php');
     // require_once('/Classes/PHPExcel/Cell.php');
-    require_once('/Classes/PHPExcel.php');
-    require_once('/Classes/PHPExcel/Cell/DataType.php');
-    require_once('/Classes/PHPExcel/RichText.php');
-    require_once '/Classes/PHPExcel/IOFactory.php';
+    require_once('Classes/PHPExcel.php');
+    require_once('Classes/PHPExcel/Cell/DataType.php');
+    require_once('Classes/PHPExcel/RichText.php');
+    require_once 'Classes/PHPExcel/IOFactory.php';
 
     /** Create a new PHPExcel Object  **/
     $objPHPExcel = new PHPExcel();
