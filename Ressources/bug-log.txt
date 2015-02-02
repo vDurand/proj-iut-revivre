@@ -1,0 +1,12 @@
++ 16/09/14 - la fonction annuler reste bloque sur modifier contact
++ 16/09/14 - changement d'etat pour les chantier, on procede comment "en attente" "en cours"
++ 17/09/14 - je ne trouve pas detail du chantier, quand je clique sur chantier, j'ai l'erreur ERROR : DONT EVEN TRY
++ 28/11/14 - impossible d'imprimer
++ 04/12/14 - code postale dans repertoire : la liste deroulante ne propose pas une commune mais la liste des CP dejÃ  attribues ce qui modifie automatiquement le N de tel par exemple
++ 09/12/14 - je viens de rentrer 10 chantier "etat en attente" impossible de retrouver la page pour modifier la l'etat
++ 10/12/14 - probleme de filtre
++ 05/01/15 - heures de travail : impossible de rentrer des 1/2 heures et impossible de modifier le nom du salarie ou la date travaillee
++ 05/01/15 - probleme dans la saisie de l'adresse peute re trop de caractere ex: 3 rue du 20 eme siecle porte 3244 residence les carrelettes
++ 05/01/15 - probleme sur la liste salarie en insertion/repertoires nouveaux inscrits n'apparaissent pas
++ 05/01/15 - ne detecte pas les doublons
++ 26/01/15 - la touche + ajout heure ne fonctionne pas
