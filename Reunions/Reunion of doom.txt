@@ -17,7 +17,7 @@ DONE - ajouter "autre" dans zone géographique
 - l'export ! GOGOGO ALEXANDRE ! export de tous la table répertoire
 
 - archivage des chantiers
-- remplacement agossina numéro 3, changer en terminé
+DONE (mais ne s'affiche toujours pas dans le suivi) - remplacement agossina numéro 3, changer en terminé
 - pop up "attention refusé"
 - pouvoir modifier l'état d'un chantier ADMETS L'ERREUR !
 
