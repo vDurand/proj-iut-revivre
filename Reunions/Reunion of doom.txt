@@ -1,0 +1,26 @@
+- ajouter un message d'avertissement en cas de doublon dans la base
+- tabulation horizontale dans les salariés en insertion
+- mutuelle, ajouter un champ "CMU + CMU complémentaire"
+- ajouter "autre" dans zone géographique
+- repas, ajouter un "DUNNO.404"
+- date de sortie et types de sorites
+- archiver par annéee les salariés en insertion en fonction de la date de sortie
+- TONIGHT BOYS ! => rep -> atelier occupationnel, problème de wrong number et correction dans l'insertion
+- l'archivage des salariés
+- mimic membres de l'association en membres de l'association archivés
+- rep -> membre -> fonction, pouvoir modifier (voir supprimer) des fonctions
+- mettre une couleur sur le bouton d'ajout de fonction
+- supprimer personnel
+- transformer partenaires en contacts extérieures et ajouter partenaires dans cette liste
+- renvoyer le mail de désactivation des saisies automatiques
+
+- l'export ! GOGOGO ALEXANDRE ! export de tous la table répertoire
+
+- archivage des chantiers
+- remplacement agossina numéro 3, changer en terminé
+- pop up "attention refusé"
+- pouvoir modifier l'état d'un chantier ADMETS L'ERREUR !
+
+- mettre ces putains d'employés entre paranthèses ! ou pas ! je sais pas !!!!
+
+TO WORK BOYS !
