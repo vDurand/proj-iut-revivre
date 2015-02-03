@@ -62,7 +62,7 @@ include('../../bandeau.php');
                             <label for="DateNai">Date de naissance :</label>
                         </td>
                         <td>
-                            <input id="DateNai" name="DateNai" type="date" class="inputC"
+                            <input id="DateNai" required name="DateNai" type="date" class="inputC"
                                    value="<?php echo $personne['INS_DateN']; ?>">
                         </td>
                     </tr>

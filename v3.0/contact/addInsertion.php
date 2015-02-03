@@ -62,7 +62,7 @@ include('../bandeau.php');
                             <label for="DateNai">Date de naissance :</label>
                         </td>
                         <td>
-                            <input id="DateNai" name="DateNai" type="date" class="inputC">
+                            <input id="DateNai" required name="DateNai" type="date" class="inputC">
                         </td>
                     </tr>
                     <tr id="Contact-Nationalite">
@@ -274,7 +274,7 @@ include('../bandeau.php');
                             <label for="Jours">Jours travaillés :</label>
                         </td>
                         <td>
-                            <input id="Jours" maxlength="255" name="Jours" type="number" min="0" class="inputC">
+                            <input id="Jours" maxlength="255" name="Jours" type="number" value="0" min="0" class="inputC">
                         </td>
                     </tr>
                 </table>
@@ -315,7 +315,7 @@ include('../bandeau.php');
                             <label for="N_Heures">Nombre d'heures :</label>
                         </td>
                         <td>
-                            <input id="N_Heures" maxlength="255" name="N_Heures" type="number" min="0"
+                            <input id="N_Heures" maxlength="255" value="0" name="N_Heures" type="number" min="0"
                                    class="inputC">
                         </td>
                     </tr>
