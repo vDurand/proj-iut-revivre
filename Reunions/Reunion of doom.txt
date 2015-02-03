@@ -1,7 +1,7 @@
-- ajouter un message d'avertissement en cas de doublon dans la base
+﻿- ajouter un message d'avertissement en cas de doublon dans la base
 - tabulation horizontale dans les salariés en insertion
-- mutuelle, ajouter un champ "CMU + CMU complémentaire"
-- ajouter "autre" dans zone géographique
+DONE - mutuelle, ajouter un champ "CMU + CMU complémentaire"
+DONE - ajouter "autre" dans zone géographique
 - repas, ajouter un "DUNNO.404"
 - date de sortie et types de sorites
 - archiver par annéee les salariés en insertion en fonction de la date de sortie

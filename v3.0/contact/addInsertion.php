@@ -274,7 +274,7 @@ include('../bandeau.php');
                             <label for="Jours">Jours travaillés :</label>
                         </td>
                         <td>
-                            <input id="Jours" maxlength="255" name="Jours" type="number" value="0" min="0" class="inputC">
+                            <input id="Jours" maxlength="255" name="Jours" type="number" required value="0" min="0" class="inputC">
                         </td>
                     </tr>
                 </table>
@@ -315,7 +315,7 @@ include('../bandeau.php');
                             <label for="N_Heures">Nombre d'heures :</label>
                         </td>
                         <td>
-                            <input id="N_Heures" maxlength="255" value="0" name="N_Heures" type="number" min="0"
+                            <input id="N_Heures" maxlength="255" required value="0" name="N_Heures" type="number" min="0"
                                    class="inputC">
                         </td>
                     </tr>
@@ -468,7 +468,8 @@ include('../bandeau.php');
                         </td>
                         <td>
                             <input type="radio" id="Situation-Geo" name="Situation-Geo" value="ZUS">ZUS<br>
-                            <input type="radio" id="Situation-Geo" name="Situation-Geo" value="CUCS" checked>CUCS<br>
+                            <input type="radio" id="Situation-Geo" name="Situation-Geo" value="CUCS">CUCS<br>
+                            <input type="radio" id="Situation-Geo" name="Situation-Geo" value="Autre" checked>Autre<br>
                         </td>
                     </tr>
                 </table>
@@ -520,6 +521,7 @@ include('../bandeau.php');
                                 <select id="Mutuelle" name="Mutuelle">
                                     <option value="CMU">CMU</option>
                                     <option value="CMU Complémentaire">CMU Complémentaire</option>
+                                    <option value="CMU et Complémentaire">CMU et Complémentaire</option>
                                     <option value="Autre mutuelle">Autre mutuelle</option>
                                     <option value="Pas de mutuelle">Pas de mutuelle</option>
                                 </select>

@@ -1,6 +1,6 @@
 <?php
 $pageTitle = "Editer Membre en Insertion";
-$pwd='../../';
+$pwd = '../../';
 include('../../bandeau.php');
 ?>
     <div id="corps">
@@ -323,7 +323,7 @@ include('../../bandeau.php');
                             <label for="Jours">Jours travaillés :</label>
                         </td>
                         <td>
-                            <input id="Jours" maxlength="255" name="Jours" type="number" min="0" class="inputC"
+                            <input id="Jours" maxlength="255" name="Jours" required type="number" min="0" class="inputC"
                                    value="<?php echo($personne['INS_NbJours']); ?>">
                         </td>
                     </tr>
@@ -373,7 +373,7 @@ include('../../bandeau.php');
                             <label for="N_Heures">Nombre d'heures :</label>
                         </td>
                         <td>
-                            <input id="N_Heures" maxlength="255" name="N_Heures" type="number" min="0"
+                            <input id="N_Heures" maxlength="255" required name="N_Heures" type="number" min="0"
                                    class="inputC" value="<?php echo($personne['INS_NbHeures']); ?>">
                         </td>
                     </tr>
@@ -585,12 +585,22 @@ include('../../bandeau.php');
                     if ($personne['INS_SituGeo'] == "CUCS") {
                         ?>
                         <input type="radio" id="Situation-Geo" name="Situation-Geo" value="ZUS">ZUS<br>
-                        <input type="radio" id="Situation-Geo" name="Situation-Geo" value="CUCS"
-                               checked>CUCS<br>
-                    <?php } else { ?>
-                        <input type="radio" id="Situation-Geo" name="Situation-Geo" value="ZUS"
-                               checked>ZUS<br>
+                        <input type="radio" id="Situation-Geo" name="Situation-Geo" value="CUCS" checked>CUCS<br>
+                        <input type="radio" id="Situation-Geo" name="Situation-Geo" value="Autre">Autre<br>
+                    <?php
+                    }
+                    if ($personne['INS_SituGeo'] == "ZUS") {
+                        ?>
+                        <input type="radio" id="Situation-Geo" name="Situation-Geo" value="ZUS" checked>ZUS<br>
                         <input type="radio" id="Situation-Geo" name="Situation-Geo" value="CUCS">CUCS<br>
+                        <input type="radio" id="Situation-Geo" name="Situation-Geo" value="Autre">Autre<br>
+                    <?php
+                    }
+                    if ($personne['INS_SituGeo'] == "Autre") {
+                    ?>
+                    <input type="radio" id="Situation-Geo" name="Situation-Geo" value="ZUS">ZUS<br>
+                    <input type="radio" id="Situation-Geo" name="Situation-Geo" value="CUCS">CUCS<br>
+                    <input type="radio" id="Situation-Geo" name="Situation-Geo" value="Autre" checked>Autre<br>
                     <?php
                     }
                     ?>
@@ -665,6 +675,7 @@ include('../../bandeau.php');
                             <optgroup label="Mutuelles disponibles">
                                 <option value="CMU">CMU</option>
                                 <option value="CMU Complémentaire">CMU Complémentaire</option>
+                                <option value="CMU et Complémentaire">CMU et Complémentaire</option>
                                 <option value="Autre mutuelle">Autre mutuelle</option>
                                 <option value="Pas de mutuelle">Pas de mutuelle</option>
                             </optgroup>
