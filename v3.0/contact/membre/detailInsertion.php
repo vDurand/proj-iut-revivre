@@ -1,6 +1,6 @@
 <?php
 $pageTitle = "Detail Salarié en insertion";
-$pwd='../../';
+$pwd = '../../';
 include('../../bandeau.php');
 ?>
     <div id="corps">
@@ -12,6 +12,10 @@ include('../../bandeau.php');
             "SELECT * FROM Personnes JOIN Salaries USING (PER_Num) JOIN Insertion USING (SAL_NumSalarie)
                 WHERE SAL_NumSalarie='$num' ORDER BY PER_Nom");
         $personne = mysqli_fetch_assoc($reponse1);
+
+        $numSortie = $personne['TYS_ID'];
+        $reponse0 = mysqli_query($db, "SELECT * FROM TypeSortie WHERE TYS_ID='$numSortie' ORDER BY TYS_Libelle");
+        $typeSortie = mysqli_fetch_assoc($reponse0);
 
         $numConv = $personne['CNV_Id'];
         $reponse2 = mysqli_query($db, "SELECT * FROM Convention WHERE CNV_Id='$numConv' ORDER BY CNV_Nom");
@@ -151,6 +155,19 @@ include('../../bandeau.php');
                         <th style="text-align: left; width: 200px; white-space: normal;">Situation géo :</th>
                         <td style="text-align: left; width: 300px;"><?php echo $personne['INS_SituGeo']; ?></td>
                     </tr>
+                    <tr>
+                        <td colspan="2">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; width: 200px; white-space: normal;">Date de sortie :</th>
+                        <td style="text-align: left; width: 300px;">
+                            <?php if (($personne['INS_DateSortie'] == null) || $personne['INS_DateSortie'] == "0000-00-00") {
+                                echo "Non sorti";
+                            } else {
+                                echo dater($personne['INS_DateSortie']);
+                            }?>
+                        </td>
+                    </tr>
                 </table>
             </td>
             <td>
@@ -263,15 +280,15 @@ include('../../bandeau.php');
                     <tr>
                         <th style="text-align: left; width: 200px; white-space: normal;">Repas :
                         </th>
-                        <td style="text-align: left; width: 300px;">
-                            <?php
-                            if ($personne['INS_Repas'] == 0) {
-                                echo "Non";
-                            } else {
-                                echo "Oui";
-                            }
-                            ?>
-                        </td>
+                        <td style="text-align: left; width: 300px;"><?php echo $personne['INS_Repas'] ?></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: left; width: 200px; white-space: normal;">Type de sortie :
+                        </th>
+                        <td style="text-align: left; width: 300px;"><?php echo $typeSortie['TYS_Libelle'] ?></td>
                     </tr>
                 </table>
             </td>

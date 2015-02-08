@@ -11,6 +11,10 @@ include('../../bandeau.php');
                 WHERE SAL_NumSalarie='$num' ORDER BY PER_Nom");
     $personne = mysqli_fetch_assoc($reponse1);
 
+    $numSortie = $personne['TYS_ID'];
+    $reponse0 = mysqli_query($db, "SELECT * FROM TypeSortie WHERE TYS_ID='$numSortie' ORDER BY TYS_Libelle");
+    $typeSortie = mysqli_fetch_assoc($reponse0);
+
     $numConv = $personne['CNV_Id'];
     $reponse2 = mysqli_query($db, "SELECT * FROM Convention WHERE CNV_Id='$numConv' ORDER BY CNV_Nom");
     $convention = mysqli_fetch_assoc($reponse2);
@@ -597,10 +601,10 @@ include('../../bandeau.php');
                     <?php
                     }
                     if ($personne['INS_SituGeo'] == "Autre") {
-                    ?>
-                    <input type="radio" id="Situation-Geo" name="Situation-Geo" value="ZUS">ZUS<br>
-                    <input type="radio" id="Situation-Geo" name="Situation-Geo" value="CUCS">CUCS<br>
-                    <input type="radio" id="Situation-Geo" name="Situation-Geo" value="Autre" checked>Autre<br>
+                        ?>
+                        <input type="radio" id="Situation-Geo" name="Situation-Geo" value="ZUS">ZUS<br>
+                        <input type="radio" id="Situation-Geo" name="Situation-Geo" value="CUCS">CUCS<br>
+                        <input type="radio" id="Situation-Geo" name="Situation-Geo" value="Autre" checked>Autre<br>
                     <?php
                     }
                     ?>
@@ -689,16 +693,26 @@ include('../../bandeau.php');
                 </td>
                 <td>
                     <?php
-                    if ($personne['INS_Repas'] == 0) {
+                    if ($personne['INS_Repas'] == "Non") {
                         ?>
-                        <input type="radio" id="Repas" name="Repas" value="1">Oui<br>
-                        <input type="radio" id="Repas" name="Repas" value="0"
-                               checked>Non<br>
-                    <?php } else { ?>
-                        <input type="radio" id="Repas" name="Repas" value="1"
-                               checked>Oui<br>
-                        <input type="radio" id="Repas" name="Repas" value="0">Non<br>
+                        <input type="radio" id="Repas" name="Repas" value="Oui">Oui<br>
+                        <input type="radio" id="Repas" name="Repas" value="Non" checked>Non<br>
+                        <input type="radio" id="Repas" name="Repas" value="Indécis">Indécis<br>
                     <?php
+                    } else {
+                        if ($personne['INS_Repas'] == "Oui") {
+                            ?>
+                            <input type="radio" id="Repas" name="Repas" value="Oui" checked>Oui<br>
+                            <input type="radio" id="Repas" name="Repas" value="Non">Non<br>
+                            <input type="radio" id="Repas" name="Repas" value="Indécis">Indécis<br>
+                        <?php
+                        } else {
+                            ?>
+                            <input type="radio" id="Repas" name="Repas" value="Oui">Oui<br>
+                            <input type="radio" id="Repas" name="Repas" value="Non">Non<br>
+                            <input type="radio" id="Repas" name="Repas" value="Indécis" checked>Indécis<br>
+                        <?php
+                        }
                     }
                     ?>
                 </td>
@@ -706,6 +720,66 @@ include('../../bandeau.php');
         </table>
     </td>
     </tr>
+    </table>
+    <table align="left">
+        <tr>
+            <td style="vertical-align:top;">
+                <table id="leftT" cellpadding="10">
+                    <tr>
+                        <td colspan="2">
+                            &nbsp;&nbsp;
+                        </td>
+                    </tr>
+                    <tr id="DateSortie">
+                        <td style="text-align: left; width: 150px; white-space: normal;">
+                            <label for="DateSortie">Date de sortie :</label>
+                        </td>
+                        <td>
+                        <td>
+                            <input id="DateSortie" name="DateSortie" type="date" class="inputC"
+                                   value="<?php echo($personne['INS_DateSortie']); ?>">
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td style="vertical-align:top;">
+                <table id="rightT" cellpadding="10">
+                    <tr>
+                        <td colspan="2">
+                            &nbsp;&nbsp;
+                        </td>
+                    </tr>
+                    <tr id="TypeSortie">
+                        <td style="text-align: left; width: 150px; white-space: normal;">
+                            <label for="TypeSortie">Type de sortie :</label>
+                        </td>
+                        <td>
+                            <div class="selectType2">
+                                <select id="TypeSortie" name="TypeSortie">
+                                    <optgroup label="Type actuel">
+                                        <option value="<?php echo $typeSortie['TYS_ID']; ?>" selected>
+                                            <?php echo $typeSortie['TYS_Libelle']; ?>
+                                        </option>
+                                    </optgroup>
+                                    <optgroup label="Types disponibles">
+                                        <?php
+                                        $reponse3 = mysqli_query($db, "SELECT * FROM TypeSortie ORDER BY TYS_ID");
+                                        while ($donnees3 = mysqli_fetch_assoc($reponse3)) {
+                                            ?>
+                                            <option
+                                                value="<?php echo $donnees3['TYS_ID']; ?>"><?php echo $donnees3['TYS_Libelle']; ?></option>
+                                        <?php
+                                        }
+                                        mysqli_free_result($reponse3);
+                                        ?>
+                                    </optgroup>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
     </table>
     <table id="downT">
         <tr>

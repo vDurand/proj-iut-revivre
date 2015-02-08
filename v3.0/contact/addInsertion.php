@@ -533,8 +533,9 @@ include('../bandeau.php');
                             <label for="Repas">Repas :</label>
                         </td>
                         <td>
-                            <input type="radio" id="Repas" name="Repas" value="1">Oui<br>
-                            <input type="radio" id="Repas" name="Repas" value="0" checked>Non<br>
+                            <input type="radio" id="Repas" name="Repas" value="Oui">Oui<br>
+                            <input type="radio" id="Repas" name="Repas" value="Non">Non<br>
+                            <input type="radio" id="Repas" name="Repas" value="Indécis" checked>Indécis<br>
                         </td>
                     </tr>
                 </table>
