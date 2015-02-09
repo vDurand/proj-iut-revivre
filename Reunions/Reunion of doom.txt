@@ -21,6 +21,6 @@ DONE (mais ne s'affiche toujours pas dans le suivi) - remplacement agossina num�
 - pop up "attention refusé"
 - pouvoir modifier l'état d'un chantier ADMETS L'ERREUR !
 
-DONE I guess ? - mettre ces putains d'employés entre paranthèses ! ou pas ! je sais pas !!!!
+DONE - mettre ces putains d'employés entre paranthèses ! ou pas ! je sais pas !!!!
 
 TO WORK BOYS !

@@ -71,7 +71,30 @@ $pwd='../';
                                                 ?>
                                                 <option value="<?php echo $donnees['CLI_NumClient']; ?>"><?php
                                                     echo formatUP($donnees['CLI_Nom']);
-                                                    ?></option>
+                                                    ?>
+                                                    <?php
+                                                    $numEnt = $donnees['CLI_NumClient'];
+                                                    if(mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM EmployerClient WHERE CLI_NumClient=$numEnt"))){
+                                                        echo "(";
+                                                        $reponse2 = mysqli_query($db, "SELECT * FROM Clients cl JOIN EmployerClient em ON cl.CLI_NumClient=em.CLI_NumClient JOIN Personnes pe ON em.PER_Num=pe.PER_Num WHERE cl.CLI_NumClient=$numEnt ORDER BY PER_Nom");
+                                                        $len = mysqli_num_rows($reponse2);
+                                                        $i = 1;
+                                                        while ($donnees2 = mysqli_fetch_assoc($reponse2)) {
+                                                            if (!empty($donnees2['PER_Nom'])) {
+                                                                echo formatUP($donnees2['PER_Nom']);
+                                                                if (!empty($donnees2['PER_Prenom'])) {
+                                                                    echo " " . formatLOW($donnees2['PER_Prenom']);
+                                                                }
+                                                                if($i!=$len)
+                                                                    echo ", ";
+                                                                $i++;
+                                                            }
+                                                        }
+                                                        echo ")";
+                                                    }
+                                                    mysqli_free_result($reponse2);
+                                                    ?>
+                                                </option>
                                                 <?php
                                             }
                                             mysqli_free_result($reponse);
