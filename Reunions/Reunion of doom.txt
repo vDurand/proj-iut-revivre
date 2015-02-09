@@ -2,8 +2,8 @@
 - tabulation horizontale dans les salariés en insertion
 DONE - mutuelle, ajouter un champ "CMU + CMU complémentaire"
 DONE - ajouter "autre" dans zone géographique
-DONE (need update de la base de revire) - repas, ajouter un "DUNNO.404"
-DONE (need update de la base de revire) - date de sortie et types de sorites
+DONE - repas, ajouter un "DUNNO.404"
+DONE - date de sortie et types de sorites
 - archiver par annéee les salariés en insertion en fonction de la date de sortie
 - TONIGHT BOYS ! => rep -> atelier occupationnel, problème de wrong number et correction dans l'insertion
 - l'archivage des salariés
