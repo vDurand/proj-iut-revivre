@@ -43,7 +43,11 @@ include('../bandeau.php');
     $SEDepuis = addslashes($_POST["Sans-Emploi"]);
     $mutuelle = addslashes($_POST["Mutuelle"]);
     $repas = addslashes($_POST["Repas"]);
-    $dateSortie = addslashes($_POST["DateSortie"]);
+    if(addslashes($_POST["DateSortie"])==null){
+        $dateSortie = "0000-00-00";
+    } else {
+        $dateSortie = addslashes($_POST["DateSortie"]);
+    }
     $typeSortie = addslashes($_POST["TypeSortie"]);
 
     $queryPerMax = mysqli_query($db, "SELECT MAX(PER_Num) as maxi FROM Personnes");
