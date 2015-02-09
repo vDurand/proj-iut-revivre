@@ -10,7 +10,7 @@ DONE - date de sortie et types de sorites
 - mimic membres de l'association en membres de l'association archivés
 - rep -> membre -> fonction, pouvoir modifier (voir supprimer) des fonctions
 - mettre une couleur sur le bouton d'ajout de fonction
-- supprimer personnel
+DONE - supprimer personnel
 - transformer partenaires en contacts extérieures et ajouter partenaires dans cette liste
 DONE - renvoyer le mail de désactivation des saisies automatiques
 
