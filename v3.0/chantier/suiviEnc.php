@@ -143,7 +143,8 @@ $pwd='../';
      * select CHA_NumDevis, CHA_HeuresPrev,
      * TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(TRA_Duree))), '%H:%i') as HeureTot,
      * TIME_FORMAT(SEC_TO_TIME(TIME_TO_SEC(TIME(CHA_HeuresPrev*10000)) - SUM(TIME_TO_SEC(TRA_Duree))), '%H:%i') as EcartHeure,
-     * COUNT(DISTINCT SAL_NumSalarie) as NbSalarie
+     * COUNT(DISTINCT SAL_NumSalarie) as NbSalarie,
+     * SUM(TIME_TO_SEC(TRA_Duree))*100/TIME_TO_SEC(TIME(CHA_HeuresPrev*10000)) as ProgHeure
      * from Chantiers
      * JOIN TempsTravail USING (CHA_NumDevis)
      * group by CHA_NumDevis;

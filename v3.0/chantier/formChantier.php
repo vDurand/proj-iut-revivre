@@ -70,7 +70,7 @@
                     <th style="text-align: left; width: 200px; white-space: normal;">Heures Prévues:</th>
                     <td style="text-align: center; width: 200px;">
                         <div id="hoursOnSite"><?php echo $donnees['CHA_HeuresPrev'];
-                            $Hmax = $donnees['CHA_HeuresPrev']; ?></div>
+                            $Hmax = $donnees['CHA_HeuresPrev']; ?>h</div>
                     </td>
                 </tr>
                 <tr>
@@ -436,11 +436,13 @@ if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM TempsTravail WHERE CHA_N
     $graphTpsOK = 1;
 }
 $montantHeure = 0;
-$resteHeure = 0;
+$reponseH = mysqli_query($db, "SELECT * FROM ChantierHeure WHERE CHA_NumDevis='$num'");
+$donneesH = mysqli_fetch_assoc($reponseH);
+$resteHeure = $donneesH['EcartHeure'];
+$progHeure = $donneesH['ProgHeure'];
 if (!empty($donneesT['CHA_TxHoraire'])) {
     $montantHeure = $donneesT['CHA_TxHoraire'] * $totalHh;
 }
-$resteHeure = $Hmax - $totalHh;
 $totAchat = 0;
 $graphMntOK = 0;
 if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM Acheter WHERE CHA_NumDevis='$num'"))) {
@@ -509,7 +511,7 @@ mysqli_free_result($reponse);
         <?php if ($resteHeure < 0) { ?>
         document.getElementById('heureRestante').innerHTML = "Depassé de <?php echo -$resteHeure; ?>h";
         <?php }else{ ?>
-        document.getElementById('heureRestante').innerHTML = "<?php echo $resteHeure; ?>h";
+        document.getElementById('heureRestante').innerHTML = "<?php if(!empty($resteHeure)) echo $resteHeure; else echo $Hmax."h"; ?>";
         <?php } ?>
         //document.getElementById('heureMontant').innerHTML = "<?php echo $montantHeure; ?> €";
         document.getElementById('achatRestant').innerHTML = "<?php echo $MontantMax-$totAchat; ?> €";
@@ -741,10 +743,10 @@ include('../footer.php');
                 progressLabel = $(".progress-label");
 
             progressbar.progressbar({
-                value: <?php echo round($croissance*100/$Hmax, 2) ; ?>,
+                value: <?php echo round($progHeure, 2) ; ?>
             });
-            <?php if ($croissance*100/$Hmax > 100) {?>
-            progressLabel.text("<?php echo round($croissance*100/$Hmax, 2) ; ?> %");
+            <?php if ($progHeure > 100) {?>
+            progressLabel.text("<?php echo round($progHeure, 2) ; ?> %");
             <?php } else { ?>
             progressLabel.text(progressbar.progressbar("value") + "%");
             <?php }?>
@@ -768,7 +770,7 @@ include('../footer.php');
 </script>
 <style>
     #progressbar .ui-progressbar-value {
-    <?php if ($croissance*100/$Hmax > 100) {?> background-color: #EB0C0C;
+    <?php if ($progHeure > 100) {?> background-color: #EB0C0C;
     <?php } else { ?> background-color: #2FB044;
     <?php }?>
     }
@@ -778,7 +780,7 @@ include('../footer.php');
     <?php } else { ?> background-color: #2F72B0;
     <?php }?>
     }
-
+    
     .ui-progressbar {
         position: relative;
     }
@@ -788,7 +790,7 @@ include('../footer.php');
         right: 35%;
         font-weight: bold;
         font-size: 12px;
-    <?php if ($croissance*100/$Hmax > 50) {?> color: #fff;
+    <?php if ($progHeure > 50) {?> color: #fff;
         text-shadow: 1px 1px 0 #000;
     <?php } else { ?> color: #000;
         text-shadow: 1px 1px 0 #fff;
