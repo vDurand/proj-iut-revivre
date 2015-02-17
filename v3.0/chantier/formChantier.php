@@ -768,7 +768,7 @@ include('../footer.php');
             });
             <?php if ($progHeure > 100) {?>
             progressLabel.text("<?php echo round($progHeure, 2) ; ?> %");
-            <?php } else if(empty($Hmax)&&(!empty($totHeure))) { $surplusH = 1; ?>
+            <?php } else if(empty($Hmax)&&($totHeure!="0:0")) { $surplusH = 1; ?>
             progressLabel.text("EXCES");
             <?php } else { ?>
             progressLabel.text(progressbar.progressbar("value") + "%");
