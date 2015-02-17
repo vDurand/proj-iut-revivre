@@ -768,6 +768,8 @@ include('../footer.php');
             });
             <?php if ($progHeure > 100) {?>
             progressLabel.text("<?php echo round($progHeure, 2) ; ?> %");
+            <?php } else if(empty($Hmax)&&(!empty($totHeure))) { $surplusH = 1; ?>
+            progressLabel.text("EXCES");
             <?php } else { ?>
             progressLabel.text(progressbar.progressbar("value") + "%");
             <?php }?>
@@ -782,22 +784,24 @@ include('../footer.php');
             });
             <?php if ($totAchat*100/$MontantMax > 100) {?>
             progressLabel.text("<?php echo round($totAchat*100/$MontantMax, 2) ; ?> %");
+            <?php } else if (empty($MontantMax)&&!empty($totAchat)) { $surplusM = 1; ?>
+            progressLabel.text("EXCES");
             <?php } else { ?>
             progressLabel.text(progressbar.progressbar("value") + "%");
-            <?php }?>
+            <?php } ?>
 
         });
     });
 </script>
 <style>
     #progressbar .ui-progressbar-value {
-    <?php if ($progHeure > 100) {?> background-color: #EB0C0C;
+    <?php if ($progHeure > 100 || !empty($surplusH)) {?> background-color: #EB0C0C;
     <?php } else { ?> background-color: #2FB044;
     <?php }?>
     }
 
     #progressbar2 .ui-progressbar-value {
-    <?php if ($totAchat*100/$MontantMax > 100) {?> background-color: #E00B0B;
+    <?php if ($totAchat*100/$MontantMax > 100 || !empty($surplusM)) {?> background-color: #E00B0B;
     <?php } else { ?> background-color: #2F72B0;
     <?php }?>
     }
