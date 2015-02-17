@@ -23,6 +23,7 @@
                 $resteHeure = $donneesH['EcartHeure'];
                 $progHeure = $donneesH['ProgHeure'];
                 $totHeure = $donneesH['HeureTot'];
+                if(empty($totHeure)) $totHeure="0:0";
                 mysqli_free_result($reponseH);
                 $reponseA = mysqli_query($db, "SELECT * FROM ChantierAchat WHERE CHA_NumDevis='$num'");
                 $donneesA = mysqli_fetch_assoc($reponseA);
@@ -763,7 +764,7 @@ include('../footer.php');
                 progressLabel = $(".progress-label");
 
             progressbar.progressbar({
-                value: <?php echo round($progHeure, 2) ; ?>
+                value: <?php if(!empty($Hmax)) echo round($progHeure, 2); else echo "100";?>
             });
             <?php if ($progHeure > 100) {?>
             progressLabel.text("<?php echo round($progHeure, 2) ; ?> %");
@@ -777,7 +778,7 @@ include('../footer.php');
                 progressLabel = $(".progress-label2");
 
             progressbar.progressbar({
-                value: <?php echo round($totAchat*100/$MontantMax, 2) ; ?>,
+                value: <?php if(!empty($MontantMax)) echo round($totAchat*100/$MontantMax, 2); else echo "100"; ?>
             });
             <?php if ($totAchat*100/$MontantMax > 100) {?>
             progressLabel.text("<?php echo round($totAchat*100/$MontantMax, 2) ; ?> %");
@@ -810,7 +811,7 @@ include('../footer.php');
         right: 35%;
         font-weight: bold;
         font-size: 12px;
-    <?php if ($progHeure > 50) {?> color: #fff;
+    <?php if ($progHeure > 50 ||empty($Hmax)) {?> color: #fff;
         text-shadow: 1px 1px 0 #000;
     <?php } else { ?> color: #000;
         text-shadow: 1px 1px 0 #fff;
@@ -826,7 +827,7 @@ include('../footer.php');
         right: 35%;
         font-weight: bold;
         font-size: 12px;
-    <?php if ($totAchat*100/$MontantMax > 50) {?> color: #fff;
+    <?php if ($totAchat*100/$MontantMax > 50||empty($MontantMax)) {?> color: #fff;
         text-shadow: 1px 1px 0 #000;
     <?php } else { ?> color: #000;
         text-shadow: 1px 1px 0 #fff;
