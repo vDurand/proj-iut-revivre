@@ -1,6 +1,12 @@
 <div id="labelT">
-    <label>Detail du Chantier</label>
-
+    <label>Detail du Chantier n°<?= $donnees['CHA_NumDevis'] ?></label>
+    <script>
+        $(document).ready(function () {
+            $('.tooltip').tooltipster({
+                position: 'right'
+            });
+        });
+    </script>
     <form method="post" action="printer.php" name="printer">
         <input type="hidden" name="NumC" value="<?php echo $donnees['CHA_NumDevis']; ?>">
 
@@ -11,6 +17,18 @@
                 if (empty($donnees['CHA_DateFinReel'])) {
                     echo "onclick=\"return confirm('Le chantier n\'est pas terminé. Etes vous sûr de vouloir imprimer le bordereau?');\"";
                 }
+
+                $reponseH = mysqli_query($db, "SELECT * FROM ChantierHeure WHERE CHA_NumDevis='$num'");
+                $donneesH = mysqli_fetch_assoc($reponseH);
+                $resteHeure = $donneesH['EcartHeure'];
+                $progHeure = $donneesH['ProgHeure'];
+                $totHeure = $donneesH['HeureTot'];
+                mysqli_free_result($reponseH);
+                $reponseA = mysqli_query($db, "SELECT * FROM ChantierAchat WHERE CHA_NumDevis='$num'");
+                $donneesA = mysqli_fetch_assoc($reponseA);
+                $AchatTot = round($donneesA['AchatTot'], 2);
+                if(empty($AchatTot)) $AchatTot=0;
+                mysqli_free_result($reponseA);
                 ?>
                 />
         </div>
@@ -140,7 +158,8 @@
                 <tr>
                     <th style="text-align: left; width: 200px; white-space: normal;">Achats :</th>
                     <td style="text-align: center; width: 200px;">
-                        <div id="progressbar2">
+                        <div id="progressbar2" class="tooltip"
+                             title="<?= $AchatTot." €" ?>">
                             <div class="progress-label2"></div>
                         </div>
                     </td>
@@ -148,7 +167,9 @@
                 <tr>
                     <th style="text-align: left; width: 200px; white-space: normal;">Heures en cours :</th>
                     <td style="text-align: center; width: 200px;">
-                        <div id="progressbar">
+                        <div id="progressbar" class="tooltip"
+                             title="<?php $hourmin = explode(":", $totHeure);
+                             echo $hourmin[0]."h ".$hourmin[1]."min"; ?>">
                             <div class="progress-label"></div>
                         </div>
                     </td>
@@ -436,10 +457,6 @@ if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM TempsTravail WHERE CHA_N
     $graphTpsOK = 1;
 }
 $montantHeure = 0;
-$reponseH = mysqli_query($db, "SELECT * FROM ChantierHeure WHERE CHA_NumDevis='$num'");
-$donneesH = mysqli_fetch_assoc($reponseH);
-$resteHeure = $donneesH['EcartHeure'];
-$progHeure = $donneesH['ProgHeure'];
 if (!empty($donneesT['CHA_TxHoraire'])) {
     $montantHeure = $donneesT['CHA_TxHoraire'] * $totalHh;
 }
@@ -508,10 +525,13 @@ mysqli_free_result($reponse);
 <script type="text/javascript">
     window.onload = function () {
         // Affiche heure restant et montant des heures dans le haut de la page
-        <?php if ($resteHeure < 0) { ?>
-        document.getElementById('heureRestante').innerHTML = "Depassé de <?php echo -$resteHeure; ?>h";
+        <?php
+        $resthourmin = explode(":", $resteHeure);
+        if ($resteHeure < 0) { ?>
+        document.getElementById('heureRestante').innerHTML = "Depassé de <?php echo substr($resthourmin[0], 1)."h ".$resthourmin[1]."min";// -$resteHeure; ?>";
         <?php }else{ ?>
-        document.getElementById('heureRestante').innerHTML = "<?php if(!empty($resteHeure)) echo $resteHeure; else echo $Hmax."h"; ?>";
+        document.getElementById('heureRestante').innerHTML = "<?php if(!empty($resteHeure)) echo $resthourmin[0]."h ".$resthourmin[1]."min";// $resteHeure;
+                                                                    else echo $Hmax."h"; ?>";
         <?php } ?>
         //document.getElementById('heureMontant').innerHTML = "<?php echo $montantHeure; ?> €";
         document.getElementById('achatRestant').innerHTML = "<?php echo $MontantMax-$totAchat; ?> €";
