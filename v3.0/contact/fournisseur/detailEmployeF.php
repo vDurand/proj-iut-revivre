@@ -21,7 +21,7 @@ include('../../bandeau.php');
                 $mail = $donneesEmp['PER_Email'];
                 $fct = formatLOW($donneesEmp['EMF_Fonction']);
                 $struc = $donneesEmp['FOU_Nom'];
-                mysqli_free_result($queryPart);
+                mysqli_free_result($queryEmploye);
                 ?>
                 <div id="labelT">
                     <label><?php echo $struc; ?> : Détail de l'employé</label>

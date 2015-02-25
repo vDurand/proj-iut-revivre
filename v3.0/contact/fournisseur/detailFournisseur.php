@@ -164,28 +164,34 @@ include('../../bandeau.php');
                             <a>Date</a>
                         </td>
                         <td style="text-align: center;">
-                            <a>Montant</a>
+                            <a>Chantier</a>
                         </td>
                         <td style="text-align: center;">
-                            <a>Chantier</a>
+                            <a>Montant</a>
                         </td>
                     </tr>
                     </thead>
                     <tbody>
                     <?php
+                    $sumAchat = 0;
                     $queryAchat = mysqli_query($db, "SELECT * FROM Acheter JOIN Chantiers USING (CHA_NumDevis) JOIN TypeAchat USING(TAC_Id) WHERE FOU_NumFournisseur='$num'");
                     while ($achat = mysqli_fetch_assoc($queryAchat)) {
                         ?>
                         <tr style="font-size: 14;">
                             <td><?php echo formatLOW($achat['TAC_Type']); ?></td>
                             <td><?php echo dater($achat['ACH_Date']); ?></td>
-                            <td><?php echo $achat['ACH_Montant']; ?> €</td>
-                            <td><?php echo $achat['CHA_Intitule']; ?></td>
+                            <td><?php echo $achat['CHA_Intitule']; ?> €</td>
+                            <td><?php echo $achat['ACH_Montant']; ?></td>
                         </tr>
                     <?php
+                        $sumAchat += $achat['ACH_Montant'];
                     }
                     mysqli_free_result($queryAchat);
                     ?>
+                        <tr>
+                            <td colspan="3" style="text-align: right;"><b>Total : </b></td>
+                            <td><?php echo $sumAchat; ?> €</td>
+                        </tr>
                     </tbody>
                     </table>
                     </div>
