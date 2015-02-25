@@ -149,8 +149,37 @@ include('../../bandeau.php');
                 }
                 if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM Acheter WHERE FOU_NumFournisseur='$num'"))) {
 
+                    if(!empty($_POST['Annee'])){
+                        $year = $_POST['Annee'];
+                    }
+                    else{
+                        $year = 0;
+                    }
+                    $queryMinY = mysqli_query($db, "SELECT MIN(YEAR(ACH_Date)) AS MINYEAR FROM Acheter JOIN Chantiers USING (CHA_NumDevis) JOIN TypeAchat USING(TAC_Id) WHERE FOU_NumFournisseur=$num");
+                    $minY = mysqli_fetch_assoc($queryMinY);
+                    $minYear = $minY['MINYEAR'];
+                    mysqli_free_result($queryMinY);
+                    $queryMaxY = mysqli_query($db, "SELECT MAX(YEAR(ACH_Date)) AS MAXYEAR FROM Acheter JOIN Chantiers USING (CHA_NumDevis) JOIN TypeAchat USING(TAC_Id) WHERE FOU_NumFournisseur=$num");
+                    $maxY = mysqli_fetch_assoc($queryMaxY);
+                    $maxYear = $maxY['MAXYEAR'];
+                    mysqli_free_result($queryMaxY);
                     ?>
-                    <div id="labelCat">
+                    <form action="" method="post" style="display: inline-block; float: left; margin-left: 10px;">
+                        <div class="selectType">
+                            <select name="Annee" onchange="this.form.submit()">
+                                <option <?php if($year == 0){echo "selected";} ?> value="0">--</option>
+                                <?php
+                                for($annee=$maxYear;$annee>=$minYear;$annee--)
+                                {
+                                    ?>
+                                    <option <?php if($annee == $year){echo "selected";} ?> value="<?php echo $annee; ?>"><?php echo $annee; ?></option>
+                                <?php
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </form>
+                    <div id="labelCat"  style="margin-right: 207px; padding-top: 0px;">
                         Liste des Achats
                     </div>
                     <div class="listeMembers" style="margin-bottom: 15px;">
@@ -174,7 +203,12 @@ include('../../bandeau.php');
                     <tbody>
                     <?php
                     $sumAchat = 0;
-                    $queryAchat = mysqli_query($db, "SELECT * FROM Acheter JOIN Chantiers USING (CHA_NumDevis) JOIN TypeAchat USING(TAC_Id) WHERE FOU_NumFournisseur='$num'");
+                    if(!empty($year)){
+                        $queryAchat = mysqli_query($db, "SELECT * FROM Acheter JOIN Chantiers USING (CHA_NumDevis) JOIN TypeAchat USING(TAC_Id) WHERE FOU_NumFournisseur='$num' AND YEAR(ACH_Date)=$year");
+                    }
+                    else{
+                        $queryAchat = mysqli_query($db, "SELECT * FROM Acheter JOIN Chantiers USING (CHA_NumDevis) JOIN TypeAchat USING(TAC_Id) WHERE FOU_NumFournisseur='$num'");
+                    }
                     while ($achat = mysqli_fetch_assoc($queryAchat)) {
                         ?>
                         <tr style="font-size: 14;">
