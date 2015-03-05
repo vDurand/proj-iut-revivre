@@ -8,14 +8,14 @@ include('../bandeau.php');
     <div id="corps">
 <?php
   $num = $_POST["NumC"];
-  $num = $_POST["NumTemps"];
+  $numTemps = $_POST["NumTemps"];
   $membre = addslashes($_POST['membre']);
   $temps = addslashes($_POST['temps']);
   $date = addslashes($_POST['date']);
 
 if (isset($_POST["submit"])) {
     $query = "UPDATE TempsTravail SET SAL_NumSalarie='$membre', TRA_Duree='$temps',TRA_Date='$date'
-            WHERE TRA_NumTravail='$num'";
+            WHERE TRA_NumTravail='$numTemps'";
     $sql = mysqli_query($db, $query);
     $errr = mysqli_error($db);
 
@@ -31,7 +31,7 @@ if (isset($_POST["submit"])) {
 }
 
 if (isset($_POST["delete"])) {
-    $query = "DELETE FROM TempsTravail WHERE TRA_NumTravail='$num'";
+    $query = "DELETE FROM TempsTravail WHERE TRA_NumTravail='$numTemps'";
     $sql = mysqli_query($db, $query);
     $errr = mysqli_error($db);
 
