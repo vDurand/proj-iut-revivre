@@ -107,16 +107,19 @@ $donnees = mysqli_fetch_assoc($reponse);
                     </td>
                     <td>
                         <input name="reset" type="reset" value="Annuler" class="buttonC">
-        </form>
-        </td>
-        <td>
-            <form id="return" method="get" action="detailChantier.php" name="detailClient">
-                <input form="return" type="hidden" name="NumC" value="<?php echo $donnees['CHA_NumDevis']; ?>">
-                <input form="return" name="submit" type="submit" value="Retour" class="buttonC">
-            </form>
-        </td>
-        </tr>
-        </table>
+                    </td>
+                    <td>
+                        <input name="delete" type="submit" value="Supprimer" class="buttonC">
+                        </form>
+                    </td>
+                    <td>
+                        <form id="return" method="get" action="detailChantier.php" name="detailClient">
+                            <input form="return" type="hidden" name="NumC" value="<?php echo $donnees['CHA_NumDevis']; ?>">
+                            <input form="return" name="submit" type="submit" value="Retour" class="buttonC">
+                        </form>
+                    </td>
+                </tr>
+            </table>
         </form>
     </div>
 <?php
