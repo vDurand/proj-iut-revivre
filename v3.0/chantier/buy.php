@@ -77,7 +77,7 @@ mysqli_free_result($reponse);
 			    			<input form="BuyProd" type="hidden" name="NumC" value="<?php echo $num; ?>">
 			    		</td>
 			    		<td>
-			    			<input form="BuyProd" required min="0.01" style="width: 125px;" name="Montant[]" type="number" step="0.01" class="inputC">&nbsp;&nbsp;€
+			    			<input form="BuyProd" required style="width: 125px;" name="Montant[]" type="number" step="0.01" class="inputC">&nbsp;&nbsp;€
 			    		</td>
 					</tr>
 					<tr id="Ajout-Tpss">
