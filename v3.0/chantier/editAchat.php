@@ -55,7 +55,7 @@ $donnees = mysqli_fetch_assoc($reponse);
                         <label for="montant">Montant :</label>
                     </td>
                     <td>
-                        <input required min="0.01" style="width: 125px;" id="montant" name="montant" type="number"
+                        <input required style="width: 125px;" id="montant" name="montant" type="number"
                                step="0.01" class="inputC" value="<?php echo $donnees['ACH_Montant'] ?>">&nbsp;&nbsp;€
                     </td>
                 </tr>
