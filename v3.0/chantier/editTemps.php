@@ -18,7 +18,8 @@ $donnees = mysqli_fetch_assoc($reponse);
         <br>
 
         <form method="post" action="tempsPost.php" name="tempsPost" id="tempsPost">
-            <input type="hidden" name="NumC" id="NumC" value="<?php echo $num ?>"/>
+            <input type="hidden" name="NumC" value="<?php echo $donnees['CHA_NumDevis']; ?>">
+            <input type="hidden" name="NumTemps" id="NumTemps" value="<?php echo $num ?>"/>
             <table id="tempsPost" align="center" cellspacing="0px">
                 <tr id="tempsPost">
                     <td style="text-align: right; width: 100px; padding-right: 10px;">
@@ -107,7 +108,11 @@ $donnees = mysqli_fetch_assoc($reponse);
                     </td>
                     <td>
                         <input name="reset" type="reset" value="Annuler" class="buttonC">
-                        </form>
+
+                    </td>
+                    <td>
+                        <input name="delete" type="submit" value="Supprimer" class="buttonC">
+                    </form>
                     </td>
                     <td>
                         <form id="return" method="get" action="detailChantier.php" name="detailClient">
