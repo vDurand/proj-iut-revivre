@@ -1,4 +1,4 @@
-- pouvoir rentrer des nouveaux types dans la base
+﻿- pouvoir rentrer des nouveaux types dans la base
 - rentrer les chantiers à partir de 2015, abandonner le transfert de données
 DONE - enlever les couleurs pour les heures
 DONE - achats restants (en monétaire) à la place du montant des heures
@@ -18,7 +18,7 @@ ANNULE - masquer le num_devis
 - #bilan => trier encadrant, année en cours chantiers finis, mois en cours chantiers en cours
 - garder le taux horaire (cf. feuille de note Valentin), indiquer le taux horaire pour chaque chantier (fixe)
 - restreindre nom, prénom, adresse et un téléphone pour le répertoire
-
+33
 #Borderau de livraison :
 
 *Client
