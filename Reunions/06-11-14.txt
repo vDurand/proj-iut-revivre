@@ -19,7 +19,7 @@ ANNULE - masquer le num_devis
 - garder le taux horaire (cf. feuille de note Valentin), indiquer le taux horaire pour chaque chantier (fixe)
 - restreindre nom, prénom, adresse et un téléphone pour le répertoire
 
-#Borderau de livraison :.
+#Borderau de livraison :
 
 *Client
     - Structure
