@@ -1,7 +1,7 @@
 <?php
 $pageTitle = "Exporter chantiers";
 $pwd = '../';
-include('/bandeau.php');
+include ($pwd.'bandeau.php');
 ?>
 	<div id="corps">
 		<div id="labelT">
@@ -20,19 +20,31 @@ include('/bandeau.php');
 	define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
 	/** Include PHPExcel */
-	require_once dirname(__FILE__) . '/Classes/PHPExcel.php';
+	require_once dirname(__FILE__) . ('/Classes/PHPExcel.php');
 	// require_once('/Classes/PHPExcel/Cell/DataType.php');
 	// require_once('/Classes/PHPExcel/Cell.php');
-	require_once('/Classes/PHPExcel.php');
-	require_once('/Classes/PHPExcel/Cell/DataType.php');
-	require_once('/Classes/PHPExcel/RichText.php');
-	require_once '/Classes/PHPExcel/IOFactory.php';
+	// require_once('/Classes/PHPExcel.php');
+	require_once dirname(__FILE__) . ('/Classes/PHPExcel/Cell/DataType.php');
+	require_once dirname(__FILE__) . ('/Classes/PHPExcel/RichText.php');
+	require_once dirname(__FILE__) . ('/Classes/PHPExcel/IOFactory.php');
 
 	/** Create a new PHPExcel Object  **/
 	$objPHPExcel = new PHPExcel();
 
 	/***** SOMME DES ACHATS ****/
-	$achats = "SELECT sum(ACH_Montant) as sommeAchats from acheter group by cha_numdevis";
+	$achats = "SELECT AchatTot as sommeAchats FROM ChantierAchat chaachat, Chantiers ch 
+		JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CNumDevis 
+		LEFT JOIN ChantierResp vre ON ch.CHA_NumDevis=vre.RNumDevis 
+		LEFT JOIN ChantierEtat cet ON ch.CHA_NumDevis=NumDevis 
+		join Etat using(cha_numdevis) 
+		WHERE chaachat.CHA_NumDevis = ch.CHA_NumDevis
+		AND cet.Id = 3 
+		and tye_id = 3
+		order by ch.CHA_NumDevis
+		
+	";
+
+
 	$achats = mysqli_query($db,$achats);
 
 	$letter = 'X';
@@ -71,13 +83,24 @@ include('/bandeau.php');
 			}
 
 	  }
-	  $objPHPExcel->getActiveSheet()->setCellValue('x'.$i, $RowAchats['sommeAchats'].' €');
+	  
+  		$objPHPExcel->getActiveSheet()->setCellValue('x'.$i, $RowAchats['sommeAchats'].' €');
+	  
 	}
 	mysqli_free_result($achats);
 	
 
 	/**** SOMME DES HEURES ****/
-	$heure = "SELECT SUM(TRA_Duree) as total FROM TempsTravail ttps WHERE ttps.CHA_NumDevis = CHA_NumDevis GROUP BY CHA_NumDevis";
+	$heure = "SELECT HeureTot as total FROM ChantierHeure ttps, Chantiers ch 
+	JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CNumDevis 
+	LEFT JOIN ChantierResp vre ON ch.CHA_NumDevis=vre.RNumDevis 
+	LEFT JOIN ChantierEtat cet ON ch.CHA_NumDevis=NumDevis 
+	join Etat using(cha_numdevis) 
+	where ttps.CHA_NumDevis = ch.CHA_NumDevis 
+	AND cet.Id = 3 
+	and tye_id = 3
+	order by ch.CHA_NumDevis";
+
 	$heure = mysqli_query($db,$heure);
 	$letter = 'W';
 
@@ -124,9 +147,10 @@ include('/bandeau.php');
 	$chantier = "SELECT * FROM Chantiers ch 
 	JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CNumDevis 
 	LEFT JOIN ChantierResp vre ON ch.CHA_NumDevis=vre.RNumDevis 
-	LEFT JOIN ChantierEtat cet ON ch.CHA_NumDevis=NumDevis join etat using(cha_numdevis) 
+	LEFT JOIN ChantierEtat cet ON ch.CHA_NumDevis=NumDevis join Etat using(cha_numdevis) 
 	where cet.Id = 3
     and tye_id = 3
+    order by ch.CHA_NumDevis
 	";
 	$chantier = mysqli_query($db,$chantier);
 

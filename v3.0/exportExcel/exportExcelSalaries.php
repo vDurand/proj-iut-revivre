@@ -1,44 +1,44 @@
 <?php
 $pageTitle = "Exporter salariés en insertion";
 $pwd = '../';
-include('../bandeau.php');
+include ($pwd.'bandeau.php');
 ?>
-    <div id="corps">
-        <div id="labelT">
-            <label>Exporter les données sur excel</label>
-        </div>
-        <br>
-        <?php
-    
-    
-    /** Error reporting */
-    error_reporting(E_ALL);
-    ini_set('display_errors', TRUE);
-    ini_set('display_startup_errors', TRUE);
-    date_default_timezone_set('Europe/London');
+  <div id="corps">
+    <div id="labelT">
+      <label>Exporter les données sur excel</label>
+    </div>
+    <br>
+    <?php
+  
+  
+  /** Error reporting */
+  error_reporting(E_ALL);
+  ini_set('display_errors', TRUE);
+  ini_set('display_startup_errors', TRUE);
+  date_default_timezone_set('Europe/London');
 
-    define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
+  define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
-    /** Include PHPExcel */
-    require_once dirname(__FILE__) . '/Classes/PHPExcel.php';
-    // require_once('/Classes/PHPExcel/Cell/DataType.php');
-    // require_once('/Classes/PHPExcel/Cell.php');
-    require_once('Classes/PHPExcel.php');
-    require_once('Classes/PHPExcel/Cell/DataType.php');
-    require_once('Classes/PHPExcel/RichText.php');
-    require_once 'Classes/PHPExcel/IOFactory.php';
+  /** Include PHPExcel */
+  require_once dirname(__FILE__) . ('/Classes/PHPExcel.php');
+  // require_once('/Classes/PHPExcel/Cell/DataType.php');
+  // require_once('/Classes/PHPExcel/Cell.php');
+  // require_once('/Classes/PHPExcel.php');
+  require_once dirname(__FILE__) . ('/Classes/PHPExcel/Cell/DataType.php');
+  require_once dirname(__FILE__) . ('/Classes/PHPExcel/RichText.php');
+  require_once dirname(__FILE__) . ('/Classes/PHPExcel/IOFactory.php');
 
     /** Create a new PHPExcel Object  **/
     $objPHPExcel = new PHPExcel();
 
-    $insertion = "SELECT * from salaries 
-    JOIN insertion using (SAL_NumSalarie) 
+    $insertion = "SELECT * from Salaries 
+    JOIN Insertion using (SAL_NumSalarie) 
     join Convention using (CNV_Id)
     join Contrat using (CNT_Id)
-    join personnes using (PER_Num)
+    join Personnes using (PER_Num)
     join Fonction using (FCT_Id)
-    join type using (TYP_Id)
-    join referents using(REF_NumRef)
+    join Type using (TYP_Id)
+    join Referents using(REF_NumRef)
     ";
     $insertion = mysqli_query($db,$insertion);
 
