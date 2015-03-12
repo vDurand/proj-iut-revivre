@@ -1,11 +1,11 @@
 <?php
-$pageTitle = "Exporter salariés en insertion";
+$pageTitle = "Export des salariés en insertion";
 $pwd = '../';
-include ($pwd.'bandeau.php');
+include ('../bandeau.php');
 ?>
   <div id="corps">
     <div id="labelT">
-      <label>Exporter les données sur excel</label>
+      <label>Export des salariés réussi</label>
     </div>
     <br>
     <?php
@@ -165,12 +165,13 @@ include ($pwd.'bandeau.php');
     //$objPHPExcel->getActiveSheet()->removeRow($baseRow-1,1);
     $date = date('d-m-y');
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-    $records = 'export_insertion_'.$date.'.xlsx';
+    $records = 'export_salaries.xlsx';
     $objWriter->save($records);
-    echo 'réussi';
 ?>
-        
+    <script>
+      document.location.href="exportS.php";
+    </script>
     </div>
 <?php
-include('footer.php');
+include($pwd.'footer.php');
 ?>

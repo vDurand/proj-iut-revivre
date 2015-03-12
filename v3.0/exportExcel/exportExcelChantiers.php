@@ -1,11 +1,12 @@
 <?php
+
 $pageTitle = "Exporter chantiers";
 $pwd = '../';
-include ($pwd.'bandeau.php');
+include ('../bandeau.php');
 ?>
 	<div id="corps">
 		<div id="labelT">
-			<label>Exporter les données sur excel</label>
+			<label>Export des chantiers réussi</label>
 		</div>
 		<br>
 		<?php
@@ -32,83 +33,26 @@ include ($pwd.'bandeau.php');
 	$objPHPExcel = new PHPExcel();
 
 	/***** SOMME DES ACHATS ****/
-	$achats = "SELECT AchatTot as sommeAchats FROM ChantierAchat chaachat, Chantiers ch 
-		JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CNumDevis 
-		LEFT JOIN ChantierResp vre ON ch.CHA_NumDevis=vre.RNumDevis 
-		LEFT JOIN ChantierEtat cet ON ch.CHA_NumDevis=NumDevis 
-		join Etat using(cha_numdevis) 
-		WHERE chaachat.CHA_NumDevis = ch.CHA_NumDevis
-		AND cet.Id = 3 
-		and tye_id = 3
-		order by ch.CHA_NumDevis
-		
+	$achats = "SELECT sum(ACH_Montant) as sommeAchats, ch.CHA_NumDevis, TYE_id 
+	FROM `Acheter` ac 
+	right join Chantiers ch on ch.CHA_NumDevis = ac.CHA_NumDevis 
+	join Etat et on et.CHA_NumDevis = ch.CHA_NumDevis 
+	join ChantierEtat cet on cet.NumDevis = ch.CHA_NumDevis  
+	WHERE TYE_Id = 3 
+	group by ch.CHA_NumDevis 
+	order by ch.CHA_NumDevis
 	";
 
 
 	$achats = mysqli_query($db,$achats);
 
-	$letter = 'X';
+	$letter = 'W';
 
 	$title = array(
 		array('titre' => 'Nb achats'),
 		);
 	foreach ($achats as $i => $RowAchats) {
 	 $i = $i + 2;
-	 foreach ($title as $t => $RowTitle) {
-		
-
-		//Autosize des colonnes
-			$objPHPExcel->getActiveSheet()->getColumnDimension($letter)->setAutoSize(true);
-			//Affichage du titre dans la ligne 1 avec incrémentation auto de la lettre
-			$objPHPExcel->getActiveSheet()->setCellValue($letter.'1',$RowTitle['titre']);
-
-			//Couleur titre
-			$objPHPExcel->getActiveSheet()->getStyle($letter.'1')->applyFromArray(
-				array('fill' => array(
-										'type' => PHPExcel_Style_Fill::FILL_SOLID,
-										'color' => array('rgb' => 'E7E7E7')
-									)
-					)
-			);
-			if($letter <> 'X')
-			{
-				   if($letter == 'z')
-				   {
-						$letter = 'A'.++$letter;
-				   }
-				   else
-				   {
-						$letter = ++$letter;
-				   }
-			}
-
-	  }
-	  
-  		$objPHPExcel->getActiveSheet()->setCellValue('x'.$i, $RowAchats['sommeAchats'].' €');
-	  
-	}
-	mysqli_free_result($achats);
-	
-
-	/**** SOMME DES HEURES ****/
-	$heure = "SELECT HeureTot as total FROM ChantierHeure ttps, Chantiers ch 
-	JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CNumDevis 
-	LEFT JOIN ChantierResp vre ON ch.CHA_NumDevis=vre.RNumDevis 
-	LEFT JOIN ChantierEtat cet ON ch.CHA_NumDevis=NumDevis 
-	join Etat using(cha_numdevis) 
-	where ttps.CHA_NumDevis = ch.CHA_NumDevis 
-	AND cet.Id = 3 
-	and tye_id = 3
-	order by ch.CHA_NumDevis";
-
-	$heure = mysqli_query($db,$heure);
-	$letter = 'W';
-
-	$title = array(
-		array('titre' => 'Nb heures'),
-		);
-	foreach ($heure as $h => $RowHeure) {
-	 $h = $h + 2;
 	 foreach ($title as $t => $RowTitle) {
 		
 
@@ -138,7 +82,66 @@ include ($pwd.'bandeau.php');
 			}
 
 	  }
-	  $objPHPExcel->getActiveSheet()->setCellValue('w'.$h, $RowHeure['total'].' H');
+	  
+	  	if($RowAchats['sommeAchats'] == null)
+	  	{
+	  		$RowAchats['sommeAchats'] = 0;
+	  	}
+  		$objPHPExcel->getActiveSheet()->setCellValue('w'.$i, $RowAchats['sommeAchats'].' €');
+	  
+	}
+	mysqli_free_result($achats);
+	
+
+	/**** SOMME DES HEURES ****/
+	$heure = "SELECT HeureTot as total FROM ChantierHeure ttps, Chantiers ch 
+	JOIN ChantierClient vcl ON ch.CHA_NumDevis=vcl.CNumDevis 
+	LEFT JOIN ChantierResp vre ON ch.CHA_NumDevis=vre.RNumDevis 
+	LEFT JOIN ChantierEtat cet ON ch.CHA_NumDevis=NumDevis 
+	join Etat using(cha_numdevis) 
+	where ttps.CHA_NumDevis = ch.CHA_NumDevis 
+	AND cet.Id = 3 
+	and tye_id = 3
+	order by ch.CHA_NumDevis";
+
+	$heure = mysqli_query($db,$heure);
+	$letter = 'V';
+
+	$title = array(
+		array('titre' => 'Nb heures'),
+		);
+	foreach ($heure as $h => $RowHeure) {
+	 $h = $h + 2;
+	 foreach ($title as $t => $RowTitle) {
+		
+
+		//Autosize des colonnes
+			$objPHPExcel->getActiveSheet()->getColumnDimension($letter)->setAutoSize(true);
+			//Affichage du titre dans la ligne 1 avec incrémentation auto de la lettre
+			$objPHPExcel->getActiveSheet()->setCellValue($letter.'1',$RowTitle['titre']);
+
+			//Couleur titre
+			$objPHPExcel->getActiveSheet()->getStyle($letter.'1')->applyFromArray(
+				array('fill' => array(
+										'type' => PHPExcel_Style_Fill::FILL_SOLID,
+										'color' => array('rgb' => 'E7E7E7')
+									)
+					)
+			);
+			if($letter <> 'V')
+			{
+				   if($letter == 'z')
+				   {
+						$letter = 'A'.++$letter;
+				   }
+				   else
+				   {
+						$letter = ++$letter;
+				   }
+			}
+
+	  }
+	  $objPHPExcel->getActiveSheet()->setCellValue('v'.$h, $RowHeure['total'].' H');
 	}
 	mysqli_free_result($heure);
 	
@@ -175,7 +178,7 @@ include ($pwd.'bandeau.php');
 		array('titre' => 'Structure'),
 		array('titre' => 'Resp'),
 		array('titre' => 'RespP'),
-		array('titre' => 'Etat'),
+		// array('titre' => 'Etat'),
 		);
 
 		//var_dump($title);
@@ -201,7 +204,7 @@ include ($pwd.'bandeau.php');
 									)
 					)
 			);
-			if($letter <> 'V')
+			if($letter <> 'U')
 			{
 				   if($letter == 'z')
 				   {
@@ -232,28 +235,8 @@ include ($pwd.'bandeau.php');
 									  ->setCellValueExplicit('r'.$r, $Rowchantier['ClienV'],PHPExcel_Cell_DataType::TYPE_STRING)
 									  ->setCellValue('s'.$r, $Rowchantier['Structure'])
 									  ->setCellValue('t'.$r, $Rowchantier['Resp'])
-									  ->setCellValue('u'.$r, $Rowchantier['RespP'])
-									  ->setCellValue('v'.$r, $Rowchantier['Etat']);
-
-									  /*->setCellValue('w'.$r, $Rowchantier['CNV_Nom'])
-									  ->setCellValue('x'.$r, $Rowchantier['INS_NbHeures'])
-									  ->setCellValue('y'.$r, $Rowchantier['INS_NbJours'])
-									  ->setCellValue('z'.$r, $Rowchantier['INS_RevenuDepuis'])
-									  ->setCellValue('aa'.$r, $Rowchantier['INS_SEDepuis'])
-									  ->setCellValue('ab'.$r, $Rowchantier['INS_PEDupuis'])
-									  ->setCellValue('ac'.$r, $Rowchantier['INS_Repas'])
-									  ->setCellValue('ad'.$r, $Rowchantier['INS_Positionmt'])
-									  ->setCellValue('ae'.$r, $Rowchantier['INS_SituGeo'])
-									  ->setCellValueExplicit('af'.$r, $Rowchantier['PER_TelFixe'],PHPExcel_Cell_DataType::TYPE_STRING)
-									  ->setCellValueExplicit('ag'.$r, $Rowchantier['PER_TelPort'],PHPExcel_Cell_DataType::TYPE_STRING)
-									  ->setCellValueExplicit('ah'.$r, $Rowchantier['PER_Fax'],PHPExcel_Cell_DataType::TYPE_STRING)
-									  ->setCellValueExplicit('ai'.$r, $Rowchantier['PER_Email'],PHPExcel_Cell_DataType::TYPE_STRING)
-									  ->setCellValue('aj'.$r, $Rowchantier['PER_Adresse'])
-									  ->setCellValue('ak'.$r, $Rowchantier['PER_CodePostal'])
-									  ->setCellValue('al'.$r, $Rowchantier['PER_Ville']);*/
-
-									  
-		
+									  ->setCellValue('u'.$r, $Rowchantier['RespP']);
+									  // ->setCellValue('v'.$r, $Rowchantier['Etat']);		
 
 	}
 					  
@@ -263,12 +246,17 @@ include ($pwd.'bandeau.php');
 	//$objPHPExcel->getActiveSheet()->removeRow($baseRow-1,1);
 	$date = date('d-m-y');
 	$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-	$records = 'export_chantiers_'.$date.'.xlsx';
+	$records = 'export_chantiers.xlsx';
+	// $objWriter->save('php://output');	
 	$objWriter->save($records);
-	echo 'réussi';
+
+
 ?>
+	<script>
+		document.location.href="exportC.php";
+	</script>
 		
 	</div>
 <?php
-include('footer.php');
+include($pwd.'footer.php');
 ?>
