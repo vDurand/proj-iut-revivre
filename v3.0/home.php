@@ -8,7 +8,7 @@ $pwd="";
 			</div>
 			<br/>
 			<div>     
-				<label>&#8226; Derniers Chantiers Ajoutés :</label>
+				<label>&#8226; Derniers Chantiers Ajoutés :</label><span><button class="printButton"><a style="text-decoration:none;color:#777777;" href="exportExcel/exportExcelChantiers.php">Exporter</a></button></span>
 			</div><br>
 			<div class="listeClients">
 			<table cellpadding="5">
@@ -77,13 +77,13 @@ $pwd="";
 	}
 	mysqli_free_result($reponse);
 ?>					
-					</tbody>
+					</tbody> 
 				</table>
 			</div>
 				<br/>
 				<br/>
 				<div>     
-				<label>&#8226; Derniers Membres de l'association Ajoutés :</label>
+				<label>&#8226; Derniers Membres de l'association Ajoutés :</label><span><button class="printButton"><a style="text-decoration:none;color:#777777;" href="exportExcel/exportExcelSalaries.php">Exporter</a></button></span>
 			</div><br>
 				<div class="listeMembers">
 					<table cellpadding="5">
