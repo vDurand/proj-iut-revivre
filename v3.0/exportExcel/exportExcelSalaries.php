@@ -118,8 +118,8 @@ include ('../bandeau.php');
         }
         //Ajout dans les cellules la valeur correspondantes. Pour les cellules de type nombre on definit la cellue en type "chaine"
         $objPHPExcel->getActiveSheet()->setCellValue('c'.$r, $RowInsertion['SAL_NumSalarie'])
-                                      ->setCellValue('d'.$r, $RowInsertion['PER_Prenom'])
-                                      ->setCellValue('e'.$r, $RowInsertion['PER_Nom'])
+                                      ->setCellValue('d'.$r, $RowInsertion['PER_Nom'])
+                                      ->setCellValue('e'.$r, $RowInsertion['PER_Prenom'])
                                       ->setCellValue('f'.$r, $RowInsertion['FCT_Nom'])
                                       ->setCellValue('g'.$r, $RowInsertion['TYP_Nom'])
                                       ->setCellValue('h'.$r, $RowInsertion['INS_DateEntretien'])
