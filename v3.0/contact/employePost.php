@@ -42,7 +42,7 @@ include('../bandeau.php');
                     </div>';
                     echo '<script language="Javascript">
                     <!--
-                    document.location.replace("detailEmployeC.php?NumC='.$perMax.'");
+                    document.location.replace("client/detailEmployeC.php?NumC='.$perMax.'");
                     // -->
                     </script>';
                 }
@@ -70,7 +70,7 @@ include('../bandeau.php');
                     </div>';
                     echo '<script language="Javascript">
                     <!--
-                    document.location.replace("detailEmployeF.php?NumC='.$perMax.'");
+                    document.location.replace("fournisseur/detailEmployeF.php?NumC='.$perMax.'");
                     // -->
                     </script>';
                 }
