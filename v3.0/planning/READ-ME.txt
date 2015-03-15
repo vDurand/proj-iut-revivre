@@ -1,0 +1,3 @@
+Importez les deux tables dans la base :
+	- pl_creneau.sql
+	- pl_insertion.sql

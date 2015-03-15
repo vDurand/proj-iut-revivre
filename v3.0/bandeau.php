@@ -128,10 +128,18 @@
 									<li><a href="<?php echo $pwd; ?>viewTools.php">Liste<br>outils</a></li>
 	                			</ul>
 							</li>
-							<li id="champs"><a href="<?php echo $pwd; ?>homeMeal.php">Restauration</a>
+							<!--<li id="champs"><a href="<?php echo $pwd; ?>homeMeal.php">Restauration</a>
 								<ul class="subMenu">
 	                       			<li><a href="<?php echo $pwd; ?>addMeal.php">Ajouter<br>repas</a></li>
 									<li><a href="<?php echo $pwd; ?>viewMeals.php">Archive<br>commandes</a></li>
+	                			</ul>
+							</li>-->
+							<li id="champs"><a href="<?php echo $pwd; ?>planning/homePlanning.php">Plannings</a>
+								<ul class="subMenu">
+	                       			<li><a href="<?php echo $pwd; ?>planning/planning_insertion.php">Planning<br>ACI</a></li>
+									<li><a href="<?php echo $pwd; ?>planning/homePlanning.php">Planning<br>occupationnel</a></li>
+									<li><a href="<?php echo $pwd; ?>planning/homePlanning.php">Planning<br>stagiaire</a></li>
+									<li><a href="<?php echo $pwd; ?>planning/homePlanning.php">Planning<br>administratif</a></li>
 	                			</ul>
 							</li>
 						</ul>
