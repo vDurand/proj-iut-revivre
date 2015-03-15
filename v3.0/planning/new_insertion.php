@@ -52,8 +52,8 @@
 		<div class="planningTable">
 			<table id="insertionTableau">
 				<thead>
-					<th></th>
-					<th style ="min-width:212px;">
+					<th id="firstColumn"></th>
+					<th>
 						<select id="encadrant1" onchange="changeName(0)" required="required">
 							<option value="-1">Choisissez un encadrant</option>
 							<?php
@@ -70,8 +70,8 @@
 						</select>
 						<br/>8h-12h
 					</th>
-					<th></th>
-					<th style ="min-width:212px;">
+					<th id="emptyColumn"></th>
+					<th>
 						<select id="encadrant3" onchange="changeName(1)" required="required">
 							<option value="-1">Choisissez un encadrant</option>
 							<?php
@@ -88,10 +88,10 @@
 						</select>
 						<br/>8h-12h
 					</th>
-					<th></th>
-					<th style ="min-width:212px;" id="encad1"><b>Encadrant équipe n°1</b><br>13h-17h</th>
-					<th></th>
-					<th style ="min-width:212px;" id="encad2"><b>Encadrant équipe n°2</b><br>13h-17h</th>
+					<th id="emptyColumn"></th>
+					<th id="encad1"><b>Encadrant équipe n°1</b><br>13h-17h</th>
+					<th id="emptyColumn"></th>
+					<th id="encad2"><b>Encadrant équipe n°2</b><br>13h-17h</th>
 				</thead>
 				<tbody>
 					<tr>

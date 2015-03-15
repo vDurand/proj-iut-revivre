@@ -30,6 +30,7 @@
 									<option <?php if($datepl == $x){echo "selected";} ?> value=<?php echo "'".$x."'";?>><?php echo $data["date"]; ?></option>;
 							<?php
 									$tabDate[$x++] = $data["date"];
+									echo $x;
 								}
 							?>
 						</select>
@@ -39,7 +40,8 @@
 		</tr>
 	</table>
 <form method="POST" action="./new_insertion.php" name="add_pl_insertion" id="add_pl_insertion">
-		<input name="newPl" type="submit" value="Nouveau" class="printButton">
+		<input name="newPl" type="submit" value="Nouveau" class="printButton">&nbsp;
+		<input name="editPl" type="button" value="Modifier" class="printButton" <?php if($datepl==0) echo 'disabled="disabled"'; ?>>&nbsp;
 		<input type='hidden' id="Date" name='Date' value=''>
 		<input type='hidden' id="tableName" name='tableName' value=''>
 		<input name="delPl" type="button" value="Supprimer" class="printButton" <?php if($datepl==0) echo 'disabled="disabled"'; ?> onclick="deletePlanning()">
@@ -59,16 +61,16 @@
 		}
 		$CreValue=1;
 ?>
-	<div class="listeClients">
+	<div class="planningTable">
 		<table>
 			<thead>
-				<th></th>
+				<th id="firstColumn"></th>
 				<th><?php echo $encadrantNom[0]; ?><br/>8h - 12h</th>
-				<th></th>
+				<th id="emptyColumn"></th>
 				<th><?php echo $encadrantNom[1]; ?><br/>8h - 12h</th>
-				<th></th>
+				<th id="emptyColumn"></th>
 				<th><?php echo $encadrantNom[0]; ?><br/>13h - 17h</th>
-				<th></th>
+				<th id="emptyColumn"></th>
 				<th><?php echo $encadrantNom[1]; ?><br/>13h - 17h</th>
 			</thead>
 			<tbody>
@@ -93,7 +95,7 @@
 							echo '</td>';
 							if($y<3)
 							{ 
-								echo "<td></td>";
+								echo "<td class='emptyCells'></td>";
 							}
 							if($y==1)
 							{

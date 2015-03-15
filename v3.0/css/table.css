@@ -703,7 +703,8 @@ AJOUT GROUPE 2 PROJET REVIVRE
 	color:#000;
 }
 .planningTable {
-	margin:0px;padding:0px;
+	margin:0px;
+	padding:0px;
 	width:100%;
 	border:1px solid #003f7f;
 	
@@ -722,14 +723,17 @@ AJOUT GROUPE 2 PROJET REVIVRE
 	-moz-border-radius-topleft:6px;
 	-webkit-border-top-left-radius:6px;
 	border-top-left-radius:6px;
-}.planningTable table{
+}
+.planningTable table{
     border-collapse: collapse;
     border-spacing: 0;
 	width:100%;
 	height:100%;
 	margin:0px;
 	padding:0px;
-}.planningTable tbody tr:last-child td:last-child {
+	table-layout: fixed;
+}
+.planningTable tbody tr:last-child td:last-child {
 	-moz-border-radius-bottomright:6px;
 	-webkit-border-bottom-right-radius:6px;
 	border-bottom-right-radius:6px;
@@ -738,7 +742,8 @@ AJOUT GROUPE 2 PROJET REVIVRE
 	-moz-border-radius-topright:6px;
 	-webkit-border-top-right-radius:6px;
 	border-top-right-radius:6px;
-}.planningTable tbody tr:last-child td:first-child{
+}
+.planningTable tbody tr:last-child td:first-child{
 	-moz-border-radius-bottomleft:6px;
 	-webkit-border-bottom-left-radius:6px;
 	border-bottom-left-radius:6px;
@@ -753,14 +758,17 @@ AJOUT GROUPE 2 PROJET REVIVRE
 	font-family:Arial;
 	font-weight:normal;
 	color:#000000;
-}.planningTable tr{
+}
+.planningTable tr{
 	background-color: white;
 }
 .planningTable tr:last-child td{
 	border-width:0px 1px 0px 0px;
-}.planningTable tr td:last-child{
+}
+.planningTable tr td:last-child{
 	border-width:0px 0px 1px 0px;
-}.planningTable tr:last-child td:last-child{
+}
+.planningTable tr:last-child td:last-child{
 	border-width:0px 0px 0px 0px;
 }
 .planningTable thead tr td, th{
@@ -782,9 +790,19 @@ AJOUT GROUPE 2 PROJET REVIVRE
 	border-width:0px 0px 1px 1px;
 }
 .planningTable tbody tr{
-	height:75px;
-	max-height:75px;
+	height:80px;
+	max-height:80px;
 }
+.planningTable #emptyColumn{
+	width:43px;
+	max-width:43px;
+}
+.planningTable #firstColumn{
+	width:80px;
+	max-width:80px;
+}
+
+
 .tableNewPl{
 	margin:0 0 10px 0;
 	padding:5px 0px 5px 0px;
