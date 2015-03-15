@@ -125,11 +125,11 @@
 		<table style="margin:10px auto 0 auto;">
 			<tr>
 				<td>
-					<input name="cancel" type="button" class="buttonC" value="Annuler">
+					<input name="cancel" id="cancel" type="button" class="buttonC" value="Annuler" onclick="window.location.replace('./planning_insertion.php');">
 					<input type='hidden' id="Date" name='Date' value=''>
 					<input type='hidden' id="Tableau" name='Tableau' value=''>
 				</td>
-				<td><input name="validPL" type="submit" class="buttonC" style="width:225px;" value="Valider la création du planning" onclick="postData()"></td>
+				<td><input name="validPL" type="button" class="buttonC" style="width:225px;" value="Valider la création du planning" onclick="postData()"></td>
 			</tr>
 		</table>
 	</form>
@@ -203,22 +203,73 @@
 	function addPersonne(x,y,encadNum,creneau)
 	{
 		var table = document.getElementById('insertionTableau');
-		if(table.rows[x].cells[y].innerHTML != "")
+		var nom = document.getElementById("adherentchoix").options[document.getElementById("adherentchoix").selectedIndex].text;
+		var valueAdh = document.getElementById("adherentchoix").value;
+		if((table.rows[x].cells[y].innerHTML).indexOf(nom) == -1)
 		{
-			table.rows[x].cells[y].innerHTML = table.rows[x].cells[y].innerHTML+"<br/>"+document.getElementById("adherentchoix").options[document.getElementById("adherentchoix").selectedIndex].text;
+			if(table.rows[x].cells[y].innerHTML != "")
+			{
+				table.rows[x].cells[y].innerHTML = table.rows[x].cells[y].innerHTML+"<br>"+nom+'&nbsp;<input name="suppr" type="button" class="delCross" value="x" onclick="delPersonne('+x+','+y+',\''+nom+'\','+valueAdh+','+encadNum+','+creneau+')">';
+				tableau[tableau.length]= new Array(valueAdh,encadNum,creneau);
+			}
+			else
+			{
+				table.rows[x].cells[y].innerHTML = nom+'&nbsp;<input name="suppr" type="button" class="delCross" value="x" onclick="delPersonne('+x+','+y+',\''+nom+'\','+valueAdh+','+encadNum+','+creneau+')">';
+				tableau[tableau.length]= new Array(valueAdh,encadNum,creneau);
+			}
+		}
+	}
+
+	function delPersonne(x,y,nom,valueAdh,encadNum,creneau)
+	{
+		var table = document.getElementById('insertionTableau');
+		var txt = table.rows[x].cells[y].innerHTML;
+		var chaine = nom+'&nbsp;<input name="suppr" type="button" class="delCross" value="x" onclick="delPersonne('+x+','+y+',\''+nom+'\','+valueAdh+','+encadNum+','+creneau+')">';
+		if(txt.indexOf('<br>'+chaine) != -1){
+			txt=txt.replace('<br>'+chaine,'');
+			table.rows[x].cells[y].innerHTML = txt;
+			cleanTable(valueAdh,encadNum,creneau);
 		}
 		else
 		{
-			table.rows[x].cells[y].innerHTML = document.getElementById("adherentchoix").options[document.getElementById("adherentchoix").selectedIndex].text;
+			if(txt.indexOf(chaine) != -1){
+				txt=txt.replace(chaine,'');
+				table.rows[x].cells[y].innerHTML = txt;
+				cleanTable(valueAdh,encadNum,creneau);
+			}
+			else
+			{
+				alert("Une erreur s'est produite, impossible de supprimer !");
+			}
 		}
-		tableau[tableau.length]= new Array(document.getElementById("adherentchoix").value,encadNum,creneau);
+	}
+
+	function cleanTable(valueAdh,encadNum,creneau)
+	{
+		for(var z=0; z<tableau.length; z++)
+		{
+			if(tableau[z][0] == valueAdh && tableau[z][1] == encadNum && tableau[z][2] == creneau)
+			{
+				tableau.splice(z,1);
+			}
+		}
 	}
 
 	function postData()
-	{
-		document.getElementById('Tableau').value = JSON.stringify(tableau);
-		document.getElementById('Date').value = document.getElementById("pl_date").value;
-     	document.getElementById("valid_planning").submit();
+	{	
+		if(tableau.length > 0)
+		{
+			if(confirm("Etes-vous sûr de vouloir valider le planning ?"))
+			{
+				document.getElementById('Tableau').value = JSON.stringify(tableau);
+				document.getElementById('Date').value = document.getElementById("pl_date").value;
+		     	document.getElementById("valid_planning").submit();
+			}
+		}
+		else
+		{
+			alert("Vous devez remplir le planning avant de la valider !");
+		}
 	}
 </script>
 <?php

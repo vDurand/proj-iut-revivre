@@ -771,7 +771,7 @@ AJOUT GROUPE 2 PROJET REVIVRE
 .planningTable tr:last-child td:last-child{
 	border-width:0px 0px 0px 0px;
 }
-.planningTable thead tr td, th{
+.planningTable thead tr td, .planningTable th{
 	background:-o-linear-gradient(bottom, #005fbf 5%, #005fbf 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #005fbf), color-stop(1, #005fbf) );
 	background:-moz-linear-gradient( center top, #005fbf 5%, #005fbf 100% );
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#005fbf", endColorstr="#005fbf");	background: -o-linear-gradient(top,#005fbf,005fbf);
@@ -802,6 +802,20 @@ AJOUT GROUPE 2 PROJET REVIVRE
 	max-width:80px;
 }
 
+#pl_date input[type="date"]::-webkit-calendar-picker-indicator{
+    display:inline-block;
+    margin-top:2%;
+    float:right;
+}
+#pl_date input[type="date"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.planningTable select{
+	margin-left: 4px;
+	border:1px solid black;
+}
 
 .tableNewPl{
 	margin:0 0 10px 0;
@@ -824,12 +838,33 @@ AJOUT GROUPE 2 PROJET REVIVRE
 .tableNewPl td #daytitle{
 	text-align: right;
 }
-input[type="date"]::-webkit-calendar-picker-indicator{
-    display:inline-block;
-    margin-top:2%;
-    float:right;
+
+.delCross{
+  background: #3498db;
+  background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+  background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+  background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+  background-image: -o-linear-gradient(top, #3498db, #2980b9);
+  background-image: linear-gradient(to bottom, #3498db, #2980b9);
+  -webkit-border-radius: 11;
+  -moz-border-radius: 11;
+  border-radius: 11px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 12px;
+  padding: 0px 4px 1px 4px;
+  border: solid #1f628d 1px;
+  text-decoration: none;
+  outline:none;
 }
-input[type="date"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+
+.delCross:hover{
+  background: #3cb0fd;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none;
+  cursor:pointer;
 }
