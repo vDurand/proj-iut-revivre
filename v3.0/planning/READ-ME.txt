@@ -1,0 +1,3 @@
+Veillez à importer les deux tables suivantes :
+	-pl_creneau.sql
+	-pl_insertion.sql
