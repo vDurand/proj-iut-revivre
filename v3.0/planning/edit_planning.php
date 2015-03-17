@@ -1,18 +1,30 @@
 <?php
 	$pwd='../';
 	include($pwd."bandeau.php");
-	if(isset($_POST['newPl']))
-		$btnValue = $_POST['newPl'];
+	if(isset($_POST['Date']))
+		$datepl = $_POST['Date'];
 	else
-		$btnValue = "";
+		$datepl = 0;
 ?>
 <div id="corps">
 <?php
-	if($btnValue != "")
+	if($datepl != 0)
 	{
+		$date = DateTime::createFromFormat('d/m/Y', $datepl)->format('Y-m-d');
+		$reponse = mysqli_query($db, "select distinct concat(concat(upper(PER_nom),' '),PER_prenom) as 'nom', ENC_Num
+							from pl_insertion join salaries sa on sa.SAL_NumSalarie = ENC_Num 
+							join personnes using(PER_Num) where ASSOC_date='".$date."' ORDER BY ENC_Num;");
+		$x=0;
+		while($donnees = mysqli_fetch_assoc($reponse))
+		{
+			$encadrant[$x] = $donnees["ENC_Num"];
+			$encadrantNom[$x++] = $donnees["nom"];
+		}
+		$CreValue=1;
+		$tabJour = Array("Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi");
 		echo '<div id="labelT">     
-    		 <label>Création d\'un nouveau planning</label>
-   			 </div><br/>';
+		      <label>(PRE-ALPHA !) Modification du planning de la semaine du lundi : '.$datepl.'</label>
+		      </div><br/>';
 ?>
 	<form name="add_personne" id ="add_personne">
 		<div class="tableNewPl">
@@ -74,7 +86,7 @@
 									while($donnees = mysqli_fetch_assoc($reponse))
 									{
 							?>
-										<option value='<?php echo $donnees["SAL_NumSalarie"]?>'><?php echo $donnees["Nom"] ?></option>
+										<option <?php if($donnees["SAL_NumSalarie"] == $encadrant[0]){echo "selected";} ?> value='<?php echo $donnees["SAL_NumSalarie"]?>'><?php echo $donnees["Nom"] ?></option>
 							<?php
 									}
 							?>
@@ -92,7 +104,7 @@
 									while($donnees = mysqli_fetch_assoc($reponse))
 									{
 							?>
-										<option value='<?php echo $donnees["SAL_NumSalarie"]?>'><?php echo $donnees["Nom"] ?></option>
+										<option <?php if($donnees["SAL_NumSalarie"] == $encadrant[1]){echo "selected";} ?> value='<?php echo $donnees["SAL_NumSalarie"]?>'><?php echo $donnees["Nom"] ?></option>
 							<?php
 									}
 							?>
@@ -105,21 +117,52 @@
 					<th id="encad2"><b>Encadrant équipe n°2</b><br>13h-17h</th>
 				</thead>
 				<tbody>
-					<tr>
-						<td><b>Lundi</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-					</tr>
-					<tr>
-						<td><b>Mardi</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-					</tr>
-					<tr>
-						<td><b>Mercredi</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-					</tr>
-					<tr>
-						<td><b>Jeudi</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-					</tr>
-					<tr>
-						<td><b>Vendredi</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-					</tr>
+				<?php
+					for($x=0; $x<5; $x++)
+					{
+				?>		
+						<tr>
+							<td><b><?php echo $tabJour[$x]?></b></td>
+						<?php
+							$increment = 1;
+							for($y=0; $y<4; $y++)
+							{
+								$flag=false;
+								echo '<td style="text-align:center; vertical-align:middle;">';
+								$query = mysqli_query($db,"SELECT concat(concat(PER_nom,' '),PER_prenom) AS 'nom', SAL_NumSalarie FROM pl_insertion
+													JOIN salaries USING(SAL_NumSalarie)
+													JOIN personnes USING(PER_Num)
+													WHERE ASSOC_date = '".$date."' AND CRE_id = ".$CreValue." AND ENC_Num = ".$encadrant[$y%2].";");
+								while($data = mysqli_fetch_assoc($query))
+								{
+									if($flag == false)
+									{
+										echo '<p>'.$data["nom"].'</p><input name="suppr" type="button" class="delCross" value="x" onclick="delPersonne('.($x+1).','.($y+$increment).',\''.$data["nom"].'\','.$data["SAL_NumSalarie"].','.$encadrant[$y%2].','.$CreValue.')">';
+										$flag=true;
+									}
+									else
+									{
+										echo '<br><p>'.$data["nom"].'</p><input name="suppr" type="button" class="delCross" value="x" onclick="delPersonne('.($x+1).','.($y+$increment).',\''.$data["nom"].'\','.$data["SAL_NumSalarie"].','.$encadrant[$y%2].','.$CreValue.')">';
+									}
+
+								}
+								echo '</td>';
+								if($y<3)
+								{ 
+									echo "<td class='emptyCells'></td>";
+								}
+								if($y==1)
+								{
+									$CreValue++;
+								}
+								$increment++;
+							}
+						?>
+						</tr>
+				<?php
+						$CreValue++;
+					}
+				?>
 				</tbody>
 			</table>
 		</div>
@@ -127,7 +170,7 @@
 			<tr style="text-align:center;">
 				<td>
 					<label for="date"><b>Date : </b></label>
-					<input type="date" id="pl_date" value=<?php echo "'".date("Y-m-d",strtotime("next monday"))."'"; ?> min=<?php echo "'".date("Y-m-d",strtotime("next monday"))."'";?> step="7" required="required"/>
+					<input type="date" id="pl_date" value=<?php echo "'".$date."'";?> step="7" disabled="disabled" required="required"/>
 				</td>
 			</tr>
 		</table>
@@ -140,7 +183,7 @@
 					<input type='hidden' id="Date" name='Date' value=''>
 					<input type='hidden' id="Tableau" name='Tableau' value=''>
 				</td>
-				<td><input name="validPL" type="button" class="buttonC" style="width:225px;" value="Valider la création du planning" onclick="postData()"></td>
+				<td><input name="validPL" type="button" class="buttonC" style="width:225px;" value="Valider la création du planning" onclick="postData()" disabled="disabled"></td>
 			</tr>
 		</table>
 	</form>
@@ -149,8 +192,8 @@
 	else
 	{
 		echo '<div id="bad">     
-		     <label>Une erreur s\'est produite, la requête vers le serveur à expiré !</label>
-		     </div>';
+		      <label>Une erreur s\'est produite, la requête vers le serveur à expiré !</label>
+		      </div>';
 		echo '<script type="text/javascript">
 		     window.location.replace("./planning_insertion.php");
 			 </script>';
@@ -159,6 +202,9 @@
 </div>
 <script type="text/javascript">
 	var tableau = new Array;
+	document.getElementById("encad1").innerHTML = document.getElementById("encadrant1").options[document.getElementById("encadrant1").selectedIndex].text+"<br>13h-17h";
+	document.getElementById("encad2").innerHTML = document.getElementById("encadrant3").options[document.getElementById("encadrant3").selectedIndex].text+"<br>13h-17h";
+
 	function changeName(index)
 	{
 		switch(index)
@@ -279,7 +325,7 @@
 	}
 
 	function postData()
-	{	
+	{
 		if(tableau.length > 0)
 		{
 			if(confirm("Etes-vous sûr de vouloir valider le planning ?"))

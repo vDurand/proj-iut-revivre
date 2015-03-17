@@ -39,9 +39,9 @@
 			</td>
 		</tr>
 	</table>
-<form method="POST" action="./new_insertion.php" name="add_pl_insertion" id="add_pl_insertion">
-		<input name="newPl" type="submit" value="Nouveau" class="printButton">&nbsp;
-		<input name="editPl" type="button" value="Modifier" class="printButton" <?php if($datepl==0) echo 'disabled="disabled"'; ?>>&nbsp;
+<form method="POST" action="./new_insertion.php" name="pl_insertion" id="pl_insertion">
+		<input name="newPl" id="newPl" type="submit" value="Nouveau" class="printButton">&nbsp;
+		<input name="editPl" id="editPl" type="button" value="Modifier" class="printButton" <?php if($datepl==0) echo 'disabled="disabled"'; ?> onclick="editPlanning()">&nbsp;
 		<input type='hidden' id="Date" name='Date' value=''>
 		<input type='hidden' id="tableName" name='tableName' value=''>
 		<input name="delPl" type="button" value="Supprimer" class="printButton" <?php if($datepl==0) echo 'disabled="disabled"'; ?> onclick="deletePlanning()">
@@ -114,14 +114,22 @@
 	<script type="text/javascript">
 		function deletePlanning()
 		{
-		    if(confirm('Etes vous sûr de vouloir supprimer le planning de la semaine du <?php echo $tabDate[$datepl]; ?> ?'))
+		    if(confirm('Etes-vous sûr de vouloir supprimer le planning de la semaine du <?php echo $tabDate[$datepl]; ?> ?'))
 		    {
-		        document.getElementById("add_pl_insertion").action="./del_planning.php";
+		        document.getElementById("pl_insertion").action="./del_planning.php";
 		        document.getElementById("tableName").value="pl_insertion";
 		        document.getElementById("Date").value="<?php echo $tabDate[$datepl]; ?>";
-		        document.getElementById("add_pl_insertion").submit();
+		        document.getElementById("pl_insertion").submit();
 		    }
 		}
+
+		function editPlanning()
+		{
+		        document.getElementById("pl_insertion").action="./edit_planning.php";
+		        document.getElementById("Date").value="<?php echo $tabDate[$datepl]; ?>";
+		        document.getElementById("pl_insertion").submit();
+		}
+
 	</script>
 <?php
 	}

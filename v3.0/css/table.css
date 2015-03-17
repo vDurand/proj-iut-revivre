@@ -793,6 +793,14 @@ AJOUT GROUPE 2 PROJET REVIVRE
 	height:80px;
 	max-height:80px;
 }
+
+.planningTable tbody tr td p{
+	float:left;
+	margin:3px 0;
+	padding:0;
+	width:150px;
+}
+
 .planningTable #emptyColumn{
 	width:43px;
 	max-width:43px;
@@ -856,6 +864,7 @@ AJOUT GROUPE 2 PROJET REVIVRE
   border: solid #1f628d 1px;
   text-decoration: none;
   outline:none;
+  float:right;
 }
 
 .delCross:hover{
