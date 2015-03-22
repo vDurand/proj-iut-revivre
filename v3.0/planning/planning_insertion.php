@@ -8,7 +8,6 @@
 		$datepl = 0;
 	$tabDate = Array("Aucune date");
 	$tabJour = Array("Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi");
-
 ?>
 <div id="corps">
 	<table>
@@ -131,6 +130,42 @@
 		}
 
 	</script>
+<?php
+	}
+	else
+	{
+?>
+		<div class="planningTable">
+			<table id="insertionTableau">
+				<thead>
+					<th id="firstColumn"></th>
+					<th>Encadrant équipe n°1<br/>8h-12h</th>
+					<th id="emptyColumn"></th>
+					<th>Encadrant équipe n°2<br/>8h-12h</th>
+					<th id="emptyColumn"></th>
+					<th><b>Encadrant équipe n°1</b><br>13h-17h</th>
+					<th id="emptyColumn"></th>
+					<th><b>Encadrant équipe n°2</b><br>13h-17h</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td><b>Lundi</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+					</tr>
+					<tr>
+						<td><b>Mardi</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+					</tr>
+					<tr>
+						<td><b>Mercredi</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+					</tr>
+					<tr>
+						<td><b>Jeudi</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+					</tr>
+					<tr>
+						<td><b>Vendredi</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 <?php
 	}
 ?>

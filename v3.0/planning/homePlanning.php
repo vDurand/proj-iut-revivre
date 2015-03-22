@@ -10,6 +10,9 @@
         <br/>
         <img id="construc" height="300px;" src="../images/maintenance.gif">
     </div>
+    <script type="text/javascript">
+		window.setTimeout("location=('./planning_insertion.php');",1500);
+	</script>'
 <?php
 include($pwd.'footer.php');
 ?>

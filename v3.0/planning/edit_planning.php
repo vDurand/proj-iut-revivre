@@ -22,8 +22,9 @@
 		}
 		$CreValue=1;
 		$tabJour = Array("Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi");
+		$arrayElements = Array();
 		echo '<div id="labelT">     
-		      <label>(PRE-ALPHA !) Modification du planning de la semaine du lundi : '.$datepl.'</label>
+		      <label>Modification du planning de la semaine du lundi : '.$datepl.'</label>
 		      </div><br/>';
 ?>
 	<form name="add_personne" id ="add_personne">
@@ -118,12 +119,11 @@
 				</thead>
 				<tbody>
 				<?php
+					$z=0;
 					for($x=0; $x<5; $x++)
-					{
-				?>		
-						<tr>
-							<td><b><?php echo $tabJour[$x]?></b></td>
-						<?php
+					{	
+						echo '<tr>
+							 <td><b>'.$tabJour[$x].'</b></td>';
 							$increment = 1;
 							for($y=0; $y<4; $y++)
 							{
@@ -144,7 +144,7 @@
 									{
 										echo '<br><p>'.$data["nom"].'</p><input name="suppr" type="button" class="delCross" value="x" onclick="delPersonne('.($x+1).','.($y+$increment).',\''.$data["nom"].'\','.$data["SAL_NumSalarie"].','.$encadrant[$y%2].','.$CreValue.')">';
 									}
-
+									$arrayElements[$z++] = Array($data["SAL_NumSalarie"],$encadrant[$y%2],$CreValue);
 								}
 								echo '</td>';
 								if($y<3)
@@ -157,33 +157,28 @@
 								}
 								$increment++;
 							}
-						?>
-						</tr>
-				<?php
+						echo '</tr>';
 						$CreValue++;
 					}
 				?>
 				</tbody>
 			</table>
 		</div>
-		<table style="margin:10px auto -2px auto;">
-			<tr style="text-align:center;">
-				<td>
-					<label for="date"><b>Date : </b></label>
-					<input type="date" id="pl_date" value=<?php echo "'".$date."'";?> step="7" disabled="disabled" required="required"/>
-				</td>
-			</tr>
-		</table>
 	</form>
 	<form method="post" action="./post_insertion.php" name="valid_planning" id="valid_planning">
 		<table style="margin:10px auto 0 auto;">
 			<tr>
-				<td>
-					<input name="cancel" id="cancel" type="button" class="buttonC" value="Annuler" onclick="window.location.replace('./planning_insertion.php');">
-					<input type='hidden' id="Date" name='Date' value=''>
-					<input type='hidden' id="Tableau" name='Tableau' value=''>
+				<td colspan="2" style="text-align:center;">
+					<input type="hidden" id="Date" name="Date" value=<?php echo "'".$date."'";?>/>
 				</td>
-				<td><input name="validPL" type="button" class="buttonC" style="width:225px;" value="Valider la création du planning" onclick="postData()" disabled="disabled"></td>
+			</tr>
+			<tr>
+				<td>
+					<input name="cancel" id="cancel" type="button" class="buttonC" value="Annuler" onclick="if(confirm('Etes-vous sûr de vouloir annuler ?')){window.location.replace('./planning_insertion.php');}">
+					<input type='hidden' id="Tableau" name='Tableau' value=''>
+					<input type='hidden' id="Modify" name='Modify' value='true'>
+				</td>
+				<td><input name="validPL" type="button" class="buttonC" value="Sauvegarder" onclick="postData()"></td>
 			</tr>
 		</table>
 	</form>
@@ -194,16 +189,20 @@
 		echo '<div id="bad">     
 		      <label>Une erreur s\'est produite, la requête vers le serveur à expiré !</label>
 		      </div>';
-		echo '<script type="text/javascript">
-		     window.location.replace("./planning_insertion.php");
+	    echo '<script type="text/javascript">
+			 window.setTimeout("location=(\'./planning_insertion.php\');",2500);
 			 </script>';
 	}
 ?>
 </div>
 <script type="text/javascript">
-	var tableau = new Array;
-	document.getElementById("encad1").innerHTML = document.getElementById("encadrant1").options[document.getElementById("encadrant1").selectedIndex].text+"<br>13h-17h";
-	document.getElementById("encad2").innerHTML = document.getElementById("encadrant3").options[document.getElementById("encadrant3").selectedIndex].text+"<br>13h-17h";
+	<?php
+		$js_array = json_encode($arrayElements);
+		echo "var tableau = ".$js_array.";";
+	?>
+	var numEncad = new Array(document.getElementById("encadrant1").value,document.getElementById("encadrant3").value)
+	changeName(0);
+	changeName(1);
 
 	function changeName(index)
 	{
@@ -211,11 +210,31 @@
 		{
 			case 0:
 				if(document.getElementById("encadrant1").value != -1)
+				{
 					document.getElementById("encad1").innerHTML = document.getElementById("encadrant1").options[document.getElementById("encadrant1").selectedIndex].text+"<br>13h-17h";
+					for(var x=0; x<tableau.length; x++)
+					{
+						if(tableau[x][1] == numEncad[0])
+						{
+							tableau[x][1] = document.getElementById("encadrant1").value;
+						}
+					}
+					numEncad[0] = document.getElementById("encadrant1").value;
+				}
 				break;
 			case 1:
 				if(document.getElementById("encadrant3").value != -1)
+				{
 					document.getElementById("encad2").innerHTML = document.getElementById("encadrant3").options[document.getElementById("encadrant3").selectedIndex].text+"<br>13h-17h";
+					for(var x=0; x<tableau.length; x++)
+					{
+						if(tableau[x][1] == numEncad[1])
+						{
+							tableau[x][1] = document.getElementById("encadrant3").value;
+						}
+					}
+					numEncad[1] = document.getElementById("encadrant3").value;
+				}
 				break;
 		}
 	}
@@ -250,8 +269,6 @@
 					document.getElementById("add_personne").reset();
 					document.getElementById("encadrant1").selectedIndex = idx1;
 					document.getElementById("encadrant3").selectedIndex = idx2;
-					document.getElementById("encadrant1").disabled = "disabled";
-					document.getElementById("encadrant3").disabled = "disabled";
 				}
 				else
 				{
@@ -325,19 +342,38 @@
 	}
 
 	function postData()
-	{
+	{	
+		var allEncad = false;
 		if(tableau.length > 0)
 		{
-			if(confirm("Etes-vous sûr de vouloir valider le planning ?"))
+			if(document.getElementById("encadrant1").value != document.getElementById("encadrant3").value)
 			{
-				document.getElementById('Tableau').value = JSON.stringify(tableau);
-				document.getElementById('Date').value = document.getElementById("pl_date").value;
-		     	document.getElementById("valid_planning").submit();
+				for(var x=0; x<tableau.length; x++)
+				{
+					if(tableau[x][1] != document.getElementById("encadrant1").value)
+						allEncad = true;
+				}
+				if(allEncad)
+				{
+					if(confirm("Etes-vous sûr de vouloir sauvegarder le planning ?"))
+					{
+						document.getElementById('Tableau').value = JSON.stringify(tableau);
+				     	document.getElementById("valid_planning").submit();
+				    }
+				}
+				else
+				{
+					alert("Vous devez ajouter des adhérents aux deux encadrants !");
+				}
+			}
+			else
+			{
+				alert("Veuillez choisir des encadrants différents pour chaque équipe !");
 			}
 		}
 		else
 		{
-			alert("Vous devez remplir le planning avant de la valider !");
+			alert("Vous devez remplir le planning avant de la sauvegarder !");
 		}
 	}
 </script>

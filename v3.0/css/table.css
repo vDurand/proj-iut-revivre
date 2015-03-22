@@ -809,17 +809,12 @@ AJOUT GROUPE 2 PROJET REVIVRE
 	width:80px;
 	max-width:80px;
 }
-
-#pl_date input[type="date"]::-webkit-calendar-picker-indicator{
-    display:inline-block;
-    margin-top:2%;
-    float:right;
+#valid_planning input[type="date"]::-webkit-outer-spin-button, /* Removes arrows */
+#valid_planning input[type="date"]::-webkit-inner-spin-button, /* Removes arrows */
+#valid_planning input[type="date"]::-webkit-clear-button { /* Removes blue cross */
+  -webkit-appearance: none;
+  margin: 0;
 }
-#pl_date input[type="date"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
 .planningTable select{
 	margin-left: 4px;
 	border:1px solid black;
