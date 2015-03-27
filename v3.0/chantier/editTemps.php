@@ -36,39 +36,53 @@ $donnees = mysqli_fetch_assoc($reponse);
                                 </optgroup>
                                 <optgroup label="Stagiaires">
                                     <?php
-                                    $reponseTres = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num Where TYP_Id = 6 ORDER BY PER_Nom");
+                                    $j = 0;
+                                    $reponseTres = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num Where TYP_Id = 7 ORDER BY PER_Nom");
                                     while ($donneesTres = mysqli_fetch_assoc($reponseTres)) {
                                         ?>
                                         <option
-                                            value="<?php echo $donneesTres['SAL_NumSalarie']; ?>">
-                                            <?php echo formatUP($donneesTres['PER_Nom']); ?> <?php echo formatLOW($donneesTres['PER_Prenom']); ?></option>
-                                    <?php
+                                            value="<?php echo $donneesTres['SAL_NumSalarie']; ?>"><?php echo formatUP($donneesTres['PER_Nom']); ?> <?php echo formatLOW($donneesTres['PER_Prenom']); ?></option>
+                                        <?php
+                                        $temp1 = formatUP($donneesTres['PER_Nom']);
+                                        $temp2 = formatLOW($donneesTres['PER_Prenom']);
+                                        $Workers[$j] = "$temp1 $temp2";
+                                        $Ids[$j] = $donneesTres['SAL_NumSalarie'];
+                                        $limitOpt = $j;
+                                        $j++;
                                     }
                                     mysqli_free_result($reponseTres);
                                     ?>
                                 </optgroup>
                                 <optgroup label="Salariés en Insertion">
                                     <?php
-                                    $reponseTres = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num Where TYP_Id = 7 ORDER BY PER_Nom");
+                                    $reponseTres = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num Where TYP_Id = 8 ORDER BY PER_Nom");
                                     while ($donneesTres = mysqli_fetch_assoc($reponseTres)) {
                                         ?>
                                         <option
-                                            value="<?php echo $donneesTres['SAL_NumSalarie']; ?>">
-                                            <?php echo formatUP($donneesTres['PER_Nom']); ?> <?php echo formatLOW($donneesTres['PER_Prenom']); ?></option>
-                                    <?php
+                                            value="<?php echo $donneesTres['SAL_NumSalarie']; ?>"><?php echo formatUP($donneesTres['PER_Nom']); ?> <?php echo formatLOW($donneesTres['PER_Prenom']); ?></option>
+                                        <?php
+                                        $temp1 = formatUP($donneesTres['PER_Nom']);
+                                        $temp2 = formatLOW($donneesTres['PER_Prenom']);
+                                        $Workers[$j] = "$temp1 $temp2";
+                                        $Ids[$j] = $donneesTres['SAL_NumSalarie'];
+                                        $j++;
                                     }
                                     mysqli_free_result($reponseTres);
                                     ?>
                                 </optgroup>
                                 <optgroup label="Atelier Occupationnel">
                                     <?php
-                                    $reponseTres = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num Where TYP_Id = 8 ORDER BY PER_Nom");
+                                    $reponseTres = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num Where TYP_Id = 9 ORDER BY PER_Nom");
                                     while ($donneesTres = mysqli_fetch_assoc($reponseTres)) {
                                         ?>
                                         <option
-                                            value="<?php echo $donneesTres['SAL_NumSalarie']; ?>">
-                                            <?php echo formatUP($donneesTres['PER_Nom']); ?> <?php echo formatLOW($donneesTres['PER_Prenom']); ?></option>
-                                    <?php
+                                            value="<?php echo $donneesTres['SAL_NumSalarie']; ?>"><?php echo formatUP($donneesTres['PER_Nom']); ?> <?php echo formatLOW($donneesTres['PER_Prenom']); ?></option>
+                                        <?php
+                                        $temp1 = formatUP($donneesTres['PER_Nom']);
+                                        $temp2 = formatLOW($donneesTres['PER_Prenom']);
+                                        $Workers[$j] = "$temp1 $temp2";
+                                        $Ids[$j] = $donneesTres['SAL_NumSalarie'];
+                                        $j++;
                                     }
                                     mysqli_free_result($reponseTres);
                                     ?>
@@ -112,16 +126,16 @@ $donnees = mysqli_fetch_assoc($reponse);
                     </td>
                     <td>
                         <input name="delete" type="submit" value="Supprimer" class="buttonC">
-                    </form>
-                    </td>
-                    <td>
-                        <form id="return" method="get" action="detailChantier.php" name="detailClient">
-                            <input form="return" type="hidden" name="NumC" value="<?php echo $donnees['CHA_NumDevis']; ?>">
-                            <input form="return" name="submit" type="submit" value="Retour" class="buttonC">
-                        </form>
-                    </td>
-                </tr>
-            </table>
+        </form>
+        </td>
+        <td>
+            <form id="return" method="get" action="detailChantier.php" name="detailClient">
+                <input form="return" type="hidden" name="NumC" value="<?php echo $donnees['CHA_NumDevis']; ?>">
+                <input form="return" name="submit" type="submit" value="Retour" class="buttonC">
+            </form>
+        </td>
+        </tr>
+        </table>
     </div>
 <?php
 include('../footer.php');
