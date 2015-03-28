@@ -214,8 +214,8 @@ include('../../bandeau.php');
                         <tr style="font-size: 14;">
                             <td><?php echo formatLOW($achat['TAC_Type']); ?></td>
                             <td><?php echo dater($achat['ACH_Date']); ?></td>
-                            <td><?php echo $achat['CHA_Intitule']; ?> €</td>
-                            <td><?php echo $achat['ACH_Montant']; ?></td>
+                            <td><?php echo $achat['CHA_Intitule']; ?></td>
+                            <td><?php echo $achat['ACH_Montant']; ?> €</td>
                         </tr>
                     <?php
                         $sumAchat += $achat['ACH_Montant'];

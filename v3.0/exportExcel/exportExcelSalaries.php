@@ -85,10 +85,9 @@ include ('../bandeau.php');
     //$baseRow = 5;
     $letter = 'C';
 
-    // $i = 0;
-    foreach($insertion as $r => $RowInsertion) 
-    {
-        $r = $r + 2;
+    $r = 1;
+    while ($RowInsertion = mysqli_fetch_assoc($insertion)){
+        $r++;
         foreach($title as $a => $RowTitle) 
         {
             //Autosize des colonnes
