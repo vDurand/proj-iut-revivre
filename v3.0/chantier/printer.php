@@ -1,18 +1,15 @@
 <?php
 $pageTitle = "Bordereau de Livraison";
 	include('../assets.php');
+error_reporting(E_ALL);
+ini_set('display_errors', TRUE);
+ini_set('display_startup_errors', TRUE);
 	$db = revivre();
     mysqli_query($db, "SET NAMES 'utf8'");
 	$id=$_POST["NumC"];
 	$totAchat=0;
-	$reponse5 = mysqli_query($db, "SELECT ROUND(SUM(ACH_MONTANT), 2) as totAchat FROM Acheter WHERE CHA_NumDevis='$id' GROUP BY CHA_NumDevis");
-	$donnees5 = mysqli_fetch_assoc($reponse5);
-	$reponse4 = mysqli_query($db, "SELECT TIME_FORMAT(SUM(TRA_Duree), '%H:%i') as total FROM TempsTravail ttps WHERE ttps.CHA_NumDevis='$id' GROUP BY CHA_NumDevis");
-    $donnees4 = mysqli_fetch_assoc($reponse4);
-	$reponse = mysqli_query($db, "SELECT * FROM ChantierMax WHERE CHA_NumDevis='$id' limit 1");
+	$reponse = mysqli_query($db, "SELECT * FROM ChantierMax LEFT JOIN ChantierAchat USING (CHA_NumDevis) LEFT JOIN ChantierHeure USING (CHA_NumDevis) WHERE CHA_NumDevis='$id' limit 1");
 	$donnees = mysqli_fetch_assoc($reponse);
-	$resteHeure = $donnees['CHA_HeuresPrev']-$donnees4['total'];
-	$resteAchat = $donnees['CHA_AchatsPrev']-$donnees5['totAchat'];
     if(!empty($donnees['Client'])){
         $content = "
             <page>
@@ -86,23 +83,23 @@ $pageTitle = "Bordereau de Livraison";
                     </tr>
                     <tr>
                         <th>Achats effectués : </th>
-                        <td>".$donnees5['totAchat']." €</td>
+                        <td>".number_format($donnees['AchatTot'], 2)." €</td>
                     </tr>
                     <tr>
                         <th>Ecart achats : </th>
-                        <td>".$resteAchat." €</td>
+                        <td>".$donnees['EcartAch']." €</td>
                     </tr>
                     <tr>
                         <th>Heures prévues : </th>
-                        <td>".$donnees['CHA_HeuresPrev']."</td>
+                        <td>".$donnees['CHA_HeuresPrev'].":00</td>
                     </tr>
                     <tr>
                         <th>Heures effectuées : </th>
-                        <td>".$donnees4['total']."</td>
+                        <td>".$donnees['HeureTot']."</td>
                     </tr>
                     <tr>
                         <th>Ecart heures : </th>
-                        <td>".$resteHeure."</td>
+                        <td>".$donnees['EcartHeure']."</td>
                     </tr>
                 </table>
                 </fieldset>
@@ -210,23 +207,23 @@ $pageTitle = "Bordereau de Livraison";
                     </tr>
                     <tr>
                         <th>Achats effectués : </th>
-                        <td>".$donnees5['totAchat']." €</td>
+                        <td>".number_format($donnees['AchatTot'], 2)." €</td>
                     </tr>
                     <tr>
                         <th>Ecart achats : </th>
-                        <td>".$resteAchat." €</td>
+                        <td>".$donnees['EcartAch']." €</td>
                     </tr>
                     <tr>
                         <th>Heures prévues : </th>
-                        <td>".$donnees['CHA_HeuresPrev']."</td>
+                        <td>".$donnees['CHA_HeuresPrev'].":00</td>
                     </tr>
                     <tr>
                         <th>Heures effectuées : </th>
-                        <td>".$donnees4['total']."</td>
+                        <td>".$donnees['HeureTot']."</td>
                     </tr>
                     <tr>
                         <th>Ecart heures : </th>
-                        <td>".$resteHeure."</td>
+                        <td>".$donnees['EcartHeure']."</td>
                     </tr>
                 </table>
                 </fieldset>
