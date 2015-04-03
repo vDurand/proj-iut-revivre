@@ -6,6 +6,7 @@ include('../bandeau.php');
     <?php
     // Edition personne en insertion
     $num = $_POST["NumC"];
+    $actif = 1;
     $fonct = 0;
     $type = addslashes($_POST["Type"]);
     $dateEntretien = addslashes($_POST["Entretien"]);
@@ -47,6 +48,7 @@ include('../bandeau.php');
         $dateSortie = "0000-00-00";
     } else {
         $dateSortie = addslashes($_POST["DateSortie"]);
+        $actif=0;
     }
     $typeSortie = addslashes($_POST["TypeSortie"]);
 
@@ -62,7 +64,7 @@ include('../bandeau.php');
 
     if ($sql2) {
 
-        $editSal = "UPDATE Salaries set TYP_Id='$type' WHERE PER_Num='$num'";
+        $editSal = "UPDATE Salaries set TYP_Id='$type', SAL_Actif='$actif' WHERE PER_Num='$num'";
         $sql = mysqli_query($db, $editSal);
         $errr = mysqli_error($db);
 

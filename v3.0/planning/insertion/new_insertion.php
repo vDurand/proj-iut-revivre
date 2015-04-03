@@ -1,41 +1,34 @@
 <?php
-	$pwd='../';
+	$pageTitle = "Création de planning ACI/Insertion";
+	$pwd='../../';
 	include($pwd."bandeau.php");
-	if(isset($_POST['Date']))
-		$datepl = $_POST['Date'];
+	if(isset($_POST['newPl']))
+		$btnValue = $_POST['newPl'];
 	else
-		$datepl = 0;
+		$btnValue = "";
 ?>
 <div id="corps">
 <?php
-	if($datepl != 0)
+	if($btnValue != "")
 	{
-		$date = DateTime::createFromFormat('d/m/Y', $datepl)->format('Y-m-d');
-		$reponse = mysqli_query($db, "select distinct concat(concat(upper(PER_nom),' '),PER_prenom) as 'nom', ENC_Num
-							from pl_insertion join salaries sa on sa.SAL_NumSalarie = ENC_Num 
-							join personnes using(PER_Num) where ASSOC_date='".$date."' ORDER BY ENC_Num;");
-		$x=0;
-		while($donnees = mysqli_fetch_assoc($reponse))
-		{
-			$encadrant[$x] = $donnees["ENC_Num"];
-			$encadrantNom[$x++] = $donnees["nom"];
-		}
-		$CreValue=1;
-		$tabJour = Array("Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi");
-		$arrayElements = Array();
+		$query = mysqli_query($db, "SELECT DISTINCT ASSOC_date FROM pl_association WHERE PL_id = 1 ORDER BY ASSOC_date desc LIMIT 1;");
+		$data =  mysqli_fetch_assoc($query);
+		$dateMax = ($data["ASSOC_date"] != "") ? $data["ASSOC_date"] : date("Y-m-d",strtotime("last Monday"));
+
 		echo '<div id="labelT">     
-		      <label>Modification du planning de la semaine du lundi : '.$datepl.'</label>
-		      </div><br/>';
+    		 <label>Création d\'un nouveau planning</label>
+   			 </div><br/>';
 ?>
 	<form name="add_personne" id ="add_personne">
-		<div class="tableNewPl">
-			<label for="adherentchoix">&nbsp;&nbsp;<b>Adhérent : </b></label>
-			<select id="adherentchoix" required="required">
-				<option value="-1">Choisissez un adhérent</option>
+		<div class="ConfigPanel">
+			<label for="salariechoix">&nbsp;&nbsp;<b>Salarié : </b></label>
+			<select id="salariechoix" required="required" style="height:25px;">
+				<option value="-1">Choisissez un salarié</option>
 				<?php
-					$reponse = mysqli_query($db, "select concat(concat(upper(PER_nom),' '), PER_prenom) as 'Nom', SAL_NumSalarie from insertion
-								join salaries using(SAL_NumSalarie) join personnes using(PER_Num)
-								where TYS_ID = 0 order by Nom;");
+					$reponse = mysqli_query($db, "SELECT concat(concat(upper(PER_nom),' '), PER_prenom) AS 'Nom', SAL_NumSalarie FROM insertion
+												JOIN salaries USING(SAL_NumSalarie) 
+												JOIN personnes USING(PER_Num) 
+												WHERE TYS_ID = 0 AND TYP_Id = 8 AND SAL_Actif = 1 ORDER BY Nom;");
 						while($donnees = mysqli_fetch_assoc($reponse))
 						{
 				?>
@@ -44,14 +37,13 @@
 						}
 				?>
 			</select>
-			&nbsp;&nbsp;
-			<select id="equipechoix">
+			<select id="equipechoix" style="height:25px;">
 				<option value="1">Equipe 1</option>
 				<option value="3">Equipe 2</option>
 			</select>
-			&nbsp;&nbsp;
-			<input name="addpersonne" type="button" value="Ajouter la personne au planning" onclick="parseWorkTime()">
-			<table>
+			&nbsp;
+			<input name="addpersonne" type="button" value="Ajouter la personne au planning" onclick="parseWorkTime()" style="margin:3px 0px 3px 5px;" class="buttonNormal">
+			<table style="margin:5px 0px 0px 0px;">
 				<tr>
 					<td rowspan="2" id="daytitle">&nbsp;&nbsp;Lundi : </td>
 					<td><input type="checkbox" id="choice00" value="1" /><label>Matin</label></td>
@@ -83,11 +75,11 @@
 							<?php
 								$reponse = mysqli_query($db, "select concat(concat(upper(PER_nom),' '), PER_prenom) as 'Nom', SAL_NumSalarie from salaries
 												join personnes using(PER_Num)
-												where FCT_id = 4 order by Nom;");
+												where FCT_id = 4 AND SAL_Actif = 1 order by Nom;");
 									while($donnees = mysqli_fetch_assoc($reponse))
 									{
 							?>
-										<option <?php if($donnees["SAL_NumSalarie"] == $encadrant[0]){echo "selected";} ?> value='<?php echo $donnees["SAL_NumSalarie"]?>'><?php echo $donnees["Nom"] ?></option>
+										<option value='<?php echo $donnees["SAL_NumSalarie"]?>'><?php echo $donnees["Nom"] ?></option>
 							<?php
 									}
 							?>
@@ -101,11 +93,11 @@
 							<?php
 								$reponse = mysqli_query($db, "select concat(concat(upper(PER_nom),' '), PER_prenom) as 'Nom', SAL_NumSalarie from salaries
 												join personnes using(PER_Num)
-												where FCT_id = 4 order by Nom;");
+												where FCT_id = 4 AND SAL_Actif = 1 order by Nom;");
 									while($donnees = mysqli_fetch_assoc($reponse))
 									{
 							?>
-										<option <?php if($donnees["SAL_NumSalarie"] == $encadrant[1]){echo "selected";} ?> value='<?php echo $donnees["SAL_NumSalarie"]?>'><?php echo $donnees["Nom"] ?></option>
+										<option value='<?php echo $donnees["SAL_NumSalarie"]?>'><?php echo $donnees["Nom"] ?></option>
 							<?php
 									}
 							?>
@@ -118,49 +110,21 @@
 					<th id="encad2"><b>Encadrant équipe n°2</b><br>13h-17h</th>
 				</thead>
 				<tbody>
-				<?php
-					$z=0;
-					for($x=0; $x<5; $x++)
-					{	
-						echo '<tr>
-							 <td><b>'.$tabJour[$x].'</b></td>';
-							$increment = 1;
-							for($y=0; $y<4; $y++)
-							{
-								$flag=false;
-								echo '<td style="text-align:center; vertical-align:middle;">';
-								$query = mysqli_query($db,"SELECT concat(concat(PER_nom,' '),PER_prenom) AS 'nom', SAL_NumSalarie FROM pl_insertion
-													JOIN salaries USING(SAL_NumSalarie)
-													JOIN personnes USING(PER_Num)
-													WHERE ASSOC_date = '".$date."' AND CRE_id = ".$CreValue." AND ENC_Num = ".$encadrant[$y%2].";");
-								while($data = mysqli_fetch_assoc($query))
-								{
-									if($flag == false)
-									{
-										echo '<p>'.$data["nom"].'</p><input name="suppr" type="button" class="delCross" value="x" onclick="delPersonne('.($x+1).','.($y+$increment).',\''.$data["nom"].'\','.$data["SAL_NumSalarie"].','.$encadrant[$y%2].','.$CreValue.')">';
-										$flag=true;
-									}
-									else
-									{
-										echo '<br><p>'.$data["nom"].'</p><input name="suppr" type="button" class="delCross" value="x" onclick="delPersonne('.($x+1).','.($y+$increment).',\''.$data["nom"].'\','.$data["SAL_NumSalarie"].','.$encadrant[$y%2].','.$CreValue.')">';
-									}
-									$arrayElements[$z++] = Array($data["SAL_NumSalarie"],$encadrant[$y%2],$CreValue);
-								}
-								echo '</td>';
-								if($y<3)
-								{ 
-									echo "<td class='emptyCells'></td>";
-								}
-								if($y==1)
-								{
-									$CreValue++;
-								}
-								$increment++;
-							}
-						echo '</tr>';
-						$CreValue++;
-					}
-				?>
+					<tr>
+						<td><b>Lundi</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+					</tr>
+					<tr>
+						<td><b>Mardi</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+					</tr>
+					<tr>
+						<td><b>Mercredi</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+					</tr>
+					<tr>
+						<td><b>Jeudi</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+					</tr>
+					<tr>
+						<td><b>Vendredi</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+					</tr>
 				</tbody>
 			</table>
 		</div>
@@ -169,14 +133,17 @@
 		<table style="margin:10px auto 0 auto;">
 			<tr>
 				<td colspan="2" style="text-align:center;">
-					<input type="hidden" id="Date" name="Date" value=<?php echo "'".$date."'";?>/>
+					<label for="date"><b>Date : </b></label>
+					<input type="date" id="Date" name="Date" class="SpecialDate" value=<?php echo "'".date("Y-m-d",strtotime($dateMax.' + 7 day'))."'"; ?> min=<?php echo "'".date("Y-m-d",strtotime($dateMax.' + 7 day'))."'"; ?> step="7"/>
 				</td>
 			</tr>
 			<tr>
 				<td>
 					<input name="cancel" id="cancel" type="button" class="buttonC" value="Annuler" onclick="if(confirm('Etes-vous sûr de vouloir annuler ?')){window.location.replace('./planning_insertion.php');}">
 					<input type='hidden' id="Tableau" name='Tableau' value=''>
-					<input type='hidden' id="Modify" name='Modify' value='true'>
+					<input type='hidden' id="Modify" name='Modify' value='false'>
+					<input type='hidden' id="typePL" name='typePL' value='1'>
+					<input type='hidden' id="redirectPage" name='redirectPage' value="./planning_insertion.php">
 				</td>
 				<td><input name="validPL" type="button" class="buttonC" value="Sauvegarder" onclick="postData()"></td>
 			</tr>
@@ -187,8 +154,9 @@
 	else
 	{
 		echo '<div id="bad">     
-		      <label>Une erreur s\'est produite, la requête vers le serveur à expiré !</label>
-		      </div>';
+		     <label>Une erreur s\'est produite, la requête vers le serveur à expiré !</label>
+		     </div>';
+
 	    echo '<script type="text/javascript">
 			 window.setTimeout("location=(\'./planning_insertion.php\');",2500);
 			 </script>';
@@ -196,13 +164,8 @@
 ?>
 </div>
 <script type="text/javascript">
-	<?php
-		$js_array = json_encode($arrayElements);
-		echo "var tableau = ".$js_array.";";
-	?>
-	var numEncad = new Array(document.getElementById("encadrant1").value,document.getElementById("encadrant3").value)
-	changeName(0);
-	changeName(1);
+	var tableau = new Array;
+	var numEncad = new Array(document.getElementById("encadrant1").value,document.getElementById("encadrant3").value);
 
 	function changeName(index)
 	{
@@ -241,7 +204,7 @@
 
 	function parseWorkTime()
 	{
-		if(document.getElementById("adherentchoix").value != -1)
+		if(document.getElementById("salariechoix").value != -1)
 		{
 			if(document.getElementById("encadrant1").value != -1 && document.getElementById("encadrant3").value != -1)
 			{
@@ -282,15 +245,15 @@
 		}
 		else
 		{
-			alert("Veuillez choisir un adhérent dans le menu déroulant !");
+			alert("Veuillez choisir un salarié dans le menu déroulant !");
 		}
 	}
 
 	function addPersonne(x,y,encadNum,creneau)
 	{
 		var table = document.getElementById('insertionTableau');
-		var nom = document.getElementById("adherentchoix").options[document.getElementById("adherentchoix").selectedIndex].text;
-		var valueAdh = document.getElementById("adherentchoix").value;
+		var nom = document.getElementById("salariechoix").options[document.getElementById("salariechoix").selectedIndex].text;
+		var valueAdh = document.getElementById("salariechoix").value;
 		if((table.rows[x].cells[y].innerHTML).indexOf(nom) == -1)
 		{
 			if(table.rows[x].cells[y].innerHTML != "")
@@ -346,29 +309,21 @@
 		var allEncad = false;
 		if(tableau.length > 0)
 		{
-			if(document.getElementById("encadrant1").value != document.getElementById("encadrant3").value)
+			for(var x=0; x<tableau.length; x++)
 			{
-				for(var x=0; x<tableau.length; x++)
+				allEncad = (tableau[x][1] != document.getElementById("encadrant1").value) ? true : false;
+			}
+			if(allEncad)
+			{
+				if(confirm("Etes-vous sûr de vouloir sauvegarder le planning ?"))
 				{
-					if(tableau[x][1] != document.getElementById("encadrant1").value)
-						allEncad = true;
-				}
-				if(allEncad)
-				{
-					if(confirm("Etes-vous sûr de vouloir sauvegarder le planning ?"))
-					{
-						document.getElementById('Tableau').value = JSON.stringify(tableau);
-				     	document.getElementById("valid_planning").submit();
-				    }
-				}
-				else
-				{
-					alert("Vous devez ajouter des adhérents aux deux encadrants !");
-				}
+					document.getElementById('Tableau').value = JSON.stringify(tableau);
+			     	document.getElementById("valid_planning").submit();
+			    }
 			}
 			else
 			{
-				alert("Veuillez choisir des encadrants différents pour chaque équipe !");
+				alert("Vous devez ajouter des salariés aux deux encadrants !");
 			}
 		}
 		else
