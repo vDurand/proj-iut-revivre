@@ -95,6 +95,13 @@
                                     </li>
 	                			</ul>
 							</li>
+							<li id="champs"><a href="#">Plannings</a>
+								<ul class="subMenu">
+	                       			<li><a href="<?php echo $pwd; ?>planning/insertion/planning_insertion.php">Planning<br>ACI</a></li>
+									<li><a href="#">Planning<br>occupationnel</a></li>
+									<li><a href="#">Planning<br>stagiaire</a></li>
+	                			</ul>
+							</li>
 							<li id="champs"><a href="<?php echo $pwd; ?>chantier/homeWork.php">Chantiers</a>
 								<ul class="subMenu">
 	                       			<li><a href="<?php echo $pwd; ?>chantier/addWork.php">Ajouter<br>chantier</a></li>
@@ -134,14 +141,6 @@
 									<li><a href="<?php echo $pwd; ?>viewMeals.php">Archive<br>commandes</a></li>
 	                			</ul>
 							</li>-->
-							<li id="champs"><a href="<?php echo $pwd; ?>planning/homePlanning.php">Plannings</a>
-								<ul class="subMenu">
-	                       			<li><a href="<?php echo $pwd; ?>planning/planning_insertion.php">Planning<br>ACI</a></li>
-									<li><a href="<?php echo $pwd; ?>planning/homePlanning.php">Planning<br>occupationnel</a></li>
-									<li><a href="<?php echo $pwd; ?>planning/homePlanning.php">Planning<br>stagiaire</a></li>
-									<li><a href="<?php echo $pwd; ?>planning/homePlanning.php">Planning<br>administratif</a></li>
-	                			</ul>
-							</li>
 						</ul>
 						<?php
 						if (isset($_SESSION["user"])) {
