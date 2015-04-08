@@ -908,10 +908,12 @@ AJOUT GROUPE 2 PROJET REVIVRE
 }
 
 .buttonNormal:hover:enabled {
-  	background: #ebebeb;
+  	background: #f6f6f6;
   	text-decoration: none;
 	cursor:pointer;
+	border: solid grey 1px;
 }
+
 
 .buttonNormal:disabled {
 	cursor:none;

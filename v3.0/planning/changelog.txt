@@ -1,3 +1,9 @@
+08/04/2015
+- Ajout de la création/modification/consultation des plannings avec ajout dynamique des encadrants
+- Ajout du système d'hachurage des cases vides
+- Correction de certaines sécurités d'utilisation des plannings
+
+03/04/2015
 - Affichage du numéro de type de sortie dans "contact/membre/detailInsertion.php"
 - Déplacement de l'onglet planning et corrections des liens
 - Fusion des tables "pl_insertion" & "pl_occupationnel" + rename de "pl_insertion" en "pl_association"

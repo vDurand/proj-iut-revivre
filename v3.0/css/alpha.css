@@ -53,7 +53,6 @@
     padding: 0;
     margin: 0;
     margin-right: 10px;
-    margin-left: 0px;
     border: 1px solid #ccc;
     width: 165px;
     border-radius: 3px;
@@ -64,10 +63,10 @@
 }
 
 .selectDrop select {
-	cursor: pointer;
+    cursor: pointer;
     padding: 4px 7px;
     width: 100%;
-    margin-left: 10px;
+    padding-left: 10px;
     border: none;
     box-shadow: none;
     background-color: transparent;
@@ -84,8 +83,6 @@
 .selectType {
     padding: 0;
     margin: 0;
-    margin-right: 16px;
-    margin-left: 0px;
     border: 1px solid #fff;
     outline: 1px solid #ccc;
     width: 165px;
@@ -97,9 +94,8 @@
 
 .selectType select {
     cursor: pointer;
-    padding: 4px 7px;
+    padding: 4px 0px 4px 15px;
     width: 100%;
-    margin-left: 10px;
     border: none;
     box-shadow: none;
     background-color: transparent;
@@ -117,7 +113,6 @@
     padding: 0;
     margin: 0;
     margin-right: 16px;
-    margin-left: 0px;
     border: 1px solid #fff;
     outline: 1px solid #ccc;
     width: 200px;
@@ -131,7 +126,7 @@
     cursor: pointer;
     padding: 4px 7px;
     width: 100%;
-    margin-left: 10px;
+    padding-left: 10px;
     border: none;
     box-shadow: none;
     background-color: transparent;
@@ -149,7 +144,6 @@
     padding: 0;
     margin: 0;
     margin-right: 16px;
-    margin-left: 0px;
     border: 1px solid #fff;
     outline: 1px solid #ccc;
     width: 300px;
@@ -163,7 +157,7 @@
     cursor: pointer;
     padding: 4px 7px;
     width: 100%;
-    margin-left: 10px;
+    padding-left: 10px;
     border: none;
     box-shadow: none;
     background-color: transparent;

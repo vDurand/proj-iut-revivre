@@ -2,19 +2,26 @@
 	$pageTitle = "Création de planning ACI/Insertion";
 	$pwd='../../';
 	include($pwd."bandeau.php");
-	if(isset($_POST['newPl']))
-		$btnValue = $_POST['newPl'];
+	if(isset($_POST['typePL']) && isset($_POST['selectNew']))
+	{
+		$appelValide = $_POST['typePL'];
+		$nombreEncadrant = $_POST['selectNew'];
+	}
 	else
-		$btnValue = "";
+	{
+		$appelValide  = "0";
+		$nombreEncadrant = "0";
+	}
 ?>
 <div id="corps">
 <?php
-	if($btnValue != "")
+	if($appelValide == "1")
 	{
 		$query = mysqli_query($db, "SELECT DISTINCT ASSOC_date FROM pl_association WHERE PL_id = 1 ORDER BY ASSOC_date desc LIMIT 1;");
 		$data =  mysqli_fetch_assoc($query);
 		$dateMax = ($data["ASSOC_date"] != "") ? $data["ASSOC_date"] : date("Y-m-d",strtotime("last Monday"));
-
+		$tabJour = Array("Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi");
+		mysqli_free_result($query);
 		echo '<div id="labelT">     
     		 <label>Création d\'un nouveau planning</label>
    			 </div><br/>';
@@ -31,15 +38,18 @@
 												WHERE TYS_ID = 0 AND TYP_Id = 8 AND SAL_Actif = 1 ORDER BY Nom;");
 						while($donnees = mysqli_fetch_assoc($reponse))
 						{
-				?>
-							<option value='<?php echo $donnees["SAL_NumSalarie"]?>'><?php echo $donnees["Nom"] ?></option>
-				<?php		
+							echo '<option value="'.$donnees["SAL_NumSalarie"].'">'.$donnees["Nom"].'</option>';	
 						}
+						mysqli_free_result($reponse);
 				?>
 			</select>
 			<select id="equipechoix" style="height:25px;">
-				<option value="1">Equipe 1</option>
-				<option value="3">Equipe 2</option>
+			<?php
+				for($x=0; $x<$nombreEncadrant; $x++)
+				{
+					echo '<option value="'.$x.'">Equipe '.($x+1).'</option>';
+				}
+			?>
 			</select>
 			&nbsp;
 			<input name="addpersonne" type="button" value="Ajouter la personne au planning" onclick="parseWorkTime()" style="margin:3px 0px 3px 5px;" class="buttonNormal">
@@ -65,76 +75,64 @@
 				</tr>
 			</table>
 		</div>
-		<div class="planningTable">
-			<table id="insertionTableau">
-				<thead>
-					<th id="firstColumn"></th>
-					<th>
-						<select id="encadrant1" onchange="changeName(0)" required="required">
-							<option value="-1">Choisissez un encadrant</option>
-							<?php
-								$reponse = mysqli_query($db, "select concat(concat(upper(PER_nom),' '), PER_prenom) as 'Nom', SAL_NumSalarie from salaries
-												join personnes using(PER_Num)
-												where FCT_id = 4 AND SAL_Actif = 1 order by Nom;");
-									while($donnees = mysqli_fetch_assoc($reponse))
-									{
-							?>
-										<option value='<?php echo $donnees["SAL_NumSalarie"]?>'><?php echo $donnees["Nom"] ?></option>
-							<?php
-									}
-							?>
-						</select>
-						<br/>8h-12h
-					</th>
-					<th id="emptyColumn"></th>
-					<th>
-						<select id="encadrant3" onchange="changeName(1)" required="required">
-							<option value="-1">Choisissez un encadrant</option>
-							<?php
-								$reponse = mysqli_query($db, "select concat(concat(upper(PER_nom),' '), PER_prenom) as 'Nom', SAL_NumSalarie from salaries
-												join personnes using(PER_Num)
-												where FCT_id = 4 AND SAL_Actif = 1 order by Nom;");
-									while($donnees = mysqli_fetch_assoc($reponse))
-									{
-							?>
-										<option value='<?php echo $donnees["SAL_NumSalarie"]?>'><?php echo $donnees["Nom"] ?></option>
-							<?php
-									}
-							?>
-						</select>
-						<br/>8h-12h
-					</th>
-					<th id="emptyColumn"></th>
-					<th id="encad1"><b>Encadrant équipe n°1</b><br>13h-17h</th>
-					<th id="emptyColumn"></th>
-					<th id="encad2"><b>Encadrant équipe n°2</b><br>13h-17h</th>
-				</thead>
-				<tbody>
-					<tr>
-						<td><b>Lundi</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-					</tr>
-					<tr>
-						<td><b>Mardi</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-					</tr>
-					<tr>
-						<td><b>Mercredi</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-					</tr>
-					<tr>
-						<td><b>Jeudi</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-					</tr>
-					<tr>
-						<td><b>Vendredi</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
 	</form>
+	<div class="planningTable">
+		<table id="insertionTableau">
+			<thead>
+				<?php
+					echo '<th id="firstColumn"></th>';
+					for($x=0; $x<$nombreEncadrant; $x++)
+					{
+						echo'<th>
+								<select id="encadrant'.$x.'" onchange="changeName('.$x.')" required="required">
+									<option value="-1">Choisissez un encadrant</option>';
+						$reponse = mysqli_query($db, "SELECT concat(concat(upper(PER_nom),' '), PER_prenom) AS 'Nom', SAL_NumSalarie 
+											FROM salaries
+											JOIN personnes USING(PER_Num)
+											WHERE FCT_id = 4 AND SAL_Actif = 1 ORDER BY Nom;");
+						while($donnees = mysqli_fetch_assoc($reponse))
+						{
+							echo '<option value="'.$donnees["SAL_NumSalarie"].'">'.$donnees["Nom"].'</option>';
+						}
+						mysqli_free_result($reponse);
+						echo '</select><br/>8h-12h</th><th id="emptyColumn">P</th><th id="encad'.$x.'"><b>Encadrant équipe n°'.($x+1).'</b><br>13h-17h</th><th id="emptyColumn">P</th>';
+					}
+					if($nombreEncadrant == 1)
+					{
+						echo '<th></th>
+						<th id="emptyColumn"></th>
+						<th></th>
+						<th id="emptyColumn"></th>';
+					}
+				?>
+			</thead>
+			<tbody>
+			<?php
+				for($x=0; $x<5; $x++)
+				{
+					echo '<tr><td><b>'.$tabJour[$x].'</b></td>';
+					for($y=0; $y<$nombreEncadrant*2; $y++)
+					{	
+						echo '<td></td><td></td>';
+					}
+					if($nombreEncadrant == 1)
+					{
+						echo '<td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td><td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td>
+							  <td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td><td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td>';
+					}
+					echo '</tr>';
+				}
+			?>
+			</tbody>
+		</table>
+	</div>
 	<form method="post" action="./post_insertion.php" name="valid_planning" id="valid_planning">
 		<table style="margin:10px auto 0 auto;">
 			<tr>
 				<td colspan="2" style="text-align:center;">
 					<label for="date"><b>Date : </b></label>
-					<input type="date" id="Date" name="Date" class="SpecialDate" value=<?php echo "'".date("Y-m-d",strtotime($dateMax.' + 7 day'))."'"; ?> min=<?php echo "'".date("Y-m-d",strtotime($dateMax.' + 7 day'))."'"; ?> step="7"/>
+					<input type="date" id="Date" name="Date" class="SpecialDate" value=<?php echo "'".date("Y-m-d",strtotime($dateMax.' + 7 day'))."'"; ?> 
+							min=<?php echo "'".date("Y-m-d",strtotime($dateMax.' + 7 day'))."'"; ?> step="7"/>
 				</td>
 			</tr>
 			<tr>
@@ -165,40 +163,72 @@
 </div>
 <script type="text/javascript">
 	var tableau = new Array;
-	var numEncad = new Array(document.getElementById("encadrant1").value,document.getElementById("encadrant3").value);
+	var numEncad = new Array(<?php for($x=0; $x<$nombreEncadrant; $x++){if($x < $nombreEncadrant-1) echo 'document.getElementById("encadrant'.$x.'").value, '; else echo 'document.getElementById("encadrant'.$x.'").value';}?>);
 
 	function changeName(index)
 	{
 		switch(index)
 		{
-			case 0:
-				if(document.getElementById("encadrant1").value != -1)
+		<?php
+			$predicat = ""; 
+			for($y=0; $y<$nombreEncadrant; $y++)
+			{
+				if($y==0) 
 				{
-					document.getElementById("encad1").innerHTML = document.getElementById("encadrant1").options[document.getElementById("encadrant1").selectedIndex].text+"<br>13h-17h";
-					for(var x=0; x<tableau.length; x++)
-					{
-						if(tableau[x][1] == numEncad[0])
-						{
-							tableau[x][1] = document.getElementById("encadrant1").value;
-						}
-					}
-					numEncad[0] = document.getElementById("encadrant1").value;
+					$predicat .= 'document.getElementById("encadrant'.$y.'").value ';
 				}
-				break;
-			case 1:
-				if(document.getElementById("encadrant3").value != -1)
+				else 
 				{
-					document.getElementById("encad2").innerHTML = document.getElementById("encadrant3").options[document.getElementById("encadrant3").selectedIndex].text+"<br>13h-17h";
-					for(var x=0; x<tableau.length; x++)
-					{
-						if(tableau[x][1] == numEncad[1])
-						{
-							tableau[x][1] = document.getElementById("encadrant3").value;
-						}
-					}
-					numEncad[1] = document.getElementById("encadrant3").value;
+					$predicat .= '!= document.getElementById("encadrant'.$y.'").value ';
 				}
-				break;
+			}
+			for($x=0; $x<$nombreEncadrant; $x++)
+			{
+				if($nombreEncadrant > 1)
+				{
+					echo 'case '.$x.':
+						if(document.getElementById("encadrant'.$x.'").value != -1)
+						{
+							if('.$predicat.')
+							{
+									document.getElementById("encad'.$x.'").innerHTML = document.getElementById("encadrant'.$x.'").options[document.getElementById("encadrant'.$x.'").selectedIndex].text+"<br>13h-17h";
+									for(var x=0; x<tableau.length; x++)
+									{
+										if(tableau[x][1] == numEncad['.$x.'])
+										{
+											tableau[x][1] = document.getElementById("encadrant'.$x.'").value;
+										}
+									}
+									numEncad['.$x.'] = document.getElementById("encadrant'.$x.'").value;
+
+							}
+							else
+							{
+								alert("L\'encadrant est déjà sélectionné !");
+								document.getElementById("encadrant'.$x.'").value = -1;
+							}
+						}
+						break;';
+				}
+				else
+				{
+					echo 'case '.$x.':
+						if(document.getElementById("encadrant'.$x.'").value != -1)
+						{
+							document.getElementById("encad'.$x.'").innerHTML = document.getElementById("encadrant'.$x.'").options[document.getElementById("encadrant'.$x.'").selectedIndex].text+"<br>13h-17h";
+							for(var x=0; x<tableau.length; x++)
+							{
+								if(tableau[x][1] == numEncad['.$x.'])
+								{
+									tableau[x][1] = document.getElementById("encadrant'.$x.'").value;
+								}
+							}
+							numEncad['.$x.'] = document.getElementById("encadrant'.$x.'").value;
+						}
+						break;';
+				}
+			}
+		?>
 		}
 	}
 
@@ -206,41 +236,44 @@
 	{
 		if(document.getElementById("salariechoix").value != -1)
 		{
-			if(document.getElementById("encadrant1").value != -1 && document.getElementById("encadrant3").value != -1)
+			if(<?php for($x=0; $x<$nombreEncadrant; $x++){if($x==0) echo 'document.getElementById("encadrant'.$x.'").value != -1 '; else echo '&& document.getElementById("encadrant'.$x.'").value != -1 ';}?>)
 			{
-				if(document.getElementById("encadrant1").value != document.getElementById("encadrant3").value)
+			<?php
+				if($nombreEncadrant > 1)
 				{
-					for(var x=0; x<5; x++)
+			?>
+					if(<?php for($x=0; $x<$nombreEncadrant; $x++){if($x==0) echo 'document.getElementById("encadrant'.$x.'").value '; else echo '!= document.getElementById("encadrant'.$x.'").value ';}?>)
 					{
-						for(var y=0; y<2; y++)
+			<?php 
+				} 
+			?>
+						for(var x=0; x<5; x++)
 						{
-							if(document.getElementById("choice"+x+y).checked)
+							for(var y=0; y<2; y++)
 							{
-								if(y==1)
+								if(document.getElementById("choice"+x+y).checked)
 								{
-									addPersonne(parseInt(x+1),parseInt(document.getElementById("equipechoix").value)+4, document.getElementById("encadrant"+document.getElementById("equipechoix").value).value, document.getElementById("choice"+x+y).value);
-								}
-								else
-								{
-									addPersonne(parseInt(x+1),parseInt(document.getElementById("equipechoix").value), document.getElementById("encadrant"+document.getElementById("equipechoix").value).value, document.getElementById("choice"+x+y).value);	
+									addPersonne(parseInt(x+1),parseInt(1+(4*document.getElementById("equipechoix").value)+2*y),document.getElementById("encadrant"+document.getElementById("equipechoix").value).value, document.getElementById("choice"+x+y).value);
 								}
 							}
 						}
-					}
-					var idx1 = document.getElementById("encadrant1").selectedIndex;
-					var idx2 = document.getElementById("encadrant3").selectedIndex;
-					document.getElementById("add_personne").reset();
-					document.getElementById("encadrant1").selectedIndex = idx1;
-					document.getElementById("encadrant3").selectedIndex = idx2;
-				}
-				else
+						document.getElementById("add_personne").reset();
+			<?php
+				if($nombreEncadrant > 1)
 				{
-					alert("Veuillez choisir des encadrants différents pour chaque équipe !");
+			?>
+					}
+					else
+					{
+						alert("Veuillez choisir des encadrants différents pour chaque équipe !");
+					}
+			<?php 
 				}
+			?>
 			}
 			else
 			{
-				alert("Veuillez choisir des encadrants corrects !");
+				alert("Veuillez choisir de(s) encadrant(s) correct(s) !");
 			}
 		}
 		else
@@ -253,38 +286,38 @@
 	{
 		var table = document.getElementById('insertionTableau');
 		var nom = document.getElementById("salariechoix").options[document.getElementById("salariechoix").selectedIndex].text;
-		var valueAdh = document.getElementById("salariechoix").value;
+		var salarieNum = document.getElementById("salariechoix").value;
 		if((table.rows[x].cells[y].innerHTML).indexOf(nom) == -1)
 		{
 			if(table.rows[x].cells[y].innerHTML != "")
 			{
-				table.rows[x].cells[y].innerHTML = table.rows[x].cells[y].innerHTML+'<br><p>'+nom+'</p><input name="suppr" type="button" class="delCross" value="x" onclick="delPersonne('+x+','+y+',\''+nom+'\','+valueAdh+','+encadNum+','+creneau+')">';
-				tableau[tableau.length]= new Array(valueAdh,encadNum,creneau);
+				table.rows[x].cells[y].innerHTML = table.rows[x].cells[y].innerHTML+'<br><p>'+nom+'</p><input name="suppr" type="button" class="delCross" value="x" onclick="delPersonne('+x+','+y+',\''+nom+'\','+salarieNum+','+encadNum+','+creneau+')">';
+				tableau[tableau.length] = new Array(salarieNum,encadNum,creneau);
 			}
 			else
 			{
-				table.rows[x].cells[y].innerHTML = '<p>'+nom+'</p><input name="suppr" type="button" class="delCross" value="x" onclick="delPersonne('+x+','+y+',\''+nom+'\','+valueAdh+','+encadNum+','+creneau+')">';
-				tableau[tableau.length]= new Array(valueAdh,encadNum,creneau);
+				table.rows[x].cells[y].innerHTML = '<p>'+nom+'</p><input name="suppr" type="button" class="delCross" value="x" onclick="delPersonne('+x+','+y+',\''+nom+'\','+salarieNum+','+encadNum+','+creneau+')">';
+				tableau[tableau.length] = new Array(salarieNum,encadNum,creneau);
 			}
 		}
 	}
 
-	function delPersonne(x,y,nom,valueAdh,encadNum,creneau)
+	function delPersonne(x,y,nom,salarieNum,encadNum,creneau)
 	{
 		var table = document.getElementById('insertionTableau');
 		var txt = table.rows[x].cells[y].innerHTML;
-		var chaine = '<p>'+nom+'</p><input name="suppr" type="button" class="delCross" value="x" onclick="delPersonne('+x+','+y+',\''+nom+'\','+valueAdh+','+encadNum+','+creneau+')">';
+		var chaine = '<p>'+nom+'</p><input name="suppr" type="button" class="delCross" value="x" onclick="delPersonne('+x+','+y+',\''+nom+'\','+salarieNum+','+encadNum+','+creneau+')">';
 		if(txt.indexOf('<br>'+chaine) != -1){
 			txt=txt.replace('<br>'+chaine,'');
 			table.rows[x].cells[y].innerHTML = txt;
-			cleanTable(valueAdh,encadNum,creneau);
+			cleanTable(salarieNum,encadNum,creneau);
 		}
 		else
 		{
 			if(txt.indexOf(chaine) != -1){
 				txt=txt.replace(chaine,'');
 				table.rows[x].cells[y].innerHTML = txt;
-				cleanTable(valueAdh,encadNum,creneau);
+				cleanTable(salarieNum,encadNum,creneau);
 			}
 			else
 			{
@@ -293,11 +326,11 @@
 		}
 	}
 
-	function cleanTable(valueAdh,encadNum,creneau)
+	function cleanTable(salarieNum,encadNum,creneau)
 	{
 		for(var z=0; z<tableau.length; z++)
 		{
-			if(tableau[z][0] == valueAdh && tableau[z][1] == encadNum && tableau[z][2] == creneau)
+			if(tableau[z][0] == salarieNum && tableau[z][1] == encadNum && tableau[z][2] == creneau)
 			{
 				tableau.splice(z,1);
 			}
@@ -306,29 +339,17 @@
 
 	function postData()
 	{	
-		var allEncad = false;
 		if(tableau.length > 0)
 		{
-			for(var x=0; x<tableau.length; x++)
+			if(confirm("Etes-vous sûr de vouloir sauvegarder le planning ?"))
 			{
-				allEncad = (tableau[x][1] != document.getElementById("encadrant1").value) ? true : false;
-			}
-			if(allEncad)
-			{
-				if(confirm("Etes-vous sûr de vouloir sauvegarder le planning ?"))
-				{
-					document.getElementById('Tableau').value = JSON.stringify(tableau);
-			     	document.getElementById("valid_planning").submit();
-			    }
-			}
-			else
-			{
-				alert("Vous devez ajouter des salariés aux deux encadrants !");
-			}
+				document.getElementById('Tableau').value = JSON.stringify(tableau);
+		     	document.getElementById("valid_planning").submit();
+		    }
 		}
 		else
 		{
-			alert("Vous devez remplir le planning avant de la sauvegarder !");
+			alert("Vous devez remplir le planning avant de le sauvegarder !");
 		}
 	}
 </script>

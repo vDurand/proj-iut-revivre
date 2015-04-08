@@ -167,7 +167,7 @@ include('../bandeau.php');
                                         <label for="Resp">Responsable :</label>
                                     </td>
                                     <td>
-                                        <div class="selectType">
+                                        <div class="selectType2">
                                             <select id="Resp" name="Resp">
                                                 <option value=""></option>
                                                 <?php

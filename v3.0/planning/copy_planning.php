@@ -12,6 +12,7 @@
   		$newDate=$_POST['dateToCopy'];
   		$query = mysqli_query($db, "SELECT count(distinct ASSOC_date) as 'result' FROM pl_association WHERE ASSOC_date='$newDate' AND PL_id = $typePL ORDER BY ASSOC_date DESC;");
   		$data = mysqli_fetch_assoc($query);
+  		mysqli_free_result($query);
   		if($data['result'] == 0)
   		{
 	  		$x=0;
@@ -33,7 +34,7 @@
 		        if($query)
 		        {
 		        	echo '<div id="good">     
-		            <label>Le planning de la semaine du lundi '.date("d/m/Y", strtotime($oldDate)).' copié avec succès !</label>
+		            <label>Le planning de la semaine du lundi '.date("d/m/Y", strtotime($oldDate)).' copié avec succès au '.date("d/m/Y", strtotime($newDate)).' !</label>
 		            </div>';
 		        }
 		        else
