@@ -78,95 +78,95 @@
 				</tr>
 			</table>
 		</div>
-		<div class="planningTable">
-			<table id="insertionTableau">
-				<thead>
-				<?php
-					echo '<th id="firstColumn"></th>';
-					for($x=0; $x<sizeof($encadrant); $x++)
-					{
-						echo'<th>
-								<select id="encadrant'.$x.'" onchange="changeName('.$x.')" required="required">
-									<option value="-1">Choisissez un encadrant</option>';
-						$reponse = mysqli_query($db, "SELECT concat(concat(upper(PER_nom),' '), PER_prenom) AS 'Nom', SAL_NumSalarie 
-											FROM salaries
-											JOIN personnes USING(PER_Num)
-											WHERE FCT_id = 4 AND SAL_Actif = 1 ORDER BY Nom;");
-						while($donnees = mysqli_fetch_assoc($reponse))
-						{
-							($donnees["SAL_NumSalarie"] == $encadrant[$x]) ? $selectedOrNot = "selected" : $selectedOrNot = "";
-							echo '<option '.$selectedOrNot.' value="'.$donnees["SAL_NumSalarie"].'">'.$donnees["Nom"].'</option>';
-						}
-						mysqli_free_result($reponse);
-						echo '</select><br/>8h-12h</th><th id="emptyColumn">P</th><th id="encad'.$x.'"><b>Encadrant équipe n°'.($x+1).'</b><br>13h-17h</th><th id="emptyColumn">P</th>';
-					}
-					if(sizeof($encadrant) == 1)
-					{
-						echo '<th></th>
-						<th id="emptyColumn"></th>
-						<th></th>
-						<th id="emptyColumn"></th>';
-					}
-				?>
-				</thead>
-				<tbody>
-				<?php
-					$CreValue=1;
-					$z=0;
-					for($x=0; $x<5; $x++)
-					{
-				?>
-					<tr>
-						<td><b><?php echo $tabJour[$x].'<br>'.date("d/m", strtotime($date.' + '.$x.' day')); ?></b></td>
-					<?php
-						$increment = 0;
-						for($y=0; $y<(sizeof($encadrant)*2); $y++)
-						{
-							$flag = false;
-							$query = mysqli_query($db,"SELECT concat(concat(PER_nom,' '),PER_prenom) AS 'nom', SAL_NumSalarie FROM pl_association
-													JOIN salaries USING(SAL_NumSalarie)
-													JOIN personnes USING(PER_Num)
-													WHERE ASSOC_date = '".$date."' AND CRE_id = ".$CreValue." AND ENC_Num = ".$encadrant[$y/2]." AND PL_id = 1;");
-							
-							$nbRep = mysqli_num_rows($query);
-							echo '<td style="text-align:center; vertical-align:middle;">';
-							
-							while($data = mysqli_fetch_assoc($query))
-							{
-								if($flag == false)
-								{
-									echo '<p>'.$data["nom"].'</p><input name="suppr" type="button" class="delCross" value="x" onclick="delPersonne('.($x+1).','.($y+$increment+1).',\''.$data["nom"].'\','.$data["SAL_NumSalarie"].','.$encadrant[$y/2].','.$CreValue.')">';
-									$flag=true;
-								}
-								else
-								{
-									echo '<br><p>'.$data["nom"].'</p><input name="suppr" type="button" class="delCross" value="x" onclick="delPersonne('.($x+1).','.($y+$increment+1).',\''.$data["nom"].'\','.$data["SAL_NumSalarie"].','.$encadrant[$y/2].','.$CreValue.')">';
-								}
-								$arrayElements[$z++] = Array($data["SAL_NumSalarie"],$encadrant[$y/2],$CreValue);
-							}
-							echo '</td><td class="emptyCells"></td>';
-							if($CreValue%2 == 0)
-								$CreValue--;
-							else
-								$CreValue++;
-							$increment++;
-						}
-						if(sizeof($encadrant)==1)
-						{
-							echo '<td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td><td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td>
-								  <td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td><td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td>';
-						}
-					?>
-					</tr>
-				<?php
-					$CreValue += 2;
-					}
-					mysqli_free_result($query);
-				?>
-				</tbody>
-			</table>
-		</div>
 	</form>
+	<div class="planningTable">
+		<table id="insertionTableau">
+			<thead>
+			<?php
+				echo '<th id="firstColumn"></th>';
+				for($x=0; $x<sizeof($encadrant); $x++)
+				{
+					echo'<th>
+							<select id="encadrant'.$x.'" onchange="changeName('.$x.')" required="required">
+								<option value="-1">Choisissez un encadrant</option>';
+					$reponse = mysqli_query($db, "SELECT concat(concat(upper(PER_nom),' '), PER_prenom) AS 'Nom', SAL_NumSalarie 
+										FROM salaries
+										JOIN personnes USING(PER_Num)
+										WHERE FCT_id = 4 AND SAL_Actif = 1 ORDER BY Nom;");
+					while($donnees = mysqli_fetch_assoc($reponse))
+					{
+						($donnees["SAL_NumSalarie"] == $encadrant[$x]) ? $selectedOrNot = "selected" : $selectedOrNot = "";
+						echo '<option '.$selectedOrNot.' value="'.$donnees["SAL_NumSalarie"].'">'.$donnees["Nom"].'</option>';
+					}
+					mysqli_free_result($reponse);
+					echo '</select><br/>8h-12h</th><th id="emptyColumn">P</th><th id="encad'.$x.'"><b>Encadrant équipe n°'.($x+1).'</b><br>13h-17h</th><th id="emptyColumn">P</th>';
+				}
+				if(sizeof($encadrant) == 1)
+				{
+					echo '<th></th>
+					<th id="emptyColumn"></th>
+					<th></th>
+					<th id="emptyColumn"></th>';
+				}
+			?>
+			</thead>
+			<tbody>
+			<?php
+				$CreValue=1;
+				$z=0;
+				for($x=0; $x<5; $x++)
+				{
+			?>
+				<tr>
+					<td><b><?php echo $tabJour[$x].'<br>'.date("d/m", strtotime($date.' + '.$x.' day')); ?></b></td>
+				<?php
+					$increment = 0;
+					for($y=0; $y<(sizeof($encadrant)*2); $y++)
+					{
+						$flag = false;
+						$query = mysqli_query($db,"SELECT concat(concat(PER_nom,' '),PER_prenom) AS 'nom', SAL_NumSalarie FROM pl_association
+												JOIN salaries USING(SAL_NumSalarie)
+												JOIN personnes USING(PER_Num)
+												WHERE ASSOC_date = '".$date."' AND CRE_id = ".$CreValue." AND ENC_Num = ".$encadrant[$y/2]." AND PL_id = 1;");
+						
+						$nbRep = mysqli_num_rows($query);
+						echo '<td style="text-align:center; vertical-align:middle;">';
+						
+						while($data = mysqli_fetch_assoc($query))
+						{
+							if($flag == false)
+							{
+								echo '<p>'.$data["nom"].'</p><input name="suppr" type="button" class="delCross" value="x" onclick="delPersonne('.($x+1).','.($y+$increment+1).',\''.$data["nom"].'\','.$data["SAL_NumSalarie"].','.$encadrant[$y/2].','.$CreValue.')">';
+								$flag=true;
+							}
+							else
+							{
+								echo '<br><p>'.$data["nom"].'</p><input name="suppr" type="button" class="delCross" value="x" onclick="delPersonne('.($x+1).','.($y+$increment+1).',\''.$data["nom"].'\','.$data["SAL_NumSalarie"].','.$encadrant[$y/2].','.$CreValue.')">';
+							}
+							$arrayElements[$z++] = Array($data["SAL_NumSalarie"],$encadrant[$y/2],$CreValue);
+						}
+						echo '</td><td class="emptyCells"></td>';
+						if($CreValue%2 == 0)
+							$CreValue--;
+						else
+							$CreValue++;
+						$increment++;
+					}
+					if(sizeof($encadrant)==1)
+					{
+						echo '<td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td><td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td>
+							  <td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td><td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td>';
+					}
+				?>
+				</tr>
+			<?php
+				$CreValue += 2;
+				}
+				mysqli_free_result($query);
+			?>
+			</tbody>
+		</table>
+	</div>
 	<form method="post" action="./post_insertion.php" name="valid_planning" id="valid_planning">
 		<table style="margin:10px auto 0 auto;">
 			<tr>
@@ -247,7 +247,6 @@
 										}
 									}
 									numEncad['.$x.'] = document.getElementById("encadrant'.$x.'").value;
-
 							}
 							else
 							{
