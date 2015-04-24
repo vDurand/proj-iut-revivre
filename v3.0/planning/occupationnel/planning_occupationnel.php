@@ -99,9 +99,9 @@
 					<?php 
 						for($x=0; $x<sizeof($encadrant); $x++)
 						{
-							echo '<th>'.$encadrantNom[$x].'<br/>8h - 12h</th>
+							echo '<th>'.$encadrantNom[$x].'<br/>8h30 - 12h</th>
 							<th id="emptyColumn">P</th>
-							<th>'.$encadrantNom[$x].'<br/>13h - 17h</th>
+							<th>'.$encadrantNom[$x].'<br/>13h - 16h30</th>
 							<th id="emptyColumn">P</th>';
 						}
 						if(sizeof($encadrant)==1)

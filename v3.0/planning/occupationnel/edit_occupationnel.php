@@ -106,7 +106,7 @@
 							echo '<option '.$selectedOrNot.' value="'.$donnees["SAL_NumSalarie"].'">'.$donnees["Nom"].'</option>';
 						}
 						mysqli_free_result($reponse);
-						echo '</select><br/>8h-12h</th><th id="emptyColumn">P</th><th id="encad'.$x.'"><b>Encadrant équipe n°'.($x+1).'</b><br>13h-17h</th><th id="emptyColumn">P</th>';
+						echo '</select><br/>8h30-12h</th><th id="emptyColumn">P</th><th id="encad'.$x.'"><b>Encadrant équipe n°'.($x+1).'</b><br>13h-16h30</th><th id="emptyColumn">P</th>';
 					}
 					if(sizeof($encadrant)+$nbAjoutEncadrant == 1)
 					{
