@@ -98,7 +98,7 @@
 							<li id="champs"><a href="#">Plannings</a>
 								<ul class="subMenu">
 	                       			<li><a href="<?php echo $pwd; ?>planning/insertion/planning_insertion.php">Planning<br>ACI</a></li>
-									<li><a href="#">Planning<br>occupationnel</a></li>
+									<li><a href="<?php echo $pwd; ?>planning/occupationnel/planning_occupationnel.php">Planning<br>occupationnel</a></li>
 									<li><a href="#">Planning<br>stagiaire</a></li>
 	                			</ul>
 							</li>
