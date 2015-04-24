@@ -163,30 +163,35 @@
 				<th><b>Encadrant équipe n°1</b><br/>8h30-12h</th>
 				<th id="emptyColumn"></th>
 				<th><b>Encadrant équipe n°1</b><br>13h-16h30</th>
+				<th id="emptyColumn">P</th>
+				<th></th>			
+				<th id="emptyColumn"></th>
+				<th></th>
+				<th id="emptyColumn"></th>
 			</thead>
 			<tbody>
 				<tr>
-					<td><b>Lundi</b></td><td></td><td></td><td></td>
+					<td><b>Lundi<br>00/00</b></td><td></td><td></td><td></td><td></td><td style="background : url('../../images/hachure-planning.png') repeat;"></td><td style="background : url('../../images/hachure-planning.png') repeat;"></td><td style="background : url('../../images/hachure-planning.png') repeat;"></td><td  style="background : url('../../images/hachure-planning.png') repeat;"></td>
 				</tr>
 				<tr>
-					<td><b>Mardi</b></td><td></td><td></td><td></td>
+					<td><b>Mardi<br>00/00</b></td><td></td><td></td><td></td><td></td><td style="background : url('../../images/hachure-planning.png') repeat;"></td><td style="background : url('../../images/hachure-planning.png') repeat;"></td><td style="background : url('../../images/hachure-planning.png') repeat;"></td><td  style="background : url('../../images/hachure-planning.png') repeat;"></td>
 				</tr>
 				<tr>
-					<td><b>Mercredi</b></td><td></td><td></td><td></td>
+					<td><b>Mercredi<br>00/00</b></td><td></td><td></td><td></td><td></td><td style="background : url('../../images/hachure-planning.png') repeat;"></td><td style="background : url('../../images/hachure-planning.png') repeat;"></td><td style="background : url('../../images/hachure-planning.png') repeat;"></td><td  style="background : url('../../images/hachure-planning.png') repeat;"></td>
 				</tr>
 				<tr>
-					<td><b>Jeudi</b></td><td></td><td></td><td></td>
+					<td><b>Jeudi<br>00/00</b></td><td></td><td></td><td></td><td></td><td style="background : url('../../images/hachure-planning.png') repeat;"></td><td style="background : url('../../images/hachure-planning.png') repeat;"></td><td style="background : url('../../images/hachure-planning.png') repeat;"></td><td  style="background : url('../../images/hachure-planning.png') repeat;"></td>
 				</tr>
 				<tr>
-					<td><b>Vendredi</b></td><td></td><td></td><td></td>
+					<td><b>Vendredi<br>00/00</b></td><td></td><td></td><td></td><td></td><td style="background : url('../../images/hachure-planning.png') repeat;"></td><td style="background : url('../../images/hachure-planning.png') repeat;"></td><td style="background : url('../../images/hachure-planning.png') repeat;"></td><td  style="background : url('../../images/hachure-planning.png') repeat;"></td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
-</div>
 <?php
 	}
 ?>
+</div>
 <script type="text/javascript">
 	function deletePlanning()
 	{
