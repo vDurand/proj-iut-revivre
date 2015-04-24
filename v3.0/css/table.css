@@ -718,9 +718,10 @@ AJOUT GROUPE 2 PROJET REVIVRE
 	color:#000;
 }
 .planningTable {
-	margin:0px;
+	margin:auto;
 	padding:0px;
-	width:100%;
+	/*width:100%;*/
+	display: inline-block;
 	border:1px solid #003f7f;
 	
 	-moz-border-radius-bottomleft:6px;
@@ -742,7 +743,7 @@ AJOUT GROUPE 2 PROJET REVIVRE
 .planningTable table{
     border-collapse: collapse;
     border-spacing: 0;
-	width:100%;
+	/*width:100%;*/
 	height:100%;
 	margin:0px;
 	padding:0px;
@@ -798,8 +799,7 @@ AJOUT GROUPE 2 PROJET REVIVRE
 	font-size:14px;
 	font-family:Arial;
 	color:#fff;
-	min-width:25px;
-	max-width:100px;
+	min-width:192px;
 }
 .planningTable thead tr td:last-child{
 	border-width:0px 0px 1px 1px;
@@ -813,12 +813,11 @@ AJOUT GROUPE 2 PROJET REVIVRE
 	float:left;
 	margin:3px 0;
 	padding:0;
-	width:150px;
 }
 
 .planningTable #emptyColumn{
-	width:43px;
-	max-width:43px;
+	width:35px;
+	max-width:35px;
 }
 .planningTable #firstColumn{
 	width:80px;
@@ -917,4 +916,13 @@ AJOUT GROUPE 2 PROJET REVIVRE
 
 .buttonNormal:disabled {
 	cursor:none;
+}
+
+.ScrollFrame{
+	width: 1017px;
+	height: 100%;
+	border:none;
+	overflow: auto;
+	margin:auto;
+	padding:0px;
 }

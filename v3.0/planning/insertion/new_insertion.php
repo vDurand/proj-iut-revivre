@@ -1,11 +1,11 @@
 <?php
-	$pageTitle = "Création de planning ACI/Insertion";
+	$pageTitle = "Création de planning ACI/insertion";
 	$pwd='../../';
 	include($pwd."bandeau.php");
-	if(isset($_POST['typePL']) && isset($_POST['selectNew']))
+	if(isset($_POST['typePL']) && isset($_POST['numberNew']) && $_POST['numberNew'] > 0)
 	{
 		$appelValide = $_POST['typePL'];
-		$nombreEncadrant = $_POST['selectNew'];
+		$nombreEncadrant = $_POST['numberNew'];
 	}
 	else
 	{
@@ -76,55 +76,57 @@
 			</table>
 		</div>
 	</form>
-	<div class="planningTable">
-		<table id="insertionTableau">
-			<thead>
-				<?php
-					echo '<th id="firstColumn"></th>';
-					for($x=0; $x<$nombreEncadrant; $x++)
-					{
-						echo'<th>
-								<select id="encadrant'.$x.'" onchange="changeName('.$x.')" required="required">
-									<option value="-1">Choisissez un encadrant</option>';
-						$reponse = mysqli_query($db, "SELECT concat(concat(upper(PER_nom),' '), PER_prenom) AS 'Nom', SAL_NumSalarie 
-											FROM salaries
-											JOIN personnes USING(PER_Num)
-											WHERE FCT_id = 4 AND SAL_Actif = 1 ORDER BY Nom;");
-						while($donnees = mysqli_fetch_assoc($reponse))
+	<div class="ScrollFrame">
+		<div class="planningTable">
+			<table id="insertionTableau">
+				<thead>
+					<?php
+						echo '<th id="firstColumn"></th>';
+						for($x=0; $x<$nombreEncadrant; $x++)
 						{
-							echo '<option value="'.$donnees["SAL_NumSalarie"].'">'.$donnees["Nom"].'</option>';
+							echo'<th>
+									<select id="encadrant'.$x.'" onchange="changeName('.$x.')" required="required">
+										<option value="-1">Choisissez un encadrant</option>';
+							$reponse = mysqli_query($db, "SELECT concat(concat(upper(PER_nom),' '), PER_prenom) AS 'Nom', SAL_NumSalarie 
+												FROM salaries
+												JOIN personnes USING(PER_Num)
+												WHERE FCT_id = 4 AND SAL_Actif = 1 ORDER BY Nom;");
+							while($donnees = mysqli_fetch_assoc($reponse))
+							{
+								echo '<option value="'.$donnees["SAL_NumSalarie"].'">'.$donnees["Nom"].'</option>';
+							}
+							mysqli_free_result($reponse);
+							echo '</select><br/>8h-12h</th><th id="emptyColumn">P</th><th id="encad'.$x.'"><b>Encadrant équipe n°'.($x+1).'</b><br>13h-17h</th><th id="emptyColumn">P</th>';
 						}
-						mysqli_free_result($reponse);
-						echo '</select><br/>8h-12h</th><th id="emptyColumn">P</th><th id="encad'.$x.'"><b>Encadrant équipe n°'.($x+1).'</b><br>13h-17h</th><th id="emptyColumn">P</th>';
-					}
-					if($nombreEncadrant == 1)
+						if($nombreEncadrant == 1)
+						{
+							echo '<th></th>
+							<th id="emptyColumn"></th>
+							<th></th>
+							<th id="emptyColumn"></th>';
+						}
+					?>
+				</thead>
+				<tbody>
+				<?php
+					for($x=0; $x<5; $x++)
 					{
-						echo '<th></th>
-						<th id="emptyColumn"></th>
-						<th></th>
-						<th id="emptyColumn"></th>';
+						echo '<tr><td><b>'.$tabJour[$x].'</b></td>';
+						for($y=0; $y<$nombreEncadrant*2; $y++)
+						{	
+							echo '<td></td><td></td>';
+						}
+						if($nombreEncadrant == 1)
+						{
+							echo '<td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td><td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td>
+								  <td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td><td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td>';
+						}
+						echo '</tr>';
 					}
 				?>
-			</thead>
-			<tbody>
-			<?php
-				for($x=0; $x<5; $x++)
-				{
-					echo '<tr><td><b>'.$tabJour[$x].'</b></td>';
-					for($y=0; $y<$nombreEncadrant*2; $y++)
-					{	
-						echo '<td></td><td></td>';
-					}
-					if($nombreEncadrant == 1)
-					{
-						echo '<td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td><td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td>
-							  <td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td><td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td>';
-					}
-					echo '</tr>';
-				}
-			?>
-			</tbody>
-		</table>
+				</tbody>
+			</table>
+		</div>
 	</div>
 	<form method="post" action="./post_insertion.php" name="valid_planning" id="valid_planning">
 		<table style="margin:10px auto 0 auto;">
@@ -238,38 +240,17 @@
 		{
 			if(<?php for($x=0; $x<$nombreEncadrant; $x++){if($x==0) echo 'document.getElementById("encadrant'.$x.'").value != -1 '; else echo '&& document.getElementById("encadrant'.$x.'").value != -1 ';}?>)
 			{
-			<?php
-				if($nombreEncadrant > 1)
+				for(var x=0; x<5; x++)
 				{
-			?>
-					if(<?php for($x=0; $x<$nombreEncadrant; $x++){if($x==0) echo 'document.getElementById("encadrant'.$x.'").value '; else echo '!= document.getElementById("encadrant'.$x.'").value ';}?>)
+					for(var y=0; y<2; y++)
 					{
-			<?php 
-				} 
-			?>
-						for(var x=0; x<5; x++)
+						if(document.getElementById("choice"+x+y).checked)
 						{
-							for(var y=0; y<2; y++)
-							{
-								if(document.getElementById("choice"+x+y).checked)
-								{
-									addPersonne(parseInt(x+1),parseInt(1+(4*document.getElementById("equipechoix").value)+2*y),document.getElementById("encadrant"+document.getElementById("equipechoix").value).value, document.getElementById("choice"+x+y).value);
-								}
-							}
+							addPersonne(parseInt(x+1),parseInt(1+(4*document.getElementById("equipechoix").value)+2*y),document.getElementById("encadrant"+document.getElementById("equipechoix").value).value, document.getElementById("choice"+x+y).value);
 						}
-						document.getElementById("add_personne").reset();
-			<?php
-				if($nombreEncadrant > 1)
-				{
-			?>
 					}
-					else
-					{
-						alert("Veuillez choisir des encadrants différents pour chaque équipe !");
-					}
-			<?php 
 				}
-			?>
+				document.getElementById("add_personne").reset();
 			}
 			else
 			{
