@@ -2,13 +2,15 @@
 	$pageTitle = "Création de planning ACI/insertion";
 	$pwd='../../';
 	include($pwd."bandeau.php");
-	if(isset($_POST['typePL']) && isset($_POST['numberNew']) && $_POST['numberNew'] > 0)
+	if(isset($_POST['typePL']) && isset($_POST['numberNew']) && $_POST['numberNew'] > 0 && isset($_POST['dateNew']))
 	{
+        $date = $_POST['dateNew'];
 		$appelValide = $_POST['typePL'];
 		$nombreEncadrant = $_POST['numberNew'];
 	}
 	else
 	{
+        $date = '01/01/1970';
 		$appelValide  = "0";
 		$nombreEncadrant = "0";
 	}
@@ -19,7 +21,6 @@
 	{
 		$query = mysqli_query($db, "SELECT DISTINCT ASSOC_date FROM pl_association WHERE PL_id = 1 ORDER BY ASSOC_date desc LIMIT 1;");
 		$data =  mysqli_fetch_assoc($query);
-		$dateMax = ($data["ASSOC_date"] != "") ? $data["ASSOC_date"] : date("Y-m-d",strtotime("last Monday"));
 		$tabJour = Array("Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi");
 		mysqli_free_result($query);
 		echo '<div id="labelT">     
@@ -55,23 +56,53 @@
 			<input name="addpersonne" type="button" value="Ajouter la personne au planning" onclick="parseWorkTime()" style="margin:3px 0px 3px 5px;" class="buttonNormal">
 			<table style="margin:5px 0px 0px 0px;">
 				<tr>
-					<td rowspan="2" id="daytitle">&nbsp;&nbsp;Lundi : </td>
-					<td><input type="checkbox" id="choice00" value="1" /><label>Matin</label></td>
-					<td rowspan="2" id="daytitle">Mardi : </td>
-					<td><input type="checkbox" id="choice10" value="3" /><label>Matin</label></td>
-					<td rowspan="2" id="daytitle">Mercredi : </td>
-					<td><input type="checkbox" id="choice20" value="5" /><label>Matin</label></td>
-					<td rowspan="2" id="daytitle">Jeudi : </td>
-					<td><input type="checkbox" id="choice30" value="7" /><label>Matin</label></td>
-					<td rowspan="2" id="daytitle">Vendredi : </td>
-					<td><input type="checkbox" id="choice40" value="9" /><label>Matin</label></td>
+					<td rowspan="2" id="daytitle" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 0 day')))) echo 'style="color:lightgrey"';?>>&nbsp;&nbsp;Lundi : </td>
+					<td>
+                        <input type="checkbox" id="choice00" value="1" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 0 day')))) echo 'disabled';?>/>
+                        <label <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 0 day')))) echo 'style="color:lightgrey"';?>>Matin</label>
+                    </td>
+					<td rowspan="2" id="daytitle" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 1 day')))) echo 'style="color:lightgrey"';?>>Mardi : </td>
+					<td>
+                        <input type="checkbox" id="choice10" value="3" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 1 day')))) echo 'disabled';?>/>
+                        <label <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 1 day')))) echo 'style="color:lightgrey"';?>>Matin</label>
+                    </td>
+					<td rowspan="2" id="daytitle" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 2 day')))) echo 'style="color:lightgrey"';?>>Mercredi : </td>
+					<td>
+                        <input type="checkbox" id="choice20" value="5" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 2 day')))) echo 'disabled';?>/>
+                        <label <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 2 day')))) echo 'style="color:lightgrey"';?>>Matin</label>
+                    </td>
+					<td rowspan="2" id="daytitle" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 3 day')))) echo 'style="color:lightgrey"';?>>Jeudi : </td>
+					<td>
+                        <input type="checkbox" id="choice30" value="7" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 3 day')))) echo 'disabled';?>/>
+                        <label <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 3 day')))) echo 'style="color:lightgrey"';?>>Matin</label>
+                    </td>
+					<td rowspan="2" id="daytitle" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 4 day')))) echo 'style="color:lightgrey"';?>>Vendredi : </td>
+					<td>
+                        <input type="checkbox" id="choice40" value="9" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 4 day')))) echo 'disabled';?>/>
+                        <label <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 4 day')))) echo 'style="color:lightgrey"';?>>Matin</label>
+                    </td>
 				</tr>
 				<tr>
-					<td><input type="checkbox" id="choice01" value="2" /><label>Après-midi</label></td>
-					<td><input type="checkbox" id="choice11" value="4" /><label>Après-midi</label></td>
-					<td><input type="checkbox" id="choice21" value="6" /><label>Après-midi</label></td>
-					<td><input type="checkbox" id="choice31" value="8" /><label>Après-midi</label></td>
-					<td><input type="checkbox" id="choice41" value="10" /><label>Après-midi</label></td>
+					<td>
+                        <input type="checkbox" id="choice01" value="2" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 0 day')))) echo 'disabled';?>/>
+                        <label <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 0 day')))) echo 'style="color:lightgrey"';?>>Après-midi</label>
+                    </td>
+					<td>
+                        <input type="checkbox" id="choice11" value="4" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 1 day')))) echo 'disabled';?>/>
+                        <label <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 1 day')))) echo 'style="color:lightgrey"';?>>Après-midi</label>
+                    </td>
+					<td>
+                        <input type="checkbox" id="choice21" value="6" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 2 day')))) echo 'disabled';?>/>
+                        <label <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 2 day')))) echo 'style="color:lightgrey"';?>>Après-midi</label>
+                    </td>
+					<td>
+                        <input type="checkbox" id="choice31" value="8" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 3 day')))) echo 'disabled';?>/>
+                        <label <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 3 day')))) echo 'style="color:lightgrey"';?>>Après-midi</label>
+                    </td>
+					<td>
+                        <input type="checkbox" id="choice41" value="10" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 4 day')))) echo 'disabled';?>/>
+                        <label <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 4 day')))) echo 'style="color:lightgrey"';?>>Après-midi</label>
+                    </td>
 				</tr>
 			</table>
 		</div>
@@ -96,7 +127,7 @@
 								echo '<option value="'.$donnees["SAL_NumSalarie"].'">'.$donnees["Nom"].'</option>';
 							}
 							mysqli_free_result($reponse);
-							echo '</select><br/>8h-12h</th><th id="emptyColumn">P</th><th id="encad'.$x.'"><b>Encadrant équipe n°'.($x+1).'</b><br>13h-17h</th><th id="emptyColumn">P</th>';
+							echo '</select><br/>8h - 12h</th><th id="emptyColumn">P</th><th id="encad'.$x.'"><b>Encadrant équipe n°'.($x+1).'</b><br>13h - 17h</th><th id="emptyColumn">P</th>';
 						}
 						if($nombreEncadrant == 1)
 						{
@@ -111,10 +142,24 @@
 				<?php
 					for($x=0; $x<5; $x++)
 					{
-						echo '<tr><td><b>'.$tabJour[$x].'</b></td>';
+                        echo '<tr><td><b>'.$tabJour[$x]."<br>";
+                        
+                        if(isJourFerie(date("d/m/Y", strtotime($date.' + '.$x.' day'))))
+                        {
+                            echo 'FÉRIÉ';
+                        }
+                        else
+                        {
+                            echo date("d/m", strtotime($date.' + '.$x.' day')); 
+                        }
+                        echo '</b></td>';
+                        
 						for($y=0; $y<$nombreEncadrant*2; $y++)
 						{	
-							echo '<td></td><td></td>';
+                            if(isJourFerie(date("d/m/Y", strtotime($date.' + '.$x.' day'))))
+				                echo '<td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td><td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td>';
+                            else
+                                echo '<td></td><td></td>';
 						}
 						if($nombreEncadrant == 1)
 						{
@@ -131,18 +176,12 @@
 	<form method="post" action="./post_insertion.php" name="valid_planning" id="valid_planning">
 		<table style="margin:10px auto 0 auto;">
 			<tr>
-				<td colspan="2" style="text-align:center;">
-					<label for="date"><b>Date : </b></label>
-					<input type="date" id="Date" name="Date" class="SpecialDate" value=<?php echo "'".date("Y-m-d",strtotime($dateMax.' + 7 day'))."'"; ?> 
-							min=<?php echo "'".date("Y-m-d",strtotime($dateMax.' + 7 day'))."'"; ?> step="7"/>
-				</td>
-			</tr>
-			<tr>
 				<td>
 					<input name="cancel" id="cancel" type="button" class="buttonC" value="Annuler" onclick="if(confirm('Etes-vous sûr de vouloir annuler ?')){window.location.replace('./planning_insertion.php');}">
 					<input type='hidden' id="Tableau" name='Tableau' value=''>
 					<input type='hidden' id="Modify" name='Modify' value='false'>
 					<input type='hidden' id="typePL" name='typePL' value='1'>
+                    <input type="hidden" id="Date" name="Date" value=<?php echo "'".$date."'";?>/>
 					<input type='hidden' id="redirectPage" name='redirectPage' value="./planning_insertion.php">
 				</td>
 				<td><input name="validPL" type="button" class="buttonC" value="Sauvegarder" onclick="postData()"></td>
@@ -270,16 +309,8 @@
 		var salarieNum = document.getElementById("salariechoix").value;
 		if((table.rows[x].cells[y].innerHTML).indexOf(nom) == -1)
 		{
-			if(table.rows[x].cells[y].innerHTML != "")
-			{
-				table.rows[x].cells[y].innerHTML = table.rows[x].cells[y].innerHTML+'<br><p>'+nom+'</p><input name="suppr" type="button" class="delCross" value="x" onclick="delPersonne('+x+','+y+',\''+nom+'\','+salarieNum+','+encadNum+','+creneau+')">';
-				tableau[tableau.length] = new Array(salarieNum,encadNum,creneau);
-			}
-			else
-			{
-				table.rows[x].cells[y].innerHTML = '<p>'+nom+'</p><input name="suppr" type="button" class="delCross" value="x" onclick="delPersonne('+x+','+y+',\''+nom+'\','+salarieNum+','+encadNum+','+creneau+')">';
-				tableau[tableau.length] = new Array(salarieNum,encadNum,creneau);
-			}
+            table.rows[x].cells[y].innerHTML = table.rows[x].cells[y].innerHTML+'<div><p>'+nom+'</p><input name="suppr" type="button" class="delCross" value="x" onclick="delPersonne('+x+','+y+',\''+nom+'\','+salarieNum+','+encadNum+','+creneau+')"></div>';
+            tableau[tableau.length] = new Array(salarieNum,encadNum,creneau);
 		}
 	}
 
@@ -287,23 +318,15 @@
 	{
 		var table = document.getElementById('insertionTableau');
 		var txt = table.rows[x].cells[y].innerHTML;
-		var chaine = '<p>'+nom+'</p><input name="suppr" type="button" class="delCross" value="x" onclick="delPersonne('+x+','+y+',\''+nom+'\','+salarieNum+','+encadNum+','+creneau+')">';
-		if(txt.indexOf('<br>'+chaine) != -1){
-			txt=txt.replace('<br>'+chaine,'');
+		var chaine = '<div><p>'+nom+'</p><input name="suppr" type="button" class="delCross" value="x" onclick="delPersonne('+x+','+y+',\''+nom+'\','+salarieNum+','+encadNum+','+creneau+')"></div>';
+		if(txt.indexOf(chaine) != -1){
+			txt=txt.replace(chaine,'');
 			table.rows[x].cells[y].innerHTML = txt;
 			cleanTable(salarieNum,encadNum,creneau);
 		}
 		else
 		{
-			if(txt.indexOf(chaine) != -1){
-				txt=txt.replace(chaine,'');
-				table.rows[x].cells[y].innerHTML = txt;
-				cleanTable(salarieNum,encadNum,creneau);
-			}
-			else
-			{
-				alert("Une erreur s'est produite, impossible de supprimer !");
-			}
+            alert("Une erreur s'est produite, impossible de supprimer !");
 		}
 	}
 

@@ -53,25 +53,35 @@
 				<input name="delPl" id="delPl" type="button" value="Supprimer" class="printButton" <?php if($datepl==0) echo 'disabled="disabled"'; ?> onclick="deletePlanning()">
 				<input name="printPl" id="printPl" type="button" value="Imprimer" class="printButton" <?php if($datepl>-1) echo 'disabled="disabled"'; ?> onclick="">
 			</div>
-			<div id="newDiv" style="margin:0; padding:0; display:none;">
-				<label>Nombre d'encadrants pour le planning : </label>
-				<input type="number" name="numberNew" id="numberNew" style="height:19px; width:50px; margin-right:10px;" value="1" min="1">
-				<input name="validNew" id="validNew" type="button" value="Valider" class="buttonNormal" onclick="newPlanning(3)">
-				<input name="cancelNew" id="cancelNew" type="button" value="Annuler" class="buttonNormal" onclick="newPlanning(2)">
-			</div>
-			<div id="editDiv" style="margin:0; padding:0; display:none;">
-				<label>Nombre d'encadrants à ajouter pour le planning : </label>
-				<input type="number" name="numberEdit" id="numberEdit" style="height:19px; width:50px; margin-right:10px;" value="0" min="0">
-				<input name="validEdit" id="validEdit" type="button" value="Valider" class="buttonNormal" onclick="editPlanning(3)">
-				<input name="cancelEdit" id="cancelEdit" type="button" value="Annuler" class="buttonNormal" onclick="editPlanning(2)">
-			</div>
-			<div id="copieDiv" style="margin:0; padding:0; display:none;">
-				<label>Copie du planning du lundi <?php echo $tabDate[$datepl];?> pour le : </label>
-				<input type='date' id="dateToCopy" name='dateToCopy' class="SpecialDate" value="<?php if($datepl>0) echo date('Y-m-d',strtotime(DateTime::createFromFormat('d/m/Y', $tabDate[1])->format('Y-m-d').'+ 7 day')); ?>" 
-						min="<?php if($datepl>0) echo date('Y-m-d',strtotime(DateTime::createFromFormat('d/m/Y', $tabDate[1])->format('Y-m-d').'+ 7 day')); ?>" step="7" style="height:21px; margin-right:10px;" <?php echo $tabDate[1]; ?>>
-				<input name="validCopie" id="validCopie" type="button" value="Valider" class="buttonNormal" onclick="copyPlanning(3)">
-				<input name="cancelCopie" id="cancelCopie" type="button" value="Annuler" class="buttonNormal" onclick="copyPlanning(2)">
-			</div>
+            <div id="newDiv" style="margin:0; padding:0; display:none;">
+                <label>Création d'un planning à la date du</label>
+                <input type='date' id="dateNew" name='dateNew' class="SpecialDate" 
+                       value="<?php if($datepl>0){echo date('Y-m-d',strtotime(DateTime::createFromFormat('d/m/Y', $tabDate[1])->format('Y-m-d').'+ 7 day'));}
+                    else{$valueDate = (sizeof($tabDate)>1) ? date('Y-m-d',strtotime(DateTime::createFromFormat('d/m/Y', $tabDate[1])->format('Y-m-d').'+ 7 day')) : date('Y-m-d',strtotime("next monday")); echo $valueDate;}?>" 
+                       min="<?php if($datepl>0){echo date('Y-m-d',strtotime(DateTime::createFromFormat('d/m/Y', $tabDate[1])->format('Y-m-d').'+ 7 day'));}
+                    else{$valueDate = (sizeof($tabDate)>1) ? date('Y-m-d',strtotime(DateTime::createFromFormat('d/m/Y', $tabDate[1])->format('Y-m-d').'+ 7 day')) : date('Y-m-d',strtotime("next monday")); echo $valueDate;}?>" 
+                       step="7" style="height:21px; margin:0px 5px;">
+                <label>avec</label>
+                <input type="number" name="numberNew" id="numberNew" style="height:19px; width:40px; margin:0px 5px;" value="1" min="1">
+                <label>encadrant(s).&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input name="validNew" id="validNew" type="button" value="Valider" class="buttonNormal" onclick="newPlanning(3)">
+                <input name="cancelNew" id="cancelNew" type="button" value="Annuler" class="buttonNormal" onclick="newPlanning(2)">
+            </div>
+            <div id="editDiv" style="margin:0; padding:0; display:none;">
+                <label>Modification du planning du lundi <?php echo $tabDate[$datepl];?> en ajoutant</label>
+                <input type="number" name="numberEdit" id="numberEdit" style="height:19px; width:40px; margin:0px 5px;" value="0" min="0">
+                <label>encadrant(s).&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input name="validEdit" id="validEdit" type="button" value="Valider" class="buttonNormal" onclick="editPlanning(3)">
+                <input name="cancelEdit" id="cancelEdit" type="button" value="Annuler" class="buttonNormal" onclick="editPlanning(2)">
+            </div>
+            <div id="copieDiv" style="margin:0; padding:0; display:none;">
+                <label>Copie du planning du lundi <?php echo $tabDate[$datepl];?> pour le</label>
+                <input type='date' id="dateToCopy" name='dateToCopy' class="SpecialDate" value="<?php if($datepl>0) echo date('Y-m-d',strtotime(DateTime::createFromFormat('d/m/Y', $tabDate[1])->format('Y-m-d').'+ 7 day')); ?>" 
+                        min="<?php if($datepl>0) echo date('Y-m-d',strtotime(DateTime::createFromFormat('d/m/Y', $tabDate[1])->format('Y-m-d').'+ 7 day')); ?>" 
+                       step="7" style="height:21px; margin:0px 25px 0px 5px;" <?php echo $tabDate[1]; ?>>
+                <input name="validCopie" id="validCopie" type="button" value="Valider" class="buttonNormal" onclick="copyPlanning(3)">
+                <input name="cancelCopie" id="cancelCopie" type="button" value="Annuler" class="buttonNormal" onclick="copyPlanning(2)">
+            </div>
 			<input type='hidden' id="Date" name='Date' value=''>
 			<input type='hidden' id="typePL" name='typePL' value='2'>
 			<input type='hidden' id="redirectPage" name='redirectPage' value="./occupationnel/planning_occupationnel.php">
@@ -120,37 +130,45 @@
 					{
 				?>
 						<tr>
-							<td><b><?php echo $tabJour[$x]."<br>".date("d/m", strtotime(DateTime::createFromFormat('d/m/Y',$tabDate[$datepl])->format('Y-m-d').' + '.$x.' day')); ?></b></td>
-						<?php
-							for($y=0; $y<(sizeof($encadrant)*2); $y++)
-							{
-								$query = mysqli_query($db,"SELECT concat(concat(PER_nom,' '),PER_prenom) AS 'nom', CNV_Couleur FROM pl_association
-													JOIN salaries USING(SAL_NumSalarie)
-													JOIN personnes USING(PER_Num)
-													JOIN insertion using(SAL_NumSalarie)
-													JOIN convention using(CNV_id)
-													WHERE date_format(ASSOC_date, '%d/%m/%Y') = '".$tabDate[$datepl]."' AND CRE_id = ".$CreValue." AND ENC_Num = ".$encadrant[$y/2]." AND PL_id = 2;");
-								
-								$nbRep = mysqli_num_rows($query);
-								($nbRep==0) ? $couleur = 'url(\'../../images/hachure-planning.png\') repeat' : $couleur = "none";
-								echo '<td style="text-align:center; vertical-align:middle; background:'.$couleur.';">';
-								
-								while($data = mysqli_fetch_assoc($query))
-								{
-									echo "<span style='color:".$data["CNV_Couleur"].";'>".$data["nom"].'</span><br/>';
-								}
-								echo '</td><td class="emptyCells" style="background:'.$couleur.';"></td>';
-								if($CreValue%2 == 0)
-									$CreValue--;
-								else
-									$CreValue++;
-							}
-							if(sizeof($encadrant)==1)
-							{
-								echo '<td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td><td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td>
-									  <td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td><td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td>';
-							}
-						?>
+                            <?php
+                                if(isJourFerie(date("d/m/Y", strtotime(DateTime::createFromFormat('d/m/Y',$tabDate[$datepl])->format('Y-m-d').' + '.$x.' day'))))
+                                {
+                                    echo '<td><b>'.$tabJour[$x].'<br>FÉRIÉ</td></b>';
+                                }
+                                else
+                                {
+                                    echo '<td><b>'.$tabJour[$x].'<br>'.date("d/m", strtotime(DateTime::createFromFormat('d/m/Y',$tabDate[$datepl])->format('Y-m-d').' + '.$x.' day')).'</td></b>'; 
+                                }
+                        
+                                for($y=0; $y<(sizeof($encadrant)*2); $y++)
+                                {
+                                    $query = mysqli_query($db,"SELECT concat(concat(PER_nom,' '),PER_prenom) AS 'nom', CNV_Couleur FROM pl_association
+                                                        JOIN salaries USING(SAL_NumSalarie)
+                                                        JOIN personnes USING(PER_Num)
+                                                        JOIN insertion using(SAL_NumSalarie)
+                                                        JOIN convention using(CNV_id)
+                                                        WHERE date_format(ASSOC_date, '%d/%m/%Y') = '".$tabDate[$datepl]."' AND CRE_id = ".$CreValue." AND ENC_Num = ".$encadrant[$y/2]." AND PL_id = 2;");
+
+                                    $nbRep = mysqli_num_rows($query);
+                                    ($nbRep==0) ? $couleur = 'url(\'../../images/hachure-planning.png\') repeat' : $couleur = "none";
+                                    echo '<td style="text-align:center; vertical-align:middle; background:'.$couleur.';">';
+
+                                    while($data = mysqli_fetch_assoc($query))
+                                    {
+                                        echo "<span style='color:".$data["CNV_Couleur"].";'>".$data["nom"].'</span><br/>';
+                                    }
+                                    echo '</td><td class="emptyCells" style="background:'.$couleur.';"></td>';
+                                    if($CreValue%2 == 0)
+                                        $CreValue--;
+                                    else
+                                        $CreValue++;
+                                }
+                                if(sizeof($encadrant)==1)
+                                {
+                                    echo '<td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td><td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td>
+                                          <td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td><td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td>';
+                                }
+                            ?>
 						</tr>
 				<?php
 					$CreValue += 2;
@@ -170,9 +188,9 @@
 		<table id="insertionTableau">
 			<thead>
 				<th id="firstColumn"></th>
-				<th><b>Encadrant équipe n°1</b><br/>8h30-12h</th>
+				<th><b>Encadrant équipe n°1</b><br/>8h30 - 12h</th>
 				<th id="emptyColumn"></th>
-				<th><b>Encadrant équipe n°1</b><br>13h-16h30</th>
+				<th><b>Encadrant équipe n°1</b><br>13h - 16h30</th>
 				<th id="emptyColumn">P</th>
 				<th></th>			
 				<th id="emptyColumn"></th>
@@ -185,14 +203,14 @@
 					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
 					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
 					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
-					<td  style="background : url('../../images/hachure-planning.png') repeat;"></td>
+					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
 				</tr>
 				<tr>
 					<td><b>Mardi<br>00/00</b></td><td></td><td></td><td></td><td></td>
 					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
 					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
 					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
-					<td  style="background : url('../../images/hachure-planning.png') repeat;"></td>
+					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
 				</tr>
 				<tr>
 					<td><b>Mercredi<br>00/00</b></td><td></td><td></td><td></td><td></td>
@@ -206,14 +224,14 @@
 					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
 					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
 					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
-					<td  style="background : url('../../images/hachure-planning.png') repeat;"></td>
+					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
 				</tr>
 				<tr>
 					<td><b>Vendredi<br>00/00</b></td><td></td><td></td><td></td><td></td>
 					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
 					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
 					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
-					<td  style="background : url('../../images/hachure-planning.png') repeat;"></td>
+					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
 				</tr>
 			</tbody>
 		</table>
