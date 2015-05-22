@@ -51,7 +51,7 @@
 				<input name="editPl" id="editPl" type="button" value="Modifier" class="printButton" <?php if($datepl==0) echo 'disabled="disabled"'; ?> onclick="editPlanning(1)">
 				<input name="copiePl" id="copiePl" type="button" value="Copier" class="printButton" <?php if($datepl==0) echo 'disabled="disabled"'; ?> onclick="copyPlanning(1)">
 				<input name="delPl" id="delPl" type="button" value="Supprimer" class="printButton" <?php if($datepl==0) echo 'disabled="disabled"'; ?> onclick="deletePlanning()">
-				<input name="printPl" id="printPl" type="button" value="Imprimer" class="printButton" <?php if($datepl>-1) echo 'disabled="disabled"'; ?> onclick="">
+				<input name="printPl" id="printPl" type="button" value="Imprimer" class="printButton" <?php if($datepl==0) echo 'disabled="disabled"'; ?> onclick="printPlanning()">
 			</div>
             <div id="newDiv" style="margin:0; padding:0; display:none;">
                 <label>Création d'un planning à la date du</label>
@@ -312,7 +312,13 @@
 				break;
 		}
 	}
-
+    
+	function printPlanning()
+	{
+		document.getElementById("pl_occupationnel").action="../printer.php";
+		document.getElementById("Date").value="<?php echo $tabDate[$datepl]; ?>";
+		document.getElementById("pl_occupationnel").submit();
+	}
 </script>
 <?php
 	include($pwd."footer.php");
