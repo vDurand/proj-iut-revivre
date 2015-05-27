@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 $pageTitle = "Detail Fournisseur";
 $pwd='../../';
 include('../../bandeau.php');

@@ -1,3 +1,8 @@
+27/05/2015
+- Ajout d'un système de laision plannings - logos (Pour le planning ACI et occupationnel)
+- Ajout d'une première version du printer de planning
+- Correction de bugs
+
 22/05/2015
 - Ajout du système de gestion des jours fériés aux plannings insertion et occupationnel
 - Ajout d'une fonction de calcul des jours fériés dans le fichier asset.php

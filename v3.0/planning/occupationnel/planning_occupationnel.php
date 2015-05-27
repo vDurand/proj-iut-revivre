@@ -179,6 +179,19 @@
 			</table>
 		</div>
 	</div>
+    <div style="padding-left:5px;">
+        <?php
+            $query = mysqli_query($db, "SELECT LOGO_Id, LOGO_Url FROM logo
+                                        JOIN logo_association USING(LOGO_Id)
+                                        WHERE PL_id=2 AND date_format(ASSOC_date, '%d/%m/%Y') = '".$tabDate[$datepl]."';");
+            while($data = mysqli_fetch_assoc($query))
+            {
+                echo '<div style="display:inline-block; width:150px; height:90px; margin:10px 7px 10px 7px;">
+                        <img src="../'.$data["LOGO_Url"].'" style="position:absolute; border:1px solid #bcbcbc;">
+                    </div>';
+            }
+        ?>
+    </div>
 <?php
 	}
 	else

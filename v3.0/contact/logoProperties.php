@@ -62,7 +62,7 @@
                     <?php
                         if($typeAction == "edit")
                         {
-                            echo '<td rowspan="3"><div class="logoContainer">
+                            echo '<td rowspan="3" style="text-align:center;"><div class="logoContainer">
                             <label class="logoTagEdit" for="fileInput"></label>
                             <input id="fileInput" name="fileInput" type="file" accept="image/png, image/jpeg" />';
                             $query = mysqli_query($db, "SELECT LOGO_Url FROM logo WHERE LOGO_Libelle='$nomLogo';");
@@ -74,7 +74,7 @@
                         }
                         elseif($typeAction == "add")
                         {
-                            echo '<td rowspan="3"><div class="logoContainer">
+                            echo '<td rowspan="3" style="text-align:center;"><div class="logoContainer">
                             <label class="logoTagEdit" for="fileInput"></label>
                             <input type="file" id="fileInput" name="fileInput" accept="image/png, image/jpeg" />';
                             echo '<img id="imgLogo" src=""/>';
@@ -85,7 +85,7 @@
                             $query = mysqli_query($db, "SELECT LOGO_Url FROM logo WHERE LOGO_Libelle='$nomLogo';");
                             while($data = mysqli_fetch_assoc($query))
                             {
-                                echo '<td rowspan="3"><img id="imgLogo" src="'.$data['LOGO_Url'].'" style="border: 3px solid lightgrey; margin:0px 10px 0px 0px;"/></td>';
+                                echo '<td rowspan="3" style="text-align:center;"><img id="imgLogo" src="'.$data['LOGO_Url'].'" style="border: 3px solid lightgrey; margin:0px 10px 0px 0px;"/></td>';
                             }
                         }
                         else

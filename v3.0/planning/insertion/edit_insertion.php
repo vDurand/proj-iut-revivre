@@ -31,6 +31,7 @@
 		$CreValue=1;
 		$tabJour = Array("Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi");
 		$arrayElements = Array();
+        $arrayLogo = Array();
 		echo '<div id="labelT">     
 		      <label>Modification du planning de la semaine du lundi : '.$datepl.'</label>
 		      </div><br/>';
@@ -226,12 +227,39 @@
 			</table>
 		</div>
 	</div>
+    <div class="ConfigPanel" style="margin:7px 0px; padding-top:9px;">
+        <label style="font-weight:bold; margin: 0px 0px 0px 9px;">Choix d'un ou plusieurs logos (Non obligatoire) :</label>
+        <br/>
+        <?php
+            $query = mysqli_query($db, "SELECT LOGO_Id, LOGO_Url, \"true\" as checked FROM logo JOIN logo_association USING(LOGO_id) WHERE ASSOC_date = '".$date."' AND PL_id = 1
+                                        UNION
+                                        SELECT LOGO_Id, LOGO_Url, \"false\" as checked FROM logo WHERE LOGO_Id NOT IN (SELECT LOGO_Id FROM logo_association WHERE ASSOC_date = '".$date."' AND PL_id = 1);");
+            $x=0;
+            while($data = mysqli_fetch_assoc($query))
+            {
+                echo '<div style="display:inline-block; width:150px; height:90px; margin:10px 9px 10px 9px;">
+                        <img src="../'.$data["LOGO_Url"].'" style="position:absolute; border:1px solid #bcbcbc;">
+                        <input type="checkbox" id="check'.$data["LOGO_Id"].'" name="check'.$data["LOGO_Id"].'" 
+                        style="position:relative; top:6px; left:6px; width:18px; height:18px;" onclick=\'checkLogo('.$data["LOGO_Id"].',"check'.$data["LOGO_Id"].'")\'';
+                if($data["checked"]=="true")
+                {
+                    echo ' checked="checked"/></div>';
+                    $arrayLogo[$x++] = (int)$data["LOGO_Id"];
+                }
+                else
+                {
+                   echo '/></div>';
+                }
+            }
+        ?>
+    </div>
 	<form method="post" action="./post_insertion.php" name="valid_planning" id="valid_planning">
 		<table style="margin:10px auto 0 auto;">
 			<tr>
 				<td>
 					<input name="cancel" id="cancel" type="button" class="buttonC" value="Annuler" onclick="if(confirm('Etes-vous sûr de vouloir annuler ?')){window.location.replace('./planning_insertion.php');}">
 					<input type='hidden' id="Tableau" name='Tableau' value=''>
+					<input type='hidden' id="TableauLogo" name='TableauLogo' value=''>
                     <input type="hidden" id="Date" name="Date" value=<?php echo "'".$date."'";?>/>
 					<input type='hidden' id="Modify" name='Modify' value='true'>
 					<input type='hidden' id="typePL" name='typePL' value='1'>
@@ -256,8 +284,15 @@
 </div>
 <script type="text/javascript">
 	<?php
-		$js_array = json_encode($arrayElements);
-		echo "var tableau = ".$js_array.";";
+		$js_array1 = json_encode($arrayElements);
+		echo "var tableau = ".$js_array1.";";
+        if(!empty($arrayLogo))
+        {
+            $js_array2 = json_encode($arrayLogo);
+            echo "var tableauLogo = ".$js_array2.";";
+        }
+        else
+            echo "var tableauLogo = new Array;";
 	?>
 	var numEncad = new Array(<?php for($x=0; $x<sizeof($encadrant)+$nbAjoutEncadrant; $x++){if($x < sizeof($encadrant)+$nbAjoutEncadrant-1) echo 'document.getElementById("encadrant'.$x.'").value, '; else echo 'document.getElementById("encadrant'.$x.'").value';}?>);
 	<?php
@@ -401,7 +436,25 @@
 			}
 		}
 	}
-
+    
+    function checkLogo(numero, id)
+    {
+        if(document.getElementById(id).checked)
+        {
+            tableauLogo[tableauLogo.length] = numero;
+        }
+        else
+        {
+            for(var x=0; x<tableauLogo.length; x++)
+            {
+                if(tableauLogo[x] == numero)
+                {
+                    tableauLogo.splice(x,1);
+                }
+            }
+        }
+    }
+    
 	function postData()
 	{	
 		var allEncad = false;
@@ -418,7 +471,8 @@
 		?>
 					if(confirm("Etes-vous sûr de vouloir sauvegarder le planning ?"))
 					{
-						document.getElementById('Tableau').value = JSON.stringify(tableau);
+                        document.getElementById('Tableau').value = JSON.stringify(tableau);
+						document.getElementById('TableauLogo').value = JSON.stringify(tableauLogo);
 				     	document.getElementById("valid_planning").submit();
 				    }
 		<?php

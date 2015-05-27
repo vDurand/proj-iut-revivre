@@ -13,6 +13,8 @@
   		$data = mysqli_fetch_assoc($query);
   		$tableau=$_POST["Tableau"];
 		$array = json_decode($tableau);
+  		$tableau=$_POST["TableauLogo"];
+		$arrayLogo = json_decode($tableau);
 		mysqli_free_result($query);
 
         if($_POST["Modify"] == 'true')
@@ -39,10 +41,43 @@
                     }
                     else
                     {
-                        mysqli_query($db, 'COMMIT;');
-                        echo '<div id="good">
-                        <label>Le planning de la semaine du lundi '.date("d/m/Y", strtotime($date)).' a été modifié avec succès !</label>
-                        </div>';
+                        $query = mysqli_query($db, 'DELETE FROM logo_association WHERE ASSOC_date=date("'.$date.'") AND PL_id = 2;');
+                        if($query)
+                        {
+                            if(sizeof($arrayLogo) > 0)
+                            {
+                                $queryString = "INSERT INTO logo_association VALUES ";
+                                for($x=0; $x<sizeof($arrayLogo); $x++)
+                                {
+                                    $queryString = ($x==0) ? $queryString."(".$arrayLogo[$x].", ".$typePL.", date('".$date."'))" : $queryString.",(".$arrayLogo[$x].", ".$typePL.", date('".$date."'))";
+                                }
+                                $query = mysqli_query($db,$queryString.";");
+                            }
+                            else
+                                $query = true;
+                                
+                            if($query)
+                            {
+                                mysqli_query($db, 'COMMIT;');
+                                echo '<div id="good">
+                                <label>Le planning de la semaine du lundi '.date("d/m/Y", strtotime($date)).' a été modifié avec succès !</label>
+                                </div>';
+                            }
+                            else
+                            {
+                                mysqli_query($db, 'ROLLBACK;');
+                                echo '<div id="bad">
+                                  <label>Une erreur s\'est produite lors de la modification du planning !</label>
+                                  </div>';
+                            }
+                        }
+                        else
+                        {
+                            mysqli_query($db, 'ROLLBACK;');
+                            echo '<div id="bad">
+                              <label>Une erreur s\'est produite lors de la modification du planning !</label>
+                              </div>';  
+                        }
                     }
                 }
                 else
@@ -65,21 +100,43 @@
 
                 }
                 $query = mysqli_query($db, $queryString.";");
+                
                 if(!$query)
                 {
                     mysqli_query($db, 'ROLLBACK;');
                     echo '<div id="bad">
-                          <label>Une erreur s\'est produite lors de la sauvegarde du planning !</label>
+                          <label>Une erreur s\'est produite lors de la sauvegarde du planning !1</label>
                           </div>';
                 }
                 else
                 {
-                    mysqli_query($db, 'COMMIT;');
-                    echo '<div id="good">
-                        <label>Planning de la semaine du lundi '.date("d/m/Y", strtotime($date)).' ajouté avec succès !</label>
-                        </div>';
+                    if(sizeof($arrayLogo) > 0)
+                    {
+                        $queryString = "INSERT INTO logo_association VALUES ";
+                        for($x=0; $x<sizeof($arrayLogo); $x++)
+                        {
+                            $queryString = ($x==0) ? $queryString."(".$arrayLogo[$x].", ".$typePL.", date('".$date."'))" : $queryString.",(".$arrayLogo[$x].", ".$typePL.", date('".$date."'))";
+                        }
+                        $query = mysqli_query($db,$queryString.";");
+                    }
+                    else
+                        $query = true;
+                    
+                    if($query)
+                    {
+                        mysqli_query($db, 'COMMIT;');
+                        echo '<div id="good">
+                            <label>Planning de la semaine du lundi '.date("d/m/Y", strtotime($date)).' ajouté avec succès !</label>
+                            </div>';
+                    }
+                    else
+                    {
+                        mysqli_query($db, 'ROLLBACK;');
+                        echo '<div id="bad">
+                              <label>Une erreur s\'est produite lors de la sauvegarde du planning !</label>
+                              </div>';
+                    }
                 }
-                mysqli_free_result($query);
             }
             else
             {

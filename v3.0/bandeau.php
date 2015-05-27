@@ -93,6 +93,12 @@
                                             <li><a href="<?php echo $pwd; ?>contact/partenaire/viewRef.php">Référent<br>&nbsp;</a></li>
                                         </ul>
                                     </li>
+                                    <li><a href="#">Administratif<br>&nbsp;</a>
+                                        <ul>
+                                            <li><a href="<?php echo $pwd; ?>contact/convention.php">Conventions<br>&nbsp;</a></li>
+                                            <li><a href="<?php echo $pwd; ?>contact/logoProperties.php">Logos<br>&nbsp;</a></li>
+                                        </ul>
+                                    </li>
 	                			</ul>
 							</li>
 							<li id="champs"><a href="#">Plannings</a>

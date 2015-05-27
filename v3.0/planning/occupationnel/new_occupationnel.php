@@ -173,12 +173,28 @@
 			</table>
 		</div>
 	</div>
+    <div class="ConfigPanel" style="margin:7px 0px; padding-top:9px;">
+        <label style="font-weight:bold; margin: 0px 0px 0px 9px;">Choix d'un ou plusieurs logos (Non obligatoire) :</label>
+        <br/>
+        <?php
+            $query = mysqli_query($db, "SELECT LOGO_Id, LOGO_Url FROM logo;");
+            while($data = mysqli_fetch_assoc($query))
+            {
+                echo '<div style="display:inline-block; width:150px; height:90px; margin:10px 9px 10px 9px;">
+                        <img src="../'.$data["LOGO_Url"].'" style="position:absolute; border:1px solid #bcbcbc;">
+                        <input type="checkbox" id="check'.$data["LOGO_Id"].'" name="check'.$data["LOGO_Id"].'" 
+                        style="position:relative; top:6px; left:6px; width:18px; height:18px;" onclick=\'checkLogo('.$data["LOGO_Id"].',"check'.$data["LOGO_Id"].'")\'/>
+                    </div>';
+            }
+        ?>
+    </div>
 	<form method="post" action="./post_occupationnel.php" name="valid_planning" id="valid_planning">
 		<table style="margin:10px auto 0 auto;">
 			<tr>
 				<td>
 					<input name="cancel" id="cancel" type="button" class="buttonC" value="Annuler" onclick="if(confirm('Etes-vous sûr de vouloir annuler ?')){window.location.replace('./planning_occupationnel.php');}">
 					<input type='hidden' id="Tableau" name='Tableau' value=''>
+                    <input type='hidden' id="TableauLogo" name='TableauLogo' value=''>
 					<input type='hidden' id="Modify" name='Modify' value='false'>
 					<input type='hidden' id="typePL" name='typePL' value='2'>
                     <input type="hidden" id="Date" name="Date" value=<?php echo "'".$date."'";?>/>
@@ -204,6 +220,7 @@
 </div>
 <script type="text/javascript">
 	var tableau = new Array;
+    var tableauLogo = new Array;
 	var numEncad = new Array(<?php for($x=0; $x<$nombreEncadrant; $x++){if($x < $nombreEncadrant-1) echo 'document.getElementById("encadrant'.$x.'").value, '; else echo 'document.getElementById("encadrant'.$x.'").value';}?>);
 
 	function changeName(index)
@@ -340,7 +357,25 @@
 			}
 		}
 	}
-
+    
+    function checkLogo(numero, id)
+    {
+        if(document.getElementById(id).checked)
+        {
+            tableauLogo[tableauLogo.length] = numero;
+        }
+        else
+        {
+            for(var x=0; x<tableauLogo.length; x++)
+            {
+                if(tableauLogo[x] == numero)
+                {
+                    tableauLogo.splice(x,1);
+                }
+            }
+        }
+    }
+    
 	function postData()
 	{	
 		if(tableau.length > 0)
@@ -348,6 +383,7 @@
 			if(confirm("Etes-vous sûr de vouloir sauvegarder le planning ?"))
 			{
 				document.getElementById('Tableau').value = JSON.stringify(tableau);
+                document.getElementById('TableauLogo').value = JSON.stringify(tableauLogo);
 		     	document.getElementById("valid_planning").submit();
 		    }
 		}
