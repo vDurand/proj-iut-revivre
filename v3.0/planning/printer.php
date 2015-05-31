@@ -1,12 +1,9 @@
 <?php
-$title = "Impression_du_planning.pdf";
     $pwd = "../";
 if(isset($_POST['Date']) && isset($_POST['typePL']))
 {
     include('../assets.php');
-
     $content = "";
-
     $typeplanning = $_POST['typePL'];
 
     error_reporting(E_ALL);
@@ -19,6 +16,7 @@ if(isset($_POST['Date']) && isset($_POST['typePL']))
     $tabDate = Array("Aucune date");
     $tabJour = Array("Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi");
     $tabPlanning = Array("ACI","OCCUPATIONNEL","STAGIAIRE");
+    $title = "planning_".strtolower($tabPlanning[$typeplanning-1])."_".date('d-m-Y',strtotime($date)).".pdf";
     $reponse = mysqli_query($db, "select distinct concat(concat(upper(PER_nom),' '),PER_prenom) as 'nom', ENC_Num
                     from pl_association join salaries sa on sa.SAL_NumSalarie = ENC_Num 
                     join personnes using(PER_Num) where ASSOC_date='".$date."' AND PL_id = '".$typeplanning."' ORDER BY ENC_Num;");
@@ -108,20 +106,20 @@ if(isset($_POST['Date']) && isset($_POST['typePL']))
                     }
                     $content.="</tr>";
                     $CreValue += 2;
-                }                               //position:relative; bottom:72%;
+                }
         $content.="</tbody></table><page_footer><div style=\"margin-bottom:15px; text-align:center; padding:0;\">";
         
         for($x=0; $x<sizeof($tableauLogo) && $x<6; $x++)
         {
             $content.="<img src=\"".$tableauLogo[$x]."\" style=\"margin:0px 3px;\"/>";
         }
-                            //position: relative; bottom:98.15%
-        $content.= "</div><h4 style=\" text-align:center; margin:0px; font-weight:normal;\">Association Revivre Service CAP, Chemin de Mondeville - 14460 COLOMBELLES - ".date("Y", strtotime($date))." | Page ".($compteur+1)."/".(ceil(sizeof($encadrant)/2))."</h4></page_footer></page>";
+        $content.= "</div>
+            <h4 style=\" text-align:center; margin:0px; font-weight:normal;\">
+            Association Revivre Service CAP, Chemin de Mondeville - 14460 COLOMBELLES - ".date("Y", strtotime($date))." | Page ".($compteur+1)."/".(ceil(sizeof($encadrant)/2))."</h4></page_footer></page>";
         $compteur++;
         $w+=4;
         $m+=2;
     }
-                //echo $content;
         require_once('../stuff/html2pdf/html2pdf.class.php');
         $html2pdf = new HTML2PDF('L','A4','fr');
         $html2pdf->WriteHTML($content);

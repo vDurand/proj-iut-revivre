@@ -309,8 +309,10 @@
 	function printPlanning()
 	{
 		document.getElementById("pl_insertion").action="../printer.php";
+		document.getElementById("pl_insertion").target="_blank";
 		document.getElementById("Date").value="<?php echo $tabDate[$datepl]; ?>";
 		document.getElementById("pl_insertion").submit();
+        document.getElementById("pl_insertion").target="";
 	}
 </script>
 <?php

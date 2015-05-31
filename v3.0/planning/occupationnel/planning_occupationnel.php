@@ -329,8 +329,10 @@
 	function printPlanning()
 	{
 		document.getElementById("pl_occupationnel").action="../printer.php";
+        document.getElementById("pl_occupationnel").target="_blank";
 		document.getElementById("Date").value="<?php echo $tabDate[$datepl]; ?>";
 		document.getElementById("pl_occupationnel").submit();
+        document.getElementById("pl_occupationnel").target="";
 	}
 </script>
 <?php

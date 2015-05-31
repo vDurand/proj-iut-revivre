@@ -995,7 +995,7 @@ AJOUT GROUPE 2 PROJET REVIVRE
     top: 0px;
     width: 150px;
     height: 90px;
-    z-index: 1000;
+    z-index: 500;
 }
 
 .logoContainer:hover
