@@ -14,11 +14,11 @@ if(isset($_POST['Date']) && isset($_POST['typePL']))
     ini_set('display_startup_errors', TRUE);
 	$db = revivre();
     mysqli_query($db, "SET NAMES 'utf8'");
-
+    $tableauLogo = Array();
     $date=DateTime::createFromFormat('d/m/Y', $_POST["Date"])->format('Y-m-d');
     $tabDate = Array("Aucune date");
     $tabJour = Array("Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi");
-
+    $tabPlanning = Array("ACI","OCCUPATIONNEL","STAGIAIRE");
     $reponse = mysqli_query($db, "select distinct concat(concat(upper(PER_nom),' '),PER_prenom) as 'nom', ENC_Num
                     from pl_association join salaries sa on sa.SAL_NumSalarie = ENC_Num 
                     join personnes using(PER_Num) where ASSOC_date='".$date."' AND PL_id = '".$typeplanning."' ORDER BY ENC_Num;");
@@ -47,7 +47,7 @@ if(isset($_POST['Date']) && isset($_POST['typePL']))
     {
         $content.="
             <page>
-                <h2 style=\"text-align:center; margin:10px 0px;\">PLANNING DU ".date('d/m/Y',strtotime($date))." AU ".date('d/m/Y',strtotime($date." + 4 day"))." </h2>
+                <h2 style=\"text-align:center; margin:10px 0px;\">PLANNING ".$tabPlanning[$typeplanning-1]." DU ".date('d/m/Y',strtotime($date))." AU ".date('d/m/Y',strtotime($date." + 4 day"))." </h2>
                 <table class=\"planningPrinter\" border=\"1\">
                     <thead>
                         <tr>
@@ -108,16 +108,15 @@ if(isset($_POST['Date']) && isset($_POST['typePL']))
                     }
                     $content.="</tr>";
                     $CreValue += 2;
-                }
-        $content.="</tbody></table><div style=\"text-align:center; padding:0; margin:108px 0px 22px 0px;\">";
+                }                               //position:relative; bottom:72%;
+        $content.="</tbody></table><page_footer><div style=\"margin-bottom:15px; text-align:center; padding:0;\">";
         
         for($x=0; $x<sizeof($tableauLogo) && $x<6; $x++)
         {
             $content.="<img src=\"".$tableauLogo[$x]."\" style=\"margin:0px 3px;\"/>";
         }
-        
-        $content.= "</div>
-            <h4 style=\"text-align:center; margin:0px; font-weight:normal;\">Association Revivre Service CAP, Chemin de Mondeville - 14460 COLOMBELLES - ".date("Y", strtotime($date))." | Page ".($compteur+1)."/".(ceil(sizeof($encadrant)/2))."</h4></page>";
+                            //position: relative; bottom:98.15%
+        $content.= "</div><h4 style=\" text-align:center; margin:0px; font-weight:normal;\">Association Revivre Service CAP, Chemin de Mondeville - 14460 COLOMBELLES - ".date("Y", strtotime($date))." | Page ".($compteur+1)."/".(ceil(sizeof($encadrant)/2))."</h4></page_footer></page>";
         $compteur++;
         $w+=4;
         $m+=2;
