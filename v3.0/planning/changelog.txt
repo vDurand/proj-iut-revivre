@@ -1,3 +1,10 @@
+08/09/2015
+- Ajout du planning stagiaire
+- Ajout de l'archivage des plannings
+- Ajout de l'affichage sur écran
+- Ajout d'une colonne dans la table pl_association
+- Correction de bugs
+
 27/05/2015
 - Ajout d'un système de laision plannings - logos (Pour le planning ACI et occupationnel)
 - Ajout d'une première version du printer de planning

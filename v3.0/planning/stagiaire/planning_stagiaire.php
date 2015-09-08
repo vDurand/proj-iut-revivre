@@ -1,5 +1,5 @@
 <?php
-	$pageTitle = "Plannings Occupationnel";
+	$pageTitle = "Plannings Stagiaire";
 	$pwd='../../';
 	include($pwd."bandeau.php");
 
@@ -9,18 +9,18 @@
 		$datepl = 0;
 	$tabDate = Array("Aucune date");
 	$tabDateArchi = Array("Aucune date");
-	$tabJour = Array("Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi");
+	$tabJour = Array("Lundi", "Mardi", "Mercredi", "Jeudi");
 ?>
 <div id="corps">
 	<div id="info">     
     	<label>Les plannings sont en version beta, des modifications risquent d'être apportées.</label>
    	</div>
     <br>
-	<form method="POST" action="./planning_occupationnel.php" name="pl_occupationnel">
+	<form method="POST" action="./planning_stagiaire.php" name="pl_stagiaire">
 		<table>
 			<tr>
 				<td>
-					<label>&#8226; Planning occupationnel de la semaine du lundi : </label>
+					<label>&#8226; Planning des stagiaires de la semaine du lundi : </label>
 				</td>
 				<td>
 					<div class="selectType" style="width:200px">
@@ -29,7 +29,7 @@
 							<?php
 								if(isset($_POST["chkArchive"]) && $_POST["chkArchive"])
 								{
-									$query = mysqli_query($db, "SELECT DISTINCT date_format(ASSOC_date,'%d/%m/%Y') AS 'date' FROM pl_association WHERE PL_id = 2 AND ASSOC_Archi = 1 ORDER BY ASSOC_date DESC;");
+									$query = mysqli_query($db, "SELECT DISTINCT date_format(ASSOC_date,'%d/%m/%Y') AS 'date' FROM pl_association WHERE PL_id = 3 AND ASSOC_Archi = 1 ORDER BY ASSOC_date DESC;");
 									$x=1;
 									while($data = mysqli_fetch_assoc($query))
 									{
@@ -39,7 +39,7 @@
 								}
 								else
 								{
-									$query = mysqli_query($db, "SELECT DISTINCT date_format(ASSOC_date,'%d/%m/%Y') AS 'date' FROM pl_association WHERE PL_id = 2 AND ASSOC_Archi = 0 ORDER BY ASSOC_date DESC;");
+									$query = mysqli_query($db, "SELECT DISTINCT date_format(ASSOC_date,'%d/%m/%Y') AS 'date' FROM pl_association WHERE PL_id = 3 AND ASSOC_Archi = 0 ORDER BY ASSOC_date DESC;");
 									$x=1;
 									while($data = mysqli_fetch_assoc($query))
 									{
@@ -47,7 +47,7 @@
 										$tabDate[$x++] = $data["date"];
 	                                }
 
-	                                $query = mysqli_query($db, "SELECT DISTINCT date_format(ASSOC_date,'%d/%m/%Y') AS 'date' FROM pl_association WHERE PL_id = 2 AND ASSOC_Archi = 1 ORDER BY ASSOC_date DESC;");
+	                                $query = mysqli_query($db, "SELECT DISTINCT date_format(ASSOC_date,'%d/%m/%Y') AS 'date' FROM pl_association WHERE PL_id = 3 AND ASSOC_Archi = 1 ORDER BY ASSOC_date DESC;");
 									$x=1;
 									while($data = mysqli_fetch_assoc($query))
 									{
@@ -79,7 +79,7 @@
 		</table>
 	</form>
 	<div id="divCopyInfo" class="ConfigPanel" style="margin-top:5px; height:25px;">
-		<form method="POST" name="pl_occupationnel" id="pl_occupationnel" style="margin:0 auto; text-align:center; padding-top:2px;">
+		<form method="POST" name="pl_stagiaire" id="pl_stagiaire" style="margin:0 auto; text-align:center; padding-top:2px;">
 			<div id="basicDiv" style="margin:0; padding:0; display:inline;">
             <?php
             	if(isset($_POST["chkArchive"]) && $_POST["chkArchive"])
@@ -124,8 +124,8 @@
                 <input name="cancelCopie" id="cancelCopie" type="button" value="Annuler" class="buttonNormal" onclick="copyPlanning(2)">
             </div>
 			<input type='hidden' id="Date" name='Date' value=''>
-			<input type='hidden' id="typePL" name='typePL' value='2'>
-			<input type='hidden' id="redirectPage" name='redirectPage' value="./occupationnel/planning_occupationnel.php">
+			<input type='hidden' id="typePL" name='typePL' value='3'>
+			<input type='hidden' id="redirectPage" name='redirectPage' value="./stagiaire/planning_stagiaire.php">
 		</form>
 	</div>
 	<?php
@@ -133,7 +133,7 @@
 		{
 			$reponse = mysqli_query($db, "select distinct concat(concat(upper(PER_nom),' '),PER_prenom) as 'nom', ENC_Num
 								from pl_association join salaries sa on sa.SAL_NumSalarie = ENC_Num 
-								join personnes using(PER_Num) where date_format(ASSOC_date, '%d/%m/%Y')='".$tabDate[$datepl]."' AND PL_id = 2 ORDER BY ENC_Num;");
+								join personnes using(PER_Num) where date_format(ASSOC_date, '%d/%m/%Y')='".$tabDate[$datepl]."' AND PL_id = 3 ORDER BY ENC_Num;");
 			$x=0;
 			while($donnees = mysqli_fetch_assoc($reponse))
 			{
@@ -167,7 +167,7 @@
 				<tbody>
 				<?php
 					$CreValue=1;
-					for($x=0; $x<5; $x++)
+					for($x=0; $x<4; $x++)
 					{
 				?>
 						<tr>
@@ -188,7 +188,7 @@
                                                         JOIN personnes USING(PER_Num)
                                                         JOIN insertion using(SAL_NumSalarie)
                                                         JOIN convention using(CNV_id)
-                                                        WHERE date_format(ASSOC_date, '%d/%m/%Y') = '".$tabDate[$datepl]."' AND CRE_id = ".$CreValue." AND ENC_Num = ".$encadrant[$y/2]." AND PL_id = 2;");
+                                                        WHERE date_format(ASSOC_date, '%d/%m/%Y') = '".$tabDate[$datepl]."' AND CRE_id = ".$CreValue." AND ENC_Num = ".$encadrant[$y/2]." AND PL_id = 3;");
 
                                     $nbRep = mysqli_num_rows($query);
                                     ($nbRep==0) ? $couleur = 'url(\'../../images/hachure-planning.png\') repeat' : $couleur = "none";
@@ -224,7 +224,7 @@
         <?php
             $query = mysqli_query($db, "SELECT LOGO_Id, LOGO_Url FROM logo
                                         JOIN logo_association USING(LOGO_Id)
-                                        WHERE PL_id=2 AND date_format(ASSOC_date, '%d/%m/%Y') = '".$tabDate[$datepl]."';");
+                                        WHERE PL_id=3 AND date_format(ASSOC_date, '%d/%m/%Y') = '".$tabDate[$datepl]."';");
             while($data = mysqli_fetch_assoc($query))
             {
                 echo '<div style="display:inline-block; width:150px; height:90px; margin:10px 7px 10px 7px;">
@@ -242,50 +242,27 @@
 		<table id="insertionTableau">
 			<thead>
 				<th id="firstColumn"></th>
-				<th><b>Encadrant équipe n°1</b><br/>8h30 - 12h</th>
-				<th id="emptyColumn"></th>
-				<th><b>Encadrant équipe n°1</b><br>13h - 16h30</th>
+				<th>Encadrant équipe n°1<br/>9h - 12h</th>
 				<th id="emptyColumn">P</th>
-				<th></th>			
-				<th id="emptyColumn"></th>
-				<th></th>
-				<th id="emptyColumn"></th>
+				<th><b>Encadrant équipe n°1</b><br>13h - 15h</th>
+				<th id="emptyColumn">P</th>
+				<th>Encadrant équipe n°2<br/>9h - 12h</th>			
+				<th id="emptyColumn">P</th>
+				<th><b>Encadrant équipe n°2</b><br>13h - 15h</th>
+				<th id="emptyColumn">P</th>
 			</thead>
 			<tbody>
 				<tr>
-					<td><b>Lundi<br>00/00</b></td><td></td><td></td><td></td><td></td>
-					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
-					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
-					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
-					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
+					<td><b>Lundi<br>00/00</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 				</tr>
 				<tr>
-					<td><b>Mardi<br>00/00</b></td><td></td><td></td><td></td><td></td>
-					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
-					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
-					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
-					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
+					<td><b>Mardi<br>00/00</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 				</tr>
 				<tr>
-					<td><b>Mercredi<br>00/00</b></td><td></td><td></td><td></td><td></td>
-					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
-					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
-					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
-					<td  style="background : url('../../images/hachure-planning.png') repeat;"></td>
+					<td><b>Mercredi<br>00/00</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 				</tr>
 				<tr>
-					<td><b>Jeudi<br>00/00</b></td><td></td><td></td><td></td><td></td>
-					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
-					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
-					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
-					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
-				</tr>
-				<tr>
-					<td><b>Vendredi<br>00/00</b></td><td></td><td></td><td></td><td></td>
-					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
-					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
-					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
-					<td style="background : url('../../images/hachure-planning.png') repeat;"></td>
+					<td><b>Jeudi<br>00/00</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 				</tr>
 			</tbody>
 		</table>
@@ -299,9 +276,9 @@
 	{
 	    if(confirm('Etes-vous sûr de vouloir supprimer le planning de la semaine du <?php echo $tabDate[$datepl]; ?> ?'))
 	    {
-	        document.getElementById("pl_occupationnel").action="../del_planning.php";
+	        document.getElementById("pl_stagiaire").action="../del_planning.php";
 	        document.getElementById("Date").value="<?php echo $tabDate[$datepl]; ?>";
-	        document.getElementById("pl_occupationnel").submit();
+	        document.getElementById("pl_stagiaire").submit();
 	    }
 	}
 
@@ -318,9 +295,9 @@
 				document.getElementById("basicDiv").style.display = "inline";
 				break;
 			case 3:
-				document.getElementById("pl_occupationnel").action="./edit_occupationnel.php";
+				document.getElementById("pl_stagiaire").action="./edit_stagiaire.php";
 				document.getElementById("Date").value="<?php echo $tabDate[$datepl]; ?>";
-				document.getElementById("pl_occupationnel").submit();
+				document.getElementById("pl_stagiaire").submit();
 				break;
 		}
 	}
@@ -340,9 +317,9 @@
 			case 3:
 				if(confirm('Etes-vous sûr de vouloir copier le planning ?'))
 			    {
-			        document.getElementById("pl_occupationnel").action="../copy_planning.php";
+			        document.getElementById("pl_stagiaire").action="../copy_planning.php";
 			        document.getElementById("Date").value="<?php echo $tabDate[$datepl]; ?>";
-			        document.getElementById("pl_occupationnel").submit();
+			        document.getElementById("pl_stagiaire").submit();
 			    }
 				break;
 		}
@@ -361,28 +338,26 @@
 				document.getElementById("basicDiv").style.display = "inline";
 				break;
 			case 3:
-		        document.getElementById("pl_occupationnel").action="../occupationnel/new_occupationnel.php";
-		        document.getElementById("pl_occupationnel").submit();
+		        document.getElementById("pl_stagiaire").action="../stagiaire/new_stagiaire.php";
+		        document.getElementById("pl_stagiaire").submit();
 				break;
 		}
 	}
     
 	function printPlanning()
 	{
-		document.getElementById("pl_occupationnel").action="../printer.php";
-        document.getElementById("pl_occupationnel").target="_blank";
+		document.getElementById("pl_stagiaire").action="../printer.php";
 		document.getElementById("Date").value="<?php echo $tabDate[$datepl]; ?>";
-		document.getElementById("pl_occupationnel").submit();
-        document.getElementById("pl_occupationnel").target="";
+		document.getElementById("pl_stagiaire").submit();
 	}
 
 	function archiPlanning()
 	{
 		if(confirm("Êtes-vous sûr de vouloir archiver le planning du <?php echo $tabDate[$datepl]; ?>"))
 		{
-			$("#pl_occupationnel").attr("action","../archive_planning.php");
+			$("#pl_stagiaire").attr("action","../archive_planning.php");
 			$("#Date").attr("value", "<?php echo $tabDate[$datepl]; ?>");
-			$("#pl_occupationnel").submit();
+			$("#pl_stagiaire").submit();
 		}
 	}
 </script>

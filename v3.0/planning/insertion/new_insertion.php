@@ -306,7 +306,9 @@
 						}
 					}
 				}
+				var equipeSelected = $("#equipechoix option:selected").attr("value");
 				document.getElementById("add_personne").reset();
+				$('#equipechoix option[value="'+equipeSelected+'"]').attr("selected","selected");
 			}
 			else
 			{

@@ -1,0 +1,119 @@
+body{
+	background-image:url("../images/background.jpg");
+	font-family: Helvetica;
+	line-height: 100%;
+}
+
+.planning{
+	margin: auto;
+	width: 90%;
+}
+
+.planning table{
+	width: 100%;
+	height: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+	height:100%;
+	margin:0px;
+	padding:0px;
+	table-layout: fixed;
+}
+.planning caption{
+	color: white;
+	font-weight: bold;
+	padding: 20px 0px;
+	font-size: 25px;
+}
+.planning tbody tr:last-child td:last-child {
+	-moz-border-radius-bottomright:6px;
+	-webkit-border-bottom-right-radius:6px;
+	border-bottom-right-radius:6px;
+}
+.planning table thead tr td:last-child {
+	-moz-border-radius-topright:6px;
+	-webkit-border-top-right-radius:6px;
+	border-top-right-radius:6px;
+}
+.planning tbody tr:last-child td:first-child{
+	-moz-border-radius-bottomleft:6px;
+	-webkit-border-bottom-left-radius:6px;
+	border-bottom-left-radius:6px;
+}
+
+.planning td{
+	vertical-align:middle;
+	border:1px solid #003f7f;
+	border-width:0px 1px 1px 0px;
+	text-align:center;
+	padding:7px;
+	font-size:12px;
+	font-family:Arial;
+	font-weight:normal;
+	color:#000000;
+}
+.planning tr{
+	background-color: white;
+}
+.planning tr:last-child td{
+	border-width:0px 1px 0px 0px;
+}
+.planning tr td:last-child{
+	border-width:0px 0px 1px 0px;
+}
+.planning tr:last-child td:last-child{
+	border-width:0px 0px 0px 0px;
+}
+.planning thead tr td, .planning th{
+	background:-o-linear-gradient(bottom, #005fbf 5%, #005fbf 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #005fbf), color-stop(1, #005fbf) );
+	background:-moz-linear-gradient( center top, #005fbf 5%, #005fbf 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#005fbf", endColorstr="#005fbf");	background: -o-linear-gradient(top,#005fbf,005fbf);
+
+	background-color:#005fbf;
+	border:0px solid #003f7f;
+	text-align:center;
+	border-width:0px 0px 1px 1px;
+	font-size:14px;
+	font-family:Arial;
+	color:#fff;
+	min-width:192px;
+}
+.planning thead tr td:last-child{
+	border-width:0px 0px 1px 1px;
+}
+.planning tbody tr{
+	height:80px;
+	max-height:80px;
+}
+
+.planning tbody tr td p{
+	width:91%;
+	float:left;
+	margin:0;
+	padding:2px 0px;
+	vertical-align:middle;
+}
+
+.planning #emptyColumn{
+	width:35px;
+	max-width:35px;
+}
+
+.planning #firstColumn{
+	width:80px;
+	max-width:80px;
+}
+
+.carouselwrapper{
+	margin-bottom: -50%;
+	transform: translateY(50%);
+}
+
+.owl-carousel{
+	margin: 0;
+	padding: 0;
+}
+
+.owl-pagination{
+	display: none;
+}

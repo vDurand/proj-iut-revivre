@@ -39,7 +39,7 @@
     	<script type="text/javascript" src="<?php echo $pwd; ?>js/raphael-min.js"></script>
     	<script type="text/javascript" src="<?php echo $pwd; ?>js/morris-0.5.1.min.js"></script>
 		<title><?php echo $pageTitle; ?></title>
-		<!-- V. Durand | A. Freret | P. Friboulet | J. Le Bas | IUT Caen - DUT Info (2013-2015) -->
+		<!-- V. Durand | A. Freret | P. Friboulet | J. Le Bas | IUT Caen - DUT Info (2013-2015) | P. Jourdain | F. Duval | C. Cosseron | B. Lemaitre | IUT Caen - DUT Info (2015-2016)-->
 	</head>
 
 	<body>
@@ -105,7 +105,8 @@
 								<ul class="subMenu">
 	                       			<li><a href="<?php echo $pwd; ?>planning/insertion/planning_insertion.php">Planning<br>ACI</a></li>
 									<li><a href="<?php echo $pwd; ?>planning/occupationnel/planning_occupationnel.php">Planning<br>occupationnel</a></li>
-									<li><a href="#">Planning<br>stagiaire</a></li>
+									<li><a href="<?php echo $pwd; ?>planning/stagiaire/planning_stagiaire.php">Planning<br>stagiaire</a></li>
+									<li><a href="<?php echo $pwd; ?>planning/affichage_planning.php">Affichage des<br>plannings</a></li>
 	                			</ul>
 							</li>
 							<li id="champs"><a href="<?php echo $pwd; ?>chantier/homeWork.php">Chantiers</a>

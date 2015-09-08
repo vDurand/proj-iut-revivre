@@ -12,7 +12,7 @@
 // Connexion a la base Revivre
 	function revivre()
 	{
-		if($db = MySQLi_connect("localhost","Kepha",'pfudor', 'RevivreV4', 0, '/media/fd0b1/alx22/private/mysql/socket'))
+		if($db = MySQLi_connect("localhost","Kepha",'pfudor', 'revivre', 0, '/media/fd0b1/alx22/private/mysql/socket'))
 			return $db;
 		else
 			echo 'Erreur';
@@ -203,5 +203,29 @@ function isJourFerie($date)
         
         return in_array(strtotime($date), $holidays, true);
     }
+}
+
+function highestDate($tabDate, $tabDateArchi)
+{
+    if(sizeof($tabDate) > 1)
+    {
+        if(sizeof($tabDateArchi) > 1)
+        {
+            $date = DateTime::createFromFormat('d/m/Y', $tabDate[1])->format('Y-m-d');
+            $dateArchi = DateTime::createFromFormat('d/m/Y', $tabDateArchi[1])->format('Y-m-d');
+            if($date > $dateArchi)
+            {
+                return date('Y-m-d', strtotime($date.'+ 7 day'));
+            }
+            else
+            {
+                return date('Y-m-d', strtotime($dateArchi.'+ 7 day'));
+            }
+        }
+        else
+            return date('Y-m-d', strtotime(DateTime::createFromFormat('d/m/Y', $tabDate[1])->format('Y-m-d').'+ 7 day'));
+    }
+    else
+        return date('Y-m-d', strtotime("next monday"));
 }
 ?>

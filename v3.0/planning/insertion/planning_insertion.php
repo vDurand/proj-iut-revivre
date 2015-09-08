@@ -3,11 +3,12 @@
 	$pwd='../../';
 	include($pwd."bandeau.php");
 
-	if(isset($_POST['date_select']) && $_POST['date_select'] >= 0 && $_POST['date_select'] < 11)
+	if(isset($_POST['date_select']) && $_POST['date_select'] >= 0)
 		$datepl = $_POST['date_select'];
 	else
 		$datepl = 0;
 	$tabDate = Array("Aucune date");
+	$tabDateArchi = Array("Aucune date");
 	$tabJour = Array("Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi");
 ?>
 <div id="corps">
@@ -15,52 +16,94 @@
     	<label>Les plannings sont en version beta, des modifications risquent d'être apportées.</label>
    	</div>
    	<br>
-	<table>
-		<tr>
-			<td>
-				<label>&#8226; Planning des salariés en ACI de la semaine du lundi : </label>
-			</td>
-			<td>
-				<div class="selectType" style="width:200px">
-					<form method="POST" action="./planning_insertion.php" name="pl_insertion">
-						<select name="date_select" onchange="this.form.submit()">
+   	<form method="POST" action="./planning_insertion.php" name="pl_insertion">
+		<table>
+			<tr>
+				<td>
+					<label>&#8226; Planning des salariés en ACI de la semaine du lundi : </label>
+				</td>
+				<td>
+					<div class="selectType" style="width:200px">
+						<select id="date_select" name="date_select" onchange="this.form.submit()">
 							<option <?php if($datepl == 0){echo "selected";} ?> value="0">Choisissez une date</option>
 							<?php
-								$query = mysqli_query($db, "SELECT DISTINCT date_format(ASSOC_date, '%d/%m/%Y') as 'date' FROM pl_association WHERE PL_id = 1 ORDER BY ASSOC_date DESC;");
-								$x=1;
-								while($data = mysqli_fetch_assoc($query))
+								if(isset($_POST["chkArchive"]) && $_POST["chkArchive"])
 								{
-							?>
-									<option <?php if($datepl == $x){echo "selected";} ?> value=<?php echo "'".$x."'";?>><?php echo $data["date"]; ?></option>;
-							<?php
-									$tabDate[$x++] = $data["date"];
-									echo $x;
-                                }
+									$query = mysqli_query($db, "SELECT DISTINCT date_format(ASSOC_date,'%d/%m/%Y') AS 'date' FROM pl_association WHERE PL_id = 1 AND ASSOC_Archi = 1 ORDER BY ASSOC_date DESC;");
+									$x=1;
+									while($data = mysqli_fetch_assoc($query))
+									{
+										echo '<option '.(($datepl == $x) ? "selected" : "").' value="'.$x.'">'.$data["date"].'</option>';
+										$tabDate[$x++] = $data["date"];
+	                                }
+								}
+								else
+								{
+									$query = mysqli_query($db, "SELECT DISTINCT date_format(ASSOC_date,'%d/%m/%Y') AS 'date' FROM pl_association WHERE PL_id = 1 AND ASSOC_Archi = 0 ORDER BY ASSOC_date DESC;");
+									$x=1;
+									while($data = mysqli_fetch_assoc($query))
+									{
+										echo '<option '.(($datepl == $x) ? "selected" : "").' value="'.$x.'">'.$data["date"].'</option>';
+										$tabDate[$x++] = $data["date"];
+	                                }
+
+	                                $query = mysqli_query($db, "SELECT DISTINCT date_format(ASSOC_date,'%d/%m/%Y') AS 'date' FROM pl_association WHERE PL_id = 1 AND ASSOC_Archi = 1 ORDER BY ASSOC_date DESC;");
+									$x=1;
+									while($data = mysqli_fetch_assoc($query))
+									{
+										$tabDateArchi[$x++] = $data["date"];
+	                                }
+	                            }
 								mysqli_free_result($query);
-							?>
+							?>					
 						</select>
-					</form>
-				</div>
-			</td>
-		</tr>
-	</table>
+					</div>
+				</td>
+				<td>
+					<?php
+						if(isset($_POST["chkArchive"]) && $_POST["chkArchive"])
+						{
+					?>
+						<input id="chkArchive" name="chkArchive" type="checkbox" onchange="$('#date_select option:first-child').attr('selected', 'selected'); this.form.submit();" checked/><label>Archives</label>
+					<?php
+						}
+						else
+						{
+					?>
+						<input id="chkArchive" name="chkArchive" type="checkbox" onchange=" $('#date_select option:first-child').attr('selected', 'selected'); this.form.submit();"/><label>Archives</label>
+					<?php
+						}
+					?>
+				</td>
+			</tr>
+		</table>
+	</form>
     <div id="divCopyInfo" class="ConfigPanel" style="margin-top:5px; height:25px;">
         <form method="POST" name="pl_insertion" id="pl_insertion" style="margin:0 auto; text-align:center; padding-top:2px;">
             <div id="basicDiv" style="margin:0; padding:0; display:inline;">
+            <?php
+            	if(isset($_POST["chkArchive"]) && $_POST["chkArchive"])
+            	{
+            ?>
+                <input name="printPl" id="printPl" type="button" value="Imprimer" class="printButton" <?php if($datepl==0) echo 'disabled="disabled"'; ?> onclick="printPlanning()">
+            <?php
+            	}
+            	else
+            	{
+            ?>
                 <input name="newPl" id="newPl" type="button" value="Nouveau" class="printButton" onclick="newPlanning(1)">
                 <input name="editPl" id="editPl" type="button" value="Modifier" class="printButton" <?php if($datepl==0) echo 'disabled="disabled"'; ?> onclick="editPlanning(1)">
                 <input name="copiePl" id="copiePl" type="button" value="Copier" class="printButton" <?php if($datepl==0) echo 'disabled="disabled"'; ?> onclick="copyPlanning(1)">
                 <input name="delPl" id="delPl" type="button" value="Supprimer" class="printButton" <?php if($datepl==0) echo 'disabled="disabled"'; ?> onclick="deletePlanning()">
                 <input name="printPl" id="printPl" type="button" value="Imprimer" class="printButton" <?php if($datepl==0) echo 'disabled="disabled"'; ?> onclick="printPlanning()">
+                <input name="archiPl" id="archiPl" type="button" value="Archiver" class="printButton" <?php if($datepl==0) echo 'disabled="disabled"'; ?> onclick="archiPlanning()">
+            <?php
+            	}
+            ?>
             </div>
             <div id="newDiv" style="margin:0; padding:0; display:none;">
                 <label>Création d'un planning à la date du</label>
-                <input type='date' id="dateNew" name='dateNew' class="SpecialDate" 
-                       value="<?php if($datepl>0){echo date('Y-m-d',strtotime(DateTime::createFromFormat('d/m/Y', $tabDate[1])->format('Y-m-d').'+ 7 day'));}
-                    else{$valueDate = (sizeof($tabDate)>1) ? date('Y-m-d',strtotime(DateTime::createFromFormat('d/m/Y', $tabDate[1])->format('Y-m-d').'+ 7 day')) : date('Y-m-d',strtotime("next monday")); echo $valueDate;}?>" 
-                       min="<?php if($datepl>0){echo date('Y-m-d',strtotime(DateTime::createFromFormat('d/m/Y', $tabDate[1])->format('Y-m-d').'+ 7 day'));}
-                    else{$valueDate = (sizeof($tabDate)>1) ? date('Y-m-d',strtotime(DateTime::createFromFormat('d/m/Y', $tabDate[1])->format('Y-m-d').'+ 7 day')) : date('Y-m-d',strtotime("next monday")); echo $valueDate;}?>" 
-                       step="7" style="height:21px; margin:0px 5px;">
+                <input type='date' id="dateNew" name='dateNew' class="SpecialDate" value="<?php echo highestDate($tabDate, $tabDateArchi); ?>" min="<?php echo highestDate($tabDate, $tabDateArchi); ?>" step="7" style="height:21px; margin:0px 5px;">
                 <label>avec</label>
                 <input type="number" name="numberNew" id="numberNew" style="height:19px; width:40px; margin:0px 5px;" value="2" min="1">
                 <label>encadrant(s).&nbsp;&nbsp;&nbsp;&nbsp;</label>
@@ -76,9 +119,7 @@
             </div>
             <div id="copieDiv" style="margin:0; padding:0; display:none;">
                 <label>Copie du planning du lundi <?php echo $tabDate[$datepl];?> pour le</label>
-                <input type='date' id="dateToCopy" name='dateToCopy' class="SpecialDate" value="<?php if($datepl>0) echo date('Y-m-d',strtotime(DateTime::createFromFormat('d/m/Y', $tabDate[1])->format('Y-m-d').'+ 7 day')); ?>" 
-                        min="<?php if($datepl>0) echo date('Y-m-d',strtotime(DateTime::createFromFormat('d/m/Y', $tabDate[1])->format('Y-m-d').'+ 7 day')); ?>" 
-                       step="7" style="height:21px; margin:0px 25px 0px 5px;" <?php echo $tabDate[1]; ?>>
+                <input type='date' id="dateToCopy" name='dateToCopy' class="SpecialDate"  value="<?php echo highestDate($tabDate, $tabDateArchi); ?>" min="<?php echo highestDate($tabDate, $tabDateArchi); ?>" step="7" style="height:21px; margin:0px 25px 0px 5px;">
                 <input name="validCopie" id="validCopie" type="button" value="Valider" class="buttonNormal" onclick="copyPlanning(3)">
                 <input name="cancelCopie" id="cancelCopie" type="button" value="Annuler" class="buttonNormal" onclick="copyPlanning(2)">
             </div>
@@ -313,6 +354,16 @@
 		document.getElementById("Date").value="<?php echo $tabDate[$datepl]; ?>";
 		document.getElementById("pl_insertion").submit();
         document.getElementById("pl_insertion").target="";
+	}
+
+	function archiPlanning()
+	{
+		if(confirm("Êtes-vous sûr de vouloir archiver le planning du <?php echo $tabDate[$datepl]; ?>"))
+		{
+			$("#pl_insertion").attr("action","../archive_planning.php");
+			$("#Date").attr("value", "<?php echo $tabDate[$datepl]; ?>");
+			$("#pl_insertion").submit();
+		}
 	}
 </script>
 <?php

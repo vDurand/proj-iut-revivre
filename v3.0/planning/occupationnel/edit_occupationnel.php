@@ -132,7 +132,10 @@
 											WHERE FCT_id = 4 AND SAL_Actif = 1 ORDER BY Nom;");
 						while($donnees = mysqli_fetch_assoc($reponse))
 						{
-							($donnees["SAL_NumSalarie"] == $encadrant[$x]) ? $selectedOrNot = "selected" : $selectedOrNot = "";
+							if($x < sizeof($encadrant))
+								($donnees["SAL_NumSalarie"] == $encadrant[$x]) ? $selectedOrNot = "selected" : $selectedOrNot = "";
+							else
+								$selectedOrNot = "";
 							echo '<option '.$selectedOrNot.' value="'.$donnees["SAL_NumSalarie"].'">'.$donnees["Nom"].'</option>';
 						}
 						mysqli_free_result($reponse);
@@ -383,7 +386,9 @@
 						}
 					}
 				}
+				var equipeSelected = $("#equipechoix option:selected").attr("value");
 				document.getElementById("add_personne").reset();
+				$('#equipechoix option[value="'+equipeSelected+'"]').attr("selected","selected");
 			}
 			else
 			{

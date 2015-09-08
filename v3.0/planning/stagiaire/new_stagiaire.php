@@ -1,5 +1,5 @@
 <?php
-	$pageTitle = "Création de planning occupationnel";
+	$pageTitle = "Création de planning stagiaire";
 	$pwd='../../';
 	include($pwd."bandeau.php");
 	if(isset($_POST['typePL']) && isset($_POST['numberNew']) && $_POST['numberNew'] > 0 && isset($_POST['dateNew']))
@@ -17,11 +17,11 @@
 ?>
 <div id="corps">
 <?php
-	if($appelValide == "2")
+	if($appelValide == "3")
 	{
-		$query = mysqli_query($db, "SELECT DISTINCT ASSOC_date FROM pl_association WHERE PL_id = 2 ORDER BY ASSOC_date desc LIMIT 1;");
+		$query = mysqli_query($db, "SELECT DISTINCT ASSOC_date FROM pl_association WHERE PL_id = 3 ORDER BY ASSOC_date desc LIMIT 1;");
 		$data =  mysqli_fetch_assoc($query);
-		$tabJour = Array("Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi");
+		$tabJour = Array("Lundi", "Mardi", "Mercredi", "Jeudi");
 		mysqli_free_result($query);
 		echo '<div id="labelT">     
     		 <label>Création d\'un nouveau planning</label>
@@ -36,7 +36,7 @@
 					$reponse = mysqli_query($db, "SELECT concat(concat(upper(PER_nom),' '), PER_prenom) AS 'Nom', SAL_NumSalarie FROM insertion
 												JOIN salaries USING(SAL_NumSalarie) 
 												JOIN personnes USING(PER_Num) 
-												WHERE TYS_ID = 0 AND TYP_Id = 9 AND SAL_Actif = 1 ORDER BY Nom;");
+												WHERE TYS_ID = 0 AND TYP_Id = 7 AND SAL_Actif = 1 ORDER BY Nom;");
 						while($donnees = mysqli_fetch_assoc($reponse))
 						{
 							echo '<option value="'.$donnees["SAL_NumSalarie"].'">'.$donnees["Nom"].'</option>';	
@@ -76,11 +76,6 @@
                         <input type="checkbox" id="choice30" value="7" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 3 day')))) echo 'disabled';?>/>
                         <label <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 3 day')))) echo 'style="color:lightgrey"';?>>Matin</label>
                     </td>
-					<td rowspan="2" id="daytitle" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 4 day')))) echo 'style="color:lightgrey"';?>>Vendredi : </td>
-					<td>
-                        <input type="checkbox" id="choice40" value="9" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 4 day')))) echo 'disabled';?>/>
-                        <label <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 4 day')))) echo 'style="color:lightgrey"';?>>Matin</label>
-                    </td>
 				</tr>
 				<tr>
 					<td>
@@ -98,10 +93,6 @@
 					<td>
                         <input type="checkbox" id="choice31" value="8" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 3 day')))) echo 'disabled';?>/>
                         <label <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 3 day')))) echo 'style="color:lightgrey"';?>>Après-midi</label>
-                    </td>
-					<td>
-                        <input type="checkbox" id="choice41" value="10" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 4 day')))) echo 'disabled';?>/>
-                        <label <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 4 day')))) echo 'style="color:lightgrey"';?>>Après-midi</label>
                     </td>
 				</tr>
 			</table>
@@ -127,7 +118,7 @@
 								echo '<option value="'.$donnees["SAL_NumSalarie"].'">'.$donnees["Nom"].'</option>';
 							}
 							mysqli_free_result($reponse);
-							echo '</select><br/>8h30 - 12h</th><th id="emptyColumn">P</th><th id="encad'.$x.'"><b>Encadrant équipe n°'.($x+1).'</b><br>13h - 16h30</th><th id="emptyColumn">P</th>';
+							echo '</select><br/>9h - 12h</th><th id="emptyColumn">P</th><th id="encad'.$x.'"><b>Encadrant équipe n°'.($x+1).'</b><br>13h - 15h</th><th id="emptyColumn">P</th>';
 						}
 						if($nombreEncadrant == 1)
 						{
@@ -140,7 +131,7 @@
 				</thead>
 				<tbody>
 				<?php
-					for($x=0; $x<5; $x++)
+					for($x=0; $x<4; $x++)
 					{
 						echo '<tr><td><b>'.$tabJour[$x].'<br>';
                         
@@ -188,17 +179,17 @@
             }
         ?>
     </div>
-	<form method="post" action="./post_occupationnel.php" name="valid_planning" id="valid_planning">
+	<form method="post" action="./post_stagiaire.php" name="valid_planning" id="valid_planning">
 		<table style="margin:10px auto 0 auto;">
 			<tr>
 				<td>
-					<input name="cancel" id="cancel" type="button" class="buttonC" value="Annuler" onclick="if(confirm('Etes-vous sûr de vouloir annuler ?')){window.location.replace('./planning_occupationnel.php');}">
+					<input name="cancel" id="cancel" type="button" class="buttonC" value="Annuler" onclick="if(confirm('Etes-vous sûr de vouloir annuler ?')){window.location.replace('./planning_stagiaire.php');}">
 					<input type='hidden' id="Tableau" name='Tableau' value=''>
                     <input type='hidden' id="TableauLogo" name='TableauLogo' value=''>
 					<input type='hidden' id="Modify" name='Modify' value='false'>
-					<input type='hidden' id="typePL" name='typePL' value='2'>
+					<input type='hidden' id="typePL" name='typePL' value='3'>
                     <input type="hidden" id="Date" name="Date" value=<?php echo "'".$date."'";?>/>
-					<input type='hidden' id="redirectPage" name='redirectPage' value="./planning_occupationnel.php">
+					<input type='hidden' id="redirectPage" name='redirectPage' value="./planning_stagiaire.php">
 				</td>
 				<td><input name="validPL" type="button" class="buttonC" value="Sauvegarder" onclick="postData()"></td>
 			</tr>
@@ -213,7 +204,7 @@
 		     </div>';
 
 	    echo '<script type="text/javascript">
-			 window.setTimeout("location=(\'./planning_occupationnel.php\');",2500);
+			 window.setTimeout("location=(\'./planning_stagiaire.php\');",2500);
 			 </script>';
 	}
 ?>

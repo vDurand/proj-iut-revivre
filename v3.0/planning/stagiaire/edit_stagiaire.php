@@ -1,31 +1,39 @@
 <?php
-	$pageTitle = "Création de planning occupationnel";
+	$pageTitle = "Édition de planning stagiaire";
 	$pwd='../../';
 	include($pwd."bandeau.php");
-	if(isset($_POST['typePL']) && isset($_POST['numberNew']) && $_POST['numberNew'] > 0 && isset($_POST['dateNew']))
+	if(isset($_POST['Date']) && isset($_POST['numberEdit']) && $_POST['numberEdit'] >= 0)
 	{
-        $date = $_POST['dateNew'];
-		$appelValide = $_POST['typePL'];
-		$nombreEncadrant = $_POST['numberNew'];
+		$datepl = $_POST['Date'];
+		$nbAjoutEncadrant = $_POST['numberEdit'];
 	}
 	else
 	{
-        $date = '01/01/1970';
-		$appelValide  = "0";
-		$nombreEncadrant = "0";
+		$datepl = 0;
+		$nbAjoutEncadrant = 0;
 	}
 ?>
 <div id="corps">
 <?php
-	if($appelValide == "2")
+	if($datepl != 0)
 	{
-		$query = mysqli_query($db, "SELECT DISTINCT ASSOC_date FROM pl_association WHERE PL_id = 2 ORDER BY ASSOC_date desc LIMIT 1;");
-		$data =  mysqli_fetch_assoc($query);
-		$tabJour = Array("Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi");
-		mysqli_free_result($query);
+		$date = DateTime::createFromFormat('d/m/Y', $datepl)->format('Y-m-d');
+		$reponse = mysqli_query($db, "select distinct concat(concat(upper(PER_nom),' '),PER_prenom) as 'nom', ENC_Num
+							from pl_association join salaries sa on sa.SAL_NumSalarie = ENC_Num 
+							join personnes using(PER_Num) where ASSOC_date='".$date."' AND PL_id = 3 ORDER BY ENC_Num;");
+		$x=0;
+		while($donnees = mysqli_fetch_assoc($reponse))
+		{
+			$encadrant[$x] = $donnees["ENC_Num"];
+			$encadrantNom[$x++] = $donnees["nom"];
+		}
+		mysqli_free_result($reponse);
+		$CreValue=1;
+		$tabJour = Array("Lundi", "Mardi", "Mercredi", "Jeudi");
+		$arrayElements = Array();
 		echo '<div id="labelT">     
-    		 <label>Création d\'un nouveau planning</label>
-   			 </div><br/>';
+		      <label>Modification du planning de la semaine du lundi : '.$datepl.'</label>
+		      </div><br/>';
 ?>
 	<form name="add_personne" id ="add_personne">
 		<div class="ConfigPanel">
@@ -36,7 +44,7 @@
 					$reponse = mysqli_query($db, "SELECT concat(concat(upper(PER_nom),' '), PER_prenom) AS 'Nom', SAL_NumSalarie FROM insertion
 												JOIN salaries USING(SAL_NumSalarie) 
 												JOIN personnes USING(PER_Num) 
-												WHERE TYS_ID = 0 AND TYP_Id = 9 AND SAL_Actif = 1 ORDER BY Nom;");
+												WHERE TYS_ID = 0 AND TYP_Id = 7 AND SAL_Actif = 1 ORDER BY Nom;");
 						while($donnees = mysqli_fetch_assoc($reponse))
 						{
 							echo '<option value="'.$donnees["SAL_NumSalarie"].'">'.$donnees["Nom"].'</option>';	
@@ -46,7 +54,7 @@
 			</select>
 			<select id="equipechoix" style="height:25px;">
 			<?php
-				for($x=0; $x<$nombreEncadrant; $x++)
+				for($x=0; $x<sizeof($encadrant)+$nbAjoutEncadrant; $x++)
 				{
 					echo '<option value="'.$x.'">Equipe '.($x+1).'</option>';
 				}
@@ -55,7 +63,7 @@
 			&nbsp;
 			<input name="addpersonne" type="button" value="Ajouter la personne au planning" onclick="parseWorkTime()" style="margin:3px 0px 3px 5px;" class="buttonNormal">
 			<table style="margin:5px 0px 0px 0px;">
-                <tr>
+				<tr>
 					<td rowspan="2" id="daytitle" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 0 day')))) echo 'style="color:lightgrey"';?>>&nbsp;&nbsp;Lundi : </td>
 					<td>
                         <input type="checkbox" id="choice00" value="1" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 0 day')))) echo 'disabled';?>/>
@@ -76,11 +84,6 @@
                         <input type="checkbox" id="choice30" value="7" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 3 day')))) echo 'disabled';?>/>
                         <label <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 3 day')))) echo 'style="color:lightgrey"';?>>Matin</label>
                     </td>
-					<td rowspan="2" id="daytitle" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 4 day')))) echo 'style="color:lightgrey"';?>>Vendredi : </td>
-					<td>
-                        <input type="checkbox" id="choice40" value="9" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 4 day')))) echo 'disabled';?>/>
-                        <label <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 4 day')))) echo 'style="color:lightgrey"';?>>Matin</label>
-                    </td>
 				</tr>
 				<tr>
 					<td>
@@ -99,10 +102,6 @@
                         <input type="checkbox" id="choice31" value="8" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 3 day')))) echo 'disabled';?>/>
                         <label <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 3 day')))) echo 'style="color:lightgrey"';?>>Après-midi</label>
                     </td>
-					<td>
-                        <input type="checkbox" id="choice41" value="10" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 4 day')))) echo 'disabled';?>/>
-                        <label <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 4 day')))) echo 'style="color:lightgrey"';?>>Après-midi</label>
-                    </td>
 				</tr>
 			</table>
 		</div>
@@ -111,63 +110,111 @@
 		<div class="planningTable">
 			<table id="insertionTableau">
 				<thead>
-					<?php
-						echo '<th id="firstColumn"></th>';
-						for($x=0; $x<$nombreEncadrant; $x++)
+				<?php
+					echo '<th id="firstColumn"></th>';
+					for($x=0; $x<sizeof($encadrant)+$nbAjoutEncadrant; $x++)
+					{
+						echo'<th>
+								<select id="encadrant'.$x.'" onchange="changeName('.$x.')" required="required">
+									<option value="-1">Choisissez un encadrant</option>';
+						$reponse = mysqli_query($db, "SELECT concat(concat(upper(PER_nom),' '), PER_prenom) AS 'Nom', SAL_NumSalarie 
+											FROM salaries
+											JOIN personnes USING(PER_Num)
+											WHERE FCT_id = 4 AND SAL_Actif = 1 ORDER BY Nom;");
+						while($donnees = mysqli_fetch_assoc($reponse))
 						{
-							echo'<th>
-									<select id="encadrant'.$x.'" onchange="changeName('.$x.')" required="required">
-										<option value="-1">Choisissez un encadrant</option>';
-							$reponse = mysqli_query($db, "SELECT concat(concat(upper(PER_nom),' '), PER_prenom) AS 'Nom', SAL_NumSalarie 
-												FROM salaries
-												JOIN personnes USING(PER_Num)
-												WHERE FCT_id = 4 AND SAL_Actif = 1 ORDER BY Nom;");
-							while($donnees = mysqli_fetch_assoc($reponse))
-							{
-								echo '<option value="'.$donnees["SAL_NumSalarie"].'">'.$donnees["Nom"].'</option>';
-							}
-							mysqli_free_result($reponse);
-							echo '</select><br/>8h30 - 12h</th><th id="emptyColumn">P</th><th id="encad'.$x.'"><b>Encadrant équipe n°'.($x+1).'</b><br>13h - 16h30</th><th id="emptyColumn">P</th>';
+							if($x < sizeof($encadrant))
+								($donnees["SAL_NumSalarie"] == $encadrant[$x]) ? $selectedOrNot = "selected" : $selectedOrNot = "";
+							else
+								$selectedOrNot = "";
+							echo '<option '.$selectedOrNot.' value="'.$donnees["SAL_NumSalarie"].'">'.$donnees["Nom"].'</option>';
 						}
-						if($nombreEncadrant == 1)
-						{
-							echo '<th></th>
-							<th id="emptyColumn"></th>
-							<th></th>
-							<th id="emptyColumn"></th>';
-						}
-					?>
+						mysqli_free_result($reponse);
+						echo '</select><br/>8h30 - 12h</th><th id="emptyColumn">P</th><th id="encad'.$x.'"><b>Encadrant équipe n°'.($x+1).'</b><br>13h - 16h30</th><th id="emptyColumn">P</th>';
+					}
+					if(sizeof($encadrant)+$nbAjoutEncadrant == 1)
+					{
+						echo '<th></th>
+						<th id="emptyColumn"></th>
+						<th></th>
+						<th id="emptyColumn"></th>';
+					}
+				?>
 				</thead>
 				<tbody>
 				<?php
-					for($x=0; $x<5; $x++)
+					$CreValue=1;
+					$z=0;
+					for($x=0; $x<4; $x++)
 					{
-						echo '<tr><td><b>'.$tabJour[$x].'<br>';
-                        
-                        if(isJourFerie(date("d/m/Y", strtotime($date.' + '.$x.' day'))))
-                        {
-                            echo 'FÉRIÉ';
-                        }
-                        else
-                        {
-                            echo date("d/m", strtotime($date.' + '.$x.' day')); 
-                        }
-                        echo '</b></td>';
-                        
-						for($y=0; $y<$nombreEncadrant*2; $y++)
-						{	
-				            if(isJourFerie(date("d/m/Y", strtotime($date.' + '.$x.' day'))))
-				                echo '<td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td><td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td>';
+				?>
+					<tr>
+                        <td>
+                            <b>
+                            <?php 
+                                echo $tabJour[$x]."<br>";
+                                if(isJourFerie(date("d/m/Y", strtotime($date.' + '.$x.' day'))))
+                                {
+                                    echo 'FÉRIÉ';
+                                }
+                                else
+                                {
+                                    echo date("d/m", strtotime($date.' + '.$x.' day')); 
+                                }
+                            ?>
+                            </b>
+                        </td>
+					<?php
+						$increment = 0;
+						for($y=0; $y<(sizeof($encadrant)*2); $y++)
+						{
+							$flag = false;
+							$query = mysqli_query($db,"SELECT concat(concat(PER_nom,' '),PER_prenom) AS 'nom', SAL_NumSalarie FROM pl_association
+													JOIN salaries USING(SAL_NumSalarie)
+													JOIN personnes USING(PER_Num)
+													WHERE ASSOC_date = '".$date."' AND CRE_id = ".$CreValue." AND ENC_Num = ".$encadrant[$y/2]." AND PL_id = 3;");
+							
+                            if(isJourFerie(date("d/m/Y", strtotime($date.' + '.$x.' day'))))
+				                echo '<td style="background:url(\'../../images/hachure-planning.png\') repeat; text-align:center; vertical-align:middle;">';
                             else
-                                echo '<td></td><td></td>';
+                                echo '<td style="text-align:center; vertical-align:middle;">';
+							
+							while($data = mysqli_fetch_assoc($query))
+							{
+                                echo '<div><p>'.$data["nom"].'</p><input name="suppr" type="button" class="delCross" value="x" onclick="delPersonne('.($x+1).','.($y+$increment+1).',\''.$data["nom"].'\','.$data["SAL_NumSalarie"].','.$encadrant[$y/2].','.$CreValue.')"></div>';
+                                $arrayElements[$z++] = Array($data["SAL_NumSalarie"],$encadrant[$y/2],$CreValue);
+							}
+                            
+                            if(isJourFerie(date("d/m/Y", strtotime($date.' + '.$x.' day'))))
+				                echo '</td><td style="background:url(\'../../images/hachure-planning.png\') repeat;" class="emptyCells"></td>';
+                            else
+                                echo '</td><td class="emptyCells"></td>';
+                            
+							if($CreValue%2 == 0)
+								$CreValue--;
+							else
+								$CreValue++;
+							$increment++;
 						}
-						if($nombreEncadrant == 1)
+						for($y=0; $y<$nbAjoutEncadrant; $y++)
+						{
+							if(isJourFerie(date("d/m/Y", strtotime($date.' + '.$x.' day'))))
+				                echo '<td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td><td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td>
+                                    <td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td><td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td>';
+                            else
+                                echo '<td></td><td></td><td></td><td></td>';
+						}
+						if(sizeof($encadrant)+$nbAjoutEncadrant==1)
 						{
 							echo '<td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td><td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td>
 								  <td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td><td style="background:url(\'../../images/hachure-planning.png\') repeat;"></td>';
 						}
-						echo '</tr>';
+					?>
+					</tr>
+				<?php
+					$CreValue += 2;
 					}
+					mysqli_free_result($query);
 				?>
 				</tbody>
 			</table>
@@ -177,28 +224,39 @@
         <label style="font-weight:bold; margin: 0px 0px 0px 9px;">Choix d'un ou plusieurs logos (Non obligatoire) :</label>
         <br/>
         <?php
-            $query = mysqli_query($db, "SELECT LOGO_Id, LOGO_Url FROM logo;");
+            $query = mysqli_query($db, "SELECT LOGO_Id, LOGO_Url, \"true\" as checked FROM logo JOIN logo_association USING(LOGO_id) WHERE ASSOC_date = '".$date."' AND PL_id = 3
+                                        UNION
+                                        SELECT LOGO_Id, LOGO_Url, \"false\" as checked FROM logo WHERE LOGO_Id NOT IN (SELECT LOGO_Id FROM logo_association WHERE ASSOC_date = '".$date."' AND PL_id = 3);");
+            $x=0;
             while($data = mysqli_fetch_assoc($query))
             {
                 echo '<div style="display:inline-block; width:150px; height:90px; margin:10px 9px 10px 9px;">
                         <img src="../'.$data["LOGO_Url"].'" style="position:absolute; border:1px solid #bcbcbc;">
                         <input type="checkbox" id="check'.$data["LOGO_Id"].'" name="check'.$data["LOGO_Id"].'" 
-                        style="position:relative; top:6px; left:6px; width:18px; height:18px;" onclick=\'checkLogo('.$data["LOGO_Id"].',"check'.$data["LOGO_Id"].'")\'/>
-                    </div>';
+                        style="position:relative; top:6px; left:6px; width:18px; height:18px;" onclick=\'checkLogo('.$data["LOGO_Id"].',"check'.$data["LOGO_Id"].'")\'';
+                if($data["checked"]=="true")
+                {
+                    echo ' checked="checked"/></div>';
+                    $arrayLogo[$x++] = (int)$data["LOGO_Id"];
+                }
+                else
+                {
+                   echo '/></div>';
+                }
             }
         ?>
     </div>
-	<form method="post" action="./post_occupationnel.php" name="valid_planning" id="valid_planning">
+	<form method="post" action="./post_stagiaire.php" name="valid_planning" id="valid_planning">
 		<table style="margin:10px auto 0 auto;">
 			<tr>
 				<td>
-					<input name="cancel" id="cancel" type="button" class="buttonC" value="Annuler" onclick="if(confirm('Etes-vous sûr de vouloir annuler ?')){window.location.replace('./planning_occupationnel.php');}">
+					<input name="cancel" id="cancel" type="button" class="buttonC" value="Annuler" onclick="if(confirm('Etes-vous sûr de vouloir annuler ?')){window.location.replace('./planning_stagiaire.php');}">
 					<input type='hidden' id="Tableau" name='Tableau' value=''>
-                    <input type='hidden' id="TableauLogo" name='TableauLogo' value=''>
-					<input type='hidden' id="Modify" name='Modify' value='false'>
-					<input type='hidden' id="typePL" name='typePL' value='2'>
+					<input type='hidden' id="TableauLogo" name='TableauLogo' value=''>
                     <input type="hidden" id="Date" name="Date" value=<?php echo "'".$date."'";?>/>
-					<input type='hidden' id="redirectPage" name='redirectPage' value="./planning_occupationnel.php">
+					<input type='hidden' id="Modify" name='Modify' value='true'>
+					<input type='hidden' id="typePL" name='typePL' value='3'>
+					<input type='hidden' id="redirectPage" name='redirectPage' value="./planning_stagiaire.php">
 				</td>
 				<td><input name="validPL" type="button" class="buttonC" value="Sauvegarder" onclick="postData()"></td>
 			</tr>
@@ -208,20 +266,34 @@
 	}
 	else
 	{
-		echo '<div id="bad">
-		     <label>Une erreur s\'est produite, la requête vers le serveur à expiré !</label>
-		     </div>';
-
+		echo '<div id="bad">     
+		      <label>Une erreur s\'est produite, la requête vers le serveur à expiré !</label>
+		      </div>';
 	    echo '<script type="text/javascript">
-			 window.setTimeout("location=(\'./planning_occupationnel.php\');",2500);
+			 window.setTimeout("location=(\'./planning_stagiaire.php\');",2500);
 			 </script>';
 	}
 ?>
 </div>
 <script type="text/javascript">
-	var tableau = new Array;
-    var tableauLogo = new Array;
-	var numEncad = new Array(<?php for($x=0; $x<$nombreEncadrant; $x++){if($x < $nombreEncadrant-1) echo 'document.getElementById("encadrant'.$x.'").value, '; else echo 'document.getElementById("encadrant'.$x.'").value';}?>);
+	<?php
+		$js_array1 = json_encode($arrayElements);
+		echo "var tableau = ".$js_array1.";";
+        if(!empty($arrayLogo))
+        {
+            $js_array2 = json_encode($arrayLogo);
+            echo "var tableauLogo = ".$js_array2.";";
+        }
+        else
+            echo "var tableauLogo = new Array;";
+	?>
+	var numEncad = new Array(<?php for($x=0; $x<sizeof($encadrant)+$nbAjoutEncadrant; $x++){if($x < sizeof($encadrant)+$nbAjoutEncadrant-1) echo 'document.getElementById("encadrant'.$x.'").value, '; else echo 'document.getElementById("encadrant'.$x.'").value';}?>);
+	<?php
+			for($x=0; $x<sizeof($encadrant)+$nbAjoutEncadrant; $x++)
+			{
+				echo 'changeName('.$x.');';
+			}
+	?>
 
 	function changeName(index)
 	{
@@ -229,7 +301,7 @@
 		{
 		<?php
 			$predicat = ""; 
-			for($y=0; $y<$nombreEncadrant; $y++)
+			for($y=0; $y<sizeof($encadrant)+$nbAjoutEncadrant; $y++)
 			{
 				if($y==0) 
 				{
@@ -240,9 +312,9 @@
 					$predicat .= '!= document.getElementById("encadrant'.$y.'").value ';
 				}
 			}
-			for($x=0; $x<$nombreEncadrant; $x++)
+			for($x=0; $x<sizeof($encadrant)+$nbAjoutEncadrant; $x++)
 			{
-				if($nombreEncadrant > 1)
+				if(sizeof($encadrant)+$nbAjoutEncadrant > 1)
 				{
 					echo 'case '.$x.':
 						if(document.getElementById("encadrant'.$x.'").value != -1)
@@ -258,7 +330,6 @@
 										}
 									}
 									numEncad['.$x.'] = document.getElementById("encadrant'.$x.'").value;
-
 							}
 							else
 							{
@@ -294,7 +365,7 @@
 	{
 		if(document.getElementById("salariechoix").value != -1)
 		{
-			if(<?php for($x=0; $x<$nombreEncadrant; $x++){if($x==0) echo 'document.getElementById("encadrant'.$x.'").value != -1 '; else echo '&& document.getElementById("encadrant'.$x.'").value != -1 ';}?>)
+			if(<?php for($x=0; $x<sizeof($encadrant)+$nbAjoutEncadrant; $x++){if($x==0) echo 'document.getElementById("encadrant'.$x.'").value != -1 '; else echo '&& document.getElementById("encadrant'.$x.'").value != -1 ';}?>)
 			{
 				for(var x=0; x<5; x++)
 				{
@@ -321,13 +392,14 @@
 		}
 	}
 
+
 	function addPersonne(x,y,encadNum,creneau)
 	{
 		var table = document.getElementById('insertionTableau');
 		var nom = document.getElementById("salariechoix").options[document.getElementById("salariechoix").selectedIndex].text;
 		var salarieNum = document.getElementById("salariechoix").value;
 		if((table.rows[x].cells[y].innerHTML).indexOf(nom) == -1)
-        {
+		{
             table.rows[x].cells[y].innerHTML = table.rows[x].cells[y].innerHTML+'<div><p>'+nom+'</p><input name="suppr" type="button" class="delCross" value="x" onclick="delPersonne('+x+','+y+',\''+nom+'\','+salarieNum+','+encadNum+','+creneau+')"></div>';
             tableau[tableau.length] = new Array(salarieNum,encadNum,creneau);
 		}
@@ -380,18 +452,40 @@
     
 	function postData()
 	{	
+		var allEncad = false;
 		if(tableau.length > 0)
 		{
-			if(confirm("Etes-vous sûr de vouloir sauvegarder le planning ?"))
+		<?php
+			if(sizeof($encadrant)+$nbAjoutEncadrant > 1)
 			{
-				document.getElementById('Tableau').value = JSON.stringify(tableau);
-                document.getElementById('TableauLogo').value = JSON.stringify(tableauLogo);
-		     	document.getElementById("valid_planning").submit();
-		    }
+		?>
+				if(<?php for($x=0; $x<sizeof($encadrant)+$nbAjoutEncadrant; $x++){if($x==0) echo 'document.getElementById("encadrant'.$x.'").value '; else echo '!= document.getElementById("encadrant'.$x.'").value ';}?>)
+				{
+		<?php 
+			} 
+		?>
+					if(confirm("Etes-vous sûr de vouloir sauvegarder le planning ?"))
+					{
+						document.getElementById('Tableau').value = JSON.stringify(tableau);
+						document.getElementById('TableauLogo').value = JSON.stringify(tableauLogo);
+				     	document.getElementById("valid_planning").submit();
+				    }
+		<?php
+			if(sizeof($encadrant)+$nbAjoutEncadrant > 1)
+			{
+		?>
+				}
+				else
+				{
+					alert("Veuillez choisir des encadrants différents pour chaque équipe !");
+				}
+		<?php 
+			}
+		?>
 		}
 		else
 		{
-			alert("Vous devez remplir le planning avant de le sauvegarder !");
+			alert("Vous devez remplir le planning avant de la sauvegarder !");
 		}
 	}
 </script>
