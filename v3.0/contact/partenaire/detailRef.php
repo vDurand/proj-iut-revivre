@@ -81,6 +81,7 @@ include('../../bandeau.php');
                             <td>
               <span>
                 <input name="submit" type="submit" value="Modifier" class="buttonC">
+                <input name="retour" type="button" value="Retour"   class="buttonC" onclick="window.location.replace('<?php echo $pwd; ?>contact/partenaire/viewRef.php');">
               </span>
                             </td>
                         </tr>

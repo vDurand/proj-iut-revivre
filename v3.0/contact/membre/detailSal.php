@@ -89,6 +89,7 @@ include('../../bandeau.php');
                             <td>
               <span>
                 <input name="submit" type="submit" value="Modifier" class="buttonC">
+                <input name="retour" type="button" value="Retour"   class="buttonC" onclick="javascript:submitListMember('<?php echo $donnees['TYP_Id']; ?>');">
               </span>
                             </td>
                         </tr>
@@ -104,6 +105,7 @@ include('../../bandeau.php');
         mysqli_free_result($reponse);
         ?>
     </div>
+
 <?php
 include('../../footer.php');
 ?>

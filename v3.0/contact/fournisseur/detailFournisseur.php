@@ -79,12 +79,17 @@ include('../../bandeau.php');
                         </td>
                         <form method="post" action="../addEmploye.php" name="AddEmploye">
                             <input type="hidden" name="NumF" value="<?php echo $fourn['FOU_NumFournisseur']; ?>">
-                            <td>
+                        <td>
                             <span>
                                 <input name="submit" type="submit" value="Ajouter Employé" class="buttonC">
                             </span>
-                            </td>
+                        </td>
                         </form>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input name="retour" type="button" value="Retour"  class="buttonC" onclick="window.location.replace('<?php echo $pwd; ?>contact/fournisseur/viewFournEnt.php');">
+                        </td>
                     </tr>
                 </table>
                 <!-- List Employes -->

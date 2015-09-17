@@ -237,6 +237,11 @@
             </form>
         </td>
     </tr>
+    <tr>
+        <td colspan="4">
+              <input name="retour" type="button" value="Retour" class="buttonC" onclick="window.location.replace('<?php echo $pwd; ?>chantier/awaitingWorks.php');">
+        </td>
+    </tr>
     <!-- Ajout Responsable -->
     <tr id="Ajout-Resp" style="display:none;">
         <form method="post" action="chantierAdd.php" name="Chantier" formtype="1" colvalue="2">

@@ -84,6 +84,8 @@ include('../../bandeau.php');
                             <td>
               <span>
                 <input name="submit" type="submit" value="Modifier" class="buttonC">
+                <input name="retour" type="button" value="Retour"   class="buttonC" onclick="window.location.replace('<?php echo $pwd; ?>contact/fournisseur/viewFournEmp.php');">
+
               </span>
                             </td>
                         </tr>
