@@ -109,12 +109,11 @@ include('../../bandeau.php');
                         <td>
                             <span>
                                 <input name="submit" type="submit" value="Modifier" class="buttonC">
-                            <input name="retour" type="button" value="Retour"   class="buttonC" onclick="window.location.replace('<?php echo $pwd; ?>contact/client/viewClientPart.php');">
                             </span>
                         </td>
                     </form>
                     <?php
-                    if($struc !="Particulier"){
+                        if($struc !="Particulier"){
                     ?>
                     <form method="post" action="../addEmploye.php" name="AddEmploye">
                         <input type="hidden" name="NumC" value="<?php echo $numC; ?>">
@@ -126,7 +125,22 @@ include('../../bandeau.php');
                     </form>
                     <?php
                     }
+                    if ($struc !="Particulier"){
                     ?>
+                    <td>
+                        <input name="retour" type="button" value="Retour"  class="buttonC" onclick="window.location.replace('<?php echo $pwd; ?>contact/client/viewClientEnt.php');">
+                    </td>
+                    <?php
+                    }
+                    else{
+                    ?>
+                    <td>
+                        <input name="retour" type="button" value="Retour"  class="buttonC" onclick="window.location.replace('<?php echo $pwd; ?>contact/client/viewClientPart.php');">
+                    </td>
+                    <?php
+                    }
+                    ?>
+                    
                 </tr>
             </table>
 

@@ -21,7 +21,7 @@ include('../../bandeau.php');
             $mail = $donneesEmp['PER_Email'];
             $fct = formatLOW($donneesEmp['EMC_Fonction']);
             $struc = $donneesEmp['CLI_Nom'];
-            mysqli_free_result($queryPart);
+            mysqli_free_result($queryEmploye);
 ?>
             <div id="labelT">
                 <label><?php echo $struc; ?> : Detail de l'employé</label>
@@ -92,6 +92,8 @@ include('../../bandeau.php');
                         <td>
               <span>
                 <input name="submit" type="submit" value="Modifier" class="buttonC">
+                <input name="retour" type="button" value="Retour"   class="buttonC" onclick="window.location.replace('<?php echo $pwd; ?>contact/client/viewClientEmp.php');">
+
               </span>
                         </td>
                     </tr>
