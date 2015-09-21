@@ -19,7 +19,7 @@
                 {
                     if($tableau[$x][3]==1)
                     {
-                        $query = mysqli_query($db, "INSERT INTO convention(CNV_Id, CNV_Nom, CNV_Couleur) VALUES (".($tableau[$x][0]).",upper('".$tableau[$x][1]."'),'".$tableau[$x][2]."');");
+                        $query = mysqli_query($db, "INSERT INTO convention(CNV_Id, CNV_Nom, CNV_Couleur) VALUES (".($tableau[$x][0]).",upper('".addslashes($tableau[$x][1])."'),'".$tableau[$x][2]."');");
                         if(!$query)
                         {
                             $erreur = true;
@@ -27,7 +27,7 @@
                     }
                     else if($tableau[$x][3]==0)
                     {
-                        $query = mysqli_query($db, "UPDATE convention SET CNV_Nom='".$tableau[$x][1]."', CNV_Couleur='".$tableau[$x][2]."' WHERE CNV_ID='".($tableau[$x][0])."';");
+                        $query = mysqli_query($db, "UPDATE convention SET CNV_Nom=upper('".addslashes($tableau[$x][1])."'), CNV_Couleur='".$tableau[$x][2]."' WHERE CNV_ID='".($tableau[$x][0])."';");
                         if(!$query)
                         {
                             $erreur = true;

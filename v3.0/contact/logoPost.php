@@ -7,6 +7,7 @@
     <?php
         if(isset($_POST['Tableau']) && isset($_POST['typeAction']) && !empty($_POST['typeAction']))
         {
+            print_r(json_decode($_POST["Tableau"]));
             $typeAction = $_POST['typeAction'];
             $tableau = json_decode($_POST["Tableau"]);
             switch($typeAction)

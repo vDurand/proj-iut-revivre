@@ -240,6 +240,7 @@ include('../bandeau.php');
                         <td><?php echo dater($donnees['CHA_DateDebut']); ?></td>
                         <td><?php echo $donnees['TYE_Nom']; ?></td>
                     </tr>
+                    <input type="hidden" name="RedirectPage" value="chantier/ongoingWorks.php"/>
                 </form>
             <?php
             }

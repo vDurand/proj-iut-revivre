@@ -24,6 +24,12 @@ include('../../bandeau.php');
             <label>Liste <?php echo $pronom; ?> <?php echo $donnees1['TYP_Nom']; ?>s</label>
         </div>
         <br>
+        <h4 style="margin:0;">Filtres : </h4>
+        <form method="POST" action="" style="margin:10px 15px;">
+            <input type="checkbox" name="archive" onchange="this.form.submit()" <?php echo (isset($_POST["archive"])) ? "checked" : "";?> />
+            <label for="archive">Archives</label>
+            <input type="hidden" name="TypeM" value="<?php echo $type; ?>"/>
+        </form>
         <?php
         mysqli_free_result($reponse1);
         ?>
@@ -58,7 +64,14 @@ include('../../bandeau.php');
                 </thead>
                 <tbody>
                 <?php
-                $reponse = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE TYP_Id=$type ORDER BY PER_Nom");
+                if(isset($_POST["archive"]) && $_POST["archive"])
+                {
+                    $reponse = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE TYP_Id=$type AND SAL_Actif=0 ORDER BY PER_Nom");
+                }
+                else
+                {
+                    $reponse = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num WHERE TYP_Id=$type AND SAL_Actif=1 ORDER BY PER_Nom");
+                }
                 while ($donnees = mysqli_fetch_assoc($reponse)) {
                     if ($donnees['TYP_Id'] < 6) {
                         echo '<form method="get" action="detailSal.php" name="detailSal">';

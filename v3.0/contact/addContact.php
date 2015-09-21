@@ -55,7 +55,7 @@ include('../bandeau.php');
             <br/>
 
             <div style="overflow:auto;">
-                <table align="left">
+                <table align="center">
                     <tr>
                         <td style="vertical-align:top;">
                             <table id="leftT" cellpadding="10">

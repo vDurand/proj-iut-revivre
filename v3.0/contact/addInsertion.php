@@ -36,13 +36,13 @@ include('../bandeau.php');
         </table>
     </div>
     <br/>
-    <table align="left">
+    <table align="center">
         <tr>
             <td style="vertical-align:top;">
                 <table id="leftT" cellpadding="10">
                     <tr id="Contact-Entretien">
                         <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Entretien">Date de l'entretien :</label>
+                            <label for="Entretien">Date de l'entretien* :</label>
                         </td>
                         <td>
                             <input id="Entretien" required name="Entretien" type="date" class="inputC">
@@ -50,7 +50,7 @@ include('../bandeau.php');
                     </tr>
                     <tr id="Contact-Nom">
                         <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Nom">Nom :</label>
+                            <label for="Nom">Nom* :</label>
                         </td>
                         <td>
                             <input id="Nom" required maxlength="255" name="Nom" type="text" class="inputC"
@@ -59,7 +59,7 @@ include('../bandeau.php');
                     </tr>
                     <tr id="Contact-DateNai">
                         <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="DateNai">Date de naissance :</label>
+                            <label for="DateNai">Date de naissance* :</label>
                         </td>
                         <td>
                             <input id="DateNai" required name="DateNai" type="date" class="inputC">
@@ -67,7 +67,7 @@ include('../bandeau.php');
                     </tr>
                     <tr id="Contact-Nationalite">
                         <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Nationalite">Nationalité :</label>
+                            <label for="Nationalite">Nationalité* :</label>
                         </td>
                         <td>
                             <input id="Nationalite" required maxlength="255" name="Nationalite" type="text"
@@ -85,15 +85,15 @@ include('../bandeau.php');
                     </tr>
                     <tr id="Contact-Prenom">
                         <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Prenom">Prénom :</label>
+                            <label for="Prenom">Prénom* :</label>
                         </td>
                         <td>
-                            <input id="Prenom" maxlength="255" name="Prenom" type="text" class="inputC">
+                            <input id="Prenom" maxlength="255" required name="Prenom" type="text" class="inputC">
                         </td>
                     </tr>
                     <tr id="Contact-LieuNai">
                         <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="LieuNai">Lieu de naissance :</label>
+                            <label for="LieuNai">Lieu de naissance* :</label>
                         </td>
                         <td>
                             <input id="LieuNai" required maxlength="255" name="LieuNai" type="text" class="inputC">
@@ -101,10 +101,10 @@ include('../bandeau.php');
                     </tr>
                     <tr id="Contact-Situation">
                         <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Situation">Situation familiale :</label>
+                            <label for="Situation">Situation familiale* :</label>
                         </td>
                         <td>
-                            <input id="Situation" maxlength="255" name="Situation" type="text" class="inputC">
+                            <input id="Situation" required maxlength="255" name="Situation" type="text" class="inputC">
                         </td>
                     </tr>
                 </table>
@@ -112,7 +112,7 @@ include('../bandeau.php');
         </tr>
     </table>
 
-    <table align="left">
+    <table align="center">
         <tr>
             <td style="vertical-align:top;">
                 <table id="leftT" cellpadding="10">
@@ -123,7 +123,7 @@ include('../bandeau.php');
                     </tr>
                     <tr id="Contact-Adresse">
                         <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Adresse">Adresse :</label>
+                            <label for="Adresse">Adresse* :</label>
                         </td>
                         <td>
                             <input id="Adresse" required maxlength="255" name="Adresse" type="text"
@@ -132,7 +132,7 @@ include('../bandeau.php');
                     </tr>
                     <tr id="Contact-Ville">
                         <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Ville">Ville :</label>
+                            <label for="Ville">Ville* :</label>
                         </td>
                         <td>
                             <input id="Ville" required maxlength="255" name="Ville" type="text" class="inputC">
@@ -172,7 +172,7 @@ include('../bandeau.php');
                     </tr>
                     <tr id="Contact-Code_Postal">
                         <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Code_Postal">Code Postal :</label>
+                            <label for="Code_Postal">Code Postal* :</label>
                         </td>
                         <td>
                             <input id="Code_Postal" required name="Code_Postal" pattern="^\d{5}$" type="text" title=""
@@ -199,10 +199,10 @@ include('../bandeau.php');
                     </tr>
                     <tr id="Contact-Secu">
                         <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="N_Secu">N° Sécurité sociale :</label>
+                            <label for="N_Secu">N° Sécurité sociale* :</label>
                         </td>
                         <td>
-                            <input id="N_Secu" maxlength="255" name="N_Secu" type="text" class="inputC">
+                            <input id="N_Secu" required maxlength="255" name="N_Secu" type="text" class="inputC">
                         </td>
                     </tr>
                     <tr id="Contact-CAF">
@@ -223,13 +223,13 @@ include('../bandeau.php');
         </tr>
     </table>
 
-    <table align="left">
+    <table align="center">
         <tr>
             <td style="vertical-align:top;">
                 <table id="leftT" cellpadding="10">
                     <tr>
                         <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Ref">Référent identifié :</label>
+                            <label for="Ref">Référent identifié* :</label>
                         </td>
                         <td>
                             <div class="selectType2">
@@ -250,7 +250,7 @@ include('../bandeau.php');
                     </tr>
                     <tr>
                         <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Convention">Convention :</label>
+                            <label for="Convention">Convention* :</label>
                         </td>
                         <td>
                             <div class="selectType2">
@@ -271,7 +271,7 @@ include('../bandeau.php');
                     </tr>
                     <tr id="Jours-Travailles">
                         <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Jours">Jours travaillés :</label>
+                            <label for="Jours">Jours travaillés* :</label>
                         </td>
                         <td>
                             <input id="Jours" maxlength="255" name="Jours" type="number" required value="0" min="0" class="inputC">
@@ -286,12 +286,12 @@ include('../bandeau.php');
                             <label for="Entree">Date d'entrée :</label>
                         </td>
                         <td>
-                            <input id="Entree" required name="Entree" type="date" class="inputC">
+                            <input id="Entree" name="Entree" type="date" class="inputC">
                         </td>
                     </tr>
                     <tr>
                         <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Contrat">Type de contrat :</label>
+                            <label for="Contrat">Type de contrat* :</label>
                         </td>
                         <td>
                             <div class="selectType2">
@@ -312,10 +312,10 @@ include('../bandeau.php');
                     </tr>
                     <tr id="Nombre-Heures">
                         <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="N_Heures">Nombre d'heures :</label>
+                            <label for="N_Heures">Nombre d'heures* :</label>
                         </td>
                         <td>
-                            <input id="N_Heures" maxlength="255" required value="0" name="N_Heures" type="number" min="0"
+                            <input id="N_Heures" maxlength="255" value="0" name="N_Heures" type="number" min="0"
                                    class="inputC">
                         </td>
                     </tr>
@@ -324,7 +324,7 @@ include('../bandeau.php');
         </tr>
     </table>
 
-    <table align="left">
+    <table align="center">
         <tr>
             <td style="vertical-align:top;">
                 <table id="leftT" cellpadding="10">
@@ -335,7 +335,7 @@ include('../bandeau.php');
                     </tr>
                     <tr id="Niveau">
                         <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Niveau">Niveau soclaire :</label>
+                            <label for="Niveau">Niveau soclaire* :</label>
                         </td>
                         <td>
                             <div class="selectType2">
@@ -352,7 +352,7 @@ include('../bandeau.php');
                     </tr>
                     <tr id="Reconnaissance">
                         <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Reconnaissance">Reconnaissance TH:</label>
+                            <label for="Reconnaissance">Reconnaissance TH*:</label>
                         </td>
                         <td>
                             <input type="radio" id="Reconnaissance" name="Reconnaissance"
@@ -372,7 +372,7 @@ include('../bandeau.php');
                     </tr>
                     <tr id="Diplome">
                         <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Diplome">Diplôme :</label>
+                            <label for="Diplome">Diplôme* :</label>
                         </td>
                         <td>
                             <div class="selectType2">
@@ -388,7 +388,7 @@ include('../bandeau.php');
                     </tr>
                     <tr id="Permis">
                         <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Permis">Permis :</label>
+                            <label for="Permis">Permis* :</label>
                         </td>
                         <td>
                             <input type="radio" id="Permis" name="Permis" value="1">Oui<br>
@@ -399,7 +399,7 @@ include('../bandeau.php');
             </td>
         </tr>
     </table>
-    <table align="left">
+    <table align="center">
         <tr>
             <td style="vertical-align:top;">
                 <table id="leftT" cellpadding="10">
@@ -410,7 +410,7 @@ include('../bandeau.php');
                     </tr>
                     <tr id="Revenus-Type">
                         <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Revenus-Type">Revenus :</label>
+                            <label for="Revenus-Type">Revenus* :</label>
                         </td>
                         <td>
                             <div class="selectType2">
@@ -427,7 +427,7 @@ include('../bandeau.php');
                     </tr>
                     <tr id="Inscrit-Pole">
                         <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Inscrit-Pole">Inscription Pôle Emploi depuis :</label>
+                            <label for="Inscrit-Pole">Inscription Pôle Emploi depuis* :</label>
                         </td>
                         <td>
                             <div class="selectType2">
@@ -443,7 +443,7 @@ include('../bandeau.php');
                     </tr>
                     <tr id="CAP">
                         <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="CAP">Positionnement sur l'atelier du CAP :</label>
+                            <label for="CAP">Positionnement sur l'atelier du CAP* :</label>
                         </td>
                         <td>
                             <div class="selectType2">
@@ -464,7 +464,7 @@ include('../bandeau.php');
                     </tr>
                     <tr id="Situation-Geo">
                         <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Situation-Geo">Situation géograhique :</label>
+                            <label for="Situation-Geo">Situation géograhique* :</label>
                         </td>
                         <td>
                             <input type="radio" id="Situation-Geo" name="Situation-Geo" value="ZUS">ZUS<br>
@@ -483,7 +483,7 @@ include('../bandeau.php');
                     </tr>
                     <tr id="Revenus-Durée">
                         <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Revenus-Durée">Depuis :</label>
+                            <label for="Revenus-Durée">Depuis* :</label>
                         </td>
                         <td>
                             <div class="selectType2">
@@ -498,7 +498,7 @@ include('../bandeau.php');
                     </tr>
                     <tr id="Sans-Emploi">
                         <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Sans-Emploi">Sans emploi depuis :</label>
+                            <label for="Sans-Emploi">Sans emploi depuis* :</label>
                         </td>
                         <td>
                             <div class="selectType2">
@@ -514,7 +514,7 @@ include('../bandeau.php');
                     </tr>
                     <tr id="Mutuelle">
                         <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Mutuelle">Mutuelle :</label>
+                            <label for="Mutuelle">Mutuelle* :</label>
                         </td>
                         <td>
                             <div class="selectType2">
@@ -530,7 +530,7 @@ include('../bandeau.php');
                     </tr>
                     <tr id="Repas">
                         <td style="text-align: left; width: 150px; white-space: normal;">
-                            <label for="Repas">Repas :</label>
+                            <label for="Repas">Repas* :</label>
                         </td>
                         <td>
                             <input type="radio" id="Repas" name="Repas" value="Oui">Oui<br>

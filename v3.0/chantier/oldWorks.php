@@ -231,11 +231,12 @@ include('../bandeau.php');
                                 echo dater($donnees['CHA_DateFinReel']);
                             }
                             else{
-                                echo Refusé;
+                                echo "Refusé";
                             }
                             ?>
                         </td>
                     </tr>
+                    <input type="hidden" name="RedirectPage" value="chantier/oldWorks.php"/>
                 </form>
             <?php
             }

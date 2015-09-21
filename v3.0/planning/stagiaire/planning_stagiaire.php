@@ -12,10 +12,6 @@
 	$tabJour = Array("Lundi", "Mardi", "Mercredi", "Jeudi");
 ?>
 <div id="corps">
-	<div id="info">     
-    	<label>Les plannings sont en version beta, des modifications risquent d'être apportées.</label>
-   	</div>
-    <br>
 	<form method="POST" action="./planning_stagiaire.php" name="pl_stagiaire">
 		<table>
 			<tr>

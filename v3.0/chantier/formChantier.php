@@ -239,7 +239,7 @@
     </tr>
     <tr>
         <td colspan="4">
-              <input name="retour" type="button" value="Retour" class="buttonC" onclick="window.location.replace('<?php echo $pwd; ?>chantier/awaitingWorks.php');">
+              <input name="retour" type="button" value="Retour" class="buttonC" onclick="window.location.replace('<?php echo $pwd.$_GET["RedirectPage"]; ?>');">
         </td>
     </tr>
     <!-- Ajout Responsable -->

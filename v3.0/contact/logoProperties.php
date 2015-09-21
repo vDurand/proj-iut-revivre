@@ -257,11 +257,12 @@
                     {
                         echo "if(finalUrl != \"\")
                             {
-                                var ligneModif = new Array(document.getElementById('nomLogo').value,tableauElements[".($numero_logo-1)."][1],tableauElements[".($numero_logo-1)."][2],true); 
+                                var ligneModif = [document.getElementById('nomLogo').value, tableauElements[".($numero_logo-1)."][1],tableauElements[".($numero_logo-1)."][2],true]; 
                             }
                             else
                             {
                                 var ligneModif = tableauElements[".($numero_logo-1)."];
+                                ligneModif[0] = document.getElementById('nomLogo').value;
                                 ligneModif[3] = false;
                             }
                             document.getElementById('Tableau').value = JSON.stringify(ligneModif);
