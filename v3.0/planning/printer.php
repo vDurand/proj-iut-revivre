@@ -115,7 +115,7 @@ if(isset($_POST['Date']) && isset($_POST['typePL']))
         }
         $content.= "</div>
             <h4 style=\" text-align:center; margin:0px; font-weight:normal;\">
-            Association Revivre Service CAP, Chemin de Mondeville - 14460 COLOMBELLES - ".date("Y", strtotime($date))." | Page ".($compteur+1)."/".(ceil(sizeof($encadrant)/2))."</h4></page_footer></page>";
+            Imprimé le ".date("d/m/Y")." à l'Association Revivre Service CAP, Chemin de Mondeville - 14460 COLOMBELLES | Page ".($compteur+1)."/".(ceil(sizeof($encadrant)/2))."</h4></page_footer></page>";
         $compteur++;
         $w+=4;
         $m+=2;
@@ -129,7 +129,7 @@ else
 {
     include('../bandeau.php');
     echo "<div id=\"corps\">
-             <div id=\"bad\">     
+             <div id=\"bad\">
              <label>Une erreur s'est produite lors de la tentative d'impression !</label>
              </div>
         </div>"; 
