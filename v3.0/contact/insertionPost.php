@@ -47,42 +47,67 @@ include('../bandeau.php');
         $resultPerMax = mysqli_fetch_assoc($queryPerMax);
         $perMax = $resultPerMax['maxi'] + 1;
 
-        $insertPersonne = "INSERT INTO Personnes (PER_Num, PER_Nom, PER_Prenom, PER_TelFixe, PER_TelPort, PER_Fax, PER_Email, PER_Adresse, PER_CodePostal, PER_Ville)
-                           VALUES ($perMax, '$nom', '$prenom', '$tel', '$port', '$fax', '$email', '$add', '$cp', '$ville')";
-        $sql2 = mysqli_query($db, $insertPersonne);
-        $errr2 = mysqli_error($db);
+        if(mysqli_query($db, 'SET autocommit=0;') && mysqli_query($db, 'START TRANSACTION;'))
+        {
+            $insertPersonne = "INSERT INTO Personnes (PER_Num, PER_Nom, PER_Prenom, PER_TelFixe, PER_TelPort, PER_Fax, PER_Email, PER_Adresse, PER_CodePostal, PER_Ville)
+                               VALUES ($perMax, '$nom', '$prenom', '$tel', '$port', '$fax', '$email', '$add', '$cp', '$ville')";
+            $sql2 = mysqli_query($db, $insertPersonne);
+            $errr2 = mysqli_error($db);
 
-        if ($sql2) {
-            $querySalMax = mysqli_query($db, "SELECT MAX(SAL_NumSalarie) as maxi FROM Salaries");
-            $resultSalMax = mysqli_fetch_assoc($querySalMax);
-            $salMax = $resultSalMax['maxi'] + 1;
+            if ($sql2) {
+                $querySalMax = mysqli_query($db, "SELECT MAX(SAL_NumSalarie) as maxi FROM Salaries");
+                $resultSalMax = mysqli_fetch_assoc($querySalMax);
+                $salMax = $resultSalMax['maxi'] + 1;
 
-            $insertSal = "INSERT INTO Salaries (SAL_NumSalarie, PER_Num, FCT_Id, TYP_Id) VALUES ($salMax, $perMax, '$fonct', '$type')";
-            $sql = mysqli_query($db, $insertSal);
-            $errr = mysqli_error($db);
-
-            if ($sql) {
-                $insertIns = "INSERT INTO Insertion(SAL_NumSalarie, INS_DateEntretien, INS_DateN, INS_LieuN, INS_Nation, INS_SituationF, INS_NPoleEmp, INS_NSecu,
-                INS_NCaf, INS_NivScol, INS_Diplome, INS_Permis, INS_RecoTH, INS_Revenu, INS_Mutuelle, CNV_Id, CNT_Id, INS_DateEntree, INS_NbHeures, INS_NbJours,
-                INS_RevenuDepuis, INS_SEDepuis, INS_PEDupuis, INS_Repas, INS_Positionmt, INS_SituGeo, REF_NumRef, TYS_ID, INS_DateSortie)
-                VALUES ($salMax, '$dateEntretien', '$dateN', '$lieuN', '$nation', '$situationF', '$nPoleEmploi', '$nSecu', '$nCaf', '$nivScol', '$diplome', '$permis', '$recoTH',
-                '$revenu', '$mutuelle', '$convention', '$contrat', '$dateEntree', '$nbHeures', '$nbJours', '$revenuDepuis', '$SEDepuis', '$PEDepuis', '$repas', '$positionement', '$situGeo', '$numRef', '0', '0000-00-00')";
-                $sql3 = mysqli_query($db, $insertIns);
+                $insertSal = "INSERT INTO Salaries (SAL_NumSalarie, PER_Num, FCT_Id, TYP_Id) VALUES ($salMax, $perMax, '$fonct', '$type')";
+                $sql = mysqli_query($db, $insertSal);
                 $errr = mysqli_error($db);
-            }
-        }
 
-        if ($sql3) {
-            echo '<div id="good">
-        <label>Ajout Réussi</label>
-        </div>';
-        } else {
-            echo '<div id="bad">
-          <label>Le Salarié n\'a pas pu être ajouté</label>
-          </div>';
+                if ($sql) {
+                    $insertIns = "INSERT INTO Insertion(SAL_NumSalarie, INS_DateEntretien, INS_DateN, INS_LieuN, INS_Nation, INS_SituationF, INS_NPoleEmp, INS_NSecu,
+                    INS_NCaf, INS_NivScol, INS_Diplome, INS_Permis, INS_RecoTH, INS_Revenu, INS_Mutuelle, CNV_Id, CNT_Id, INS_DateEntree, INS_NbHeures, INS_NbJours,
+                    INS_RevenuDepuis, INS_SEDepuis, INS_PEDupuis, INS_Repas, INS_Positionmt, INS_SituGeo, REF_NumRef, TYS_ID, INS_DateSortie)
+                    VALUES ($salMax, '$dateEntretien', '$dateN', '$lieuN', '$nation', '$situationF', '$nPoleEmploi', '$nSecu', '$nCaf', '$nivScol', '$diplome', '$permis', '$recoTH',
+                    '$revenu', '$mutuelle', '$convention', '$contrat', '$dateEntree', '$nbHeures', '$nbJours', '$revenuDepuis', '$SEDepuis', '$PEDepuis', '$repas', '$positionement', '$situGeo', '$numRef', '0', '0000-00-00')";
+                    $sql3 = mysqli_query($db, $insertIns);
+                    $errr = mysqli_error($db);
+
+                    if($sql3){
+                        mysqli_query($db, 'COMMIT;');
+                        echo '<div id="good">
+                        <label>Ajout Réussi</label>
+                        </div>';
+                    }
+                    else
+                    {
+                        mysqli_query($db, 'ROLLBACK;');
+                        echo '<div id="bad">
+                        <label>Le Salarié n\'a pas pu être ajouté</label>
+                        </div>';
+                    }
+                }
+                else
+                {
+                    mysqli_query($db, 'ROLLBACK;');
+                    echo '<div id="bad">
+                    <label>Le Salarié n\'a pas pu être ajouté</label>
+                    </div>';
+                }
+
+            }
+            else
+            {
+                mysqli_query($db, 'ROLLBACK;');
+                echo '<div id="bad">
+                <label>Le Salarié n\'a pas pu être ajouté</label>
+                </div>';
+            }
         }
         ?>
     </div>
 <?php
+    echo '<script type="text/javascript">
+    window.setTimeout("location=(\''.$pwd.'home.php\');",2500);
+    </script>';
 include('../footer.php');
 ?>

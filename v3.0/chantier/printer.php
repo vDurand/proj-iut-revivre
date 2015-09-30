@@ -249,7 +249,7 @@ ini_set('display_startup_errors', TRUE);
         $title = formatUP($donnees['Struct'])."-".formatLOW($donnees['CHA_Intitule']).".pdf";
     else
         $title = formatUP($donnees['Client'])."_".formatLOW($donnees['ClientP'])."-".formatLOW($donnees['CHA_Intitule']).".pdf";
-	require_once('/media/fd0b1/alx22/stuff/html2pdf/html2pdf.class.php');
+	require_once('../stuff/html2pdf/html2pdf.class.php');
 	$html2pdf = new HTML2PDF('P','A4','fr');
 	$html2pdf->WriteHTML($content);
 	$html2pdf->Output($title);

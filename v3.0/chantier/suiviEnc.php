@@ -111,17 +111,19 @@ $pwd='../';
         </div>
         <table class="tableContact">
             <thead>
-            <tr>
-                <td class="firstCol" style="text-align: center; width: 20%;">Intitulé</td>
-                <td style="text-align: center; width: 10%;">Montant</td>
-                <td style="text-align: center; width: 10%;">Achats Prévus</td>
-                <td style="text-align: center; width: 10%;">Achats Totaux</td>
-                <td style="text-align: center; width: 10%;">Ecart Achat</td>
-                <td style="text-align: center; width: 10%;">Heures prévues</td>
-                <td style="text-align: center; width: 10%;">Heures Tolales</td>
-                <td style="text-align: center; width: 10%;">Ecart MO</td>
-                <td style="text-align: center; width: 10%;">NB Salariés</td>
-            </tr>
+                <tr>
+                    <td class="firstCol" style="text-align: center;">Numéro</td>
+                    <td style="text-align: center; width: 19%;">Intitulé</td>
+                    <td style="text-align: center; width: 10%;">Montant</td>
+                    <td style="text-align: center; width: 10%;">Achats Prévus</td>
+                    <td style="text-align: center; width: 10%;">Achats Totaux</td>
+                    <td style="text-align: center; width: 10%;">Ecart Achat</td>
+                    <td style="text-align: center; width: 10%;">Heures prévues</td>
+                    <td style="text-align: center; width: 10%;">Heures Tolales</td>
+                    <td style="text-align: center; width: 10%;">Ecart MO</td>
+                    <td style="text-align: center; width: 10%;">NB Salariés</td>
+                    <td style="text-align: center; width: 10%;">Client</td>
+                </tr>
             </thead>
             <tbody>
 <?php
@@ -143,8 +145,7 @@ $pwd='../';
      * select CHA_NumDevis, CHA_HeuresPrev,
      * TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(TRA_Duree))), '%H:%i') as HeureTot,
      * TIME_FORMAT(SEC_TO_TIME(TIME_TO_SEC(TIME(CHA_HeuresPrev*10000)) - SUM(TIME_TO_SEC(TRA_Duree))), '%H:%i') as EcartHeure,
-     * COUNT(DISTINCT SAL_NumSalarie) as NbSalarie,
-     * SUM(TIME_TO_SEC(TRA_Duree))*100/TIME_TO_SEC(TIME(CHA_HeuresPrev*10000)) as ProgHeure
+     * COUNT(DISTINCT SAL_NumSalarie) as NbSalarie
      * from Chantiers
      * JOIN TempsTravail USING (CHA_NumDevis)
      * group by CHA_NumDevis;
@@ -153,7 +154,7 @@ $pwd='../';
 
     if($numEnc == 0){
         if($year == 0){
-            $query = "select CHA_Intitule, CHA_Echeance, CHA_MontantPrev, ch.CHA_AchatsPrev, AchatTot, EcartAch, he.CHA_HeuresPrev, HeureTot, EcartHeure, NbSalarie
+            $query = "select ch.CHA_NumDevis, CHA_Intitule, CHA_Echeance, CHA_MontantPrev, ch.CHA_AchatsPrev, AchatTot, EcartAch, he.CHA_HeuresPrev, HeureTot, EcartHeure, NbSalarie
             from Chantiers ch
             LEFT JOIN ChantierAchat ac ON ch.CHA_NumDevis=ac.CHA_NumDevis
             JOIN ChantierHeure he ON ch.CHA_NumDevis=he.CHA_NumDevis
@@ -161,7 +162,7 @@ $pwd='../';
             ORDER BY CHA_Intitule";
         }
         elseif($month == 0){
-            $query = "select CHA_Intitule, CHA_Echeance, CHA_DateDebut, CHA_DateFinReel, CHA_MontantPrev, ch.CHA_AchatsPrev, AchatTot, EcartAch, he.CHA_HeuresPrev, HeureTot, EcartHeure, NbSalarie
+            $query = "select ch.CHA_NumDevis, CHA_Intitule, CHA_Echeance, CHA_DateDebut, CHA_DateFinReel, CHA_MontantPrev, ch.CHA_AchatsPrev, AchatTot, EcartAch, he.CHA_HeuresPrev, HeureTot, EcartHeure, NbSalarie
             from Chantiers ch
             LEFT JOIN ChantierAchat ac ON ch.CHA_NumDevis=ac.CHA_NumDevis
             JOIN ChantierHeure he ON ch.CHA_NumDevis=he.CHA_NumDevis
@@ -171,7 +172,7 @@ $pwd='../';
             ORDER BY CHA_Intitule";
         }
         else{
-            $query = "select CHA_Intitule, CHA_Echeance, CHA_DateDebut, CHA_DateFinReel, CHA_MontantPrev, ch.CHA_AchatsPrev, AchatTot, EcartAch, he.CHA_HeuresPrev, HeureTot, EcartHeure, NbSalarie
+            $query = "select ch.CHA_NumDevis, CHA_Intitule, CHA_Echeance, CHA_DateDebut, CHA_DateFinReel, CHA_MontantPrev, ch.CHA_AchatsPrev, AchatTot, EcartAch, he.CHA_HeuresPrev, HeureTot, EcartHeure, NbSalarie
             from Chantiers ch
             LEFT JOIN ChantierAchat ac ON ch.CHA_NumDevis=ac.CHA_NumDevis
             JOIN ChantierHeure he ON ch.CHA_NumDevis=he.CHA_NumDevis
@@ -182,7 +183,7 @@ $pwd='../';
         }
     }
     elseif($year == 0){
-        $query = "select CHA_Intitule, CHA_Echeance, CHA_DateDebut, CHA_DateFinReel, CHA_MontantPrev, ch.CHA_AchatsPrev, AchatTot, EcartAch, he.CHA_HeuresPrev, HeureTot, EcartHeure, NbSalarie
+        $query = "select ch.CHA_NumDevis, CHA_Intitule, CHA_Echeance, CHA_DateDebut, CHA_DateFinReel, CHA_MontantPrev, ch.CHA_AchatsPrev, AchatTot, EcartAch, he.CHA_HeuresPrev, HeureTot, EcartHeure, NbSalarie
             from Chantiers ch
             LEFT JOIN ChantierAchat ac ON ch.CHA_NumDevis=ac.CHA_NumDevis
             JOIN ChantierHeure he ON ch.CHA_NumDevis=he.CHA_NumDevis
@@ -191,7 +192,7 @@ $pwd='../';
             ORDER BY CHA_Intitule";
     }
     elseif($month == 0){
-        $query = "select CHA_Intitule, CHA_Echeance, CHA_DateDebut, CHA_DateFinReel, CHA_MontantPrev, ch.CHA_AchatsPrev, AchatTot, EcartAch, he.CHA_HeuresPrev, HeureTot, EcartHeure, NbSalarie
+        $query = "select ch.CHA_NumDevis, CHA_Intitule, CHA_Echeance, CHA_DateDebut, CHA_DateFinReel, CHA_MontantPrev, ch.CHA_AchatsPrev, AchatTot, EcartAch, he.CHA_HeuresPrev, HeureTot, EcartHeure, NbSalarie
             from Chantiers ch
             LEFT JOIN ChantierAchat ac ON ch.CHA_NumDevis=ac.CHA_NumDevis
             JOIN ChantierHeure he ON ch.CHA_NumDevis=he.CHA_NumDevis
@@ -202,7 +203,7 @@ $pwd='../';
             ORDER BY CHA_Intitule";
     }
     else{
-        $query = "select CHA_Intitule, CHA_Echeance, CHA_DateDebut, CHA_DateFinReel, CHA_MontantPrev, ch.CHA_AchatsPrev, AchatTot, EcartAch, he.CHA_HeuresPrev, HeureTot, EcartHeure, NbSalarie
+        $query = "select ch.CHA_NumDevis, CHA_Intitule, CHA_Echeance, CHA_DateDebut, CHA_DateFinReel, CHA_MontantPrev, ch.CHA_AchatsPrev, AchatTot, EcartAch, he.CHA_HeuresPrev, HeureTot, EcartHeure, NbSalarie
             from Chantiers ch
             LEFT JOIN ChantierAchat ac ON ch.CHA_NumDevis=ac.CHA_NumDevis
             JOIN ChantierHeure he ON ch.CHA_NumDevis=he.CHA_NumDevis
@@ -217,6 +218,7 @@ $pwd='../';
     while ($donnees = mysqli_fetch_assoc($reponse)){
 ?>
             <tr>
+                <td><?php echo $donnees['CHA_NumDevis']; ?></td>
                 <td><?php echo formatLOW($donnees['CHA_Intitule']); ?></td>
                 <td><?php echo $donnees['CHA_MontantPrev']." €"; $totMP += $donnees['CHA_MontantPrev']; ?></td>
                 <td><?php echo $donnees['CHA_AchatsPrev']." €"; $totAP += $donnees['CHA_AchatsPrev']; ?></td>
@@ -226,6 +228,23 @@ $pwd='../';
                 <td><?php echo $donnees['HeureTot']; $totHT += $donnees['HeureTot']; ?></td>
                 <td><?php echo $donnees['EcartHeure']; $totEH += $donnees['EcartHeure']; ?></td>
                 <td><?php echo $donnees['NbSalarie']; $totNS += $donnees['NbSalarie']; ?></td>
+                <td>
+                <?php
+                    $reponse2 = mysqli_query($db, "SELECT Client FROM ChantierMax WHERE CHA_NumDevis = ".$donnees['CHA_NumDevis']);
+                    $donnees2 = mysqli_fetch_assoc($reponse2);
+
+                    if(empty($donnees2["Client"]))
+                    {
+                        $reponse2 = mysqli_query($db, "select PER_Nom, PER_Prenom from EmployerClient join Personnes USING (PER_Num) where CLI_NumClient = (SELECT NumClient FROM chantierclient WHERE CNumDevis = ".$donnees['CHA_NumDevis'].");");
+                        $donnees2 = mysqli_fetch_assoc($reponse2);
+                        echo formatUP($donnees2['PER_Nom'])." ".formatLOW($donnees2['PER_Prenom']);
+                    }
+                    else
+                    {
+                        echo $donnees2["Client"];
+                    }
+                ?>
+                </td>
             </tr>
 <?php
     }
@@ -234,7 +253,7 @@ $pwd='../';
             </tbody>
             <tfoot>
                 <tr>
-                    <th style="text-align: right; font-size: 14px;">TOTAL&nbsp;&nbsp;</th>
+                    <th style="text-align: right; font-size: 14px;" colspan="2">TOTAL&nbsp;&nbsp;</th>
                     <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totMP." €"; ?></th>
                     <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totAP." €"; ?></th>
                     <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totAT." €"; ?></th>
@@ -243,6 +262,7 @@ $pwd='../';
                     <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totHT; ?></th>
                     <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totEH; ?></th>
                     <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totNS; ?></th>
+                    <th></th>
                 </tr>
             </tfoot>
         </table>

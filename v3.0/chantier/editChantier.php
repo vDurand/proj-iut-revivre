@@ -92,12 +92,12 @@ $pwd='../';
                                                         }
                                                         echo ")";
                                                     }
-                                                    mysqli_free_result($reponse2);
                                                     ?>
                                                 </option>
                                                 <?php
                                             }
                                             mysqli_free_result($reponse);
+                                            mysqli_free_result($reponse2);
                                             ?>
                                         </optgroup>
 				    				</select>
@@ -189,7 +189,7 @@ $pwd='../';
 										<label>Responsable :</label>
 									</td>
 									<td>
-										<div class="selectType">
+										<div class="selectType2">
 										            <select name="Resp">
 														<optgroup label="Responsable actuel">
 														<?php
@@ -255,7 +255,7 @@ mysqli_free_result($reponseType);
 						<td>
 							<form id="return" method="get" action="detailChantier.php" name="detailClient">
 								<input form="return" type="hidden" name="NumC" value="<?php echo $num; ?>">
-								<input form="return" name="submit" type="submit" value="Retour" class="buttonC">
+								<input form="return" type="submit" value="Retour" class="buttonC">
 							</form>
 						</td>
 					</tr>

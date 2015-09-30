@@ -68,7 +68,7 @@
                             $query = mysqli_query($db, "SELECT LOGO_Url FROM logo WHERE LOGO_Libelle='$nomLogo';");
                             while($data = mysqli_fetch_assoc($query))
                             {
-                                echo '<img id="imgLogo" src="'.$data['LOGO_Url'].'"/>';
+                                echo '<img id="imgLogo" src="'.$data['LOGO_Url']."?cacheid=".rand(1, 500).'"/>';
                             }
                             echo '</div></td>';
                         }
@@ -110,7 +110,7 @@
                 <tr>
                     <?php 
                         if($typeAction != "read")
-                            echo '<td id="uploadValidMessage" style="font-style:italic; font-size:12px;">Cliquez sur l\'image pour ajouter un logo (190px*50px)</td>';
+                            echo '<td id="uploadValidMessage" style="font-style:italic; font-size:12px;">Cliquez sur l\'image pour ajouter un logo (150px*90px)</td>';
                     ?>
                 </tr>
                 <tr>

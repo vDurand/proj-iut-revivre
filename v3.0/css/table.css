@@ -20,6 +20,7 @@
 	font-size: 20px;
 	background-color: #87f8ab;
 	border: 1px solid #6b727c;
+	margin-bottom: 10px;
 }
 #bad {
 	text-align: center;
@@ -28,6 +29,7 @@
 	font-size: 20px;
 	background-color: #f88787;
 	border: 1px solid #6b727c;
+	margin-bottom: 10px;
 }
 
 #info{

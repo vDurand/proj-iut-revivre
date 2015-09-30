@@ -237,11 +237,6 @@
             </form>
         </td>
     </tr>
-    <tr>
-        <td colspan="4">
-              <input name="retour" type="button" value="Retour" class="buttonC" onclick="window.location.replace('<?php echo $pwd.$_GET["RedirectPage"]; ?>');">
-        </td>
-    </tr>
     <!-- Ajout Responsable -->
     <tr id="Ajout-Resp" style="display:none;">
         <form method="post" action="chantierAdd.php" name="Chantier" formtype="1" colvalue="2">
@@ -382,7 +377,7 @@
                 </div>
             </td>
             <td align="left" style="padding-top: 35px;">
-                <input name="submit" type="submit" value="Changer">
+                <input name="submit" type="submit" value="Changer" onclick="if(confirm('Êtes-vous sûr de vouloir changer l\'état du chantier ?')){return true;}else{return false;}">
             </td>
         </tr>
         <tr id="Chang-Etat2" style="display:none;">
@@ -451,9 +446,9 @@ if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM TempsTravail WHERE CHA_N
             </tbody>
         </table>
     </div>
-    <h style="padding-left: 12px; text-decoration: underline; color: #008000;">Evolution des heures de travail :</h>
+    <!-- <h style="padding-left: 12px; text-decoration: underline; color: #008000;">Evolution des heures de travail :</h> -->
     <!-- Graph Tps Travail -->
-    <div id="HoursEvolution" style="height: 400px;"></div>
+    <!-- <div id="HoursEvolution" style="height: 400px;"></div> -->
     <!-- List Achats -->
     <?php
     $reponseT = mysqli_query($db, "SELECT CHA_TxHoraire FROM Chantiers WHERE CHA_NumDevis='$num'");
@@ -519,9 +514,9 @@ if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM Acheter WHERE CHA_NumDev
             </tbody>
         </table>
     </div>
-    <h style="padding-left: 12px; text-decoration: underline; color: #1A89D3;">Evolution des achats :</h>
+    <!-- <h style="padding-left: 12px; text-decoration: underline; color: #1A89D3;">Evolution des achats :</h> -->
     <!-- Graph Achats -->
-    <div id="ProductEvolution" style="height: 400px;"></div>
+    <!-- <div id="ProductEvolution" style="height: 400px;"></div> -->
     <?php
     $graphMntOK = 1;
 }

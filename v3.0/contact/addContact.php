@@ -207,7 +207,7 @@ include('../bandeau.php');
                     <td>
 							<span>
 								<input name="submit" type="submit" value="Ajouter" class="buttonC">&nbsp;&nbsp; 
-								<input name="reset" type="reset" value="Annuler" class="buttonC">
+								<input name="reset" type="reset" value="Annuler" class="buttonC" onclick="window.location.replace('<?php echo $pwd; ?>home.php');">
 							</span>
                     </td>
                 </tr>
