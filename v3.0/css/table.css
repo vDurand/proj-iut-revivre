@@ -788,11 +788,6 @@ AJOUT GROUPE 2 PROJET REVIVRE
 	border-width:0px 0px 0px 0px;
 }
 .planningTable thead tr td, .planningTable th{
-	background:-o-linear-gradient(bottom, #005fbf 5%, #005fbf 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #005fbf), color-stop(1, #005fbf) );
-	background:-moz-linear-gradient( center top, #005fbf 5%, #005fbf 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#005fbf", endColorstr="#005fbf");	background: -o-linear-gradient(top,#005fbf,005fbf);
-
-	background-color:#005fbf;
 	border:0px solid #003f7f;
 	text-align:center;
 	border-width:0px 0px 1px 1px;

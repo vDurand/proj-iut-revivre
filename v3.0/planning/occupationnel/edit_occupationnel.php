@@ -12,6 +12,17 @@
 		$datepl = 0;
 		$nbAjoutEncadrant = 0;
 	}
+
+	$couleur = mysqli_query($db, "SELECT DISTINCT ASSOC_Couleur FROM pl_association WHERE date_format(ASSOC_date,'%d/%m/%Y') = '".$datepl."' AND PL_id = 2;");
+
+	$donnees = mysqli_fetch_assoc($couleur);
+	$color = $donnees["ASSOC_Couleur"];
+
+	echo '<style>
+			.planningTable thead tr td, .planningTable th{
+				background-color:'.$color.';
+			}
+	</style>';
 ?>
 <div id="corps">
 <?php
@@ -120,7 +131,7 @@
 			<table id="insertionTableau">
 				<thead>
 				<?php
-					echo '<th id="firstColumn"></th>';
+					echo '<th id="firstColumn"><input name="color" id="color" type="color" style="margin: 0 5px;" value="'.$color.'" onchange="changeCouleur()"/></th>';
 					for($x=0; $x<sizeof($encadrant)+$nbAjoutEncadrant; $x++)
 					{
 						echo'<th>
@@ -266,6 +277,7 @@
 					<input type='hidden' id="Modify" name='Modify' value='true'>
 					<input type='hidden' id="typePL" name='typePL' value='2'>
 					<input type='hidden' id="redirectPage" name='redirectPage' value="./planning_occupationnel.php">
+					<input type='hidden' id="couleur" name='couleur' value='<?php echo $color; ?>'>
 				</td>
 				<td><input name="validPL" type="button" class="buttonC" value="Sauvegarder" onclick="postData()"></td>
 			</tr>
@@ -496,6 +508,18 @@
 		{
 			alert("Vous devez remplir le planning avant de la sauvegarder !");
 		}
+	}
+
+	function changeCouleur(){
+
+		var table = document.getElementById("insertionTableau");
+		var rows = table.getElementsByTagName("th");
+
+		for (var x = 0; x < rows.length; x++) {
+			rows[x].style.backgroundColor = document.getElementById("color").value;
+		}
+
+		document.getElementById("couleur").value = document.getElementById("color").value;
 	}
 </script>
 <?php

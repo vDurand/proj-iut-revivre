@@ -5,7 +5,7 @@
 ?>
 <div id="corps">
   <?php
-  	if(isset($_POST['Date']) && isset($_POST['Tableau']) && isset($_POST["Modify"]) && isset($_POST['typePL']))
+  	if(isset($_POST['Date']) && isset($_POST['Tableau']) && isset($_POST["Modify"]) && isset($_POST['typePL']) && isset($_POST['TableauLogo']) && isset($_POST['couleur']))
   	{
   		$date=$_POST["Date"];
   		$typePL = $_POST['typePL'];
@@ -15,6 +15,7 @@
 		$array = json_decode($tableau);
   		$tableau=$_POST["TableauLogo"];
 		$arrayLogo = json_decode($tableau);
+        $couleur = $_POST["couleur"];
 		mysqli_free_result($query);
 
         if($_POST["Modify"] == 'true')
@@ -25,10 +26,10 @@
                 $query = mysqli_query($db, 'DELETE FROM pl_association WHERE ASSOC_date=date("'.$date.'") AND PL_id = 2;');
                 if($query)
                 {
-                    $queryString = "INSERT INTO pl_association(SAL_NumSalarie, ENC_Num, CRE_id, PL_id, ASSOC_date) VALUES ";
+                    $queryString = "INSERT INTO pl_association(SAL_NumSalarie, ENC_Num, CRE_id, PL_id, ASSOC_date, ASSOC_Couleur) VALUES ";
                     for($x=0; $x<sizeof($array); $x++)
                     {
-                        $queryString = ($x==0) ? $queryString."(".$array[$x][0].",".$array[$x][1].",".$array[$x][2].", ".$typePL.", date('".$date."'))" : $queryString.",(".$array[$x][0].",".$array[$x][1].",".$array[$x][2].", ".$typePL.", date('".$date."'))";
+                        $queryString = ($x==0) ? $queryString."(".$array[$x][0].",".$array[$x][1].",".$array[$x][2].", ".$typePL.", date('".$date."'),'".$couleur."')" : $queryString.",(".$array[$x][0].",".$array[$x][1].",".$array[$x][2].", ".$typePL.", date('".$date."'),'".$couleur."')";
 
                     }
                     $query = mysqli_query($db, $queryString.";");
@@ -93,10 +94,10 @@
 		{
             if(mysqli_query($db, 'SET autocommit=0;') && mysqli_query($db, 'START TRANSACTION;'))
             {
-                $queryString = "INSERT INTO pl_association(SAL_NumSalarie, ENC_Num, CRE_id, PL_id, ASSOC_date) VALUES ";
+                $queryString = "INSERT INTO pl_association(SAL_NumSalarie, ENC_Num, CRE_id, PL_id, ASSOC_date, ASSOC_Couleur) VALUES ";
                 for($x=0; $x<sizeof($array); $x++)
                 {
-                    $queryString = ($x==0) ? $queryString."(".$array[$x][0].",".$array[$x][1].",".$array[$x][2].", ".$typePL.", date('".$date."'))" : $queryString.",(".$array[$x][0].",".$array[$x][1].",".$array[$x][2].", ".$typePL.", date('".$date."'))";
+                    $queryString = ($x==0) ? $queryString."(".$array[$x][0].",".$array[$x][1].",".$array[$x][2].", ".$typePL.", date('".$date."'),'".$couleur."')" : $queryString.",(".$array[$x][0].",".$array[$x][1].",".$array[$x][2].", ".$typePL.", date('".$date."'),'".$couleur."')";
 
                 }
                 $query = mysqli_query($db, $queryString.";");

@@ -15,6 +15,13 @@
 		$nombreEncadrant = "0";
 	}
 ?>
+
+<style>
+	.planningTable thead tr td, .planningTable th{
+		background-color:#005fbf;
+	}
+</style>
+
 <div id="corps">
 <?php
 	if($appelValide == "1")
@@ -112,7 +119,7 @@
 			<table id="insertionTableau">
 				<thead>
 					<?php
-						echo '<th id="firstColumn"></th>';
+						echo '<th id="firstColumn"><input name="color" id="color" type="color" style="margin: 0 5px;" value="#005fbf" onchange="changeCouleur()"/></th>';
 						for($x=0; $x<$nombreEncadrant; $x++)
 						{
 							echo'<th>
@@ -199,6 +206,7 @@
 					<input type='hidden' id="typePL" name='typePL' value='1'>
                     <input type="hidden" id="Date" name="Date" value=<?php echo "'".$date."'";?>/>
 					<input type='hidden' id="redirectPage" name='redirectPage' value="./planning_insertion.php">
+					<input type='hidden' id="couleur" name='couleur' value='#005fbf'>
 				</td>
 				<td><input name="validPL" type="button" class="buttonC" value="Sauvegarder" onclick="postData()"></td>
 			</tr>
@@ -393,6 +401,18 @@
 		{
 			alert("Vous devez remplir le planning avant de le sauvegarder !");
 		}
+	}
+	
+	function changeCouleur(){
+
+		var table = document.getElementById("insertionTableau");
+		var rows = table.getElementsByTagName("th");
+
+		for (var x = 0; x < rows.length; x++) {
+   				rows[x].style.backgroundColor = document.getElementById("color").value;
+   		}
+
+		document.getElementById("couleur").value = document.getElementById("color").value;
 	}
 </script>
 <?php

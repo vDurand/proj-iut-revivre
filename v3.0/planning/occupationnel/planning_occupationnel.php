@@ -11,6 +11,11 @@
 	$tabDateArchi = Array("Aucune date");
 	$tabJour = Array("Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi");
 ?>
+<style>
+	.planningTable thead tr td, .planningTable th{
+		background-color:#228B22;
+	}
+</style>
 <div id="corps">
 	<form method="POST" action="./planning_occupationnel.php" name="pl_occupationnel">
 		<table>
@@ -127,6 +132,17 @@
 	<?php
 		if($datepl != 0)
 		{
+			$couleur = mysqli_query($db, "SELECT DISTINCT ASSOC_Couleur FROM pl_association WHERE date_format(ASSOC_date,'%d/%m/%Y') = '".$tabDate[$datepl]."' AND PL_id = 2;");
+
+			$donnees = mysqli_fetch_assoc($couleur);
+			$color = $donnees["ASSOC_Couleur"];
+
+			echo '<style>
+					.planningTable thead tr td, .planningTable th{
+						background-color:'.$color.';
+					}
+			</style>';
+
 			$reponse = mysqli_query($db, "select distinct concat(concat(upper(PER_nom),' '),PER_prenom) as 'nom', ENC_Num
 								from pl_association join salaries sa on sa.SAL_NumSalarie = ENC_Num 
 								join personnes using(PER_Num) where date_format(ASSOC_date, '%d/%m/%Y')='".$tabDate[$datepl]."' AND PL_id = 2 ORDER BY ENC_Num;");
