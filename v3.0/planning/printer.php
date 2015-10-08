@@ -14,7 +14,11 @@ if(isset($_POST['Date']) && isset($_POST['typePL']))
     $tableauLogo = Array();
     $date=DateTime::createFromFormat('d/m/Y', $_POST["Date"])->format('Y-m-d');
     $tabDate = Array("Aucune date");
-    $tabJour = Array("Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi");
+    if($typeplanning == 3)
+        $tabJour = Array("Lundi", "Mardi", "Mercredi", "Jeudi"); 
+    else
+        $tabJour = Array("Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi");
+
     $tabPlanning = Array("ACI","CAP VERT","STAGIAIRE");
     $tabHoraires = Array(
         Array("8h - 12h","13h - 17h"),
@@ -76,7 +80,7 @@ if(isset($_POST['Date']) && isset($_POST['typePL']))
                 $content.="</tr></thead><tbody>";
 
                 $CreValue=1;
-                for($x=0; $x<5; $x++)
+                for($x=0; $x<sizeof($tabJour); $x++)
                 {
                     $content.="<tr><td><b>".$tabJour[$x]."<br>".date("d/m", strtotime($date." + ".$x." day"))."</b></td>";
                     for($y=$w; $y<$w+4; $y++)

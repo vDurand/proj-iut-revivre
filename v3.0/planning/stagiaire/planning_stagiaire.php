@@ -343,6 +343,7 @@
 	function printPlanning()
 	{
 		document.getElementById("pl_stagiaire").action="../printer.php";
+		document.getElementById("pl_stagiaire").target="_blank";
 		document.getElementById("Date").value="<?php echo $tabDate[$datepl]; ?>";
 		document.getElementById("pl_stagiaire").submit();
 	}
