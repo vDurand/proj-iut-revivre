@@ -15,7 +15,12 @@ if(isset($_POST['Date']) && isset($_POST['typePL']))
     $date=DateTime::createFromFormat('d/m/Y', $_POST["Date"])->format('Y-m-d');
     $tabDate = Array("Aucune date");
     $tabJour = Array("Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi");
-    $tabPlanning = Array("ACI","OCCUPATIONNEL","STAGIAIRE");
+    $tabPlanning = Array("ACI","CAP VERT","STAGIAIRE");
+    $tabHoraires = Array(
+        Array("8h - 12h","13h - 17h"),
+        Array("8h30 - 12h","13h - 16h30"),
+        Array("9h - 12h","13h - 15h")
+        );
     $title = "planning_".strtolower($tabPlanning[$typeplanning-1])."_".date('d-m-Y',strtotime($date)).".pdf";
     $reponse = mysqli_query($db, "select distinct concat(concat(upper(PER_nom),' '),PER_prenom) as 'nom', ENC_Num
                     from pl_association join salaries sa on sa.SAL_NumSalarie = ENC_Num 
@@ -55,9 +60,9 @@ if(isset($_POST['Date']) && isset($_POST['typePL']))
                 {
                     if (isset($encadrant[$x]))
                     {
-                        $content.='<th>'.$encadrantNom[$x].'<br/>8h - 12h</th>
+                        $content.='<th>'.$encadrantNom[$x].'<br/>'.$tabHoraires[$typeplanning-1][0].'</th>
                         <th id="emptyColumn">P</th>
-                        <th>'.$encadrantNom[$x].'<br/>13h - 17h</th>
+                        <th>'.$encadrantNom[$x].'<br/>'.$tabHoraires[$typeplanning-1][1].'</th>
                         <th id="emptyColumn">P</th>';
                     }
                     else
@@ -115,7 +120,7 @@ if(isset($_POST['Date']) && isset($_POST['typePL']))
         }
         $content.= "</div>
             <h4 style=\" text-align:center; margin:0px; font-weight:normal;\">
-            Imprimé le ".date("d/m/Y")." à l'Association Revivre Service CAP, Chemin de Mondeville - 14460 COLOMBELLES | Page ".($compteur+1)."/".(ceil(sizeof($encadrant)/2))."</h4></page_footer></page>";
+            Affiché le ".date("d/m/Y")." à l'Association Revivre Service CAP, Chemin de Mondeville - 14460 COLOMBELLES | Page ".($compteur+1)."/".(ceil(sizeof($encadrant)/2))."</h4></page_footer></page>";
         $compteur++;
         $w+=4;
         $m+=2;
