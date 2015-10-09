@@ -18,7 +18,7 @@
 
 <style>
 	.planningTable thead tr td, .planningTable th{
-		background-color:#d5d500;
+		background-color:#e6c860;
 	}
 </style>
 
@@ -110,7 +110,7 @@
 			<table id="insertionTableau">
 				<thead>
 					<?php
-						echo '<th id="firstColumn"><input name="color" id="color" type="color" style="margin: 0 5px;" value="#d5d500" onchange="changeCouleur()"/></th>';
+						echo '<th id="firstColumn"><input name="color" id="color" type="color" style="margin: 0 5px;" value="#e6c860" onchange="changeCouleur()"/></th>';
 						for($x=0; $x<$nombreEncadrant; $x++)
 						{
 							echo'<th>
@@ -197,7 +197,7 @@
 					<input type='hidden' id="typePL" name='typePL' value='3'>
                     <input type="hidden" id="Date" name="Date" value=<?php echo "'".$date."'";?>/>
 					<input type='hidden' id="redirectPage" name='redirectPage' value="./planning_stagiaire.php">
-					<input type='hidden' id="couleur" name='couleur' value='#d5d500'>
+					<input type='hidden' id="couleur" name='couleur' value='#e6c860'>
 				</td>
 				<td><input name="validPL" type="button" class="buttonC" value="Sauvegarder" onclick="postData()"></td>
 			</tr>

@@ -13,7 +13,7 @@
 ?>
 <style>
 	.planningTable thead tr td, .planningTable th{
-		background-color:#d5d500;
+		background-color:#e6c860;
 	}
 </style>
 <div id="corps">
