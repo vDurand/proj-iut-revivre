@@ -972,9 +972,9 @@ AJOUT GROUPE 2 PROJET REVIVRE
 .logoContainer
 {
     border: 3px solid lightgrey;
-    width: 150px;
-    height: 90px;
-    margin:0px 10px 0px 0px;
+    width: 100px;
+    height: 60px;
+    margin: 0px 0px 0px 0px;
     position: relative;
 }
 
@@ -990,8 +990,8 @@ AJOUT GROUPE 2 PROJET REVIVRE
     position: absolute;
     left: 0px;
     top: 0px;
-    width: 150px;
-    height: 90px;
+    width: 100px;
+    height: 60px;
     z-index: 500;
 }
 

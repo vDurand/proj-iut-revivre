@@ -239,7 +239,7 @@
                                         WHERE PL_id=1 AND date_format(ASSOC_date, '%d/%m/%Y') = '".$tabDate[$datepl]."';");
             while($data = mysqli_fetch_assoc($query))
             {
-                echo '<div style="display:inline-block; width:150px; height:90px; margin:10px 7px 10px 7px;">
+                echo '<div style="display:inline-block; width:100px; height:60px; margin:10px 7px 10px 7px;">
                         <img src="../'.$data["LOGO_Url"].'" style="position:absolute; border:1px solid #bcbcbc;">
                     </div>';
             }

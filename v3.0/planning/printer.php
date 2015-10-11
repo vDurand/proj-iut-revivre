@@ -116,14 +116,20 @@ if(isset($_POST['Date']) && isset($_POST['typePL']))
                     $content.="</tr>";
                     $CreValue += 2;
                 }
-        $content.="</tbody></table><page_footer><div style=\"margin-bottom:15px; text-align:center; padding:0;\">";
-        
-        for($x=0; $x<sizeof($tableauLogo) && $x<6; $x++)
+        $content.="</tbody></table><page_footer>";
+
+        if($typeplanning != 3)
         {
-            $content.="<img src=\"".$tableauLogo[$x]."\" style=\"margin:0px 3px;\"/>";
+            $content.="<div style=\"margin-bottom:8px; text-align:center; padding:0;\">";
+            
+            for($x=0; $x<sizeof($tableauLogo) && $x<6; $x++)
+            {
+                $content.="<img src=\"".$tableauLogo[$x]."\" style=\"margin:0px 3px;\"/>";
+            }
+            $content.= "</div>";
         }
-        $content.= "</div>
-            <h4 style=\" text-align:center; margin:0px; font-weight:normal;\">
+        
+        $content.="<h4 style=\" text-align:center; margin:0px; font-weight:normal;\">
             Affiché le ".date("d/m/Y")." à l'Association Revivre Service CAP, Chemin de Mondeville - 14460 COLOMBELLES | Page ".($compteur+1)."/".(ceil(sizeof($encadrant)/2))."</h4></page_footer></page>";
         $compteur++;
         $w+=4;

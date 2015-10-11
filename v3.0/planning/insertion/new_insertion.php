@@ -187,7 +187,7 @@
             $query = mysqli_query($db, "SELECT LOGO_Id, LOGO_Url FROM logo;");
             while($data = mysqli_fetch_assoc($query))
             {
-                echo '<div style="display:inline-block; width:150px; height:90px; margin:10px 9px 10px 9px;">
+                echo '<div style="display:inline-block; width:100px; height:60px; margin:10px 9px 10px 9px;">
                         <img src="../'.$data["LOGO_Url"].'" style="position:absolute; border:1px solid #bcbcbc;">
                         <input type="checkbox" id="check'.$data["LOGO_Id"].'" name="check'.$data["LOGO_Id"].'" 
                         style="position:relative; top:6px; left:6px; width:18px; height:18px;" onclick=\'checkLogo('.$data["LOGO_Id"].',"check'.$data["LOGO_Id"].'")\'/>

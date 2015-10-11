@@ -110,7 +110,7 @@
                 <tr>
                     <?php 
                         if($typeAction != "read")
-                            echo '<td id="uploadValidMessage" style="font-style:italic; font-size:12px;">Cliquez sur l\'image pour ajouter un logo (150px*90px)</td>';
+                            echo '<td id="uploadValidMessage" style="font-style:italic; font-size:12px;">Cliquez sur l\'image pour ajouter un logo (100px*60px)</td>';
                     ?>
                 </tr>
                 <tr>
@@ -186,7 +186,7 @@
                 var w = this.width;
                 var h = this.height;
                     
-                if(w <= 150 && h <= 90)
+                if(w <= 100 && h <= 60)
                 {
                     document.getElementById('uploadValidMessage').style.fontWeight="bold";
                     document.getElementById('uploadValidMessage').style.color="green";
@@ -203,7 +203,7 @@
                     document.getElementById('uploadValidMessage').style.color="red";
                     document.getElementById('uploadValidMessage').style.fontStyle="";
                     document.getElementById('uploadValidMessage').style.fontSize="12px";
-                    document.getElementById('uploadValidMessage').innerHTML="Logo invalide. Les dimensions doivent être de 150px*90px";
+                    document.getElementById('uploadValidMessage').innerHTML="Logo invalide. Les dimensions doivent être de 100px*60px";
                 }
             };
 
