@@ -132,7 +132,7 @@
 <?php
 	if($datepl != 0)
 	{
-		$couleur = mysqli_query($db, "SELECT DISTINCT ASSOC_Couleur FROM pl_association WHERE date_format(ASSOC_date,'%d/%m/%Y') = '".$tabDate[$datepl]."' AND PL_id = 1;");
+		$couleur = mysqli_query($db, "SELECT DISTINCT ASSOC_Couleur FROM pl_proprietees WHERE date_format(ASSOC_date,'%d/%m/%Y') = '".$tabDate[$datepl]."' AND PL_id = 1;");
 
 		$donnees = mysqli_fetch_assoc($couleur);
 		$color = $donnees["ASSOC_Couleur"];

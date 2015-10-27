@@ -13,7 +13,7 @@
 		$nbAjoutEncadrant = 0;
 	}
 
-	$couleur = mysqli_query($db, "SELECT DISTINCT ASSOC_Couleur FROM pl_association WHERE date_format(ASSOC_date,'%d/%m/%Y') = '".$datepl."' AND PL_id = 1;");
+	$couleur = mysqli_query($db, "SELECT DISTINCT ASSOC_Couleur FROM pl_propretees WHERE date_format(ASSOC_date,'%d/%m/%Y') = '".$datepl."' AND PL_id = 1;");
 
 	$donnees = mysqli_fetch_assoc($couleur);
 	$color = $donnees["ASSOC_Couleur"];

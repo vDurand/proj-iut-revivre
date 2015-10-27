@@ -26,10 +26,10 @@
                 $query = mysqli_query($db, 'DELETE FROM pl_association WHERE ASSOC_date=date("'.$date.'") AND PL_id = 2;');
                 if($query)
                 {
-                    $queryString = "INSERT INTO pl_association(SAL_NumSalarie, ENC_Num, CRE_id, PL_id, ASSOC_date, ASSOC_Couleur) VALUES ";
+                    $queryString = "INSERT INTO pl_association(SAL_NumSalarie, ENC_Num, CRE_id, PL_id, ASSOC_date) VALUES ";
                     for($x=0; $x<sizeof($array); $x++)
                     {
-                        $queryString = ($x==0) ? $queryString."(".$array[$x][0].",".$array[$x][1].",".$array[$x][2].", ".$typePL.", date('".$date."'),'".$couleur."')" : $queryString.",(".$array[$x][0].",".$array[$x][1].",".$array[$x][2].", ".$typePL.", date('".$date."'),'".$couleur."')";
+                        $queryString = ($x==0) ? $queryString."(".$array[$x][0].",".$array[$x][1].",".$array[$x][2].", ".$typePL.", date('".$date."'))" : $queryString.",(".$array[$x][0].",".$array[$x][1].",".$array[$x][2].", ".$typePL.", date('".$date."'))";
 
                     }
                     $query = mysqli_query($db, $queryString.";");
@@ -42,34 +42,58 @@
                     }
                     else
                     {
-                        $query = mysqli_query($db, 'DELETE FROM logo_association WHERE ASSOC_date=date("'.$date.'") AND PL_id = 2;');
+                        $query = mysqli_query($db, 'DELETE FROM pl_proprietees WHERE ASSOC_date=date("'.$date.'") AND PL_id = 2;');
                         if($query)
                         {
-                            if(sizeof($arrayLogo) > 0)
-                            {
-                                $queryString = "INSERT INTO logo_association VALUES ";
-                                for($x=0; $x<sizeof($arrayLogo); $x++)
-                                {
-                                    $queryString = ($x==0) ? $queryString."(".$arrayLogo[$x].", ".$typePL.", date('".$date."'))" : $queryString.",(".$arrayLogo[$x].", ".$typePL.", date('".$date."'))";
-                                }
-                                $query = mysqli_query($db,$queryString.";");
-                            }
-                            else
-                                $query = true;
-                                
-                            if($query)
-                            {
-                                mysqli_query($db, 'COMMIT;');
-                                echo '<div id="good">
-                                <label>Le planning de la semaine du lundi '.date("d/m/Y", strtotime($date)).' a été modifié avec succès !</label>
-                                </div>';
-                            }
-                            else
+                            $queryString = "INSERT INTO pl_proprietees(PL_id,ASSOC_date,ASSOC_Couleur) VALUES (".$typePL.",date('".$date."'),'".$couleur."')";
+                            $query = mysqli_query($db, $queryString.";");
+
+                            if(!$query)
                             {
                                 mysqli_query($db, 'ROLLBACK;');
                                 echo '<div id="bad">
                                   <label>Une erreur s\'est produite lors de la modification du planning !</label>
                                   </div>';
+                            }
+                            else
+                            {
+                                $query = mysqli_query($db, 'DELETE FROM logo_association WHERE ASSOC_date=date("'.$date.'") AND PL_id = 2;');
+                                if($query)
+                                {
+                                    if(sizeof($arrayLogo) > 0)
+                                    {
+                                        $queryString = "INSERT INTO logo_association VALUES ";
+                                        for($x=0; $x<sizeof($arrayLogo); $x++)
+                                        {
+                                            $queryString = ($x==0) ? $queryString."(".$arrayLogo[$x].", ".$typePL.", date('".$date."'))" : $queryString.",(".$arrayLogo[$x].", ".$typePL.", date('".$date."'))";
+                                        }
+                                        $query = mysqli_query($db,$queryString.";");
+                                    }
+                                    else
+                                        $query = true;
+                                        
+                                    if($query)
+                                    {
+                                        mysqli_query($db, 'COMMIT;');
+                                        echo '<div id="good">
+                                        <label>Le planning de la semaine du lundi '.date("d/m/Y", strtotime($date)).' a été modifié avec succès !</label>
+                                        </div>';
+                                    }
+                                    else
+                                    {
+                                        mysqli_query($db, 'ROLLBACK;');
+                                        echo '<div id="bad">
+                                          <label>Une erreur s\'est produite lors de la modification du planning !</label>
+                                          </div>';
+                                    }
+                                }
+                                else
+                                {
+                                    mysqli_query($db, 'ROLLBACK;');
+                                    echo '<div id="bad">
+                                      <label>Une erreur s\'est produite lors de la modification du planning !</label>
+                                      </div>';  
+                                }
                             }
                         }
                         else
@@ -94,10 +118,10 @@
 		{
             if(mysqli_query($db, 'SET autocommit=0;') && mysqli_query($db, 'START TRANSACTION;'))
             {
-                $queryString = "INSERT INTO pl_association(SAL_NumSalarie, ENC_Num, CRE_id, PL_id, ASSOC_date, ASSOC_Couleur) VALUES ";
+                $queryString = "INSERT INTO pl_association(SAL_NumSalarie, ENC_Num, CRE_id, PL_id, ASSOC_date) VALUES ";
                 for($x=0; $x<sizeof($array); $x++)
                 {
-                    $queryString = ($x==0) ? $queryString."(".$array[$x][0].",".$array[$x][1].",".$array[$x][2].", ".$typePL.", date('".$date."'),'".$couleur."')" : $queryString.",(".$array[$x][0].",".$array[$x][1].",".$array[$x][2].", ".$typePL.", date('".$date."'),'".$couleur."')";
+                    $queryString = ($x==0) ? $queryString."(".$array[$x][0].",".$array[$x][1].",".$array[$x][2].", ".$typePL.", date('".$date."'))" : $queryString.",(".$array[$x][0].",".$array[$x][1].",".$array[$x][2].", ".$typePL.", date('".$date."'))";
 
                 }
                 $query = mysqli_query($db, $queryString.";");
@@ -111,24 +135,48 @@
                 }
                 else
                 {
-                    if(sizeof($arrayLogo) > 0)
-                    {
-                        $queryString = "INSERT INTO logo_association VALUES ";
-                        for($x=0; $x<sizeof($arrayLogo); $x++)
-                        {
-                            $queryString = ($x==0) ? $queryString."(".$arrayLogo[$x].", ".$typePL.", date('".$date."'))" : $queryString.",(".$arrayLogo[$x].", ".$typePL.", date('".$date."'))";
-                        }
-                        $query = mysqli_query($db,$queryString.";");
-                    }
-                    else
-                        $query = true;
-                    
+                    $query = mysqli_query($db, 'DELETE FROM pl_proprietees WHERE ASSOC_date=date("'.$date.'") AND PL_id = 2;');
                     if($query)
                     {
-                        mysqli_query($db, 'COMMIT;');
-                        echo '<div id="good">
-                            <label>Planning de la semaine du lundi '.date("d/m/Y", strtotime($date)).' ajouté avec succès !</label>
-                            </div>';
+                        $queryString = "INSERT INTO pl_proprietees(PL_id,ASSOC_date,ASSOC_Couleur) VALUES (".$typePL.",date('".$date."'),'".$couleur."')";
+                        $query = mysqli_query($db, $queryString.";");
+
+                        if(!$query)
+                        {
+                            mysqli_query($db, 'ROLLBACK;');
+                            echo '<div id="bad">
+                              <label>Une erreur s\'est produite lors de la modification du planning !</label>
+                              </div>';
+                        }
+                        else
+                        {
+                            if(sizeof($arrayLogo) > 0)
+                            {
+                                $queryString = "INSERT INTO logo_association VALUES ";
+                                for($x=0; $x<sizeof($arrayLogo); $x++)
+                                {
+                                    $queryString = ($x==0) ? $queryString."(".$arrayLogo[$x].", ".$typePL.", date('".$date."'))" : $queryString.",(".$arrayLogo[$x].", ".$typePL.", date('".$date."'))";
+                                }
+                                $query = mysqli_query($db,$queryString.";");
+                            }
+                            else
+                                $query = true;
+                            
+                            if($query)
+                            {
+                                mysqli_query($db, 'COMMIT;');
+                                echo '<div id="good">
+                                    <label>Planning de la semaine du lundi '.date("d/m/Y", strtotime($date)).' ajouté avec succès !</label>
+                                    </div>';
+                            }
+                            else
+                            {
+                                mysqli_query($db, 'ROLLBACK;');
+                                echo '<div id="bad">
+                                      <label>Une erreur s\'est produite lors de la sauvegarde du planning !</label>
+                                      </div>';
+                            }
+                        }
                     }
                     else
                     {
