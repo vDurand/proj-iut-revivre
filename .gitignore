@@ -10,3 +10,5 @@ v2.0/.htaccess copy
 
 .htaccess
 .idea
+v3.0/ignore/
+v3.0/index.php

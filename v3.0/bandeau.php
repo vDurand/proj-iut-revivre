@@ -115,7 +115,7 @@
 	                       			<li><a href="<?php echo $pwd; ?>chantier/addWork.php">Ajouter<br>chantier</a></li>
                                     <li><a href="<?php echo $pwd; ?>chantier/awaitingWorks.php">Chantiers en attente</a></li>
 									<li><a href="<?php echo $pwd; ?>chantier/ongoingWorks.php">Chantiers en cours</a></li>
-									<li><a href="<?php echo $pwd; ?>chantier/oldWorks.php">Archive<br>chantiers</a></li>
+									<!--<li><a href="<?php echo $pwd; ?>chantier/oldWorks.php">Archive<br>chantiers</a></li>-->
                                     <li><a href="<?php echo $pwd; ?>chantier/suiviEnc.php">Suivi<br>chantiers</a></li>
 	                			</ul>
 							</li>

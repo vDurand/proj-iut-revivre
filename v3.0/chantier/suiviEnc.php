@@ -27,6 +27,12 @@ $pwd='../';
     else{
         $month = 0;
     }
+    if(!empty($_POST['Etat'])){
+        $etat = $_POST['Etat'];
+    }
+    else{
+        $etat = 0;
+    }
 
     $totMP = 0;
     $totAP = 0;
@@ -42,11 +48,14 @@ $pwd='../';
     <div id="corps">
         <div id="labelCat" style="padding-bottom: 15px;">
             <form method="post" action="suiviEnc.php" name="Encadrant">
-                <table align="center">
+                <table align="center" style="table-layout:fixed; margin:0 auto;">
                     <tr>
-                        <td style="text-align: left; width: 100px;">
-                            <label>Encadrant</label>
-                        </td>
+                        <td>Encadrant</td>
+                        <td>Année</td>
+                        <td>Mois</td>
+                        <td>Etat</td>
+                    </tr>
+                    <tr>
                         <td>
                             <div class="selectType">
                                 <select name="Encad" onchange="this.form.submit()">
@@ -64,9 +73,6 @@ $pwd='../';
                                 </select>
                             </div>
                         </td>
-                        <td style="text-align: left; width: 100px;">
-                            <label>Année</label>
-                        </td>
                         <td>
                             <div class="selectType">
                                 <select name="Annee" onchange="this.form.submit()">
@@ -81,9 +87,6 @@ $pwd='../';
                                     ?>
                                 </select>
                             </div>
-                        </td>
-                        <td style="text-align: left; width: 100px;">
-                            <label>Mois</label>
                         </td>
                         <td>
                             <div class="selectType">
@@ -104,28 +107,47 @@ $pwd='../';
                                 </select>
                             </div>
                         </td>
+                        <td>
+                            <div class="selectType">
+                                <select name="Etat" onchange="this.form.submit()">
+                                    <option <?php if($etat == 0){echo "selected";} ?> value="0">--</option>
+                                <?php
+                                    $reponse4 = mysqli_query($db, "SELECT * FROM TypeEtat ORDER BY TYE_Id");
+                                    $x=1;
+                                    while ($donnees4 = mysqli_fetch_assoc($reponse4)) {
+                                        ?>
+                                        <option <?php if($etat == $x++){echo "selected";} ?> value="<?php echo $donnees4['TYE_Id']; ?>"><?php echo $donnees4['TYE_Nom']; ?></option>
+                                    <?php
+                                    }
+                                    mysqli_free_result($reponse4);
+                                ?>
+                                </select>
+                            </div>
+                        </td>
                         <td><input formtarget="_blank" class="printButton" type="button" onclick="window.print();"name="printer" value="Imprimer"/></td>
                     </tr>
                 </table>
             </form>
         </div>
-        <table class="tableContact">
-            <thead>
-                <tr>
-                    <td class="firstCol" style="text-align: center;">Numéro</td>
-                    <td style="text-align: center; width: 19%;">Intitulé</td>
-                    <td style="text-align: center; width: 10%;">Montant</td>
-                    <td style="text-align: center; width: 10%;">Achats Prévus</td>
-                    <td style="text-align: center; width: 10%;">Achats Totaux</td>
-                    <td style="text-align: center; width: 10%;">Ecart Achat</td>
-                    <td style="text-align: center; width: 10%;">Heures prévues</td>
-                    <td style="text-align: center; width: 10%;">Heures Tolales</td>
-                    <td style="text-align: center; width: 10%;">Ecart MO</td>
-                    <td style="text-align: center; width: 10%;">NB Salariés</td>
-                    <td style="text-align: center; width: 10%;">Client</td>
-                </tr>
-            </thead>
-            <tbody>
+        <form method="get" action="detailChantier.php" name="detailClient">
+            <input type="hidden" name="NumC" value="">
+                <table class="tableContact">
+                    <thead>
+                        <tr>
+                            <td class="firstCol" style="text-align: center;">Numéro</td>
+                            <td style="text-align: center; width: 19%;">Intitulé</td>
+                            <td style="text-align: center; width: 10%;">Montant</td>
+                            <td style="text-align: center; width: 10%;">Achats Prévus</td>
+                            <td style="text-align: center; width: 10%;">Achats Totaux</td>
+                            <td style="text-align: center; width: 10%;">Ecart Achat</td>
+                            <td style="text-align: center; width: 10%;">Heures prévues</td>
+                            <td style="text-align: center; width: 10%;">Heures Tolales</td>
+                            <td style="text-align: center; width: 10%;">Ecart MO</td>
+                            <td style="text-align: center; width: 10%;">NB Salariés</td>
+                            <td style="text-align: center; width: 10%;">Client</td>
+                        </tr>
+                    </thead>
+                    <tbody>
 <?php
 
     /*
@@ -157,28 +179,30 @@ $pwd='../';
             $query = "select ch.CHA_NumDevis, CHA_Intitule, CHA_Echeance, CHA_MontantPrev, ch.CHA_AchatsPrev, AchatTot, EcartAch, he.CHA_HeuresPrev, HeureTot, EcartHeure, NbSalarie
             from Chantiers ch
             LEFT JOIN ChantierAchat ac ON ch.CHA_NumDevis=ac.CHA_NumDevis
-            JOIN ChantierHeure he ON ch.CHA_NumDevis=he.CHA_NumDevis
-            JOIN Encadrer en ON ch.CHA_NumDevis=en.CHA_NumDevis
+            LEFT JOIN ChantierHeure he ON ch.CHA_NumDevis=he.CHA_NumDevis
+            JOIN Encadrer en ON ch.CHA_NumDevis=en.CHA_NumDevis 
+            ".(($etat > 0) ? "LEFT JOIN chantieretatmax ce ON ch.CHA_NumDevis = ce.CHA_NumDevis
+            WHERE Id = ".$etat : "" )."
             ORDER BY CHA_Intitule";
         }
         elseif($month == 0){
             $query = "select ch.CHA_NumDevis, CHA_Intitule, CHA_Echeance, CHA_DateDebut, CHA_DateFinReel, CHA_MontantPrev, ch.CHA_AchatsPrev, AchatTot, EcartAch, he.CHA_HeuresPrev, HeureTot, EcartHeure, NbSalarie
             from Chantiers ch
             LEFT JOIN ChantierAchat ac ON ch.CHA_NumDevis=ac.CHA_NumDevis
-            JOIN ChantierHeure he ON ch.CHA_NumDevis=he.CHA_NumDevis
+            LEFT JOIN ChantierHeure he ON ch.CHA_NumDevis=he.CHA_NumDevis
             JOIN Encadrer en ON ch.CHA_NumDevis=en.CHA_NumDevis
-            WHERE (CHA_Echeance >= '".$year."-"."01"."-01' OR CHA_DateFinReel >= '".$year."-"."01"."-01' OR CHA_DateFinReel is null)
-            AND CHA_DateDebut <= '".$year."-"."12"."-31'
+            ".(($etat > 0) ? "LEFT JOIN chantieretatmax ce ON ch.CHA_NumDevis = ce.CHA_NumDevis
+            WHERE Id = ".$etat." AND " : "WHERE ")."(CHA_Echeance >= '".$year."-"."01"."-01' OR CHA_DateFinReel >= '".$year."-"."01"."-01' OR CHA_DateFinReel is null) AND CHA_DateDebut <= '".$year."-"."12"."-31'
             ORDER BY CHA_Intitule";
         }
         else{
             $query = "select ch.CHA_NumDevis, CHA_Intitule, CHA_Echeance, CHA_DateDebut, CHA_DateFinReel, CHA_MontantPrev, ch.CHA_AchatsPrev, AchatTot, EcartAch, he.CHA_HeuresPrev, HeureTot, EcartHeure, NbSalarie
             from Chantiers ch
             LEFT JOIN ChantierAchat ac ON ch.CHA_NumDevis=ac.CHA_NumDevis
-            JOIN ChantierHeure he ON ch.CHA_NumDevis=he.CHA_NumDevis
+            LEFT JOIN ChantierHeure he ON ch.CHA_NumDevis=he.CHA_NumDevis
             JOIN Encadrer en ON ch.CHA_NumDevis=en.CHA_NumDevis
-            WHERE (CHA_Echeance >= '".$year."-".$month."-01' OR CHA_DateFinReel >= '".$year."-".$month."-01' OR CHA_DateFinReel is null)
-            AND CHA_DateDebut <= '".$year."-".$month."-31'
+            ".(($etat > 0) ? "LEFT JOIN chantieretatmax ce ON ch.CHA_NumDevis = ce.CHA_NumDevis
+            WHERE Id = ".$etat." AND " : "WHERE ")."(CHA_Echeance >= '".$year."-".$month."-01' OR CHA_DateFinReel >= '".$year."-".$month."-01' OR CHA_DateFinReel is null) AND CHA_DateDebut <= '".$year."-".$month."-31'
             ORDER BY CHA_Intitule";
         }
     }
@@ -186,18 +210,20 @@ $pwd='../';
         $query = "select ch.CHA_NumDevis, CHA_Intitule, CHA_Echeance, CHA_DateDebut, CHA_DateFinReel, CHA_MontantPrev, ch.CHA_AchatsPrev, AchatTot, EcartAch, he.CHA_HeuresPrev, HeureTot, EcartHeure, NbSalarie
             from Chantiers ch
             LEFT JOIN ChantierAchat ac ON ch.CHA_NumDevis=ac.CHA_NumDevis
-            JOIN ChantierHeure he ON ch.CHA_NumDevis=he.CHA_NumDevis
+            LEFT JOIN ChantierHeure he ON ch.CHA_NumDevis=he.CHA_NumDevis
             JOIN Encadrer en ON ch.CHA_NumDevis=en.CHA_NumDevis
-            WHERE en.SAL_NumSalarie = $numEnc
+            ".(($etat > 0) ? "LEFT JOIN chantieretatmax ce ON ch.CHA_NumDevis = ce.CHA_NumDevis
+            WHERE Id = ".$etat." AND " : "WHERE ")."en.SAL_NumSalarie = $numEnc
             ORDER BY CHA_Intitule";
     }
     elseif($month == 0){
         $query = "select ch.CHA_NumDevis, CHA_Intitule, CHA_Echeance, CHA_DateDebut, CHA_DateFinReel, CHA_MontantPrev, ch.CHA_AchatsPrev, AchatTot, EcartAch, he.CHA_HeuresPrev, HeureTot, EcartHeure, NbSalarie
             from Chantiers ch
             LEFT JOIN ChantierAchat ac ON ch.CHA_NumDevis=ac.CHA_NumDevis
-            JOIN ChantierHeure he ON ch.CHA_NumDevis=he.CHA_NumDevis
+            LEFT JOIN ChantierHeure he ON ch.CHA_NumDevis=he.CHA_NumDevis
             JOIN Encadrer en ON ch.CHA_NumDevis=en.CHA_NumDevis
-            WHERE en.SAL_NumSalarie = $numEnc
+            ".(($etat > 0) ? "LEFT JOIN chantieretatmax ce ON ch.CHA_NumDevis = ce.CHA_NumDevis
+            WHERE Id = ".$etat." AND " : "WHERE ")."en.SAL_NumSalarie = $numEnc
             AND (CHA_Echeance >= '".$year."-"."01"."-01' OR CHA_DateFinReel >= '".$year."-"."01"."-01' OR CHA_DateFinReel is null)
             AND CHA_DateDebut <= '".$year."-"."12"."-31'
             ORDER BY CHA_Intitule";
@@ -206,9 +232,10 @@ $pwd='../';
         $query = "select ch.CHA_NumDevis, CHA_Intitule, CHA_Echeance, CHA_DateDebut, CHA_DateFinReel, CHA_MontantPrev, ch.CHA_AchatsPrev, AchatTot, EcartAch, he.CHA_HeuresPrev, HeureTot, EcartHeure, NbSalarie
             from Chantiers ch
             LEFT JOIN ChantierAchat ac ON ch.CHA_NumDevis=ac.CHA_NumDevis
-            JOIN ChantierHeure he ON ch.CHA_NumDevis=he.CHA_NumDevis
+            LEFT JOIN ChantierHeure he ON ch.CHA_NumDevis=he.CHA_NumDevis
             JOIN Encadrer en ON ch.CHA_NumDevis=en.CHA_NumDevis
-            WHERE en.SAL_NumSalarie = $numEnc
+            ".(($etat > 0) ? "LEFT JOIN chantieretatmax ce ON ch.CHA_NumDevis = ce.CHA_NumDevis
+            WHERE Id = ".$etat." AND " : "WHERE ")."en.SAL_NumSalarie = $numEnc
             AND (CHA_Echeance >= '".$year."-".$month."-01' OR CHA_DateFinReel >= '".$year."-".$month."-01' OR CHA_DateFinReel is null)
             AND CHA_DateDebut <= '".$year."-".$month."-31'
             ORDER BY CHA_Intitule";
@@ -217,55 +244,56 @@ $pwd='../';
     $reponse = mysqli_query($db, $query);
     while ($donnees = mysqli_fetch_assoc($reponse)){
 ?>
-            <tr>
-                <td><?php echo $donnees['CHA_NumDevis']; ?></td>
-                <td><?php echo formatLOW($donnees['CHA_Intitule']); ?></td>
-                <td><?php echo $donnees['CHA_MontantPrev']." €"; $totMP += $donnees['CHA_MontantPrev']; ?></td>
-                <td><?php echo $donnees['CHA_AchatsPrev']." €"; $totAP += $donnees['CHA_AchatsPrev']; ?></td>
-                <td><?php if(!empty($donnees['AchatTot'])){ echo number_format($donnees['AchatTot'], 2)." €"; $totAT += $donnees['AchatTot'];} else echo "0 €"; ?></td>
-                <td><?php if(!empty($donnees['EcartAch'])){ echo $donnees['EcartAch']." €"; $totEA += $donnees['EcartAch'];} else echo "0 €"; ?></td>
-                <td><?php echo $donnees['CHA_HeuresPrev']; $totHP += $donnees['CHA_HeuresPrev']; ?></td>
-                <td><?php echo $donnees['HeureTot']; $totHT += $donnees['HeureTot']; ?></td>
-                <td><?php echo $donnees['EcartHeure']; $totEH += $donnees['EcartHeure']; ?></td>
-                <td><?php echo $donnees['NbSalarie']; $totNS += $donnees['NbSalarie']; ?></td>
-                <td>
-                <?php
-                    $reponse2 = mysqli_query($db, "SELECT Client FROM ChantierMax WHERE CHA_NumDevis = ".$donnees['CHA_NumDevis']);
-                    $donnees2 = mysqli_fetch_assoc($reponse2);
-
-                    if(empty($donnees2["Client"]))
-                    {
-                        $reponse2 = mysqli_query($db, "select PER_Nom, PER_Prenom from EmployerClient join Personnes USING (PER_Num) where CLI_NumClient = (SELECT NumClient FROM chantierclient WHERE CNumDevis = ".$donnees['CHA_NumDevis'].");");
+                <tr onclick="javascript:submitViewDetail('<?php echo $donnees['CHA_NumDevis']; ?>', 'detailClient');">
+                    <td><?php echo $donnees['CHA_NumDevis']; ?></td>
+                    <td><?php echo formatLOW($donnees['CHA_Intitule']); ?></td>
+                    <td><?php echo $donnees['CHA_MontantPrev']." €"; $totMP += $donnees['CHA_MontantPrev']; ?></td>
+                    <td><?php echo $donnees['CHA_AchatsPrev']." €"; $totAP += $donnees['CHA_AchatsPrev']; ?></td>
+                    <td><?php if(!empty($donnees['AchatTot'])){ echo number_format($donnees['AchatTot'], 2)." €"; $totAT += $donnees['AchatTot'];} else echo "0 €"; ?></td>
+                    <td><?php if(!empty($donnees['EcartAch'])){ echo $donnees['EcartAch']." €"; $totEA += $donnees['EcartAch'];} else echo "0 €"; ?></td>
+                    <td><?php echo (!is_null($donnees['CHA_HeuresPrev'])) ? $donnees['CHA_HeuresPrev'] : 0; $totHP += $donnees['CHA_HeuresPrev']; ?></td>
+                    <td><?php echo (!is_null($donnees['HeureTot'])) ? $donnees['HeureTot'] : "00:00"; $totHT += $donnees['HeureTot']; ?></td>
+                    <td><?php echo (!is_null($donnees['EcartHeure'])) ? $donnees['EcartHeure'] : "00:00"; $totEH += $donnees['EcartHeure']; ?></td>
+                    <td><?php echo (!is_null($donnees['NbSalarie'])) ? $donnees['NbSalarie'] : 0; $totNS += $donnees['NbSalarie']; ?></td>
+                    <td>
+                    <?php
+                        $reponse2 = mysqli_query($db, "SELECT Client FROM ChantierMax WHERE CHA_NumDevis = ".$donnees['CHA_NumDevis']);
                         $donnees2 = mysqli_fetch_assoc($reponse2);
-                        echo formatUP($donnees2['PER_Nom'])." ".formatLOW($donnees2['PER_Prenom']);
-                    }
-                    else
-                    {
-                        echo $donnees2["Client"];
-                    }
-                ?>
-                </td>
-            </tr>
+
+                        if(empty($donnees2["Client"]))
+                        {
+                            $reponse2 = mysqli_query($db, "select PER_Nom, PER_Prenom from EmployerClient join Personnes USING (PER_Num) where CLI_NumClient = (SELECT NumClient FROM chantierclient WHERE CNumDevis = ".$donnees['CHA_NumDevis'].");");
+                            $donnees2 = mysqli_fetch_assoc($reponse2);
+                            echo formatUP($donnees2['PER_Nom'])." ".formatLOW($donnees2['PER_Prenom']);
+                        }
+                        else
+                        {
+                            echo $donnees2["Client"];
+                        }
+                    ?>
+                    </td>
+                </tr>
 <?php
     }
     mysqli_free_result($reponse);
 ?>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th style="text-align: right; font-size: 14px;" colspan="2">TOTAL&nbsp;&nbsp;</th>
-                    <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totMP." €"; ?></th>
-                    <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totAP." €"; ?></th>
-                    <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totAT." €"; ?></th>
-                    <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totEA." €"; ?></th>
-                    <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totHP; ?></th>
-                    <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totHT; ?></th>
-                    <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totEH; ?></th>
-                    <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totNS; ?></th>
-                    <th></th>
-                </tr>
-            </tfoot>
-        </table>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th style="text-align: right; font-size: 14px;" colspan="2">TOTAL&nbsp;&nbsp;</th>
+                        <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totMP." €"; ?></th>
+                        <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totAP." €"; ?></th>
+                        <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totAT." €"; ?></th>
+                        <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totEA." €"; ?></th>
+                        <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totHP; ?></th>
+                        <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totHT; ?></th>
+                        <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totEH; ?></th>
+                        <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totNS; ?></th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </form>
     </div>
 <?php
 include('../footer.php');
