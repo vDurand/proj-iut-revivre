@@ -30,6 +30,10 @@ if(isset($_POST['Date']) && isset($_POST['typePL']))
                     from pl_association join salaries sa on sa.SAL_NumSalarie = ENC_Num 
                     join personnes using(PER_Num) where ASSOC_date='".$date."' AND PL_id = '".$typeplanning."' ORDER BY ENC_Num;");
     
+    $couleur = mysqli_query($db, "SELECT DISTINCT ASSOC_Couleur FROM pl_proprietees WHERE ASSOC_date='".$date."' AND PL_id = ".$typeplanning.";");
+    $donnees = mysqli_fetch_assoc($couleur);
+    $color = $donnees["ASSOC_Couleur"];
+
     $x=0;
     while($donnees = mysqli_fetch_assoc($reponse))
     {
@@ -58,23 +62,23 @@ if(isset($_POST['Date']) && isset($_POST['typePL']))
                 <table class=\"planningPrinter\" border=\"1\">
                     <thead>
                         <tr>
-                            <th id=\"firstColumn\"></th>";
+                            <th id=\"firstColumn\" style=\"background-color:".$color.";\"></th>";
 
                 for($x=$m; $x<$m+2; $x++)
                 {
                     if (isset($encadrant[$x]))
                     {
-                        $content.='<th>'.$encadrantNom[$x].'<br/>'.$tabHoraires[$typeplanning-1][0].'</th>
-                        <th id="emptyColumn">P</th>
-                        <th>'.$encadrantNom[$x].'<br/>'.$tabHoraires[$typeplanning-1][1].'</th>
-                        <th id="emptyColumn">P</th>';
+                        $content.='<th style="background-color:'.$color.';">'.$encadrantNom[$x].'<br/>'.$tabHoraires[$typeplanning-1][0].'</th>
+                        <th id="emptyColumn" style="background-color:'.$color.';">P</th>
+                        <th style="background-color:'.$color.';">'.$encadrantNom[$x].'<br/>'.$tabHoraires[$typeplanning-1][1].'</th>
+                        <th id="emptyColumn" style="background-color:'.$color.';">P</th>';
                     }
                     else
                     {
-                        $content.='<th></th>
-                        <th id="emptyColumn"></th>
-                        <th></th>
-                        <th id="emptyColumn"></th>';
+                        $content.='<th style="background-color:'.$color.';"></th>
+                        <th id="emptyColumn" style="background-color:'.$color.';"></th>
+                        <th style="background-color:'.$color.';"></th>
+                        <th id="emptyColumn" style="background-color:'.$color.';"></th>';
                     }
                 }
                 $content.="</tr></thead><tbody>";

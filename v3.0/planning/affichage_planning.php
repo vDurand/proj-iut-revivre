@@ -49,6 +49,9 @@
 				}
 				if($planningValide)
 				{
+					$couleur = mysqli_query($db, "SELECT DISTINCT ASSOC_Couleur FROM pl_proprietees WHERE date_format(ASSOC_date,'%Y-%m-%d') = '".$currentDate."' AND PL_id = 1;");
+					$donnees = mysqli_fetch_assoc($couleur);
+					$color = $donnees["ASSOC_Couleur"];
 
 					$reponse = mysqli_query($db, "select distinct concat(concat(upper(PER_nom),' '),PER_prenom) as 'nom', ENC_Num
 										from pl_association join salaries sa on sa.SAL_NumSalarie = ENC_Num 
@@ -64,18 +67,18 @@
 				  	<table>
 				  		<caption>Planning insertion du lundi <?php echo date("d/m/Y",strtotime($currentDate));?> au vendredi <?php echo date("d/m/Y",strtotime($currentDate." + 4 day"));?></caption>
 						<thead>
-							<th id="firstColumn"></th>
 							<?php 
+								echo '<th id="firstColumn" style="background-color:'.$color.';"></th>';
 								for($x=0; $x<sizeof($encadrant); $x++)
 								{
 									if($x%2 == 0)								
-										echo '<th>'.$encadrantNom[$x].'<br/>8h - 12h</th><th>'.$encadrantNom[$x].'<br/>13h - 17h</th>';
+										echo '<th style="background-color:'.$color.';">'.$encadrantNom[$x].'<br/>8h - 12h</th><th style="background-color:'.$color.';">'.$encadrantNom[$x].'<br/>13h - 17h</th>';
 									else
-										echo '<th style="background-color:#33aee8;">'.$encadrantNom[$x].'<br/>8h - 12h</th><th style="background-color:#33aee8;">'.$encadrantNom[$x].'<br/>13h - 17h</th>';
+										echo '<th style="background-color:'.$color.';">'.$encadrantNom[$x].'<br/>8h - 12h</th><th style="background-color:'.$color.';">'.$encadrantNom[$x].'<br/>13h - 17h</th>';
 								}
 								if(sizeof($encadrant)==1)
 								{
-									echo '<th style="background-color:#33aee8;"></th><th style="background-color:#33aee8;"></th>';
+									echo '<th style="background-color:'.$color.';"></th><th style="background-color:'.$color.';"></th>';
 								}
 							?>
 						</thead>
@@ -166,6 +169,9 @@
 				}
 				if($planningValide)
 				{
+					$couleur = mysqli_query($db, "SELECT DISTINCT ASSOC_Couleur FROM pl_proprietees WHERE date_format(ASSOC_date,'%Y-%m-%d') = '".$currentDate."' AND PL_id = 2;");
+					$donnees = mysqli_fetch_assoc($couleur);
+					$color = $donnees["ASSOC_Couleur"];
 
 					$reponse = mysqli_query($db, "select distinct concat(concat(upper(PER_nom),' '),PER_prenom) as 'nom', ENC_Num
 										from pl_association join salaries sa on sa.SAL_NumSalarie = ENC_Num 
@@ -181,18 +187,18 @@
 				  	<table>
 				  		<caption>Planning occupationnel du lundi <?php echo date("d/m/Y",strtotime($currentDate));?> au vendredi <?php echo date("d/m/Y",strtotime($currentDate." + 4 day"));?></caption>
 						<thead>
-							<th id="firstColumn"></th>
 							<?php 
+								echo '<th id="firstColumn" style="background-color:'.$color.';"></th>';
 								for($x=0; $x<sizeof($encadrant); $x++)
 								{
 									if($x%2 == 0)								
-										echo '<th>'.$encadrantNom[$x].'<br/>8h30 - 12h</th><th>'.$encadrantNom[$x].'<br/>13h - 16h30</th>';
+										echo '<th style="background-color:'.$color.';">'.$encadrantNom[$x].'<br/>8h30 - 12h</th><th style="background-color:'.$color.';">'.$encadrantNom[$x].'<br/>13h - 16h30</th>';
 									else
-										echo '<th style="background-color:#33aee8;">'.$encadrantNom[$x].'<br/>8h30 - 12h</th><th style="background-color:#33aee8;">'.$encadrantNom[$x].'<br/>13h - 16h30</th>';
+										echo '<th style="background-color:'.$color.';">'.$encadrantNom[$x].'<br/>8h30 - 12h</th><th style="background-color:'.$color.';">'.$encadrantNom[$x].'<br/>13h - 16h30</th>';
 								}
 								if(sizeof($encadrant)==1)
 								{
-									echo '<th style="background-color:#33aee8;"></th><th style="background-color:#33aee8;"></th>';
+									echo '<th style="background-color:'.$color.';"></th><th style="background-color:'.$color.';"></th>';
 								}
 							?>
 						</thead>
@@ -283,6 +289,9 @@
 				}
 				if($planningValide)
 				{
+					$couleur = mysqli_query($db, "SELECT DISTINCT ASSOC_Couleur FROM pl_proprietees WHERE date_format(ASSOC_date,'%Y-%m-%d') = '".$currentDate."' AND PL_id = 3;");
+					$donnees = mysqli_fetch_assoc($couleur);
+					$color = $donnees["ASSOC_Couleur"];
 
 					$reponse = mysqli_query($db, "select distinct concat(concat(upper(PER_nom),' '),PER_prenom) as 'nom', ENC_Num
 										from pl_association join salaries sa on sa.SAL_NumSalarie = ENC_Num 
@@ -298,18 +307,18 @@
 				  	<table>
 				  		<caption>Planning stagiaire du lundi <?php echo date("d/m/Y",strtotime($currentDate));?> au vendredi <?php echo date("d/m/Y",strtotime($currentDate." + 4 day"));?></caption>
 						<thead>
-							<th id="firstColumn"></th>
 							<?php 
+								echo '<th id="firstColumn" style="background-color:'.$color.';"></th>';
 								for($x=0; $x<sizeof($encadrant); $x++)
 								{
 									if($x%2 == 0)								
-										echo '<th>'.$encadrantNom[$x].'<br/>9h - 12h</th><th>'.$encadrantNom[$x].'<br/>13h - 15h</th>';
+										echo '<th style="background-color:'.$color.';">'.$encadrantNom[$x].'<br/>9h - 12h</th><th style="background-color:'.$color.';">'.$encadrantNom[$x].'<br/>13h - 15h</th>';
 									else
-										echo '<th style="background-color:#33aee8;">'.$encadrantNom[$x].'<br/>9h - 12h</th><th style="background-color:#33aee8;">'.$encadrantNom[$x].'<br/>13h - 15h</th>';
+										echo '<th style="background-color:'.$color.';">'.$encadrantNom[$x].'<br/>9h - 12h</th><th style="background-color:'.$color.';">'.$encadrantNom[$x].'<br/>13h - 15h</th>';
 								}
 								if(sizeof($encadrant)==1)
 								{
-									echo '<th style="background-color:#33aee8;"></th><th style="background-color:#33aee8;"></th>';
+									echo '<th style="background-color:'.$color.';"></th><th style="background-color:'.$color.';"></th>';
 								}
 							?>
 						</thead>
