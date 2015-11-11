@@ -108,6 +108,7 @@
 									<li><a href="<?php echo $pwd; ?>planning/occupationnel/planning_occupationnel.php">Planning<br>occupationnel</a></li>
 									<li><a href="<?php echo $pwd; ?>planning/stagiaire/planning_stagiaire.php">Planning<br>stagiaire</a></li>
 									<li><a href="<?php echo $pwd; ?>planning/affichage_planning.php">Affichage des<br>plannings</a></li>
+									<li><a href="<?php echo $pwd; ?>planning/emargement/homeEmargement.php">Gestion de<br>l'émargement</a></li>
 	                			</ul>
 							</li>
 							<li id="champs"><a href="<?php echo $pwd; ?>chantier/homeWork.php">Chantiers</a>

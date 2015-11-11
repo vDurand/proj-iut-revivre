@@ -1005,3 +1005,60 @@ AJOUT GROUPE 2 PROJET REVIVRE
     background-position: -3px -3px;
     cursor: pointer;
 }
+
+.emargement-bloc{
+	padding: 10px;
+	margin: 10px 0;
+	max-width: 100%;
+	background-color: white;
+	box-shadow: 1px 1px 3px #555;
+	border-radius: 5px;
+}
+
+.emargement-bloc table{
+	table-layout:fixed;
+}
+
+.emargement-bloc table td{
+	padding: 0 15px;
+}
+
+.emargement-hebdo{
+	border: 1px solid black;
+	text-align: center;
+	border-collapse: collapse;
+	margin:auto;
+}
+
+.emargement-hebdo th, .emargement-hebdo td{
+	border: 1px solid black;
+	padding: 3px;
+}
+
+ .emargement-hebdo td{
+ 	height: 25px;
+ 	vertical-align: middle;
+}
+
+.emargement-hebdo .sub-th{
+	width: 75px;
+	font-size: 12px;
+	vertical-align: middle;
+	font-weight: 300;
+	height: 12px;
+}
+
+.emargement-hebdo .name-col{
+	width: 150px;
+	vertical-align: middle;
+}
+
+.header-emargement-hebdo{
+	display: block;
+	width: 100%;
+	text-align: center;
+}
+
+.signature-emargement-hebdo{
+	margin-top: 25px;
+}
