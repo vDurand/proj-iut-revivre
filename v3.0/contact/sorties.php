@@ -31,11 +31,12 @@
             <?php
                 $x=$max=0;
                 $flag = false;
-                $query = mysqli_query($db,"SELECT TYS_ID, TYS_Libelle AS 'nom',TYS_Numero as 'num' FROM typesortie ORDER BY TYS_Numero;");
+                $query = mysqli_query($db,"SELECT TYS_ID, TYS_Libelle AS 'nom',TYS_Numero as 'num',TYS_Active FROM typesortie ORDER BY TYS_Numero;");
                 while($data = mysqli_fetch_assoc($query))
                 {
                     $max = ($data["TYS_ID"] > $max) ? $data["TYS_ID"] : $max;
-                    echo '<tr id="tr'.$data["TYS_ID"].'" style="height: 32px;">
+					if($data['TYS_Active'])
+						echo '<tr id="tr'.$data["TYS_ID"].'" style="height: 32px;">
 							<td>
                                 <input type="text" id="num'.$data["TYS_ID"].'" name="num'.$data["TYS_ID"].'" 
 									style="height: 22px; width:20px;" value="'.stripslashes($data["num"]).'" onkeyup="changeNum()"/>
@@ -47,7 +48,22 @@
                             <td>
                                 <input name="suppr" type="button" class="delCross" value="x" onclick="delSortie('.$data["TYS_ID"].')"/>
                             </td>
+                            <td>
+                                <input name="désactiver" type="button" class="delCross" value="désactiver" onclick="desactiver('.$data["TYS_ID"].')"/>
+                            </td>
                         </tr>';
+					else
+						echo '<tr id="tr'.$data["TYS_ID"].'" style="height: 32px;">
+							<td>
+                                <input type="text" id="num'.$data["TYS_ID"].'" name="num'.$data["TYS_ID"].'" 
+									style="height: 22px; width:20px;" value="'.stripslashes($data["num"]).'" disabled/>
+							</td>
+                            <td>
+                                <input type="text" id="nom'.$data["TYS_ID"].'" name="nom'.$data["TYS_ID"].'" 
+									style="height: 22px; width:500px;" value="'.stripslashes($data["nom"]).'" disabled/>
+                            </td>
+                        </tr>';
+					
                     $arrayElements[$x++] = Array((int)($data["TYS_ID"]),0);
                 }
             ?>
@@ -137,6 +153,37 @@
         }
 	}
 	
+	function desactiver(x)
+    {
+        //if(confirm("Êtes-vous sûr de vouloir supprimer ce type de sortie ?"))
+       // {
+            if(x <= idRef)
+            {
+                document.getElementById('typeAction').value = "desactiver";
+                document.getElementById('Tableau').value = JSON.stringify(Array(x, document.getElementById('nom'+x).value));
+                document.getElementById("valid_sortie").submit();
+            }
+            else
+            {
+                element = document.getElementById('tr'+x);
+                element.parentNode.removeChild(element);
+                for(var y=0; y<tableau.length; y++)
+                {
+                    if(tableau[y][0] == x)
+                    {
+                        tableau.splice(y,1);
+                        break;
+                    }
+                }
+                if(idRef == tableau.length && changement == false)
+                {
+                    document.getElementById("cancel").disabled = "disabled";
+                    document.getElementById("validSortie").disabled = "disabled";
+                }
+            }
+        //}
+	}
+	
 	function postData()
 	{
         erreur = true;
@@ -152,7 +199,7 @@
             }
             else
             {
-                alert("Veuillez remplir tous les types de sortie et leur numéro!");
+                alert("Veuillez remplir tous les types de sortie et leurs numéros!");
                 erreur = true;
                 break;   
             }
@@ -165,7 +212,7 @@
 		}
 	}
 	
-</script>
+</script>	
 <?php
 	include($pwd."footer.php");
 ?>
