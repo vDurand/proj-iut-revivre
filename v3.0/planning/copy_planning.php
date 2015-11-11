@@ -26,10 +26,21 @@
                     $query = mysqli_query($db,"INSERT INTO logo_association(LOGO_Id, PL_id, ASSOC_Date) SELECT LOGO_Id, PL_id, '".$newDate."' FROM logo_association WHERE ASSOC_date = '".$oldDate."' AND PL_id = ".$typePL.";");
                     if($query)
                     {
-                        mysqli_query($db, "COMMIT;");
-                        echo '<div id="good">     
-                        <label>Le planning de la semaine du lundi '.date("d/m/Y", strtotime($oldDate)).' copié avec succès au '.date("d/m/Y", strtotime($newDate)).' !</label>
-                        </div>';
+                      $query = mysqli_query($db,"INSERT INTO pl_proprietees(ASSOC_Couleur, PL_id, ASSOC_Date) SELECT ASSOC_Couleur, PL_id, '".$newDate."' FROM pl_proprietees WHERE ASSOC_date = '".$oldDate."' AND PL_id = ".$typePL.";");
+                      if($query)
+                      {
+                          mysqli_query($db, "COMMIT;");
+                          echo '<div id="good">     
+                          <label>Le planning de la semaine du lundi '.date("d/m/Y", strtotime($oldDate)).' copié avec succès au '.date("d/m/Y", strtotime($newDate)).' !</label>
+                          </div>';
+                      }
+                      else
+                      {
+                          mysqli_query($db, "ROLLBACK;");
+                          echo '<div id="bad">     
+                          <label>Une erreur s\'est produite lors de la copie du planning !</label>
+                          </div>';
+                      }
                     }
                     else
                     {
