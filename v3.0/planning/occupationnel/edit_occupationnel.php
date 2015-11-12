@@ -73,29 +73,32 @@
 			</select>
 			&nbsp;
 			<input name="addpersonne" type="button" value="Ajouter la personne au planning" onclick="parseWorkTime()" style="margin:3px 0px 3px 5px;" class="buttonNormal">
-			<table style="margin:5px 0px 0px 0px;">
+			<table class="daychoice" style="margin:5px 0px 0px 0px;">
 				<tr>
-					<td rowspan="2" id="daytitle" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 0 day')))) echo 'style="color:lightgrey"';?>>&nbsp;&nbsp;Lundi : </td>
+					<td style="padding-bottom:5px" colspan="5" id="checkall"><input type="button" id="checkall" value="Tout sélectionner" style="margin-left:8px;"></td>
+				</tr>
+				<tr>
+					<td rowspan="2" id="daytitle" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 0 day')))) echo 'style="color:lightgrey"';?>><label id="day0">&nbsp;&nbsp;Lundi : </label></td>
 					<td>
                         <input type="checkbox" id="choice00" name="choice00" value="1" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 0 day')))) echo 'disabled';?>/>
                         <label <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 0 day')))) echo 'style="color:lightgrey"';?> for="choice00" >Matin</label>
                     </td>
-					<td rowspan="2" id="daytitle" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 1 day')))) echo 'style="color:lightgrey"';?>>Mardi : </td>
+					<td rowspan="2" id="daytitle" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 1 day')))) echo 'style="color:lightgrey"';?>><label id="day1">Mardi : </label></td>
 					<td>
                         <input type="checkbox" id="choice10" name="choice10" value="3" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 1 day')))) echo 'disabled';?>/>
                         <label <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 1 day')))) echo 'style="color:lightgrey"';?> for="choice10" >Matin</label>
                     </td>
-					<td rowspan="2" id="daytitle" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 2 day')))) echo 'style="color:lightgrey"';?>>Mercredi : </td>
+					<td rowspan="2" id="daytitle" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 2 day')))) echo 'style="color:lightgrey"';?>><label id="day2">Mercredi : </label></td>
 					<td>
                         <input type="checkbox" id="choice20" name="choice20" value="5" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 2 day')))) echo 'disabled';?>/>
                         <label <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 2 day')))) echo 'style="color:lightgrey"';?> for="choice20" >Matin</label>
                     </td>
-					<td rowspan="2" id="daytitle" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 3 day')))) echo 'style="color:lightgrey"';?>>Jeudi : </td>
+					<td rowspan="2" id="daytitle" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 3 day')))) echo 'style="color:lightgrey"';?>><label id="day3">Jeudi : </label></td>
 					<td>
                         <input type="checkbox" id="choice30" name="choice30" value="7" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 3 day')))) echo 'disabled';?>/>
                         <label <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 3 day')))) echo 'style="color:lightgrey"';?> for="choice30">Matin</label>
                     </td>
-					<td rowspan="2" id="daytitle" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 4 day')))) echo 'style="color:lightgrey"';?>>Vendredi : </td>
+					<td rowspan="2" id="daytitle" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 4 day')))) echo 'style="color:lightgrey"';?>><label id="day4">Vendredi : </label></td>
 					<td>
                         <input type="checkbox" id="choice40" name="choice40" value="9" <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 4 day')))) echo 'disabled';?>/>
                         <label <?php if(isJourFerie(date("d/m/Y", strtotime($date.' + 4 day')))) echo 'style="color:lightgrey"';?> for="choice40" >Matin</label>
@@ -316,6 +319,37 @@
 			}
 	?>
 
+	$( document ).ready(function() {
+	    for(var i = 0; i < 5; i++){
+			$("#day"+i).click(triggerCheckbox(i));
+		}
+
+		$("#checkall").click(function(){
+			for(var i = 0; i < 5; i++){
+				$("#choice"+i+"0").prop("checked","checked");
+				$("#choice"+i+"1").prop("checked","checked");
+			}
+		});
+
+	});
+
+	function triggerCheckbox(i){
+		return function(){
+			if($("#choice"+i+"1").prop("checked") && $("#choice"+i+"0").prop("checked"))
+			{
+				$("#choice"+i+"0").prop("checked","");
+				$("#choice"+i+"1").prop("checked","");
+			}
+			else
+			{
+				if(!$("#choice"+i+"0").prop("disabled"))
+					$("#choice"+i+"0").prop("checked","checked");
+				if(!$("#choice"+i+"1").prop("disabled"))
+					$("#choice"+i+"1").prop("checked","checked");
+			}
+		}
+	}
+	
 	function changeName(index)
 	{
 		switch(index)

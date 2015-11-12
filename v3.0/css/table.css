@@ -832,6 +832,16 @@ AJOUT GROUPE 2 PROJET REVIVRE
 	border:1px solid black;
 }
 
+.daychoice label{
+	cursor:pointer;
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 .ConfigPanel{
 	margin:0 0 10px 0;
 	padding:5px 0px 5px 0px;
