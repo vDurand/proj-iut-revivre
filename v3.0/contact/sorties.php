@@ -47,8 +47,8 @@
 					if($data['TYS_Active'])
 						echo '<tr id="tr'.$data["TYS_ID"].'" style="height: 32px;">
 							<td>
-                                <input type="text" id="num'.$data["TYS_ID"].'" name="num'.$data["TYS_ID"].'" 
-									style="height: 22px; width:20px;" value="'.stripslashes($data["num"]).'" onkeyup="changeNum()"/>
+                                <input type="number" id="num'.$data["TYS_ID"].'" name="num'.$data["TYS_ID"].'" 
+									style="height: 22px; width:40px;" value="'.stripslashes($data["num"]).'" onkeyup="changeNum()"/>
 							</td>
                             <td>
                                 <input type="text" id="nom'.$data["TYS_ID"].'" name="nom'.$data["TYS_ID"].'" 
@@ -64,15 +64,15 @@
 					else
 						echo '<tr id="tr'.$data["TYS_ID"].'" style="height: 32px;">
 							<td>
-                                <input type="text" id="num'.$data["TYS_ID"].'" name="num'.$data["TYS_ID"].'" 
-									style="height: 22px; width:20px;" value="'.stripslashes($data["num"]).'" disabled/>
+                                <input type="number" id="num'.$data["TYS_ID"].'" name="num'.$data["TYS_ID"].'" 
+									style="height: 22px; width:40px;" value="'.stripslashes($data["num"]).'" disabled/>
 							</td>
                             <td>
                                 <input type="text" id="nom'.$data["TYS_ID"].'" name="nom'.$data["TYS_ID"].'" 
 									style="height: 22px; width:500px;" value="'.stripslashes($data["nom"]).'" disabled/>
                             </td>
 							<td>
-								<input name="réactiver" type="button" class="" value="réactiver" onclick="réactiver('.$data["TYS_ID"].')"/>
+								<input name="réactiver" type="button" class="" value="réactiver" onclick="Réactiver('.$data["TYS_ID"].')"/>
 							</td>
 								
                         </tr>';
@@ -123,7 +123,7 @@
 		var ligne = table.insertRow(tableau.length);
 		ligne.id="tr"+maxi;
 		ligne.innerHTML = '<td>\
-				<input type="text" id="'+num+'" name="'+num+'" style="color:#000000; width:20px;" placeholder="00" onchange="changeNum()"/>\
+				<input type="number" id="'+num+'" name="'+num+'" style="color:#000000; width:40px;" placeholder="00" onchange="changeNum()"/>\
 			</td/>\
 			<td>\
 				<input type="text" id="'+nom+'" name="'+nom+'" style="color:#000000; width:500px;" placeholder="nom" onchange="changeNom()"/>\
