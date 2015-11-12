@@ -72,7 +72,7 @@
 									style="height: 22px; width:500px;" value="'.stripslashes($data["nom"]).'" disabled/>
                             </td>
 							<td>
-								<input name="réactiver" type="button" class="" value="réactiver" onclick="Réactiver('.$data["TYS_ID"].')"/>
+								<input name="réactiver" type="button" class="" value="Réactiver" onclick="réactiver('.$data["TYS_ID"].')"/>
 							</td>
 								
                         </tr>';
@@ -129,7 +129,7 @@
 				<input type="text" id="'+nom+'" name="'+nom+'" style="color:#000000; width:500px;" placeholder="nom" onchange="changeNom()"/>\
 			</td>\
 			<td>\
-				<input name="'+suppr+'" id="'+suppr+'" type="button" class="delCross" value="x" onclick="delSortie('+maxi+')">\
+				<input name="'+suppr+'" id="'+suppr+'" type="button" class="" value="Supprimer" onclick="delSortie('+maxi+')">\
 			</td>';
         ligne.style.height="32px";
 		tableau[tableau.length] = Array(maxi++,1);
