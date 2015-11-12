@@ -9,9 +9,9 @@
         <label>Gestion des Types de sortie</label>
    	</div>
     <br/>
-    <div style="width:100%; max-width:100%; background-color:white; box-shadow:1px 1px 3px #555; padding:15px 0px;">
-        <form>
-            <table style="margin:0 auto 0 auto; width:400px;">
+    <div style="width:100%; max-width:100%; background-color:white; box-shadow:1px 1px 3px #555; padding:15px 0px;">	
+        <form method="post" action="<?php echo $_SERVER['PHP_SELF']?>")>
+            <table style="margin:0 auto 0 auto; width:620px;">
                 <tr>
                     <td colspan="2">
                         <input name="nouvSortie" id="nouvSortie" type="button" class="buttonNormal" value="Ajouter un type de sortie" onclick="addSortie()">
@@ -20,6 +20,12 @@
                         <input name="cancel" id="cancel" type="button" class="buttonNormal" value="Annuler" disabled="disabled" 
                                onclick="if(confirm('Etes-vous sûr de vouloir annuler ?')){window.location.replace('./sorties.php');}">
                         <input id="validSortie" name="validSortie" type="button" class="buttonNormal" disabled="disabled" value="Sauvegarder" onclick="postData()">
+						<?php 
+							if(isset($_POST['affichDesac']))
+								echo '<input id="affichDesac" name="masqueDesac" type="submit" class="buttonNormal" value="Masquer les types désactivés">';
+							else
+								echo '<input id="affichDesac" name="affichDesac" type="submit" class="buttonNormal" value="Afficher les types désactivés">';
+						?>
                     </td>
                 </tr>
                 <tr>
@@ -31,7 +37,10 @@
             <?php
                 $x=$max=0;
                 $flag = false;
-                $query = mysqli_query($db,"SELECT TYS_ID, TYS_Libelle AS 'nom',TYS_Numero as 'num',TYS_Active FROM typesortie ORDER BY TYS_Numero;");
+				if(isset($_POST['affichDesac']))
+					$query = mysqli_query($db,"SELECT TYS_ID, TYS_Libelle AS 'nom',TYS_Numero as 'num',TYS_Active FROM typesortie ORDER BY TYS_Numero;");
+				else 
+					$query = mysqli_query($db,"SELECT TYS_ID, TYS_Libelle AS 'nom',TYS_Numero as 'num',TYS_Active FROM typesortie where TYS_Active=1 ORDER BY TYS_Numero;");
                 while($data = mysqli_fetch_assoc($query))
                 {
                     $max = ($data["TYS_ID"] > $max) ? $data["TYS_ID"] : $max;
@@ -48,9 +57,9 @@
                             <td>
                                 <input name="suppr" type="button" class="delCross" value="x" onclick="delSortie('.$data["TYS_ID"].')"/>
                             </td>
-                            <td>
+                            <!--<td>
                                 <input name="désactiver" type="button" class="delCross" value="désactiver" onclick="desactiver('.$data["TYS_ID"].')"/>
-                            </td>
+                            </td>-->
                         </tr>';
 					else
 						echo '<tr id="tr'.$data["TYS_ID"].'" style="height: 32px;">
@@ -153,7 +162,7 @@
         }
 	}
 	
-	function desactiver(x)
+	/*function desactiver(x)
     {
         //if(confirm("Êtes-vous sûr de vouloir supprimer ce type de sortie ?"))
        // {
@@ -182,7 +191,7 @@
                 }
             }
         //}
-	}
+	}*/
 	
 	function postData()
 	{

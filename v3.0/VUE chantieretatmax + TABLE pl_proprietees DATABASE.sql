@@ -19,10 +19,9 @@ CREATE TABLE IF NOT EXISTS `pl_proprietees` (
   KEY `PL_id` (`PL_id`,`ASSOC_date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `pl_proprietees` (`PL_id`, `ASSOC_date`, `ASSOC_Couleur`, `ASSOC_AM`, `ASSOC_PM`) VALUES
-(1, '2015-10-12', '#318e56', NULL, NULL),
-(2, '2015-09-21', '#a30aa3', NULL, NULL),
-(3, '2015-10-12', '#78cdba', NULL, NULL);
-
 ALTER TABLE `pl_proprietees`
   ADD CONSTRAINT `fk_proprietees_type_planning` FOREIGN KEY (`PL_id`) REFERENCES `typeplanning` (`PL_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  
+ALTER TABLE `typesortie`
+ADD  `TYS_Numero` int(11) DEFAULT '0',
+ADD `TYS_Active` tinyint(1) NOT NULL DEFAULT '1';

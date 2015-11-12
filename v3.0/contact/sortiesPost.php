@@ -67,9 +67,21 @@
                 if(!$query)
                 {
                     mysqli_query($db, 'ROLLBACK;');
-                    echo "<div id=\"bad\">
-                        <label>Le type de sortie ".$tableau[1]." ne peut pas être suprimé, des salariés y sont associés</label>
-                        </div>";
+                    $query = mysqli_query($db, "UPDATE typesortie SET TYS_Active=false WHERE TYS_ID=".($tableau[0]).";");
+					if(!$query)
+					{
+						mysqli_query($db, 'ROLLBACK;');
+						echo "<div id=\"bad\">
+							<label>Le type de sortie ".$tableau[1]." n'a pas pu être désactivé.</label>
+							</div>";
+					}
+					else
+					{
+						mysqli_query($db, 'COMMIT;');
+						echo '<div id="good">
+						<label>Le type de sortie '.$tableau[1].' ne peux pas être suprimé, il va être désactivé !</label>
+						</div>';
+					}
                 }
                 else
                 {
@@ -79,7 +91,7 @@
                       </div>';
                 }
             }
-            elseif($typeAction == "desactiver")
+            /*elseif($typeAction == "desactiver")
 			{
 				$query = mysqli_query($db, "UPDATE typesortie SET TYS_Active=false WHERE TYS_ID=".($tableau[0]).";");
                 if(!$query)
@@ -96,7 +108,7 @@
                       <label>Le type de sortie '.$tableau[1].' a été désactivé avec succès !</label>
                       </div>';
                 }
-			}
+			}*/
             else
             {
                 echo '<div id="bad">
