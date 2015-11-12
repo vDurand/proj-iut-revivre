@@ -23,7 +23,7 @@
                         $query = mysqli_query($db, "INSERT INTO typesortie(TYS_ID, TYS_Libelle, TYS_Numero) VALUES (".($tableau[$x][0]).",'".addslashes($tableau[$x][1])."',".($tableau[$x][2]	).");");
                         if(!$query)
                         {
-						echo "INSERT INTO typesortie(TYS_ID, TYS_Libelle,TYS_Numero) VALUES (".($tableau[$x][0]).",'".$tableau[$x][1]."',".($tableau[$x][2]).");";
+						echo "INSERT INTO typesortie(TYS_ID, TYS_Libelle,TYS_Numero) VALUES (".($tableau[$x][0]).",'".$tableau[$x][1]."',".($tableau[$x][2])."); n'a pas fonctionné";
                             $erreur = true;
                         }
                     }
@@ -91,24 +91,24 @@
                       </div>';
                 }
             }
-            /*elseif($typeAction == "desactiver")
+            elseif($typeAction == "réactiver")
 			{
-				$query = mysqli_query($db, "UPDATE typesortie SET TYS_Active=false WHERE TYS_ID=".($tableau[0]).";");
+				$query = mysqli_query($db, "UPDATE typesortie SET TYS_Active=true WHERE TYS_ID=".($tableau[0]).";");
                 if(!$query)
                 {
                     mysqli_query($db, 'ROLLBACK;');
                     echo "<div id=\"bad\">
-                        <label>Le type de sortie ".$tableau[1]." n'a pas pu être désactivé.</label>
+                        <label>Le type de sortie ".$tableau[1]." n'a pas pu être réactivé.</label>
                         </div>";
                 }
                 else
                 {
                     mysqli_query($db, 'COMMIT;');
                     echo '<div id="good">
-                      <label>Le type de sortie '.$tableau[1].' a été désactivé avec succès !</label>
+                      <label>Le type de sortie '.$tableau[1].' a été réactivé avec succès !</label>
                       </div>';
                 }
-			}*/
+			}
             else
             {
                 echo '<div id="bad">

@@ -55,7 +55,7 @@
 									style="height: 22px; width:500px;" value="'.stripslashes($data["nom"]).'" onkeyup="changeNom()"/>
                             </td>
                             <td>
-                                <input name="suppr" type="button" class="delCross" value="x" onclick="delSortie('.$data["TYS_ID"].')"/>
+                                <input name="suppr" type="button" class="" value="Supprimer" onclick="delSortie('.$data["TYS_ID"].')"/>
                             </td>
                             <!--<td>
                                 <input name="désactiver" type="button" class="delCross" value="désactiver" onclick="desactiver('.$data["TYS_ID"].')"/>
@@ -71,6 +71,10 @@
                                 <input type="text" id="nom'.$data["TYS_ID"].'" name="nom'.$data["TYS_ID"].'" 
 									style="height: 22px; width:500px;" value="'.stripslashes($data["nom"]).'" disabled/>
                             </td>
+							<td>
+								<input name="réactiver" type="button" class="" value="réactiver" onclick="réactiver('.$data["TYS_ID"].')"/>
+							</td>
+								
                         </tr>';
 					
                     $arrayElements[$x++] = Array((int)($data["TYS_ID"]),0);
@@ -162,13 +166,13 @@
         }
 	}
 	
-	/*function desactiver(x)
+	function réactiver(x)
     {
         //if(confirm("Êtes-vous sûr de vouloir supprimer ce type de sortie ?"))
        // {
             if(x <= idRef)
             {
-                document.getElementById('typeAction').value = "desactiver";
+                document.getElementById('typeAction').value = "réactiver";
                 document.getElementById('Tableau').value = JSON.stringify(Array(x, document.getElementById('nom'+x).value));
                 document.getElementById("valid_sortie").submit();
             }
@@ -191,7 +195,7 @@
                 }
             }
         //}
-	}*/
+	}
 	
 	function postData()
 	{
