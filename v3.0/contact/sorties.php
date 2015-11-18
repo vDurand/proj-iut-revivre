@@ -6,7 +6,7 @@
 ?>
 <div id="corps">
     <div id="labelT">     
-        <label>Gestion des Types de sortie</label>
+        <label>Gestion des types de sortie</label>
    	</div>
     <br/>
     <div style="width:100%; max-width:100%; background-color:white; box-shadow:1px 1px 3px #555; padding:15px 0px;">	
@@ -15,17 +15,17 @@
                 <tr>
                     <td colspan="2">
                         <input name="nouvSortie" id="nouvSortie" type="button" class="buttonNormal" value="Ajouter un type de sortie" onclick="addSortie()">
-                    </td>
-                    <td style="text-align:right;">
-                        <input name="cancel" id="cancel" type="button" class="buttonNormal" value="Annuler" disabled="disabled" 
-                               onclick="if(confirm('Etes-vous sûr de vouloir annuler ?')){window.location.replace('./sorties.php');}">
-                        <input id="validSortie" name="validSortie" type="button" class="buttonNormal" disabled="disabled" value="Sauvegarder" onclick="postData()">
 						<?php 
 							if(isset($_POST['affichDesac']))
 								echo '<input id="affichDesac" name="masqueDesac" type="submit" class="buttonNormal" value="Masquer les types désactivés">';
 							else
 								echo '<input id="affichDesac" name="affichDesac" type="submit" class="buttonNormal" value="Afficher les types désactivés">';
 						?>
+                    </td>
+                    <td style="text-align:right;">
+                        <input name="cancel" id="cancel" type="button" class="buttonNormal" value="Annuler" disabled="disabled" 
+                               onclick="if(confirm('Etes-vous sûr de vouloir annuler ?')){window.location.replace('./sorties.php');}">
+                        <input id="validSortie" name="validSortie" type="button" class="buttonNormal" disabled="disabled" value="Sauvegarder" onclick="postData()">
                     </td>
                 </tr>
                 <tr>

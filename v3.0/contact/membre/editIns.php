@@ -758,12 +758,13 @@ include('../../bandeau.php');
                                 <select id="TypeSortie" name="TypeSortie">
                                     <optgroup label="Type actuel">
                                         <option value="<?php echo $typeSortie['TYS_ID']; ?>" selected>
-                                            <?php echo $typeSortie['TYS_Libelle']; ?>
+                                            <?php
+												echo $typeSortie['TYS_Libelle']; ?>
                                         </option>
                                     </optgroup>
                                     <optgroup label="Types disponibles">
                                         <?php
-                                        $reponse3 = mysqli_query($db, "SELECT * FROM TypeSortie WHERE TYS_Active=true	 ORDER BY TYS_ID");
+                                        $reponse3 = mysqli_query($db, "SELECT * FROM TypeSortie WHERE TYS_Active=true ORDER BY TYS_ID");
                                         while ($donnees3 = mysqli_fetch_assoc($reponse3)) {
                                             ?>
                                             <option

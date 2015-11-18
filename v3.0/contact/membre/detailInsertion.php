@@ -288,7 +288,10 @@ include('../../bandeau.php');
                     <tr>
                         <th style="text-align: left; width: 200px; white-space: normal;">Type de sortie :
                         </th>
-                        <td style="text-align: left; width: 300px;"><?php echo "n°".$typeSortie['TYS_ID']." &ndash; ".$typeSortie['TYS_Libelle']; ?></td>
+                        <td style="text-align: left; width: 300px;"><?php 
+							if(!$typeSortie['TYS_Active']) echo "Attention ! Ancien type de sortie !<br/>";
+							echo "n°".$typeSortie['TYS_ID']." &ndash; ".$typeSortie['TYS_Libelle']; 
+						?></td>
                     </tr>
                 </table>
             </td>

@@ -23,7 +23,7 @@
                         $query = mysqli_query($db, "INSERT INTO typesortie(TYS_ID, TYS_Libelle, TYS_Numero) VALUES (".($tableau[$x][0]).",'".addslashes($tableau[$x][1])."',".($tableau[$x][2]	).");");
                         if(!$query)
                         {
-						echo "INSERT INTO typesortie(TYS_ID, TYS_Libelle,TYS_Numero) VALUES (".($tableau[$x][0]).",'".$tableau[$x][1]."',".($tableau[$x][2])."); n'a pas fonctionné";
+						//echo "INSERT INTO typesortie(TYS_ID, TYS_Libelle,TYS_Numero) VALUES (".($tableau[$x][0]).",'".$tableau[$x][1]."',".($tableau[$x][2])."); n'a pas fonctionné";
                             $erreur = true;
                         }
                     }
