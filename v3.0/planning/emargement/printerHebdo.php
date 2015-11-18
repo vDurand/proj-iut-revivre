@@ -11,6 +11,7 @@ if(isset($_POST['date_select_hebdo']) && isset($_POST['encadrant_select_hebdo'])
 
     $tabJour = Array("Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi");
     $date = DateTime::createFromFormat('d/m/Y', $_POST['date_select_hebdo'])->format('Y-m-d');
+    $weekNumber = idate('W', strtotime($date));
 
     $query = mysqli_query($db, "SELECT max(CRE_id) AS max FROM pl_creneau;");
     $maxCreId = mysqli_fetch_assoc($query)["max"];
@@ -32,7 +33,7 @@ if(isset($_POST['date_select_hebdo']) && isset($_POST['encadrant_select_hebdo'])
 
     $content = '<link rel="stylesheet" type="text/css" href="../../css/table.css">
                 <page>
-                    <h3 class="header-emargement-hebdo">Semaine du lundi '.$_POST['date_select_hebdo'].' au vendredi '.date('d/m/Y', strtotime($date." + 4 day")).'</h3>
+                    <h3 class="header-emargement-hebdo">Semaine n°'.$weekNumber.' : lundi '.$_POST['date_select_hebdo'].' au vendredi '.date('d/m/Y', strtotime($date." + 4 day")).'</h3>
                     <table class="emargement-hebdo">
                         <thead>
                             <tr>
@@ -133,7 +134,7 @@ if(isset($_POST['date_select_hebdo']) && isset($_POST['encadrant_select_hebdo'])
 
     $content.='</div>
             <h4 style=" text-align:center; margin:0px; font-weight:normal;">
-                Association Revivre Service CAP, Chemin de Mondeville - 14460 COLOMBELLES
+                Association Revivre Service CAP, Chemin de Mondeville - 14460 COLOMBELLES | '.date("Y", strtotime($date)).'
             </h4>
         </page_footer>
     </page>';
