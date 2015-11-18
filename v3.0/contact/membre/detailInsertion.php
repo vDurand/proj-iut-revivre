@@ -290,7 +290,7 @@ include('../../bandeau.php');
                         </th>
                         <td style="text-align: left; width: 300px;"><?php 
 							if(!$typeSortie['TYS_Active']) echo "Attention ! Ancien type de sortie !<br/>";
-							echo "n°".$typeSortie['TYS_ID']." &ndash; ".$typeSortie['TYS_Libelle']; 
+							echo "n°".$typeSortie['TYS_Numero']." &ndash; ".$typeSortie['TYS_Libelle']; 
 						?></td>
                     </tr>
                 </table>
