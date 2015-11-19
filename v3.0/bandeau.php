@@ -19,6 +19,7 @@
 		<link rel="stylesheet" type="text/css" href="<?php echo $pwd; ?>css/drop.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo $pwd; ?>css/table.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo $pwd; ?>css/alpha.css">
+		<link rel="stylesheet" type="text/css" href="<?php echo $pwd; ?>css/planning.css">
 <?php
 	$i=rand(1,2);
 	if($i==1){

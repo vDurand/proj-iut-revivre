@@ -1,0 +1,68 @@
+/*******************************************
+                  FILTRES
+*******************************************/
+.planning-filters{
+	margin: 20px 0;
+	width: 100%;
+}
+
+.planning-filters table{
+	width: 100%;
+	table-layout: fixed;
+	text-align: center;
+}
+
+.planning-filters table th{
+	text-align: left;
+	padding-left: 25px;
+}
+
+.planning-filters table td .selectType{
+	margin: auto;
+}
+
+/*******************************************
+                 PLANNING
+*******************************************/
+.planning-table{
+	margin: 20px 0px;
+	width: 100%;
+	min-height: 350px;
+	position: relative;
+}
+
+.waiting-planning{
+	background-color: lightgray;
+	border-radius: 5px;
+}
+
+.waiting-planning .planning-loader{
+	width: 200px;
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+}
+
+.waiting-planning .planning-loader object{
+	display: block;
+	margin: auto;
+}
+
+.waiting-planning .planning-loader label{
+	padding: 10px 0px;
+	display: block;
+	text-align: center;
+	font-style: italic;
+	color: #4c4c4c;
+	font-size: 12px;
+}
+
+/*******************************************
+                   AUTRES
+*******************************************/
+.hr-stylized{
+	border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
