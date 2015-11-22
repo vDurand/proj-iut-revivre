@@ -235,12 +235,19 @@ include('../bandeau.php');
                             <div class="selectType2">
                                 <select id="Ref" name="Ref">
                                     <?php
-                                    $reponse2 = mysqli_query($db, "SELECT * FROM Referents JOIN Personnes USING (PER_NUM) JOIN Prescripteurs USING (PRE_Id) ORDER BY PER_Nom");
-                                    while ($donnees2 = mysqli_fetch_assoc($reponse2)) {
-                                        ?>
-                                        <option
-                                            value="<?php echo $donnees2['REF_NumRef']; ?>"><?php echo $donnees2['PER_Nom'].' '.$donnees2['PER_Prenom'].' ('.$donnees2['PRE_Nom'].')'; ?></option>
-                                    <?php
+                                    $prescripteurs = mysqli_query($db, "SELECT * FROM prescripteurs ORDER BY PRE_id");
+
+                                    while($data = mysqli_fetch_assoc($prescripteurs)){
+                                    ?>
+                                        <optgroup label="<?php echo $data['PRE_Nom'] ?>">
+                                        <?php
+                                        $reponse2 = mysqli_query($db, "SELECT * FROM Referents JOIN Personnes USING (PER_NUM) JOIN Prescripteurs USING (PRE_Id) WHERE PRE_Id = ".$data['PRE_Id']." ORDER BY PRE_id");
+                                        while ($donnees2 = mysqli_fetch_assoc($reponse2)) {
+                                        ?> 
+                                                <option value="<?php echo $donnees2['REF_NumRef']; ?>"><?php echo $donnees2['PER_Nom'].' '.$donnees2['PER_Prenom']; ?></option>
+                                        <?php
+                                        }
+                                        echo "</optgroup>";
                                     }
                                     mysqli_free_result($reponse2);
                                     ?>

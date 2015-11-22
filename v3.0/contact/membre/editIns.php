@@ -273,24 +273,31 @@ include('../../bandeau.php');
                         </td>
                         <td>
                             <div class="selectType2">
-                                <select id="Ref" name="Ref">
-                                    <optgroup label="Référent actuel">
-                                        <option value="<?php echo $referent['REF_NumRef']; ?>" selected>
-                                            <?php echo $referent['PER_Nom'] . ' ' . $referent['PER_Prenom'] . ' (' . $referent['PRE_Nom'] . ')'; ?>
-                                        </option>
-                                    </optgroup>
-                                    <optgroup label="Référents disponibles">
+                                <select id="Ref" name="Ref">                                          
+                                    <?php
+                                    $prescripteurs = mysqli_query($db, "SELECT * FROM prescripteurs ORDER BY PRE_id");
+
+                                    while($data = mysqli_fetch_assoc($prescripteurs)){
+                                    ?>
+                                        <optgroup label="<?php echo $data['PRE_Nom'] ?>">
                                         <?php
-                                        $reponse2 = mysqli_query($db, "SELECT * FROM Referents JOIN Personnes USING (PER_NUM) JOIN Prescripteurs USING (PRE_Id) ORDER BY PER_Nom");
+                                        $reponse2 = mysqli_query($db, "SELECT * FROM Referents JOIN Personnes USING (PER_NUM) JOIN Prescripteurs USING (PRE_Id) WHERE PRE_Id = ".$data['PRE_Id']." ORDER BY PRE_id");
                                         while ($donnees2 = mysqli_fetch_assoc($reponse2)) {
-                                            ?>
-                                            <option
-                                                value="<?php echo $donnees2['REF_NumRef']; ?>"><?php echo $donnees2['PER_Nom'] . ' ' . $donnees2['PER_Prenom'] . ' (' . $donnees2['PRE_Nom'] . ')'; ?></option>
+                                        	if($donnees2['REF_NumRef'] == $referent['REF_NumRef']){
+                                        ?> 
+                                                <option value="<?php echo $donnees2['REF_NumRef']; ?>" selected><?php echo $donnees2['PER_Nom'].' '.$donnees2['PER_Prenom']; ?></option>
                                         <?php
+                                        	}
+                                        	else{
+                                        	?>
+                                        		<option value="<?php echo $donnees2['REF_NumRef']; ?>" ><?php echo $donnees2['PER_Nom'].' '.$donnees2['PER_Prenom']; ?></option>
+                                        	<?php
+                                        	}
                                         }
-                                        mysqli_free_result($reponse2);
-                                        ?>
-                                    </optgroup>
+                                        echo "</optgroup>";
+                                    }
+                                    mysqli_free_result($reponse2);
+                                    ?>                                
                                 </select>
                             </div>
                         </td>
@@ -795,13 +802,6 @@ include('../../bandeau.php');
     <br/><br/>
     * : Champs obligatoires.
     </form>
-    <?php
-    mysqli_free_result($reponse1);
-    mysqli_free_result($reponse2);
-    mysqli_free_result($reponse3);
-    mysqli_free_result($reponse4);
-    mysqli_free_result($reponse5);
-    ?>
     </div>
 <?php
 include('../../footer.php');
