@@ -74,7 +74,7 @@
 						<select id="annee_select_mensuel" name="annee_select_mensuel">
 							<option value="0" style="font-style:italic">-- Annee --</option>
 							<?php
-								$query = mysqli_query($db, "SELECT DISTINCT max(date_format(ASSOC_date,'%Y')) as date from pl_association ORDER BY date");
+								$query = mysqli_query($db, "SELECT DISTINCT date_format(ASSOC_date,'%Y') as date from pl_association ORDER BY date");
 								while($data = mysqli_fetch_assoc($query))
 								{
 									echo '<option value="'.$data["date"].'">'.$data["date"].'</option>';

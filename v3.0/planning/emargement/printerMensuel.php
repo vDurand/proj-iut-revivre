@@ -10,16 +10,6 @@ if(isset($_POST['type_select_mensuel']) && isset($_POST['salarie_select_mensuel'
     mysqli_query($db, "SET NAMES 'utf8'");
 
     $tabMois = Array("JANVIER", "FEVRIER", "MARS", "AVRIL", "MAI", "JUIN", "JUILLET", "AOUT", "SEPTEMBRE", "OCTOBRE", "NOVEMBRE", "DECEMBRE");
-    $nbJours = Array(31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
-
-    /*for ($i=0; $i < 12; $i++){
-        $calendrier['N_Mois'][$i] = $i+1;
-        $calendrier['Mois'][$i] = $tabMois[$i];
-        $calendrier['NB_Jours'][$i] = $nbJours[$i];
-    }*/
-
-    //$query = mysqli_query($db, "SELECT max(CRE_id) AS max FROM pl_creneau;");
-    //$maxCreId = mysqli_fetch_assoc($query)["max"];*/
 
     $query = mysqli_query($db, "SELECT pe.PER_Nom, pe.PER_Prenom FROM pl_association pl
                                     JOIN salaries sa ON pl.SAL_NumSalarie = sa.SAL_NumSalarie
@@ -39,16 +29,19 @@ if(isset($_POST['type_select_mensuel']) && isset($_POST['salarie_select_mensuel'
 
     $content = '<link rel="stylesheet" type="text/css" href="../../css/table.css">
                 <page>
-                    <h4 align="right">Présence pour '.$tabMois[$_POST['mois_select_mensuel']-1].' '.$_POST['annee_select_mensuel'].'</h4>
-                    <h4 align="left">Salarié : '.$SalName.'</h4>
+                    <table align="center">
+                        <tr>
+                            <td><h4 text-align="right"> Salarié : '.$SalName.' (INSERTION) -  Présence pour '.$tabMois[$_POST['mois_select_mensuel']-1].' '.$_POST['annee_select_mensuel'].'  </h4></td>
+                        </tr>
+                    </table>
 
-                    <table class="emargement-hebdo" HEIGHT=10>
+                    <table class="emargement-mensuel" HEIGHT=10>
                         <thead>
                             <tr>
                                 <th rowspan="2">DATE</th>
-                                <th colspan="2"style="width:280px"> HORAIRES (Arrivée et Départ)</th>
-                                <th rowspan="2">NB<BR>Heures</th>
-                                <th rowspan="2" style="width:300px">Commentaires</th>
+                                <th colspan="2"style="width:240px"> HORAIRES (Arrivée et Départ)</th>
+                                <th rowspan="2" style="width:100px">NB<BR>Heures</th>
+                                <th rowspan="2" style="width:240px">Commentaires</th>
                             </tr>
                             <tr>
                                 <th class="sub-th">MATIN</th>
@@ -58,8 +51,16 @@ if(isset($_POST['type_select_mensuel']) && isset($_POST['salarie_select_mensuel'
                         <tbody>';
 
     for ($i=0; $i<31; $i++){
-        if (($i+1) > $nbJours[$_POST['mois_select_mensuel']-1]){
-            $content.= '<tr bgcolor="lightgrey"> <td></td><td></td><td></td><td></td><td></td> </tr>';
+        $nombre = cal_days_in_month(CAL_GREGORIAN, $_POST["mois_select_mensuel"], $_POST["annee_select_mensuel"]);
+        $date = mktime(0,0,0, $_POST["mois_select_mensuel"], $i+1, $_POST["annee_select_mensuel"]);
+        if (($i+1) > $nombre || date( 'w', $date) == 0 || date('w', $date) == 6){
+            $content.= '<tr bgcolor="lightgrey">
+                        <td align="center">'.($i+1).'/'.$_POST['mois_select_mensuel'].'</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>';
         }
         else{
         $content.='<tr>
@@ -74,7 +75,18 @@ if(isset($_POST['type_select_mensuel']) && isset($_POST['salarie_select_mensuel'
 
     $content .= '
             </tbody>
+            <tfoot>
+                <tr>
+                    <td border="0px"> </td>
+                    <td colspan="2" border="0px"><h4> Total Heure travaillées : </h4></td>
+                    <td> </td>
+                    <td border="0px"> </td>
+                </tr>
+            </tfoot>
         </table>
+        <div>
+            <h2><b> Signature du Salarié : </b></h2>
+        </div>
         <page_footer>
             <div style="margin-bottom:8px; text-align:center; padding:0;">';
 
@@ -84,13 +96,12 @@ if(isset($_POST['type_select_mensuel']) && isset($_POST['salarie_select_mensuel'
         }
 
     $content.='</div>
-            <h4 style=" text-align:center; margin:0px; font-weight:normal;">
+            <h4 style="text-align:center; margin:0px; font-weight:normal;">
                 Association Revivre Service CAP, Chemin de Mondeville - 14460 COLOMBELLES
             </h4>
         </page_footer>
     </page>';
 
-    //$title = "emargement_".str_replace(" ", "_", $encName)."_".str_replace("/", "-", $_POST['date_select_hebdo']).".pdf";
     $title = "emargement_mensuel_".$_POST['salarie_select_mensuel'].".pdf";
 
     require_once('../../stuff/html2pdf/html2pdf.class.php');

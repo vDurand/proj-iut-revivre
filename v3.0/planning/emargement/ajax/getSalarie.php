@@ -10,11 +10,16 @@
 <?php
 	if(isset($_POST["mois"]) && !empty($_POST["mois"]) && isset($_POST["type"]) && !empty($_POST["type"]) && isset($_POST["annee"]) && !empty($_POST["annee"]))
 	{
+		$mois = $_POST["mois"];
+
+		if ($mois < 10)
+			$mois = '0'.$mois;
+
 		$req = "SELECT DISTINCT sa.SAL_NumSalarie, PER_Nom, PER_Prenom FROM pl_association pl
 									JOIN salaries sa ON sa.SAL_NumSalarie = pl.SAL_NumSalarie
 									JOIN personnes USING (PER_Num)
 									JOIN type USING (TYP_Id)
-									WHERE date_format(pl.ASSOC_date,'%m/%Y') = '".$_POST["mois"]."/".$_POST["annee"]."' AND TYP_Id = ".$_POST["type"]." ORDER BY PER_Nom;";
+									WHERE date_format(pl.ASSOC_date,'%m/%Y') = '".$mois."/".$_POST["annee"]."' AND TYP_Id = ".$_POST["type"]." ORDER BY PER_Nom;";
 
 		echo $req;
 
