@@ -54,15 +54,15 @@
 					<div class="selectType" style="width:140px">
 						<select id="mois_select_mensuel" name="mois_select_mensuel">
 							<option value="0" style="font-style:italic">-- Mois --</option>
-							<option value="1">	JANVIER 	</option>
-	 						<option value="2">	FEVRIER		</option>
-				 			<option value="4">	AVRIL		</option>
-	 						<option value="3">	MARS		</option>
-			 				<option value="5">	MAI			</option>
-					 		<option value="6"> 	JUIN		</option>
-				 			<option value="7">	JUILLET		</option>
-	 						<option value="8"> 	AOUT		</option>
-				 			<option value="9">	SEPTEMBRE 	</option>	
+							<option value="01">	JANVIER 	</option>
+	 						<option value="02">	FEVRIER		</option>
+				 			<option value="03">	MARS		</option>
+	 						<option value="04">	AVRIL		</option>
+			 				<option value="05">	MAI			</option>
+					 		<option value="06"> JUIN		</option>
+				 			<option value="07">	JUILLET		</option>
+	 						<option value="08"> AOUT		</option>
+				 			<option value="09">	SEPTEMBRE 	</option>	
 							<option value="10"> OCTOBRE		</option>
 	 						<option value="11"> NOVEMBRE	</option>
  							<option value="12"> DECEMBRE	</option>
@@ -164,6 +164,8 @@
 	$("#salarie_select_mensuel").on("change", function(){
 		checkEncListMensuel();
 	});
+
+//-------------------------------------------------------
 
 	function loadListeContentMensuel(){
 		if($("#type_select_mensuel").val() != 0){

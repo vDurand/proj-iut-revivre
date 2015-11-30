@@ -12,9 +12,6 @@
 	{
 		$mois = $_POST["mois"];
 
-		if ($mois < 10)
-			$mois = '0'.$mois;
-
 		$req = "SELECT DISTINCT sa.SAL_NumSalarie, PER_Nom, PER_Prenom FROM pl_association pl
 									JOIN salaries sa ON sa.SAL_NumSalarie = pl.SAL_NumSalarie
 									JOIN personnes USING (PER_Num)

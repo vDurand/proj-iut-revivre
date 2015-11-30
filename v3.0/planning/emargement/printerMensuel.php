@@ -21,7 +21,24 @@ if(isset($_POST['type_select_mensuel']) && isset($_POST['salarie_select_mensuel'
     $tableauLogo[$x]="";
     $query = mysqli_query($db, "SELECT DISTINCT LOGO_Id, LOGO_Url FROM logo
                                 JOIN logo_association USING(LOGO_Id)
-                                WHERE PL_id=1 AND date_format(ASSOC_date, '%m') = '".$_POST['mois_select_mensuel']."';");
+                                WHERE PL_id=1 AND date_format(ASSOC_date, '%m/%Y') = '".$_POST['mois_select_mensuel']."/".$_POST['annee_select_mensuel']."';");
+
+    /*echo "SELECT DISTINCT LOGO_Id, LOGO_Url FROM logo
+                                JOIN logo_association USING(LOGO_Id)
+                                WHERE PL_id=1 AND date_format(ASSOC_date, '%m/%Y') = '".$_POST['mois_select_mensuel']."/".$_POST['annee_select_mensuel']."';";
+
+    echo mysqli_num_rows($query);*/
+
+    // -------------------------
+    // -------------------------
+    // -------------------------
+    // -------------------------
+    // /!\ INTEGRER L'ANNEEE !!!
+    // -------------------------
+    // -------------------------
+    // -------------------------
+    // -------------------------
+
     while($data = mysqli_fetch_assoc($query))
     {
         $tableauLogo[$x++] = $data["LOGO_Url"];
@@ -53,14 +70,11 @@ if(isset($_POST['type_select_mensuel']) && isset($_POST['salarie_select_mensuel'
     for ($i=0; $i<31; $i++){
         $nombre = cal_days_in_month(CAL_GREGORIAN, $_POST["mois_select_mensuel"], $_POST["annee_select_mensuel"]);
         $date = mktime(0,0,0, $_POST["mois_select_mensuel"], $i+1, $_POST["annee_select_mensuel"]);
-        //echo date('d/m/Y', $date).'--';
-        //echo date('w', $date).'--';
-        //echo isJourFerie(date('d/m/Y', $date)).'<br>';
 
         if (($i+1) > $nombre || date('w', $date) == 0 || date('w', $date) == 6 || isJourFerie(date('d/m/Y', $date))){
             $content.= '
                             <tr bgcolor="lightgrey">
-                                <td align="center">'.($i+1).'/'.date('m', $date).'</td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -82,32 +96,28 @@ if(isset($_POST['type_select_mensuel']) && isset($_POST['salarie_select_mensuel'
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td border="0px"> </td>
-                                <td colspan="2" border="0px"><h4> Total Heure travaillées : </h4></td>
+                                <td colspan="3"><h3> Total Heures travaillées : </h3></td>
                                 <td> </td>
                                 <td border="0px"> </td>
                             </tr>
                         </tfoot>
                     </table>
-                    <div>
-                        <h2><b> Signature du Salarié : </b></h2>
-                    </div>
-                </page>
+                    <h4 class="signature-emargement-hebdo"> Signature du salarié : </h4>
                     <page_footer>
                         <div style="margin-bottom:8px; text-align:center; padding:0;">';
 
-                        for($x=0; $x<sizeof($tableauLogo) && $x<6; $x++)
-                        {
-                            echo $tableauLogo[$x];
-                            $content.="<img src=\"../".$tableauLogo[$x]."\" style=\"margin:0px 3px;\">";
-                        }
+                            for($x=0; $x<sizeof($tableauLogo) && $x<6; $x++)
+                            {
+                                $content.="<img src=\"../".$tableauLogo[$x]."\" style=\"margin:0px 3px;\">";
+                            } 
 
     $content.='
-                            <h4 style="text-align:center; margin:0px; font-weight:normal;">
-                                Association Revivre Service CAP, Chemin de Mondeville - 14460 COLOMBELLES
-                            </h4>
                         </div>
-                    </page_footer>';
+                        <h5 style="text-align:center; margin:0px; font-weight:normal;">
+                            Association Revivre Service CAP, Chemin de Mondeville - 14460 COLOMBELLES - Imprimée le : '.date('d/m/y').'
+                        </h5>
+                    </page_footer>
+                </page>';
 
     $title = "emargement_mensuel_".$_POST['salarie_select_mensuel'].".pdf";
 

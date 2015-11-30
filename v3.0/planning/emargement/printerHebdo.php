@@ -127,14 +127,14 @@ if(isset($_POST['date_select_hebdo']) && isset($_POST['encadrant_select_hebdo'])
         <page_footer>
             <div style="margin-bottom:8px; text-align:center; padding:0;">';
 
-        for($x=0; $x<sizeof($tableauLogo) && $x<6; $x++)
-        {
-            $content.="<img src=\"../".$tableauLogo[$x]."\" style=\"margin:0px 3px;\"/>";
-        }
+                for($x=0; $x<sizeof($tableauLogo) && $x<6; $x++)
+                {
+                    $content.="<img src=\"../".$tableauLogo[$x]."\" style=\"margin:0px 3px;\"/>";
+                }
 
     $content.='</div>
             <h4 style=" text-align:center; margin:0px; font-weight:normal;">
-                Association Revivre Service CAP, Chemin de Mondeville - 14460 COLOMBELLES | '.date("Y", strtotime($date)).'
+                Association Revivre Service CAP, Chemin de Mondeville - 14460 COLOMBELLES - Imprimée le : '.date('d/m/y').'
             </h4>
         </page_footer>
     </page>';
