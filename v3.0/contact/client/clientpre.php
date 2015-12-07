@@ -19,7 +19,8 @@ include('../../bandeau.php');
         $cp = addslashes($_POST["Code_Postal"]);
         $ville = addslashes(mysqli_real_escape_string($db, formatUP($_POST["Ville"])));
         $struct = addslashes($_POST["Struct"]);
-
+		$sql = false;
+		$sql2=false;
         if ($struct == "Particulier") {
             $query = "UPDATE Personnes SET PER_Nom = '$nom', PER_Prenom = '$prenom', PER_TelFixe = '$tel',
             PER_TelPort = '$port', PER_Fax = '$fax', PER_Email = '$email', PER_Adresse = '$add', PER_CodePostal = '$cp',
@@ -157,8 +158,6 @@ include('../../bandeau.php');
               <label>Le client n a pas pu etre modifie</label>
               </div>';
         }
-        mysqli_free_result($sql1);
-        mysqli_free_result($sql2);
         ?>
     </div>
 <?php

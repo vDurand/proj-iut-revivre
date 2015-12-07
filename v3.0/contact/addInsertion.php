@@ -426,7 +426,7 @@ include('../bandeau.php');
                                     <option value="ASS">ASS</option>
                                     <option value="ARE">ARE</option>
                                     <option value="AAH">AAH</option>
-                                    <option value="Autre">Autre, précisez :</option>
+                                    <option value="Autre">Autre revenus</option>
                                     <option value="Aucun">Aucun</option>
                                 </select>
                             </div>
