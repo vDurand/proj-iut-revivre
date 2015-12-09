@@ -99,6 +99,7 @@
                                             <li><a href="<?php echo $pwd; ?>contact/convention.php">Conventions<br>&nbsp;</a></li>
                                             <li><a href="<?php echo $pwd; ?>contact/logoProperties.php">Logos<br>&nbsp;</a></li>
                                             <li><a href="<?php echo $pwd; ?>contact/sorties.php">Type de sorties<br>&nbsp;</a></li>
+                                            <li><a href="<?php echo $pwd; ?>contact/prescripteurs.php">Prescripteurs<br>&nbsp;</a></li>
                                         </ul>
                                     </li>
 	                			</ul>
