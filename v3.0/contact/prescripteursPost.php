@@ -28,7 +28,7 @@
                     }
                     else if($tableau[$x][3]==0)
                     {
-                        $query = mysqli_query($db, "UPDATE typesortie SET TYS_Libelle='".addslashes($tableau[$x][1])."', TYS_Numero=".($tableau[$x][2])." WHERE TYS_ID=".($tableau[$x][0]).";");
+                        $query = mysqli_query($db, "UPDATE prescripteurs SET PRE_NOM ='".addslashes($tableau[$x][1])."' WHERE PRE_ID=".($tableau[$x][0]).";");
                         if(!$query)
                         {
 							echo "<PRE>";
@@ -62,7 +62,7 @@
             }
             elseif($typeAction == "delete")
             {
-                $query = mysqli_query($db, "DELETE FROM typesortie WHERE TYS_ID=".($tableau[0]).";");
+                $query = mysqli_query($db, "DELETE FROM prescripteurs WHERE PRE_Id=".($tableau[0]).";");
                 if(!$query)
                 {
                     mysqli_query($db, 'ROLLBACK;');

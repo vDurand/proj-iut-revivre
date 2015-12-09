@@ -97,6 +97,7 @@
 	
 	function delPres(x)
     {
+        alert("Entrée dans le DEL");
         if(confirm("Êtes-vous sûr de vouloir supprimer ce prescripteur ?"))
         {
             if(x <= idRef)
