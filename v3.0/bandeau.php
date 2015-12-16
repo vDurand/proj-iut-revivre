@@ -35,6 +35,7 @@
         <link rel="stylesheet" type="text/css" href="<?php echo $pwd; ?>css/morris-0.5.1.css">
         <script type="text/javascript" src="<?php echo $pwd; ?>js/jquery.min.js"></script>
     	<script type="text/javascript" src="<?php echo $pwd; ?>js/jquery.tooltipster.min.js"></script>
+    	<script type="text/javascript" src="<?php echo $pwd; ?>js/jquery-redirect.min.js"></script>
     	<script type="text/javascript" src="<?php echo $pwd; ?>js/assets.js"></script>
         <script type="text/javascript" src="<?php echo $pwd; ?>js/angular.min.js"></script>
     	<script type="text/javascript" src="<?php echo $pwd; ?>js/raphael-min.js"></script>
@@ -106,10 +107,8 @@
 							</li>
 							<li id="champs"><a href="#">Plannings</a>
 								<ul class="subMenu">
-	                       			<li><a href="<?php echo $pwd; ?>planning/insertion/planning_insertion.php">Planning<br>ACI</a></li>
-									<li><a href="<?php echo $pwd; ?>planning/occupationnel/planning_occupationnel.php">Planning<br>occupationnel</a></li>
-									<li><a href="<?php echo $pwd; ?>planning/stagiaire/planning_stagiaire.php">Planning<br>stagiaire</a></li>
-									<li><a href="<?php echo $pwd; ?>planning/affichage_planning.php">Affichage des<br>plannings</a></li>
+	                       			<li><a href="<?php echo $pwd; ?>planning/planningShowcase.php">Gestion des<br>plannings</a></li>
+									<li><a href="#">Affichage des<br>plannings</a></li>
 									<li><a href="<?php echo $pwd; ?>planning/emargement/homeEmargement.php">Gestion de<br>l'émargement</a></li>
 	                			</ul>
 							</li>

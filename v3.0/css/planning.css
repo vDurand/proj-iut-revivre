@@ -2,7 +2,7 @@
                   FILTRES
 *******************************************/
 .planning-filters{
-	margin: 20px 0;
+	margin: 20px 0 10px 0;
 	width: 100%;
 }
 
@@ -21,19 +21,114 @@
 	margin: auto;
 }
 
+.planning-filters table td .buttonC{
+	margin-top: 10px;
+	margin-bottom: 0;
+}
+
 /*******************************************
                  PLANNING
 *******************************************/
 .planning-table{
 	margin: 20px 0px;
 	width: 100%;
-	min-height: 350px;
+	min-height: 481px;
 	position: relative;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.19), 0 2px 10px 0 rgba(0, 0, 0, 0.15);
 }
 
+.planning-table > table{
+	width: 100%;
+	background-color: white;
+	border: 1px solid black;
+	table-layout: fixed;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+.planning-table > table thead tr th:first-child{
+	width: 20%;
+	font-size: 14px;
+	font-weight: 400;
+	font-style: italic;
+}
+
+.planning-table > table thead tr th{
+	width: 35%;
+	height: 40px;
+	color: white;
+}
+
+.planning-table > table tbody tr td{
+	height: 60px;
+	padding: 0;
+}
+
+.planning-table > table tbody tr td ul{
+	display: block;
+	width: 100%;
+	height: 100%;
+	list-style-type: none;
+	margin:0;
+	padding: 10px 0;
+}
+
+.planning-table > table tbody tr td ul:empty{
+	background: url('../images/hachure-planning.png') repeat;
+}
+
+.planning-table > table th, .planning-table > table td{
+	border: 1px solid black;
+}
+
+/**  Menus  **/
+
+.planning-table .planning-menu{
+	background-image: url('../images/hachure.png');
+	background-color: rgba(255, 255, 255, 0.75);
+	height: 22px;
+	padding: 10px 0px;
+}
+
+.planning-table .planning-menu ul{
+	height: 22px;
+	display: block;
+	list-style-type: none;
+	padding: 0;
+	margin: 0 auto;
+	text-align: center;
+	line-height: 22px;
+}
+.planning-table .planning-menu ul li{
+	display: inline-block;
+	height: 100%;
+}
+
+.planning-table .planning-menu .hide{
+	display: none;
+}
+
+/**  Logos  **/
+.planning-table .planning-logo{
+	height: 90px;
+	background-color: rgba(255, 255, 255, 0.75);
+	max-height: 90px;
+	overflow-y: hidden;
+	overflow-x: scroll;
+	white-space: nowrap;
+}
+
+.planning-table .planning-logo .logo-wrapper{
+	position: relative;
+	display: inline-block;
+	margin: 5px;
+	border: 1px solid lightgrey;
+	height: 60px;
+}
+
+/** Loading **/
 .waiting-planning{
 	background-color: lightgray;
-	border-radius: 5px;
 }
 
 .waiting-planning .planning-loader{
@@ -56,6 +151,133 @@
 	font-style: italic;
 	color: #4c4c4c;
 	font-size: 12px;
+}
+
+/** Edition **/
+
+.planning-table .planning-disabled{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background-color: rgb(60, 60, 60);
+	background-image: url('../images/hachure2.png');
+	opacity: 0.3;
+	cursor: not-allowed;
+	z-index: 1000;
+}
+
+.planning-table .planning-time{
+	text-align: center;
+}
+
+.planning-table .planning-edit-tools{
+	background-image: url('../images/hachure.png');
+	background-color: rgba(255, 255, 255, 0.75);
+	padding: 10px 10px;
+	text-align: center;
+}
+
+.planning-table .planning-edit-tools table{
+	border-collapse: collapse;
+	width: 100%;
+	margin: 5px 0px;
+	text-align: left;
+}
+
+.planning-table .planning-edit-tools table tbody input[type=checkbox] + label:not(.ferie), .planning-table .planning-edit-tools table tbody td:not(.ferie) .dayTitle{
+	cursor: pointer;
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.planning-table .planning-edit-tools table tbody input[type=checkbox] + label:not(.ferie):hover, .planning-table .planning-edit-tools table tbody td:not(.ferie) .dayTitle:hover{
+	text-decoration: underline;
+}
+
+.planning-table .planning-edit-tools .ferie{
+	color: gray;
+}
+
+.planning-table .planning-edit-tools .buttonWrapper{
+	width: 100%;
+	padding: 5px 0 0 0;
+}
+
+.planning-table .planning-edit-tools .buttonWrapper #addSal{
+	width: 200px;
+}
+
+.planning-table .planning-logo .logo-wrapper input[type=checkbox]{
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	width: 18px;
+	height: 18px;
+}
+
+.planning-edit-form{
+	text-align: center;
+}
+
+/*******************************************
+                   PRINTER
+*******************************************/
+
+.planning-printer h2{
+	text-align: center;
+	margin: 20px 0 5px 0;
+}
+
+.planning-printer h4{
+	text-align: center;
+	margin: 5px 0px 25px 0px;
+}
+
+.planning-printer table{
+	border-collapse: collapse;
+	margin:auto;
+	text-align: center;
+}
+
+.planning-printer table tr th{
+	color: white;
+	padding: 5px;
+	width: 225px;
+	font-size: 16px;
+}
+
+.planning-printer table tr th.thinColumn{
+	width: 25px;
+}
+
+.planning-printer table tr th.firstColumn{
+	width: 115px;
+}
+
+.planning-printer table tr td, .planning-printer table tr th{
+	border: 1px solid black;
+	vertical-align: middle;
+}
+
+.planning-printer table tr td{
+	height: 50px;
+	padding: 5px 0px;
+	font-size: 15px;
+}
+
+.planning-printer-logo{
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+.planning-printer-logo img{
+	margin: 0px 5px;
 }
 
 /*******************************************
