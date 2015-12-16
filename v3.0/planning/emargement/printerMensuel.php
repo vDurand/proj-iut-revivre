@@ -11,16 +11,15 @@ if(isset($_POST['type_select_mensuel']) && isset($_POST['salarie_select_mensuel'
 
     $tabMois = Array("JANVIER", "FEVRIER", "MARS", "AVRIL", "MAI", "JUIN", "JUILLET", "AOUT", "SEPTEMBRE", "OCTOBRE", "NOVEMBRE", "DECEMBRE");
 
-    $query = mysqli_query($db, "SELECT pe.PER_Nom, pe.PER_Prenom FROM pl_association pl
-                                    JOIN salaries sa ON pl.SAL_NumSalarie = sa.SAL_NumSalarie
+    $query = mysqli_query($db, "SELECT concat(pe.PER_Nom, ' ', pe.PER_Prenom) AS nom FROM salaries sa
                                     JOIN personnes pe ON pe.PER_NUM = sa.PER_NUM
-                                    WHERE pl.SAL_NumSalarie = ".$_POST['salarie_select_mensuel']);
-    $SalName = mysqli_fetch_assoc($query)["PER_Nom"]." ".mysqli_fetch_assoc($query)["PER_Prenom"];
+                                    WHERE sa.SAL_NumSalarie = ".$_POST['salarie_select_mensuel']);
+    $SalName = mysqli_fetch_assoc($query)["nom"];
 
     $x=0;
     $tableauLogo[$x]="";
     $query = mysqli_query($db, "SELECT DISTINCT LOGO_Id, LOGO_Url FROM logo
-                                JOIN logo_association USING(LOGO_Id)
+                                JOIN pl_logo USING(LOGO_Id)
                                 WHERE PL_id=1 AND date_format(ASSOC_date, '%m/%Y') = '".$_POST['mois_select_mensuel']."/".$_POST['annee_select_mensuel']."';");
 
     /*echo "SELECT DISTINCT LOGO_Id, LOGO_Url FROM logo

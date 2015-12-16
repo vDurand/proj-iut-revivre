@@ -88,7 +88,7 @@
 				<td>
 					<div class="selectType" style="width:255px">
 						<select id="type_select_mensuel" name="type_select_mensuel">
-							<option style="font-style:italic" value="null"> -- Choisissez un type de salarié --</option>
+							<option style="font-style:italic" value="0">-- Choisissez un type de salarié --</option>
 							<?php
 								$query = mysqli_query($db, "SELECT DISTINCT TYP_Id, TYP_Nom FROM type WHERE TYP_Id > 5 ORDER BY TYP_Id DESC;");
 								while($data = mysqli_fetch_assoc($query))
@@ -102,7 +102,7 @@
 				<td>
 					<div class="selectType" style="width:200px">
 						<select id="salarie_select_mensuel" name="salarie_select_mensuel" disabled="disabled">
-							<option value="null">Aucun Salarie</option>
+							<option value="0">-- Choisissez un salarié --</option>
 						</select>
 					</div>
 				</td>

@@ -16,16 +16,15 @@ if(isset($_POST['date_select_hebdo']) && isset($_POST['encadrant_select_hebdo'])
     $query = mysqli_query($db, "SELECT max(CRE_id) AS max FROM pl_creneau;");
     $maxCreId = mysqli_fetch_assoc($query)["max"];
 
-    $query = mysqli_query($db, "SELECT pe.PER_Nom, pe.PER_Prenom FROM pl_association pl
-                                    JOIN salaries sa ON pl.ENC_Num = sa.SAL_NumSalarie
+    $query = mysqli_query($db, "SELECT concat(pe.PER_Nom,' ',pe.PER_Prenom) AS nom FROM salaries sa
                                     JOIN personnes pe ON pe.PER_NUM = sa.PER_NUM
-                                    WHERE pl.ENC_Num = ".$_POST['encadrant_select_hebdo']);
-    $encName = mysqli_fetch_assoc($query)["PER_Nom"]." ".mysqli_fetch_assoc($query)["PER_Prenom"];
+                                    WHERE sa.SAL_NumSalarie = ".$_POST['encadrant_select_hebdo'].";");
+    $encName = mysqli_fetch_assoc($query)["nom"];
 
     $x=0;
     $query = mysqli_query($db, "SELECT LOGO_Id, LOGO_Url FROM logo
-                                JOIN logo_association USING(LOGO_Id)
-                                WHERE PL_id=1 AND ASSOC_date = '".$date."';");
+                                JOIN pl_logo USING(LOGO_Id)
+                                WHERE PL_id=1 AND ASSOC_date = '".$date."' AND ENC_Num = '".$_POST['encadrant_select_hebdo']."';");
     while($data = mysqli_fetch_assoc($query))
     {
         $tableauLogo[$x++] = $data["LOGO_Url"];
