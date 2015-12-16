@@ -44,7 +44,7 @@
                 while($data = mysqli_fetch_assoc($query))
                 {
                     $max = ($data["TYS_ID"] > $max) ? $data["TYS_ID"] : $max;
-					if($data['TYS_Active'])
+					if($data['TYS_Active']==1)
 						echo '<tr id="tr'.$data["TYS_ID"].'" style="height: 32px;">
 							<td>
                                 <input type="number" id="num'.$data["TYS_ID"].'" name="num'.$data["TYS_ID"].'" 
@@ -54,6 +54,7 @@
                                 <input type="text" id="nom'.$data["TYS_ID"].'" name="nom'.$data["TYS_ID"].'" 
 									style="height: 22px; width:500px;" value="'.stripslashes($data["nom"]).'" onkeyup="changeNom()"/>
                             </td>
+							
                             <td>
                                 <input name="suppr" type="button" class="" value="Supprimer" onclick="delSortie('.$data["TYS_ID"].')"/>
                             </td>
@@ -61,6 +62,22 @@
                                 <input name="désactiver" type="button" class="delCross" value="désactiver" onclick="desactiver('.$data["TYS_ID"].')"/>
                             </td>-->
                         </tr>';
+					elseif($data['TYS_Active']==2){
+						echo '<tr id="tr'.$data["TYS_ID"].'" style="height: 32px;">
+							<td>
+                                <input type="number" id="num'.$data["TYS_ID"].'" name="num'.$data["TYS_ID"].'" 
+									style="height: 22px; width:40px;" value="'.stripslashes($data["num"]).'" onkeyup="changeNum()"/>
+							</td>
+                            <td>
+                                <input type="text" id="nom'.$data["TYS_ID"].'" name="nom'.$data["TYS_ID"].'" 
+									style="height: 22px; width:500px;" value="'.stripslashes($data["nom"]).'" onkeyup="changeNom()"/>
+                            </td>
+							
+                            <td>
+								<p>Non supprimable</p> 
+                            </td>
+                        </tr>';
+					}
 					else
 						echo '<tr id="tr'.$data["TYS_ID"].'" style="height: 32px;">
 							<td>
