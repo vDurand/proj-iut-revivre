@@ -5,7 +5,7 @@
 	$db = revivre();
 	mysqli_query($db, "SET NAMES 'utf8'");
 
-	if(isset($_POST["request_type"])){
+	if(isset($_POST["request_type"]) && !empty($_POST["request_type"])){
 
 		switch($_POST["request_type"]){
 			case "enc":
@@ -72,11 +72,11 @@
 	        $planningContenu = mysqli_fetch_all($query, MYSQLI_ASSOC);
 
 	        $query = mysqli_query($db, "SELECT DISTINCT ASSOC_Couleur, ASSOC_AM, ASSOC_PM, ASSOC_LastEdit FROM pl_proprietees 
-	        							WHERE ENC_Num = ".$_POST["ENC_Num"]." AND ASSOC_Date = '".$_POST["ASSOC_Date"]."'");
+	        							WHERE ENC_Num = ".$_POST["ENC_Num"]." AND ASSOC_Date = '".$_POST["ASSOC_Date"]."' AND PL_id = ".$_POST["PL_id"]);
 	        $proprietees = mysqli_fetch_assoc($query);
 
 	        $query = mysqli_query($db, "SELECT lo.LOGO_Url FROM pl_logo plo JOIN logo lo ON lo.LOGO_id = plo.LOGO_Id
-										WHERE plo.ENC_Num = ".$_POST["ENC_Num"]." AND plo.ASSOC_Date = '".$_POST["ASSOC_Date"]."';");
+										WHERE plo.ENC_Num = ".$_POST["ENC_Num"]." AND plo.ASSOC_Date = '".$_POST["ASSOC_Date"]."' AND PL_id = ".$_POST["PL_id"].";");
 			$logos =  mysqli_fetch_all($query, MYSQLI_ASSOC);
 		?>
 			<div class="planning-menu">
@@ -97,7 +97,7 @@
 			<table>
 				<thead style="background-color: <?php echo $proprietees["ASSOC_Couleur"]; ?>;">
 					<tr>
-						<th>Dernière modification<br/><?php echo date("d/m/Y", strtotime($proprietees["ASSOC_LastEdit"])); ?></th>
+						<th>Dernière modification<br/><?php echo date("d/m/Y H:i", strtotime($proprietees["ASSOC_LastEdit"])); ?></th>
 						<th>Matin<br/><?php echo $proprietees["ASSOC_AM"]; ?></th>
 						<th>Après-midi<br/><?php echo $proprietees["ASSOC_PM"]; ?></th>
 					</tr>

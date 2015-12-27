@@ -12,4 +12,4 @@ v2.0/.htaccess copy
 .idea
 v3.0/ignore/
 v3.0/index.php
-Todo.txt
+*.todo

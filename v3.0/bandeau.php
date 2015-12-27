@@ -73,7 +73,7 @@
 										<ul>
 <?php
 	$db = revivre();
-	
+	mysqli_query($db, "SET lc_time_names = 'fr_FR'");
 	mysqli_query($db, "SET NAMES 'utf8'");
 	$reponse = mysqli_query($db, "SELECT * FROM Type");
 	

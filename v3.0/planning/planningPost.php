@@ -2,6 +2,7 @@
 	$pageTitle = "Sauvegarde d'un planning";
 	$pwd='../';
 	include($pwd.'bandeau.php');
+    $debugmode = false;
 ?>
 <div id="corps">
 <?php
@@ -20,6 +21,7 @@
         		}
         		else{
         			displayError();
+
         			mysqli_query($db, 'ROLLBACK;');
         		}
         	}
@@ -30,6 +32,7 @@
         		}
         		else{
         			displayError();
+                    echo mysqli_error($db);
         			mysqli_query($db, 'ROLLBACK;');
         		}
         	}
@@ -44,7 +47,14 @@
 	else{
         displayError();
 	}
-    redirectPage();
+
+    if($debugmode){
+        echo mysqli_error($db);
+    }
+    else{
+        redirectPage();
+    }
+    
 ?>
 </div>
 <?php
@@ -65,7 +75,7 @@
   			}
   		}
 
-		$query = mysqli_query($db, "INSERT INTO pl_proprietees VALUES (".$_POST['ENC_Num'].", '".$_POST['ASSOC_Date']."', ".$_POST["PL_id"].", '".$_POST['ASSOC_Couleur']."', '".$_POST['ASSOC_AM']."', '".$_POST['ASSOC_PM']."', '".date("Y-m-d")."')");
+		$query = mysqli_query($db, "INSERT INTO pl_proprietees VALUES (".$_POST['ENC_Num'].", '".$_POST['ASSOC_Date']."', ".$_POST["PL_id"].", '".$_POST['ASSOC_Couleur']."', '".$_POST['ASSOC_AM']."', '".$_POST['ASSOC_PM']."', '".date("Y-m-d H:i:s")."')");
 		if(!$query){
 			return false;
 		}

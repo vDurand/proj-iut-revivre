@@ -5,26 +5,27 @@
 
 	if(isset($_POST["PL_id"]) && !empty($_POST["PL_id"]) && isset($_POST["ASSOC_Date"]) && !empty($_POST["ASSOC_Date"]) && isset($_POST["ENC_Num"]) && !empty($_POST["ENC_Num"]))
 	{
-		$nomTypesPlanning = ["1" => "ACI", "2" => "occupationnel", "3" => "stagiaire"];
+		$query = mysqli_query($db, "SELECT PL_Libelle FROM typeplanning ORDER BY PL_id");
+    	$nomTypesPlanning = mysqli_fetch_all($query, MYSQLI_ASSOC);
+
 		$query = mysqli_query($db, "SELECT concat(PER_Nom,' ',PER_Prenom) AS Nom FROM salaries JOIN personnes USING(PER_Num) WHERE SAL_NumSalarie = ".$_POST["ENC_Num"]);
 		$nomEncadrant = mysqli_fetch_assoc($query);
 
 		$query = mysqli_query($db, "SELECT LOGO_Url, LOGO_Id, 'false' AS checked FROM logo 
-									WHERE LOGO_Id NOT IN (SELECT LOGO_Id FROM pl_logo WHERE ENC_Num = ".$_POST["ENC_Num"]." AND ASSOC_Date ='".$_POST["ASSOC_Date"]."')
+									WHERE LOGO_Id NOT IN (SELECT LOGO_Id FROM pl_logo WHERE ENC_Num = ".$_POST["ENC_Num"]." AND ASSOC_Date ='".$_POST["ASSOC_Date"]."' AND PL_id = ".$_POST["PL_id"].")
 									UNION 
 									SELECT LOGO_Url, LOGO_Id, 'true' AS checked FROM pl_logo NATURAL JOIN logo 
-									WHERE ENC_Num = ".$_POST["ENC_Num"]." AND ASSOC_Date ='".$_POST["ASSOC_Date"]."' ORDER BY LOGO_Id");
+									WHERE ENC_Num = ".$_POST["ENC_Num"]." AND ASSOC_Date ='".$_POST["ASSOC_Date"]."' AND PL_id = ".$_POST["PL_id"]." ORDER BY LOGO_Id");
 		$logos = mysqli_fetch_all($query, MYSQLI_ASSOC);
 
 		$query = mysqli_query($db, "SELECT * FROM pl_proprietees WHERE ASSOC_Date = '".$_POST["ASSOC_Date"]."' AND ENC_Num = ".$_POST["ENC_Num"]);
 		$proprietees = mysqli_fetch_assoc($query);
 
-		$typesSalariesFct = [8,7,9];
 		$queryListeSalaries = mysqli_query($db, "SELECT PER_Nom, PER_Prenom, SAL_NumSalarie
 			FROM insertion
 			JOIN salaries USING(SAL_NumSalarie) 
 			JOIN personnes USING(PER_Num) 
-			WHERE TYS_ID = 0 AND TYP_Id = ".$typesSalariesFct[((int)$_POST["PL_id"])-1]." AND SAL_Actif = 1 AND SAL_NumSalarie NOT IN
+			WHERE TYS_ID = 0 AND TYP_Id IN (8,7,9) AND SAL_Actif = 1 AND SAL_NumSalarie NOT IN
 			(
 				SELECT DISTINCT SAL_NumSalarie FROM pl_association WHERE ASSOC_Date = '".$_POST["ASSOC_Date"]."' AND ENC_Num <> ".$_POST["ENC_Num"]."
 			)
@@ -49,7 +50,7 @@
 ?>
 <div id="corps">
 	<div id="labelT">
-		<label>Modification : planning <?php echo $nomTypesPlanning[$_POST["PL_id"]]; ?> du <?php echo date("d/m/Y", strtotime($_POST["ASSOC_Date"])); ?> encadré par <i><?php echo $nomEncadrant["Nom"]; ?></i></label>
+		<label>Planning <?php echo $nomTypesPlanning[$_POST["PL_id"]-1]["PL_Libelle"]; ?> du <?php echo date("d/m/Y", strtotime($_POST["ASSOC_Date"])); ?> encadré par <i><?php echo $nomEncadrant["Nom"]; ?></i></label>
 	</div>
 	<div class="planning-edit-area planning-table">
 		<div class="planning-edit-tools">
@@ -298,8 +299,8 @@
 					cellElement.find("ul").append('<li><span data-num="'+$("#SAL_NumSalarie").val()+'">'+$("#SAL_NumSalarie option:selected").html()+
 						'</span><input type="button" class="delCross" value="x" onclick="deleteSal(\''+checkbox.data("value")+'-'+$("#SAL_NumSalarie").val()+'\','+checkbox.val()+')"/></li>');
 				}
+				dataSalarieToStore[dataSalarieToStore.length] = [$("#SAL_NumSalarie").val(), checkbox.val()];
 			}
-			dataSalarieToStore[dataSalarieToStore.length] = [$("#SAL_NumSalarie").val(), checkbox.val()];
 			checkbox.prop("checked", false);
 		}
 	}

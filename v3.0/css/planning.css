@@ -32,7 +32,7 @@
 .planning-table{
 	margin: 20px 0px;
 	width: 100%;
-	min-height: 481px;
+	min-height: 431px;
 	position: relative;
 	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.19), 0 2px 10px 0 rgba(0, 0, 0, 0.15);
 }
@@ -60,7 +60,7 @@
 }
 
 .planning-table > table tbody tr td{
-	height: 60px;
+	height: 50px;
 	padding: 0;
 }
 
@@ -70,11 +70,18 @@
 	height: 100%;
 	list-style-type: none;
 	margin:0;
-	padding: 10px 0;
+	padding:0;
 }
 
 .planning-table > table tbody tr td ul:empty{
 	background: url('../images/hachure-planning.png') repeat;
+}
+.planning-table > table tbody tr td li{
+	vertical-align: middle;
+	padding: 3px 5px;
+}
+.planning-table > table tbody tr td li:not(:last-child){
+	border-bottom: 1px dotted black;
 }
 
 .planning-table > table th, .planning-table > table td{
@@ -228,56 +235,90 @@
 /*******************************************
                    PRINTER
 *******************************************/
-
-.planning-printer h2{
+.planning-printer-header{
+	padding: 0;
+	margin: 0;
+}
+.planning-printer-header h2{
+	font-family: Helvetica;
 	text-align: center;
-	margin: 20px 0 5px 0;
+	margin: 0;
+	padding: 0;
 }
 
-.planning-printer h4{
+.planning-printer-header h4{
+	font-family: Helvetica;
 	text-align: center;
-	margin: 5px 0px 25px 0px;
+	margin: 10px 0 0 0;
+	padding: 0;
 }
 
-.planning-printer table{
+#planning-table{
 	border-collapse: collapse;
-	margin:auto;
+	margin: auto;
 	text-align: center;
+	font-family: Helvetica;
+	width: 100%;
 }
 
-.planning-printer table tr th{
+#planning-table tr th{
 	color: white;
 	padding: 5px;
-	width: 225px;
-	font-size: 16px;
-}
-
-.planning-printer table tr th.thinColumn{
-	width: 25px;
-}
-
-.planning-printer table tr th.firstColumn{
-	width: 115px;
-}
-
-.planning-printer table tr td, .planning-printer table tr th{
-	border: 1px solid black;
-	vertical-align: middle;
-}
-
-.planning-printer table tr td{
-	height: 50px;
-	padding: 5px 0px;
 	font-size: 15px;
+	vertical-align: middle;
+	border: 1px solid black;
 }
 
-.planning-printer-logo{
+#planning-table tr td{
+	border: 1px solid black;
+	width: 37%;
+	padding: 0;
+}
+
+#planning-table tr td.thinColumn{
+	width: 7%;
+}
+
+#planning-table tr td.firstColumn{
+	width: 14%;
+}
+
+#planning-table tr td table {
 	text-align: center;
-	margin-bottom: 10px;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	border-collapse: collapse;
 }
 
-.planning-printer-logo img{
+#planning-table tr td table tr td{
+	border: none;
+	padding: 1px 0px;
+	height: 15px;
+	line-height: 100%;
+	vertical-align: middle;
+	width: 100%;
+}
+
+#planning-table tr td table tr td.separator{
+	border-bottom: 1px dotted black;	
+}
+
+.planning-printer-footer .planning-printer-logo{
+	text-align: center;
+	padding-bottom: 10px;
+}
+
+.planning-printer-footer .planning-printer-logo img{
 	margin: 0px 5px;
+}
+
+.planning-printer-footer h4{
+	margin: 0;
+	font-family: Helvetica;
+	font-size: 14px;
+	text-align: center;
+	font-weight: 600;
 }
 
 /*******************************************

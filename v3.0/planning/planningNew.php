@@ -28,7 +28,7 @@
 								<?php
 									while($data = mysqli_fetch_assoc($listeTypesPlanning))
 									{
-										echo '<option value="'.$data["PL_id"].'">'.$data["PL_Libelle"].'</option>';
+										echo '<option value="'.$data["PL_id"].'">Planning '.$data["PL_Libelle"].'</option>';
 									}
 								?>
 							</select>
@@ -123,72 +123,9 @@
 <script type="text/javascript">
 	var dataSalarieToStore = [];
 	var dataLogoToStore = [];
-	var planningDefaultColors = ["#005fbf", "#228B22", "#ddbc4b"];
-	var planningDefaultTime = [["08h00 - 12h00", "13h00 - 18h00"], ["08h30 - 12h00", "13h00 - 16h30"], ["09h00 - 12h00", "13h00 - 15h00"]];
-
-	$(document).ready(function() {
-	    $(".dayTitle").each(function(index){
-			$(this).on("click", triggerCheckboxes(index));
-		});
-	});
 
 	$("#annuler").on("click", function(){
 		$.redirect("./planningShowcase.php");
-	});
-
-	$("#sauvegarder").on("click", function(){
-		if(dataSalarieToStore.length > 0){
-			$.redirect("./planningPost.php", {
-				"ENC_Num": $("#ENC_Num").val(),
-				"ASSOC_Date": $("#ASSOC_Date").val(),
-				"PL_id": $("#PL_id").val(),
-				"DataSalarie": JSON.stringify(dataSalarieToStore),
-				"DataLogo": JSON.stringify(dataLogoToStore),
-				"ASSOC_Couleur": $("#selectColor").val(),
-				"ASSOC_AM": $("#time-am").val(),
-				"ASSOC_PM": $("#time-pm").val(),
-				"Type": "new"
-			});
-		}
-		else{
-			alert("Vous devez d'abord remplir le planning avant de le sauvegarder.");
-		}
-	});
-
-	$("#selectColor").on("change", function(){
-		$(".planning-table table thead").css("background-color", $(this).val());
-	});
-
-	$(".logoCheckbox").on("change", function(){
-		if($(this).prop("checked")){
-			if(dataLogoToStore.indexOf($(this).data("logo")) < 0){
-				dataLogoToStore.push($(this).data("logo"));
-			}
-		}
-		else{
-			if((index = dataLogoToStore.indexOf($(this).data("logo"))) > -1){
-				dataLogoToStore.splice(index, 1);
-			}
-		}
-	});
-
-	$("#addSal").on("click", function(){
-		if($("#SAL_NumSalarie").val() != null){
-			$(".planning-edit-tools > table tbody input[type=checkbox]:checked").each(function(index){
-				addSalarie($(this));
-			});
-			$("#SAL_NumSalarie option:nth-child(1)").prop("selected", "selected");
-		}
-		else{
-			alert("Choisissez d'abord un salarié.");
-		}
-	});
-
-	$("#checkall").on("click", function(){
-		$(".planning-edit-tools > table tbody input[type=checkbox]").each(function(){
-			if(!$(this).prop("disabled"))
-				$(this).prop("checked", "checked");
-		});
 	});
 
 	$("#PL_id").on("change", function(){
@@ -202,7 +139,7 @@
 		resetRequired();
 
 		if($(this).val() != null){
-			getDataAjax("./ajax/planningNewData.php", {"request_type": "enc", "ASSOC_Date": $(this).val()}, function(data){
+			getDataAjax("./ajax/planningNewData.php", {"request_type": "enc", "ASSOC_Date": $(this).val(), "PL_id":$("#PL_id").val()}, function(data){
 		   		if(data.length > 0){
 		   			$("#ENC_Num").html(data);
 		   			$("#ENC_Num").prop("disabled", "");
@@ -227,41 +164,11 @@
 	});
 
 	$("#valid_required").on("click", function(){
-		getDataAjax("./ajax/planningNewData.php", {"request_type": "ferie", "MondayDate": $("#ASSOC_Date").val()}, function(data){
-	   		if(data.length > 0){
-	   			var tabJoursFeries = JSON.parse(data);
-	   			$(".dayDate").each(function(index){
-					if(!tabJoursFeries[index]){
-						var tempDate = new Date($("#ASSOC_Date").val());
-			    		tempDate.setDate(tempDate.getDate() + index);
-						$(this).html(tempDate.getDate()+"/"+(tempDate.getMonth()+1));
-					}
-					else{
-						$("#choice"+index+"0, #choice"+index+"1").prop("disabled", "disabled");
-						$("#choice"+index+"0 + label, #choice"+index+"1 + label").addClass("ferie");
-						$("#choice"+index+"0").parent().prev().addClass("ferie");
-						$(this).parent().siblings().html("<ul></ul>");
-						$(this).html("FÉRIÉ");
-					}
-				});
-
-				$("#PL_id, #ASSOC_Date, #ENC_Num, #valid_required").prop("disabled", "disabled");
-
-				$(".planning-edit-area table thead").css("background-color", planningDefaultColors[$("#PL_id").val()-1]);
-				$(".planning-edit-area table thead tr th input[type=color]").val(planningDefaultColors[$("#PL_id").val()-1]);
-				$("#time-am").val(planningDefaultTime[$("#PL_id").val()-1][0]);
-				$("#time-pm").val(planningDefaultTime[$("#PL_id").val()-1][1]);
+		getDataAjax("./ajax/planningNewData.php", {"request_type": "global", "ASSOC_Date": $("#ASSOC_Date").val(), "PL_id": $("#PL_id").val()}, function(data){
+			if(data.length > 0){
+				$(".planning-edit-area").html(data);
+				handleEvents();
 				$("#sauvegarder").prop("disabled", "");
-
-				getDataAjax("./ajax/planningNewData.php", {"request_type": "sal", "ASSOC_Date": $("#ASSOC_Date").val(), "PL_id": $("#PL_id").val()}, function(data){
-			   		if(data.length > 0){
-			   			$("#SAL_NumSalarie").html(data);
-			   			$(".planning-disabled").remove();
-					}
-					else{
-						alert("Une erreur s'est produite, rechargez la page.");
-					}
-				});
 			}
 			else{
 				alert("Une erreur s'est produite, rechargez la page.");
@@ -271,6 +178,68 @@
 
 	function getDataAjax(url, params, callback){
 		 $.post(url, params, callback);
+	}
+
+	function handleEvents(){
+		$(".dayTitle").each(function(index){
+			$(this).on("click", triggerCheckboxes(index));
+		});
+
+		$("#selectColor").on("change", function(){
+			$(".planning-table table thead").css("background-color", $(this).val());
+		});
+
+		$(".logoCheckbox").on("change", function(){
+			if($(this).prop("checked")){
+				if(dataLogoToStore.indexOf($(this).data("logo")) < 0){
+					dataLogoToStore.push($(this).data("logo"));
+				}
+			}
+			else{
+				if((index = dataLogoToStore.indexOf($(this).data("logo"))) > -1){
+					dataLogoToStore.splice(index, 1);
+				}
+			}
+		});
+
+		$("#addSal").on("click", function(){
+			if($("#SAL_NumSalarie").val() != null){
+				$(".planning-edit-tools > table tbody input[type=checkbox]:checked").each(function(index){
+					addSalarie($(this));
+				});
+				$("#SAL_NumSalarie option:nth-child(1)").prop("selected", "selected");
+			}
+			else{
+				alert("Choisissez d'abord un salarié.");
+			}
+		});
+
+		$("#checkall").on("click", function(){
+			$(".planning-edit-tools > table tbody input[type=checkbox]").each(function(){
+				if(!$(this).prop("disabled"))
+					$(this).prop("checked", "checked");
+			});
+		});
+
+
+		$("#sauvegarder").on("click", function(){
+			if(dataSalarieToStore.length > 0){
+				$.redirect("./planningPost.php", {
+					"ENC_Num": $("#ENC_Num").val(),
+					"ASSOC_Date": $("#ASSOC_Date").val(),
+					"PL_id": $("#PL_id").val(),
+					"DataSalarie": JSON.stringify(dataSalarieToStore),
+					"DataLogo": JSON.stringify(dataLogoToStore),
+					"ASSOC_Couleur": $("#selectColor").val(),
+					"ASSOC_AM": $("#time-am").val(),
+					"ASSOC_PM": $("#time-pm").val(),
+					"Type": "new"
+				});
+			}
+			else{
+				alert("Vous devez d'abord remplir le planning avant de le sauvegarder.");
+			}
+		});
 	}
 
 	function resetRequired(){
@@ -294,6 +263,7 @@
 			}
 		}
 	}
+	
 	function addSalarie(checkbox){
 		if(checkbox.prop("checked")){
 			var cellAxis = checkbox.data("value").split("-");
@@ -309,12 +279,14 @@
 					cellElement.find("ul").append('<li><span data-num="'+$("#SAL_NumSalarie").val()+'">'+$("#SAL_NumSalarie option:selected").html()+
 						'</span><input type="button" class="delCross" value="x" onclick="deleteSal(\''+checkbox.data("value")+'-'+$("#SAL_NumSalarie").val()+'\','+checkbox.val()+')"/></li>');
 				}
+				dataSalarieToStore[dataSalarieToStore.length] = [$("#SAL_NumSalarie").val(), checkbox.val()];
 			}
-			dataSalarieToStore[dataSalarieToStore.length] = [$("#SAL_NumSalarie").val(), checkbox.val()];
+			else{
+				alert("Le salarié est déjà dans le planning.");
+			}
 			checkbox.prop("checked", false);
 		}
 	}
-
 
 	function deleteSal(params, creneau){
 		var salInfo = params.split("-");

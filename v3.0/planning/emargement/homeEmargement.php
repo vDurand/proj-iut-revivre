@@ -16,12 +16,29 @@
 				<td>
 					<div class="selectType" style="width:200px">
 						<select id="date_select_hebdo" name="date_select_hebdo">
-							<option style="font-style:italic" value="0">-- Choisissez une date --</option>
+							<option value="0" disabled="disabled" selected="selected">Choisissez une date</option>
 							<?php
-								$query = mysqli_query($db, "SELECT DISTINCT date_format(ASSOC_date,'%d/%m/%Y') AS 'date' FROM pl_association WHERE PL_id = 1 AND ASSOC_Archi = 0 ORDER BY ASSOC_date DESC;");
+								$query = mysqli_query($db, "SELECT DISTINCT date_format(ASSOC_date,'%d/%m/%Y') AS 'date' FROM pl_association 
+															WHERE PL_id IN (SELECT PL_id FROM typeplanning WHERE PL_Libelle IN ('GOB', 'SOB'))
+															AND ASSOC_Archi = 0 ORDER BY ASSOC_date DESC;");
 								while($data = mysqli_fetch_assoc($query))
 								{
 									echo '<option value="'.$data["date"].'">'.$data["date"].'</option>';
+								}
+							?>
+						</select>
+					</div>
+				</td>
+				<td>
+					<div class="selectType" style="width:200px">
+						<select id="plid_select_hebdo" name="plid_select_hebdo" disabled="disabled">
+							<option value="0" disabled="disabled" selected="selected">Choisissez un type</option>
+							<?php
+								$query = mysqli_query($db, "SELECT PL_id, PL_Libelle FROM typeplanning
+															WHERE PL_id IN (SELECT PL_id FROM typeplanning WHERE PL_Libelle IN ('GOB', 'SOB'));");
+								while($data = mysqli_fetch_assoc($query))
+								{
+									echo '<option value="'.$data["PL_id"].'">'.$data["PL_Libelle"].'</option>';
 								}
 							?>
 						</select>
@@ -41,68 +58,35 @@
 		</form>
 	</div>
 
-<!-- ---------------------------------------- -->
-<!-- ---------------------------------------- -->
-<!-- ---------------------------------------- -->
-<!-- ---------------------------------------- -->
-
 	<div class="emargement-bloc">
-		<h4>Feuilles d'émargement mensuelles</h4>
+		<h4>Feuilles de pointage mensuelles</h4>
 		<form method="POST" action="printerMensuel.php" target="_blank">
 			<table>
 				<td>
-					<div class="selectType" style="width:140px">
-						<select id="mois_select_mensuel" name="mois_select_mensuel">
-							<option value="0" style="font-style:italic">-- Mois --</option>
-							<option value="01">	JANVIER 	</option>
-	 						<option value="02">	FEVRIER		</option>
-				 			<option value="03">	MARS		</option>
-	 						<option value="04">	AVRIL		</option>
-			 				<option value="05">	MAI			</option>
-					 		<option value="06"> JUIN		</option>
-				 			<option value="07">	JUILLET		</option>
-	 						<option value="08"> AOUT		</option>
-				 			<option value="09">	SEPTEMBRE 	</option>	
-							<option value="10"> OCTOBRE		</option>
-	 						<option value="11"> NOVEMBRE	</option>
- 							<option value="12"> DECEMBRE	</option>
- 						</select>
-					</div>
-				</td>
-				<td>
-					<div class="selectType" style="width:120px">
+					<div class="selectType" style="width:200px">
 						<select id="annee_select_mensuel" name="annee_select_mensuel">
-							<option value="0" style="font-style:italic">-- Annee --</option>
+							<option value="0" disabled="disabled" selected="selected">Choisissez une année</option>
 							<?php
-								$query = mysqli_query($db, "SELECT DISTINCT date_format(ASSOC_date,'%Y') as date from pl_association ORDER BY date");
+								$query = mysqli_query($db, "SELECT DISTINCT date_format(ASSOC_date,'%Y') AS annee FROM pl_association WHERE ASSOC_Archi = 0 ORDER BY annee");
 								while($data = mysqli_fetch_assoc($query))
 								{
-									echo '<option value="'.$data["date"].'">'.$data["date"].'</option>';
+									echo '<option value="'.$data["annee"].'">'.$data["annee"].'</option>';
 								}
-
-
 							?>
  						</select>
-					</div>
-				</td>
-				<td>
-					<div class="selectType" style="width:255px">
-						<select id="type_select_mensuel" name="type_select_mensuel">
-							<option style="font-style:italic" value="0">-- Choisissez un type de salarié --</option>
-							<?php
-								$query = mysqli_query($db, "SELECT DISTINCT TYP_Id, TYP_Nom FROM type WHERE TYP_Id > 5 ORDER BY TYP_Id DESC;");
-								while($data = mysqli_fetch_assoc($query))
-								{
-									echo '<option value="'.$data["TYP_Id"].'">'.$data["TYP_Nom"].'</option>';
-								}
-							?>
-						</select>
 					</div>
 				</td>
 				<td>
 					<div class="selectType" style="width:200px">
+						<select id="mois_select_mensuel" name="mois_select_mensuel" disabled="disabled">
+							<option value="0" disabled="disabled" selected="selected">Choisissez un mois</option>
+ 						</select>
+					</div>
+				</td>
+				<td>
+					<div class="selectType" style="width:300px">
 						<select id="salarie_select_mensuel" name="salarie_select_mensuel" disabled="disabled">
-							<option value="0">-- Choisissez un salarié --</option>
+							<option value="0">Choisissez un salarié</option>
 						</select>
 					</div>
 				</td>
@@ -114,13 +98,13 @@
 	</div>
 </div>
 
-<!-- FONCTION DE CHANGEMENT AUTOMATIQUES -->
-
 <script type="text/javascript">
 
-	// FICHE POINTAGE HEBDO
-
 	$("#date_select_hebdo").on("change", function(){
+		$('#plid_select_hebdo').prop("disabled", "");
+	});
+
+	$("#plid_select_hebdo").on("change", function(){
 		loadListeContentHebdo();
 	});
 
@@ -130,7 +114,7 @@
 
 	function loadListeContentHebdo(){
 		if($("#date_select_hebdo").val() != 0){
-			$.post('./ajax/getEncadrant.php',{"date":$("#date_select_hebdo").val()}, function(data){
+			$.post('./ajax/emargementHebdo.php',{"date": $("#date_select_hebdo").val(), "PL_id": $("#plid_select_hebdo").val()}, function(data){
 				$('#encadrant_select_hebdo').prop("disabled", "disabled");
 				if(data.length > 0)
 				{
@@ -141,7 +125,7 @@
 		}
 		else{
 			$('#encadrant_select_hebdo').prop("disabled", "disabled");
-			$("#encadrant_select_hebdo").html('<option value="null">Aucun encadrant</option>');
+			$("#encadrant_select_hebdo").html('<option value="0">Aucun encadrant</option>');
 		}
 		$('#printHebdo').prop("disabled", "disabled");
 	}
@@ -155,9 +139,13 @@
 		}
 	}
 
-	// FICHE POINTAGE MENSUEL //
+//-------------------------------------------------------
+	
+	$("#annee_select_mensuel").on("change", function(){
+		loadListeContentMois();
+	});
 
-	$("#type_select_mensuel").on("change", function(){
+	$("#mois_select_mensuel").on("change", function(){
 		loadListeContentMensuel();
 	});
 
@@ -165,11 +153,27 @@
 		checkEncListMensuel();
 	});
 
-//-------------------------------------------------------
+
+	function loadListeContentMois(){
+		if($("#annee_select_mensuel").val() != 0){
+			$.post('./ajax/emargementMensuel.php', {"request_type": "mois", "annee":$("#annee_select_mensuel").val()}, function(data){
+				$('#mois_select_mensuel').prop("disabled", "disabled");
+				if(data.length > 0)
+				{
+					$("#mois_select_mensuel").html(data);
+					$("#mois_select_mensuel").prop("disabled","");
+				}
+			});
+		}
+		else{
+			$('#mois_select_mensuel').prop("disabled", "disabled");
+			$("#mois_select_mensuel").html('<option value="0">Aucun mois</option>');
+		}
+	}
 
 	function loadListeContentMensuel(){
-		if($("#type_select_mensuel").val() != 0){
-			$.post('./ajax/getSalarie.php',{"type":$("#type_select_mensuel").val(), "mois":$("#mois_select_mensuel").val(), "annee":$("#annee_select_mensuel").val()}, function(data){
+		if($("#mois_select_mensuel").val() != 0){
+			$.post('./ajax/emargementMensuel.php',{"request_type": "sal", "mois":$("#mois_select_mensuel").val(), "annee":$("#annee_select_mensuel").val()}, function(data){
 				$('#salarie_select_mensuel').prop("disabled", "disabled");
 				if(data.length > 0)
 				{
@@ -177,12 +181,11 @@
 					$("#salarie_select_mensuel").prop("disabled","");
 				}
 
-				//$("#res").html(data);
 			});
 		}
 		else{
 			$('#salarie_select_mensuel').prop("disabled", "disabled");
-			$("#salarie_select_mensuel").html('<option value="null">Aucun Salarie</option>');
+			$("#salarie_select_mensuel").html('<option value="0">Aucun Salarié</option>');
 		}
 	}
 

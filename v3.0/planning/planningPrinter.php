@@ -9,7 +9,9 @@ if(isset($_POST['ENC_Num']) && isset($_POST['ASSOC_Date']) && isset($_POST["PL_i
 	$db = revivre();
     mysqli_query($db, "SET NAMES 'utf8'");
 
-    $nomTypesPlanning = ["ACI", "OCCUPATIONNEL", "STAGIAIRE"];
+    $query = mysqli_query($db, "SELECT PL_Libelle FROM typeplanning ORDER BY PL_id");
+    $nomTypesPlanning = mysqli_fetch_all($query, MYSQLI_ASSOC);
+
     $listeJours = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"];
     $query = mysqli_query($db, "SELECT concat(PER_Nom, ' ',PER_Prenom) AS nom, CNV_Couleur, CRE_id FROM pl_association
                                 JOIN salaries USING(SAL_NumSalarie)
@@ -20,84 +22,107 @@ if(isset($_POST['ENC_Num']) && isset($_POST['ASSOC_Date']) && isset($_POST["PL_i
     $planningContenu = mysqli_fetch_all($query, MYSQLI_ASSOC);
 
     $query = mysqli_query($db, "SELECT DISTINCT ASSOC_Couleur, ASSOC_AM, ASSOC_PM, ASSOC_LastEdit FROM pl_proprietees 
-                                WHERE ENC_Num = ".$_POST["ENC_Num"]." AND ASSOC_Date = '".$_POST["ASSOC_Date"]."'");
+                                WHERE ENC_Num = ".$_POST["ENC_Num"]." AND ASSOC_Date = '".$_POST["ASSOC_Date"]."' AND PL_id = ".$_POST["PL_id"].";");
     $proprietees = mysqli_fetch_assoc($query);
 
     $query = mysqli_query($db, "SELECT lo.LOGO_Url FROM pl_logo plo JOIN logo lo ON lo.LOGO_id = plo.LOGO_Id
-                                WHERE plo.ENC_Num = ".$_POST["ENC_Num"]." AND plo.ASSOC_Date = '".$_POST["ASSOC_Date"]."';");
+                                WHERE plo.ENC_Num = ".$_POST["ENC_Num"]." AND plo.ASSOC_Date = '".$_POST["ASSOC_Date"]."' AND PL_id = ".$_POST["PL_id"].";");
     $logos =  mysqli_fetch_all($query, MYSQLI_ASSOC);
 
     $query = mysqli_query($db, "SELECT concat(PER_Nom,' ',PER_Prenom) AS Nom FROM salaries JOIN personnes USING(PER_Num) WHERE SAL_NumSalarie = ".$_POST["ENC_Num"]);
     $nomEncadrant = mysqli_fetch_assoc($query);
 
-    $content = '<link rel="stylesheet" type="text/css" href="../css/planning.css">
-    <page>
-        <div class="planning-printer">
-            <h2>PLANNING '.$nomTypesPlanning[$_POST["PL_id"]-1].' DU '.date('d/m/Y',strtotime($_POST['ASSOC_Date'])).' AU '.date('d/m/Y',strtotime($_POST['ASSOC_Date']." + 4 day")).'</h2>
-            <h4>Encadrant : '.$nomEncadrant["Nom"].'</h4>
-            <table>
-                <thead>
-                    <tr style="background-color: '.$proprietees["ASSOC_Couleur"].';">
-                        <th class="firstColumn"></th>
-                        <th>Matin<br/>'.$proprietees["ASSOC_AM"].'</th>
-                        <th class="thinColumn">P</th>
-                        <th>Après-midi<br/>'.$proprietees["ASSOC_PM"].'</th>
-                        <th class="thinColumn">P</th>
-                    </tr>
-                </thead>
-                <tbody>';
-    $CRE_id = 1;
-    $z=0;
+    ob_start();
+?>
+<link rel="stylesheet" type="text/css" href="../css/planning.css"/>
+<page backtop="20mm" backbottom="5mm" backleft="2mm" backright="8mm">
+    <page_header>
+        <div class="planning-printer-header">
+            <h2>PLANNING <?php echo strtoupper($nomTypesPlanning[$_POST["PL_id"]-1]["PL_Libelle"]); ?> DU <?php echo date('d/m/Y',strtotime($_POST['ASSOC_Date'])) ?> AU <?php echo date('d/m/Y',strtotime($_POST['ASSOC_Date']." + 4 day")) ?></h2>
+            <h4>Encadrant : <?php echo $nomEncadrant["Nom"] ?></h4>
+        </div>
+    </page_header>
 
+    <page_footer>
+        <div class="planning-printer-footer">
+            <div class="planning-printer-logo">
+                <?php
+                for($x=0; $x<sizeof($logos); $x++){
+                    echo '<img src="'.$logos[$x]["LOGO_Url"].'"/>';
+                }
+                 ?>
+            </div>
+            <h4>Affiché le <?php echo date("d/m/Y") ?>, Association Revivre Service CAP, Chemin de Mondeville - 14460 COLOMBELLES</h4>
+        </div>
+    </page_footer>
+
+    <table id="planning-table">
+        <thead>
+            <tr style="background-color: <?php echo $proprietees["ASSOC_Couleur"] ?>;">
+                <th></th>
+                <th>Matin<br/><?php echo $proprietees["ASSOC_AM"] ?></th>
+                <th>P</th>
+                <th>Après-midi<br/><?php echo $proprietees["ASSOC_PM"] ?></th>
+                <th>P</th>
+            </tr>
+        </thead>
+        <tbody>
+<?php
+    $CRE_id = 1; $z=0;
     for($x=0; $x<5; $x++)
     {
-        $content.='<tr>';
-
+        echo '<tr>';
         $dateJourCourant = strtotime($_POST["ASSOC_Date"].' + '.$x.' day');
 
         if(isJourFerie(date("d/m/Y", $dateJourCourant))){
-            $content.='<td><b>'.$listeJours[$x].'<br>FÉRIÉ</b></td>';
+            echo '<td class="firstColumn"><b>'.$listeJours[$x].'<br>FÉRIÉ</b></td>';
         }
         else{
-            $content.='<td><b>'.$listeJours[$x].'<br>'.date("d/m", $dateJourCourant).'</b></td>';
+            echo '<td class="firstColumn"><b>'.$listeJours[$x].'<br>'.date("d/m", $dateJourCourant).'</b></td>';
         }
 
         for($y=0; $y<2; $y++)
         {
-            $content.='<td>';
+            $lineCount = 0;
+            echo '<td><table>';
             while(isset($planningContenu[$z]) && $planningContenu[$z]["CRE_id"] == $CRE_id){
-                $content.='<span style="color: '.$planningContenu[$z]["CNV_Couleur"].';">'.$planningContenu[$z++]["nom"].'</span><br/>';
+                if(isset($planningContenu[$z+1]) && $planningContenu[$z+1]["CRE_id"] == $CRE_id){
+                    echo '<tr><td style="color: '.$planningContenu[$z]["CNV_Couleur"].';" class="separator">'.$planningContenu[$z++]["nom"].'</td></tr>';
+                }
+                else{
+                    echo '<tr><td style="color: '.$planningContenu[$z]["CNV_Couleur"].';">'.$planningContenu[$z++]["nom"].'</td></tr>';
+                }
+                $lineCount++;
             }
-            $content.='</td><td></td>';
+            echo '</table></td><td class="thinColumn"><table>';
+            for($w=0; $w<$lineCount; $w++){
+                if($w < ($lineCount-1)){
+                    echo '<tr><td class="separator"></td></tr>';
+                }
+                else{
+                    echo '<tr><td></td></tr>';
+                }
+            }
+            echo '</table></td>';
             $CRE_id++;
         }
-
-        $content.='</tr>';
+        echo '</tr>';
     }
-    $content.='</tbody>
-            </table>
-        </div>
-        <page_footer>
-            <div class="planning-printer-logo">';
-
-    for($x=0; $x<sizeof($logos); $x++){
-        $content.='<img src="'.$logos[$x]["LOGO_Url"].'"/>';
-    }
-
-    $content.='</div>
-            
-            <h4 style="text-align:center; margin:0px; font-weight:normal;">
-                Affiché le '.date("d/m/Y").', Association Revivre Service CAP, Chemin de Mondeville - 14460 COLOMBELLES
-            </h4>
-        </page_footer>
-    </page>';
-
-    $title = "planning_".str_replace(" ", "_", $nomEncadrant["Nom"])."_".str_replace("/", "-", $_POST['ASSOC_Date']).".pdf";
-
+?>
+        </tbody>
+    </table>
+</page>
+<?php
+    $title = "planning_".$nomTypesPlanning[$_POST["PL_id"]-1]["PL_Libelle"]."_".str_replace(" ", "_", $nomEncadrant["Nom"])."_".date('d-m-Y',strtotime($_POST['ASSOC_Date'])).".pdf";
+    $content = ob_get_clean();
     require_once('../stuff/html2pdf/html2pdf.class.php');
     $html2pdf = new HTML2PDF('P','A4','fr');
+    $html2pdf->pdf->SetAuthor('Association Revivre');
+    $html2pdf->pdf->SetTitle('Planning '.strtoupper($nomTypesPlanning[$_POST["PL_id"]-1]["PL_Libelle"]).' - '.date('d/m/Y',strtotime($_POST['ASSOC_Date'])));
+    $html2pdf->pdf->SetSubject('Planning hebdomadaire, Association Revivre');
     $html2pdf->WriteHTML($content);
     $html2pdf->Output($title);
+    exit;
 }
 else{
     echo '<script type="text/javascript">

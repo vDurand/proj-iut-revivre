@@ -205,6 +205,7 @@
 	top:1px;
 }.buttonC:disabled{
 	opacity: 0.45;
+	cursor:normal;
 }
 .buttonSmll {
 	-moz-box-shadow:inset 0px 0px 0px 1px #bee2f9;
@@ -1074,4 +1075,20 @@ AJOUT GROUPE 2 PROJET REVIVRE
 
 .signature-emargement-hebdo{
 	margin-top: 25px;
+}
+
+.emargement-mensuel{
+	width: 100%;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+.emargement-mensuel tr th{
+	border: 1px solid black;
+	height: 17px;
+}
+
+.emargement-mensuel tr td{
+	border: 1px solid black;
+	height: 17px;
 }

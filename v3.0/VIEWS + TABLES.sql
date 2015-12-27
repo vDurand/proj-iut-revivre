@@ -27,13 +27,18 @@ INSERT INTO `pl_creneau` (`CRE_id`, `CRE_libelle`) VALUES
 CREATE TABLE IF NOT EXISTS `typeplanning` (
   `PL_id` int(2) NOT NULL,
   `PL_Libelle` varchar(25) NOT NULL,
-  PRIMARY KEY `PL_id` (`PL_id`)
+  `PL_Couleur` varchar(7) NOT NULL,
+  `PL_AM` varchar(25) NOT NULL,
+  `PL_PM` varchar(25) NOT NULL,
+  PRIMARY KEY (`PL_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `typeplanning` VALUES
-(1, "Planning ACI"),
-(2, "Planning Occupationnel"),
-(3, "Planning Stagiaire");
+INSERT INTO `typeplanning` (`PL_id`, `PL_Libelle`, `PL_Couleur`, `PL_AM`, `PL_PM`) VALUES
+(1, 'GOB', '#005fbf', '08h00 - 12h00', '13h00 - 18h00'),
+(2, 'SOB', '#005fbf', '08h00 - 12h00', '13h00 - 18h00'),
+(3, 'Occupationnel', '#228B22', '08h30 - 12h00', '13h00 - 16h30'),
+(4, 'FILT', '#005fbf', '08h00 - 12h00', '08h00 - 12h00'),
+(5, 'AVA', '#ddbc4b', '09h00 - 12h00', '13h00 - 15h00');
 
 CREATE TABLE IF NOT EXISTS `pl_association` (
   `SAL_NumSalarie` int(11) NOT NULL,
@@ -42,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `pl_association` (
   `PL_id` int(2) NOT NULL,
   `ASSOC_date` date NOT NULL,
   `ASSOC_Archi` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`ASSOC_date`,`ENC_Num`,`SAL_NumSalarie`,`CRE_id`),
+  PRIMARY KEY (`ASSOC_date`,`ENC_Num`,`SAL_NumSalarie`,`CRE_id`,`PL_id`),
   KEY `ref_pers` (`SAL_NumSalarie`,`ENC_Num`),
   KEY `ref_encad` (`ENC_Num`),
   KEY `fk_pl_cre_inser` (`CRE_id`),
@@ -55,41 +60,6 @@ ALTER TABLE `pl_association`
   ADD CONSTRAINT `fk_numSal_planning` FOREIGN KEY (`SAL_NumSalarie`) REFERENCES `salaries` (`SAL_NumSalarie`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_type_planning` FOREIGN KEY (`PL_id`) REFERENCES `typeplanning` (`PL_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
-
-INSERT INTO `pl_association` (`SAL_NumSalarie`, `ENC_Num`, `CRE_id`, `PL_id`, `ASSOC_date`, `ASSOC_Archi`) VALUES
-(59, 27, 1, 1, '2015-11-16', 1),
-(59, 27, 2, 1, '2015-11-16', 1),
-(59, 27, 3, 1, '2015-11-16', 1),
-(59, 27, 4, 1, '2015-11-16', 1),
-(59, 27, 5, 1, '2015-11-16', 1),
-(194, 27, 6, 1, '2015-11-16', 1),
-(194, 27, 7, 1, '2015-11-16', 1),
-(194, 27, 8, 1, '2015-11-16', 1),
-(194, 27, 9, 1, '2015-11-16', 1),
-(194, 27, 10, 1, '2015-11-16', 1),
-(210, 27, 1, 1, '2015-11-16', 1),
-(210, 27, 2, 1, '2015-11-16', 1),
-(210, 27, 3, 1, '2015-11-16', 1),
-(210, 27, 4, 1, '2015-11-16', 1),
-(210, 27, 5, 1, '2015-11-16', 1);
-
-INSERT INTO `pl_association` (`SAL_NumSalarie`, `ENC_Num`, `CRE_id`, `PL_id`, `ASSOC_date`, `ASSOC_Archi`) VALUES
-(59, 28, 1, 1, '2015-11-23', 0),
-(59, 28, 2, 1, '2015-11-23', 0),
-(59, 28, 3, 1, '2015-11-23', 0),
-(59, 28, 4, 1, '2015-11-23', 0),
-(59, 28, 5, 1, '2015-11-23', 0),
-(194, 28, 6, 1, '2015-11-23', 0),
-(194, 28, 7, 1, '2015-11-23', 0),
-(194, 28, 8, 1, '2015-11-23', 0),
-(194, 28, 9, 1, '2015-11-23', 0),
-(194, 28, 10, 1, '2015-11-23', 0),
-(210, 28, 1, 1, '2015-11-23', 0),
-(210, 28, 2, 1, '2015-11-23', 0),
-(210, 28, 3, 1, '2015-11-23', 0),
-(210, 28, 4, 1, '2015-11-23', 0),
-(210, 28, 5, 1, '2015-11-23', 0);
-
 CREATE TABLE IF NOT EXISTS `pl_proprietees` (
   `ENC_Num` int(11) NOT NULL,
   `ASSOC_date` date NOT NULL,
@@ -97,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `pl_proprietees` (
   `ASSOC_Couleur` varchar(7) NOT NULL DEFAULT '#005fbf',
   `ASSOC_AM` varchar(25) DEFAULT NULL,
   `ASSOC_PM` varchar(25) DEFAULT NULL,
-  `ASSOC_LastEdit` date NOT NULL,
+  `ASSOC_LastEdit` datetime NOT NULL,
   PRIMARY KEY (`ENC_Num`,`ASSOC_date`,`PL_id`),
   KEY `ENC_Num` (`ENC_Num`),
   KEY `fk_proprietees_date` (`ASSOC_date`),
@@ -129,11 +99,11 @@ ALTER TABLE `pl_logo`
   ADD CONSTRAINT `fk_logo_id` FOREIGN KEY (`LOGO_Id`) REFERENCES `logo` (`LOGO_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 CREATE OR REPLACE VIEW chantieretatmax AS
-  SELECT DISTINCT `revivre`.`chantiers`.`CHA_NumDevis` AS `CHA_NumDevis`,`chantieretat`.`Etat` AS `Etat`,`chantieretat`.`Id` AS `Id` 
-  FROM (`revivre`.`chantiers` JOIN `revivre`.`chantieretat` ON ((`revivre`.`chantiers`.`CHA_NumDevis` = `chantieretat`.`NumDevis`))) 
-  WHERE (`chantieretat`.`NumDevis`,`chantieretat`.`Id`) IN 
-  (
-    SELECT `chantieretat`.`NumDevis`, max(`chantieretat`.`Id`)
-    FROM `revivre`.`chantieretat`
-    GROUP BY `chantieretat`.`NumDevis`
-  );
+SELECT DISTINCT `revivre`.`chantiers`.`CHA_NumDevis` AS `CHA_NumDevis`,`chantieretat`.`Etat` AS `Etat`,`chantieretat`.`Id` AS `Id` 
+FROM (`revivre`.`chantiers` JOIN `revivre`.`chantieretat` ON ((`revivre`.`chantiers`.`CHA_NumDevis` = `chantieretat`.`NumDevis`))) 
+WHERE (`chantieretat`.`NumDevis`,`chantieretat`.`Id`) IN 
+(
+  SELECT `chantieretat`.`NumDevis`, max(`chantieretat`.`Id`)
+  FROM `revivre`.`chantieretat`
+  GROUP BY `chantieretat`.`NumDevis`
+);

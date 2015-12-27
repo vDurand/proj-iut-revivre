@@ -28,14 +28,14 @@
 										{
 											if(isset($_POST["PL_id"])){
 												if($_POST["PL_id"] == $data["PL_id"]){
-													echo '<option value="'.$data["PL_id"].'" selected>'.$data["PL_Libelle"].'</option>';
+													echo '<option value="'.$data["PL_id"].'" selected>Planning '.$data["PL_Libelle"].'</option>';
 												}
 												else{
-													echo '<option value="'.$data["PL_id"].'">'.$data["PL_Libelle"].'</option>';
+													echo '<option value="'.$data["PL_id"].'">Planning '.$data["PL_Libelle"].'</option>';
 												}
 											}
 											else{
-												echo '<option value="'.$data["PL_id"].'">'.$data["PL_Libelle"].'</option>';
+												echo '<option value="'.$data["PL_id"].'">Planning '.$data["PL_Libelle"].'</option>';
 											}
 										}
 									?>
