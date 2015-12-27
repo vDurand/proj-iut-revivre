@@ -169,6 +169,7 @@
 				$(".planning-edit-area").html(data);
 				handleEvents();
 				$("#sauvegarder").prop("disabled", "");
+				$("#valid_required, #ENC_Num, #ASSOC_Date, #PL_id").prop("disabled", "disabled");
 			}
 			else{
 				alert("Une erreur s'est produite, rechargez la page.");

@@ -42,7 +42,6 @@
 	}
 
 	function checkJourFerie($mondayDate){
-		$tabJoursFeries = [];
 		for($x=0; $x<5; $x++){
 			$tabJoursFeries[$x] = isJourFerie(date("d/m/Y", strtotime($mondayDate." + ".$x." day")));
 		}

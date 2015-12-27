@@ -100,7 +100,7 @@
                                             <li><a href="<?php echo $pwd; ?>contact/convention.php">Conventions<br>&nbsp;</a></li>
                                             <li><a href="<?php echo $pwd; ?>contact/logoProperties.php">Logos<br>&nbsp;</a></li>
                                             <li><a href="<?php echo $pwd; ?>contact/sorties.php">Type de sorties<br>&nbsp;</a></li>
-                                            <li><a href="<?php echo $pwd; ?>contact/prescripteurs.php">Prescripteurs<br>&nbsp;</a></li>
+                                            <!-- <li><a href="<?php echo $pwd; ?>contact/prescripteurs.php">Prescripteurs<br>&nbsp;</a></li> -->
                                         </ul>
                                     </li>
 	                			</ul>
@@ -108,7 +108,7 @@
 							<li id="champs"><a href="#">Plannings</a>
 								<ul class="subMenu">
 	                       			<li><a href="<?php echo $pwd; ?>planning/planningShowcase.php">Gestion des<br>plannings</a></li>
-									<li><a href="#">Affichage des<br>plannings</a></li>
+									<!-- <li><a href="#">Affichage des<br>plannings</a></li> -->
 									<li><a href="<?php echo $pwd; ?>planning/emargement/homeEmargement.php">Gestion de<br>l'émargement</a></li>
 	                			</ul>
 							</li>

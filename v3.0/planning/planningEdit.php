@@ -39,14 +39,10 @@
 		                    WHERE ASSOC_date = '".$_POST["ASSOC_Date"]."' AND ENC_Num = ".$_POST["ENC_Num"]." AND PL_id = ".$_POST["PL_id"]." AND ASSOC_Archi = 0 ORDER BY CRE_id, nom");
 	    $planningContenu = mysqli_fetch_all($query, MYSQLI_ASSOC);
 
-		$listeJours = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"];
-		$joursFeries = [];
+		$listeJours = array("Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi");
 		for($x=0; $x<5; $x++){
 			$joursFeries[$x] = isJourFerie(date("d/m/Y", strtotime($_POST["ASSOC_Date"].' + '.$x.' day')));
 		}
-
-		$phpDataToJS = [];
-		$phpLogoToJS = [];
 ?>
 <div id="corps">
 	<div id="labelT">
@@ -156,7 +152,7 @@
 										<span data-num="'.$planningContenu[$z]["SAL_NumSalarie"].'">'.$planningContenu[$z]["nom"].'</span>
 										<input type="button" class="delCross" value="x" onclick="deleteSal(\''.$x.'-'.$y.'-'.$planningContenu[$z]['SAL_NumSalarie'].'\','.$CRE_id.')"/>
 									</li>';
-								$phpDataToJS[$z] = [$planningContenu[$z]['SAL_NumSalarie'], $CRE_id];
+								$phpDataToJS[$z] = array($planningContenu[$z]['SAL_NumSalarie'], $CRE_id);
 	                        	$z++;
 	                        }
 	                        echo '</ul></td>';

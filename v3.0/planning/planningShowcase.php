@@ -73,37 +73,37 @@
 	<hr class="hr-stylized"/>
 	<div class="planning-table waiting-planning">
 		<div class="planning-loader">
-			<object data="<?php echo $pwd; ?>images/loader.svg" type="image/svg+xml"></object>
+			<div class='uil-ring-css' style='transform:scale(0.6);'><div></div></div>
 			<label>En attente de sélection d'un planning...</label>
 		</div>
 	</div>
 </div>
 <script type="text/javascript">
 <?php
-	if(isset($_POST['ASSOC_Date']) && isset($_POST['ENC_Num']))
+	if(isset($_POST['ASSOC_Date']) && isset($_POST['ENC_Num']) && isset($_POST['PL_id']))
 	{
 ?>
 	$(document).ready(function(){
 	    $("#PL_id").trigger("change");
-
-	    setTimeout(function(){
-			$("#ASSOC_Date option").each(function(){
-				if($(this).val() == "<?php echo $_POST['ASSOC_Date']; ?>"){
-					$(this).prop("selected", "selected");
-					$("#ASSOC_Date").trigger("change");
-				}
-			});
-	    },20);
-
-		setTimeout(function(){
-			$("#ENC_Num option").each(function(){
-				if($(this).val() == <?php echo $_POST['ENC_Num']; ?>){
-					$(this).prop("selected", "selected");
-					$("#ENC_Num").trigger("change");
-				}
-			});
-	    },250);
 	});
+
+	function loadDate(){
+		$("#ASSOC_Date option").each(function(){
+			if($(this).val() == "<?php echo $_POST['ASSOC_Date']; ?>"){
+				$(this).prop("selected", "selected");
+				$("#ASSOC_Date").trigger("change");
+			}
+		});
+	}
+
+	function loadEnc(){
+		$("#ENC_Num option").each(function(){
+			if($(this).val() == <?php echo $_POST['ENC_Num']; ?>){
+				$(this).prop("selected", "selected");
+				$("#ENC_Num").trigger("change");
+			}
+		});
+	}
 <?php
 	}
 ?>
@@ -120,6 +120,14 @@
 		   		if(data.length > 0){
 		   			$("#ASSOC_Date").html(data);
 		   			$("#ASSOC_Date").prop("disabled", "");
+<?php
+	if(isset($_POST['ASSOC_Date']) && isset($_POST['ENC_Num']) && isset($_POST['PL_id']))
+	{
+?>
+					loadDate();
+<?php
+	}
+?>
 				}
 				else{
 					$("#ASSOC_Date").prop("disabled", "disabled");
@@ -142,6 +150,14 @@
 		   		if(data.length > 0){
 		   			$("#ENC_Num").html(data);
 		   			$("#ENC_Num").prop("disabled", "");
+<?php
+	if(isset($_POST['ASSOC_Date']) && isset($_POST['ENC_Num']) && isset($_POST['PL_id']))
+	{
+?>
+					loadEnc();
+<?php
+	}
+?>
 				}
 				else{
 					$("#ENC_Num").prop("disabled", "disabled");

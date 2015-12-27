@@ -12,7 +12,7 @@ if(isset($_POST['ENC_Num']) && isset($_POST['ASSOC_Date']) && isset($_POST["PL_i
     $query = mysqli_query($db, "SELECT PL_Libelle FROM typeplanning ORDER BY PL_id");
     $nomTypesPlanning = mysqli_fetch_all($query, MYSQLI_ASSOC);
 
-    $listeJours = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"];
+    $listeJours = array("Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi");
     $query = mysqli_query($db, "SELECT concat(PER_Nom, ' ',PER_Prenom) AS nom, CNV_Couleur, CRE_id FROM pl_association
                                 JOIN salaries USING(SAL_NumSalarie)
                                 JOIN personnes USING(PER_Num)

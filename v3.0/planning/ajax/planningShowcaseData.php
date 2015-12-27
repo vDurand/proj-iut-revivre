@@ -61,7 +61,7 @@
 	function getGlobalShowcase($db){
 		if(isset($_POST["PL_id"]) && !empty($_POST["PL_id"]) && isset($_POST["ASSOC_Date"]) && !empty($_POST["ASSOC_Date"]) && isset($_POST["ENC_Num"]) && !empty($_POST["ENC_Num"]) && isset($_POST["ASSOC_Archi"]))
 		{
-			$listeJours = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"];
+			$listeJours = array("Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi");
 
 	        $query = mysqli_query($db, "SELECT concat(PER_Nom, ' ',PER_Prenom) AS nom, CNV_Couleur, CRE_id FROM pl_association
 					                    JOIN salaries USING(SAL_NumSalarie)

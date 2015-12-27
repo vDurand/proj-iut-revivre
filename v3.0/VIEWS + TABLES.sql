@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `typeplanning` (
 INSERT INTO `typeplanning` (`PL_id`, `PL_Libelle`, `PL_Couleur`, `PL_AM`, `PL_PM`) VALUES
 (1, 'GOB', '#005fbf', '08h00 - 12h00', '13h00 - 18h00'),
 (2, 'SOB', '#005fbf', '08h00 - 12h00', '13h00 - 18h00'),
-(3, 'Occupationnel', '#228B22', '08h30 - 12h00', '13h00 - 16h30'),
+(3, 'CAP Vert', '#228B22', '08h30 - 12h00', '13h00 - 16h30'),
 (4, 'FILT', '#005fbf', '08h00 - 12h00', '08h00 - 12h00'),
 (5, 'AVA', '#ddbc4b', '09h00 - 12h00', '13h00 - 15h00');
 

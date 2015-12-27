@@ -14,12 +14,14 @@ if(isset($_POST['date_select_hebdo']) && isset($_POST['encadrant_select_hebdo'])
     $weekNumber = idate('W', strtotime($date));
 
     $query = mysqli_query($db, "SELECT max(CRE_id) AS max FROM pl_creneau;");
-    $maxCreId = mysqli_fetch_assoc($query)["max"];
+    $maxCreIdfetch = mysqli_fetch_assoc($query);
+    $maxCreId = $maxCreIdfetch["max"];
 
     $query = mysqli_query($db, "SELECT concat(pe.PER_Nom,' ',pe.PER_Prenom) AS nom FROM salaries sa
                                     JOIN personnes pe ON pe.PER_NUM = sa.PER_NUM
                                     WHERE sa.SAL_NumSalarie = ".$_POST['encadrant_select_hebdo'].";");
-    $encName = mysqli_fetch_assoc($query)["nom"];
+    $encNamefetch = mysqli_fetch_assoc($query);
+    $encName = $encNamefetch["nom"];
 
     $query = mysqli_query($db, "SELECT LOGO_Id, LOGO_Url FROM logo
                                 JOIN pl_logo USING(LOGO_Id)
@@ -94,7 +96,8 @@ if(isset($_POST['date_select_hebdo']) && isset($_POST['encadrant_select_hebdo'])
                                         AND date_format(ASSOC_date,'%d/%m/%Y') = '".$_POST["date_select_hebdo"]."'
                                         AND SAL_NumSalarie = ".$data["SAL_NumSalarie"].";");
 
-            $maxCreIdBySal = mysqli_fetch_assoc($query2)["max"];
+            $maxCreIdBySalfetch = mysqli_fetch_assoc($query2);
+            $maxCreIdBySal = $maxCreIdBySalfetch["max"];
         }
 
         while($CreId < $data["CRE_id"])

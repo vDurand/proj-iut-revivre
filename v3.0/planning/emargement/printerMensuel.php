@@ -14,7 +14,8 @@ if(isset($_POST['salarie_select_mensuel']) && isset($_POST['mois_select_mensuel'
     $query = mysqli_query($db, "SELECT concat(pe.PER_Nom, ' ', pe.PER_Prenom) AS nom FROM salaries sa
                                     JOIN personnes pe ON pe.PER_NUM = sa.PER_NUM
                                     WHERE sa.SAL_NumSalarie = ".$_POST['salarie_select_mensuel']);
-    $salName = mysqli_fetch_assoc($query)["nom"];
+    $salNamefetch = mysqli_fetch_assoc($query);
+    $salName = $salNamefetch["nom"];
 
     $query = mysqli_query($db, "SELECT DISTINCT LOGO_Id, LOGO_Url FROM logo
                                 JOIN pl_logo USING(LOGO_Id)
