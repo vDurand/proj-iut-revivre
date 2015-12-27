@@ -31,7 +31,8 @@ if(isset($_POST['ENC_Num']) && isset($_POST['ASSOC_Date']) && isset($_POST["PL_i
 
     $query = mysqli_query($db, "SELECT concat(PER_Nom,' ',PER_Prenom) AS Nom FROM salaries JOIN personnes USING(PER_Num) WHERE SAL_NumSalarie = ".$_POST["ENC_Num"]);
     $nomEncadrant = mysqli_fetch_assoc($query);
-
+    
+    $too_much_people = false;
     ob_start();
 ?>
 <link rel="stylesheet" type="text/css" href="../css/planning.css"/>
@@ -86,17 +87,31 @@ if(isset($_POST['ENC_Num']) && isset($_POST['ASSOC_Date']) && isset($_POST["PL_i
             $lineCount = 0;
             echo '<td><table>';
             while(isset($planningContenu[$z]) && $planningContenu[$z]["CRE_id"] == $CRE_id){
-                if(isset($planningContenu[$z+1]) && $planningContenu[$z+1]["CRE_id"] == $CRE_id){
-                    echo '<tr><td style="color: '.$planningContenu[$z]["CNV_Couleur"].';" class="separator">'.$planningContenu[$z++]["nom"].'</td></tr>';
+                if($lineCount+1 == 10){
+                    echo '<tr><td style="color: '.$planningContenu[$z]["CNV_Couleur"].';">'.$planningContenu[$z++]["nom"].'</td></tr>';
+                }
+                elseif($lineCount >= 10){
+                    $z++;
+                    $too_much_people = true;
                 }
                 else{
-                    echo '<tr><td style="color: '.$planningContenu[$z]["CNV_Couleur"].';">'.$planningContenu[$z++]["nom"].'</td></tr>';
+                    echo '<tr><td style="color: '.$planningContenu[$z]["CNV_Couleur"].';" class="separator">'.$planningContenu[$z++]["nom"].'</td></tr>';
                 }
                 $lineCount++;
             }
-            echo '</table></td><td class="thinColumn"><table>';
-            for($w=0; $w<$lineCount; $w++){
-                if($w < ($lineCount-1)){
+
+            for($w=0; $w<(10-$lineCount); $w++){
+                if($w+1 < (10-$lineCount)){
+                    echo '<tr><td class="separator"></td></tr>';
+                }
+                else{
+                    echo '<tr><td></td></tr>';
+                }
+            }
+            echo'</table></td><td class="thinColumn"><table>';
+
+            for($w=0; $w<($lineCount+(10-$lineCount)); $w++){
+                if($w+1 < ($lineCount+(10-$lineCount))){
                     echo '<tr><td class="separator"></td></tr>';
                 }
                 else{
@@ -115,6 +130,11 @@ if(isset($_POST['ENC_Num']) && isset($_POST['ASSOC_Date']) && isset($_POST["PL_i
 <?php
     $title = "planning_".$nomTypesPlanning[$_POST["PL_id"]-1]["PL_Libelle"]."_".str_replace(" ", "_", $nomEncadrant["Nom"])."_".date('d-m-Y',strtotime($_POST['ASSOC_Date'])).".pdf";
     $content = ob_get_clean();
+
+    if($too_much_people){
+        $content .= '<span style="color:red; font-weight:bold; font-style: italic;">Plus de 10 personnes par jour ! Certaines ne sont pas affichées !</span>';
+    }
+
     require_once('../stuff/html2pdf/html2pdf.class.php');
     $html2pdf = new HTML2PDF('P','A4','fr');
     $html2pdf->pdf->SetAuthor('Association Revivre');

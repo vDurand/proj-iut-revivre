@@ -281,9 +281,6 @@
 				}
 				dataSalarieToStore[dataSalarieToStore.length] = [$("#SAL_NumSalarie").val(), checkbox.val()];
 			}
-			else{
-				alert("Le salarié est déjà dans le planning.");
-			}
 			checkbox.prop("checked", false);
 		}
 	}
