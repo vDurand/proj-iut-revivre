@@ -135,6 +135,7 @@ $pwd='../';
                     <thead>
                         <tr>
                             <td class="firstCol" style="text-align: center;">Numéro</td>
+                            <td style="text-align: center; width: 10%;">Client</td>
                             <td style="text-align: center; width: 19%;">Intitulé</td>
                             <td style="text-align: center; width: 10%;">Montant</td>
                             <td style="text-align: center; width: 10%;">Achats Prévus</td>
@@ -144,7 +145,6 @@ $pwd='../';
                             <td style="text-align: center; width: 10%;">Heures Tolales</td>
                             <td style="text-align: center; width: 10%;">Ecart MO</td>
                             <td style="text-align: center; width: 10%;">NB Salariés</td>
-                            <td style="text-align: center; width: 10%;">Client</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -246,15 +246,6 @@ $pwd='../';
 ?>
                 <tr onclick="javascript:submitViewDetail('<?php echo $donnees['CHA_NumDevis']; ?>', 'detailClient');">
                     <td><?php echo $donnees['CHA_NumDevis']; ?></td>
-                    <td><?php echo formatLOW($donnees['CHA_Intitule']); ?></td>
-                    <td><?php echo $donnees['CHA_MontantPrev']." €"; $totMP += $donnees['CHA_MontantPrev']; ?></td>
-                    <td><?php echo $donnees['CHA_AchatsPrev']." €"; $totAP += $donnees['CHA_AchatsPrev']; ?></td>
-                    <td><?php if(!empty($donnees['AchatTot'])){ echo number_format($donnees['AchatTot'], 2)." €"; $totAT += $donnees['AchatTot'];} else echo "0 €"; ?></td>
-                    <td><?php if(!empty($donnees['EcartAch'])){ echo $donnees['EcartAch']." €"; $totEA += $donnees['EcartAch'];} else echo "0 €"; ?></td>
-                    <td><?php echo (!is_null($donnees['CHA_HeuresPrev'])) ? $donnees['CHA_HeuresPrev'] : 0; $totHP += $donnees['CHA_HeuresPrev']; ?></td>
-                    <td><?php echo (!is_null($donnees['HeureTot'])) ? $donnees['HeureTot'] : "00:00"; $totHT += $donnees['HeureTot']; ?></td>
-                    <td><?php echo (!is_null($donnees['EcartHeure'])) ? $donnees['EcartHeure'] : "00:00"; $totEH += $donnees['EcartHeure']; ?></td>
-                    <td><?php echo (!is_null($donnees['NbSalarie'])) ? $donnees['NbSalarie'] : 0; $totNS += $donnees['NbSalarie']; ?></td>
                     <td>
                     <?php
                         $reponse2 = mysqli_query($db, "SELECT Client FROM ChantierMax WHERE CHA_NumDevis = ".$donnees['CHA_NumDevis']);
@@ -272,6 +263,15 @@ $pwd='../';
                         }
                     ?>
                     </td>
+                    <td><?php echo formatLOW($donnees['CHA_Intitule']); ?></td>
+                    <td><?php echo $donnees['CHA_MontantPrev']." €"; $totMP += $donnees['CHA_MontantPrev']; ?></td>
+                    <td><?php echo $donnees['CHA_AchatsPrev']." €"; $totAP += $donnees['CHA_AchatsPrev']; ?></td>
+                    <td><?php if(!empty($donnees['AchatTot'])){ echo number_format($donnees['AchatTot'], 2)." €"; $totAT += $donnees['AchatTot'];} else echo "0 €"; ?></td>
+                    <td><?php if(!empty($donnees['EcartAch'])){ echo $donnees['EcartAch']." €"; $totEA += $donnees['EcartAch'];} else echo "0 €"; ?></td>
+                    <td><?php echo (!is_null($donnees['CHA_HeuresPrev'])) ? $donnees['CHA_HeuresPrev'] : 0; $totHP += $donnees['CHA_HeuresPrev']; ?></td>
+                    <td><?php echo (!is_null($donnees['HeureTot'])) ? $donnees['HeureTot'] : "00:00"; $totHT += $donnees['HeureTot']; ?></td>
+                    <td><?php echo (!is_null($donnees['EcartHeure'])) ? $donnees['EcartHeure'] : "00:00"; $totEH += $donnees['EcartHeure']; ?></td>
+                    <td><?php echo (!is_null($donnees['NbSalarie'])) ? $donnees['NbSalarie'] : 0; $totNS += $donnees['NbSalarie']; ?></td>
                 </tr>
 <?php
     }

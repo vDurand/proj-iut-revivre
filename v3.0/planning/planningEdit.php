@@ -5,6 +5,7 @@
 
 	if(isset($_POST["PL_id"]) && !empty($_POST["PL_id"]) && isset($_POST["ASSOC_Date"]) && !empty($_POST["ASSOC_Date"]) && isset($_POST["ENC_Num"]) && !empty($_POST["ENC_Num"]))
 	{
+		$phpLogoToJS = array();
 		$query = mysqli_query($db, "SELECT PL_Libelle FROM typeplanning ORDER BY PL_id");
     	$nomTypesPlanning = mysqli_fetch_all($query, MYSQLI_ASSOC);
 

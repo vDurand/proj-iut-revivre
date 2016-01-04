@@ -35,15 +35,18 @@
         </form>
         <table style="margin:10px auto 0 auto;" id="tableSortie">
             <?php
-                $x=$max=0;
+                $query = mysqli_query($db,"SELECT max(TYS_ID) as maxi FROM typesortie;");
+                $maxtmp = mysqli_fetch_assoc($query);
+                $max = $maxtmp["maxi"];
+
+                $x=0;
                 $flag = false;
 				if(isset($_POST['affichDesac']))
 					$query = mysqli_query($db,"SELECT TYS_ID, TYS_Libelle AS 'nom',TYS_Numero as 'num',TYS_Active FROM typesortie ORDER BY TYS_Numero;");
 				else 
-					$query = mysqli_query($db,"SELECT TYS_ID, TYS_Libelle AS 'nom',TYS_Numero as 'num',TYS_Active FROM typesortie where TYS_Active=1 ORDER BY TYS_Numero;");
+					$query = mysqli_query($db,"SELECT TYS_ID, TYS_Libelle AS 'nom',TYS_Numero as 'num',TYS_Active FROM typesortie where TYS_Active>=1 ORDER BY TYS_Numero;");
                 while($data = mysqli_fetch_assoc($query))
                 {
-                    $max = ($data["TYS_ID"] > $max) ? $data["TYS_ID"] : $max;
 					if($data['TYS_Active']==1)
 						echo '<tr id="tr'.$data["TYS_ID"].'" style="height: 32px;">
 							<td>
