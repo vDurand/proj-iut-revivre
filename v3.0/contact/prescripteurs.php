@@ -79,17 +79,17 @@
 		document.getElementById("cancel").disabled = "";
         document.getElementById("validPres").disabled = "";
 		var nom = "nom"+maxi;
-		var num = "num"+maxi;
+		var num = "num"+maxi; 
 		var suppr = "suppr"+maxi;
 		var table = document.getElementById('tablePres');
 		var ligne = table.insertRow(tableau.length);
 		ligne.id="tr"+maxi;
-		ligne.innerHTML = '
+		ligne.innerHTML = '\
 			<td>\
 				<input type="text" id="'+nom+'" name="'+nom+'" style="color:#000000; width:500px;" placeholder="nom" onchange="changeNom()"/>\
 			</td>\
 			<td>\
-				<input name="'+suppr+'" id="'+suppr+'" type="button" class="" value="Supprimer" onclick="delPres('+maxi+')">\
+				<input name="'+suppr+'" id="'+suppr+'" type="button" class="delCross" value="x" onclick="delPres('+maxi+')">\
 			</td>';
         ligne.style.height="32px";
 		tableau[tableau.length] = Array(maxi++,1);
@@ -97,7 +97,6 @@
 	
 	function delPres(x)
     {
-        alert("Entrée dans le DEL");
         if(confirm("Êtes-vous sûr de vouloir supprimer ce prescripteur ?"))
         {
             if(x <= idRef)
@@ -135,7 +134,7 @@
 		{
 			erreur = false;
 			inputText = document.getElementById("nom"+tableau[x][0]);
-            if(inputText.value != ""&&inputNumero!="")
+            if(inputText.value != "")
             {
                 tableauFinal[x] = new Array(tableau[x][0], inputText.value, tableau[x][1]);
             }

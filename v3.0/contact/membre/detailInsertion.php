@@ -1,4 +1,4 @@
-<?php
+    <?php
 $pageTitle = "Detail Salarié en insertion";
 $pwd = '../../';
 include('../../bandeau.php');
@@ -36,7 +36,7 @@ include('../../bandeau.php');
         if ($personne) {
             ?>
             <div id="labelT">
-                <label>Detail <?php echo $type['TYP_Nom']; ?></label>
+                <label>Detail <?php echo $type['TYP_Nom'];?></label>
             </div>
             <br>
             <table id="fullTable" rules="all">
@@ -173,9 +173,15 @@ include('../../bandeau.php');
             <td>
                 <table cellpadding="10" class="detailClients">
                     <tr>
-                        <th style="text-align: left; width: 200px; white-space: normal;">Type :</th>
-                        <td style="text-align: left; width: 300px;"><?php echo $type['TYP_Nom']; ?>
-                        </td>
+                        <!-- <th style="text-align: left; width: 200px; white-space: normal;">Type :</th>
+                        <td style="text-align: left; width: 300px;"><?php //echo $type['TYP_Nom']; ?>
+                        </td> -->
+                        <form method="post" name="voirCursus" action="cursus.php">
+                            <td colspan="2">
+                                <input type="hidden" name="NumC" value="<?php echo $num ?>">
+                                <input name="Cursus" type="submit" value="Cursus" Class="buttonC">
+                            </td>
+                        </form>
                     </tr>
                     <tr>
                         <th style="text-align: left; width: 200px; white-space: normal;">Prénom :</th>
@@ -289,8 +295,8 @@ include('../../bandeau.php');
                         <th style="text-align: left; width: 200px; white-space: normal;">Type de sortie :
                         </th>
                         <td style="text-align: left; width: 300px;"><?php 
-							if(!$typeSortie['TYS_Active']) echo '<span style="color:red; font-style:italic;">Attention ! Ancien type de sortie !</span><br/>';
-							echo "n°".$typeSortie['TYS_Numero']." &ndash; ".$typeSortie['TYS_Libelle'];
+							if(!$typeSortie['TYS_Active']) echo "Attention ! Ancien type de sortie !<br/>";
+							echo "n°".$typeSortie['TYS_Numero']." &ndash; ".$typeSortie['TYS_Libelle']; 
 						?></td>
                     </tr>
                 </table>
