@@ -107,3 +107,17 @@ WHERE (`chantieretat`.`NumDevis`,`chantieretat`.`Id`) IN
   FROM `revivre`.`chantieretat`
   GROUP BY `chantieretat`.`NumDevis`
 );
+
+CREATE TABLE IF NOT EXISTS `cursus` (
+	`CUR_numero` int(5) NOT NULL,
+	CUR_Date date NOT NULL,
+	Sal_NumSalarie int(5) NOT NULL,
+	TYP_Id int (11) NOT NULL,
+	CUR_Comment varchar(50),
+	CUR_Visible int(1) NOT NULL,
+	PRIMARY KEY (`CUR_numero`)
+);
+
+ALTER TABLE `cursus`
+	ADD CONSTRAINT `fk_numero_salarie` FOREIGN KEY (`SAL_NumSalarie`) REFERENCES `salaries` (`SAL_NumSalarie`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+	ADD CONSTRAINT `fk_type_salarie` FOREIGN KEY (`TYP_Id`) REFERENCES `type`(`TYP_Id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
