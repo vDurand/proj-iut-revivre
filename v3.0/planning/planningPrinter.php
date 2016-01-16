@@ -11,6 +11,8 @@ if(isset($_POST['ENC_Num']) && isset($_POST['ASSOC_Date']) && isset($_POST["PL_i
 
     $query = mysqli_query($db, "SELECT PL_Libelle FROM typeplanning ORDER BY PL_id");
     $nomTypesPlanning = mysqli_fetch_all($query, MYSQLI_ASSOC);
+    $is_ava_planning = ($nomTypesPlanning[$_POST["PL_id"]-1]["PL_Libelle"] == "AVA") ? true : false;//LIGNE CRITIQUE !
+
 
     $listeJours = array("Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi");
     $query = mysqli_query($db, "SELECT concat(PER_Nom, ' ',PER_Prenom) AS nom, CNV_Couleur, CRE_id FROM pl_association
@@ -37,14 +39,14 @@ if(isset($_POST['ENC_Num']) && isset($_POST['ASSOC_Date']) && isset($_POST["PL_i
 ?>
 <link rel="stylesheet" type="text/css" href="../css/planning.css"/>
 <page backtop="20mm" backbottom="5mm" backleft="2mm" backright="8mm">
-    <page_header>
+    <page_header pageset="old">
         <div class="planning-printer-header">
             <h2>PLANNING <?php echo strtoupper($nomTypesPlanning[$_POST["PL_id"]-1]["PL_Libelle"]); ?> DU <?php echo date('d/m/Y',strtotime($_POST['ASSOC_Date'])) ?> AU <?php echo date('d/m/Y',strtotime($_POST['ASSOC_Date']." + 4 day")) ?></h2>
             <h4>Encadrant : <?php echo $nomEncadrant["Nom"] ?></h4>
         </div>
     </page_header>
 
-    <page_footer>
+    <page_footer pageset="old">
         <div class="planning-printer-footer">
             <div class="planning-printer-logo">
                 <?php
@@ -73,6 +75,7 @@ if(isset($_POST['ENC_Num']) && isset($_POST['ASSOC_Date']) && isset($_POST["PL_i
     for($x=0; $x<5; $x++)
     {
         echo '<tr>';
+        $max_line_per_days = ($is_ava_planning) ? 15 : 10;
         $dateJourCourant = strtotime($_POST["ASSOC_Date"].' + '.$x.' day');
 
         if(isJourFerie(date("d/m/Y", $dateJourCourant))){
@@ -87,10 +90,10 @@ if(isset($_POST['ENC_Num']) && isset($_POST['ASSOC_Date']) && isset($_POST["PL_i
             $lineCount = 0;
             echo '<td><table>';
             while(isset($planningContenu[$z]) && $planningContenu[$z]["CRE_id"] == $CRE_id){
-                if($lineCount+1 == 10){
+                if($lineCount+1 == $max_line_per_days){
                     echo '<tr><td style="color: '.$planningContenu[$z]["CNV_Couleur"].';">'.$planningContenu[$z++]["nom"].'</td></tr>';
                 }
-                elseif($lineCount >= 10){
+                elseif($lineCount >= $max_line_per_days){
                     $z++;
                     $too_much_people = true;
                 }
@@ -100,8 +103,8 @@ if(isset($_POST['ENC_Num']) && isset($_POST['ASSOC_Date']) && isset($_POST["PL_i
                 $lineCount++;
             }
 
-            for($w=0; $w<(10-$lineCount); $w++){
-                if($w+1 < (10-$lineCount)){
+            for($w=0; $w<($max_line_per_days-$lineCount); $w++){
+                if($w+1 < ($max_line_per_days-$lineCount)){
                     echo '<tr><td class="separator"></td></tr>';
                 }
                 else{
@@ -110,8 +113,8 @@ if(isset($_POST['ENC_Num']) && isset($_POST['ASSOC_Date']) && isset($_POST["PL_i
             }
             echo'</table></td><td class="thinColumn"><table>';
 
-            for($w=0; $w<($lineCount+(10-$lineCount)); $w++){
-                if($w+1 < ($lineCount+(10-$lineCount))){
+            for($w=0; $w<($lineCount+($max_line_per_days-$lineCount)); $w++){
+                if($w+1 < ($lineCount+($max_line_per_days-$lineCount))){
                     echo '<tr><td class="separator"></td></tr>';
                 }
                 else{
@@ -132,11 +135,12 @@ if(isset($_POST['ENC_Num']) && isset($_POST['ASSOC_Date']) && isset($_POST["PL_i
     $content = ob_get_clean();
 
     if($too_much_people){
-        $content .= '<span style="color:red; font-weight:bold; font-style: italic;">Plus de 10 personnes par jour ! Certaines ne sont pas affichées !</span>';
+        $content .= '<span style="color:red; font-weight:bold; font-style: italic;">Plus de '.$max_line_per_days.' personnes par jour ! Certaines ne sont pas affichées !</span>';
     }
 
+    $pageformat = ($is_ava_planning) ? 'A3' : 'A4';
     require_once('../stuff/html2pdf/html2pdf.class.php');
-    $html2pdf = new HTML2PDF('P','A4','fr');
+    $html2pdf = new HTML2PDF('P',$pageformat,'fr');
     $html2pdf->pdf->SetAuthor('Association Revivre');
     $html2pdf->pdf->SetTitle('Planning '.strtoupper($nomTypesPlanning[$_POST["PL_id"]-1]["PL_Libelle"]).' - '.date('d/m/Y',strtotime($_POST['ASSOC_Date'])));
     $html2pdf->pdf->SetSubject('Planning hebdomadaire, Association Revivre');

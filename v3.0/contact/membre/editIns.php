@@ -766,16 +766,15 @@ include('../../bandeau.php');
                                     <optgroup label="Type actuel">
                                         <option value="<?php echo $typeSortie['TYS_ID']; ?>" selected>
                                             <?php
-												echo $typeSortie['TYS_Libelle']; ?>
+												echo $typeSortie['TYS_Numero'].' - '.$typeSortie['TYS_Libelle']; ?>
                                         </option>
                                     </optgroup>
                                     <optgroup label="Types disponibles">
                                         <?php
-                                        $reponse3 = mysqli_query($db, "SELECT * FROM TypeSortie WHERE TYS_Active=true ORDER BY TYS_ID");
+                                        $reponse3 = mysqli_query($db, "SELECT * FROM TypeSortie WHERE TYS_Active=true ORDER BY TYS_Numero");
                                         while ($donnees3 = mysqli_fetch_assoc($reponse3)) {
-                                            ?>
-                                            <option
-                                                value="<?php echo $donnees3['TYS_ID']; ?>"><?php echo $donnees3['TYS_Libelle']; ?></option>
+                                        ?>
+                                            <option value="<?php echo $donnees3['TYS_ID']; ?>"><?php echo $donnees3['TYS_Numero'].' - '.$donnees3['TYS_Libelle']; ?></option>
                                         <?php
                                         }
                                         mysqli_free_result($reponse3);
@@ -792,10 +791,10 @@ include('../../bandeau.php');
     <table id="downT">
         <tr>
             <td>
-							<span>
-								<input name="submit" type="submit" value="Valider" class="buttonC">&nbsp;&nbsp;
-								<input name="reset" type="reset" value="Annuler" class="buttonC">
-							</span>
+				<span>
+					<input name="submit" type="submit" value="Valider" class="buttonC">&nbsp;&nbsp;
+					<input name="reset" type="reset" value="Annuler" class="buttonC">
+				</span>
             </td>
         </tr>
     </table>

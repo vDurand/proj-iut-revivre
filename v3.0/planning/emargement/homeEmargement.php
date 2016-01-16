@@ -19,8 +19,7 @@
 							<option value="0" disabled="disabled" selected="selected">Choisissez une date</option>
 							<?php
 								$query = mysqli_query($db, "SELECT DISTINCT date_format(ASSOC_date,'%d/%m/%Y') AS 'date' FROM pl_association 
-															WHERE PL_id IN (SELECT PL_id FROM typeplanning WHERE PL_Libelle IN ('GOB', 'SOB'))
-															AND ASSOC_Archi = 0 ORDER BY ASSOC_date DESC;");
+															WHERE ASSOC_Archi = 0 ORDER BY ASSOC_date DESC;");
 								while($data = mysqli_fetch_assoc($query))
 								{
 									echo '<option value="'.$data["date"].'">'.$data["date"].'</option>';
@@ -34,8 +33,7 @@
 						<select id="plid_select_hebdo" name="plid_select_hebdo" disabled="disabled">
 							<option value="0" disabled="disabled" selected="selected">Choisissez un type</option>
 							<?php
-								$query = mysqli_query($db, "SELECT PL_id, PL_Libelle FROM typeplanning
-															WHERE PL_id IN (SELECT PL_id FROM typeplanning WHERE PL_Libelle IN ('GOB', 'SOB'));");
+								$query = mysqli_query($db, "SELECT PL_id, PL_Libelle FROM typeplanning ORDER BY Pl_id;");
 								while($data = mysqli_fetch_assoc($query))
 								{
 									echo '<option value="'.$data["PL_id"].'">'.$data["PL_Libelle"].'</option>';

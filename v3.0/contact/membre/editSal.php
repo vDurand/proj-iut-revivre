@@ -127,7 +127,7 @@ include('../../bandeau.php');
                                     </td>
                                     <td>
                                         <div class="selectType2">
-                                            <select id=Type" name="Type">
+                                            <select id="Type" name="Type">
                                                 <optgroup label="Type actuel">
                                                     <option value="<?php echo formatLOW($donnees['TYP_Id']); ?>">
                                                         <?php echo formatLOW($donnees['TYP_Nom']); ?>

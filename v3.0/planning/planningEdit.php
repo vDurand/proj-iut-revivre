@@ -19,7 +19,7 @@
 									WHERE ENC_Num = ".$_POST["ENC_Num"]." AND ASSOC_Date ='".$_POST["ASSOC_Date"]."' AND PL_id = ".$_POST["PL_id"]." ORDER BY LOGO_Id");
 		$logos = mysqli_fetch_all($query, MYSQLI_ASSOC);
 
-		$query = mysqli_query($db, "SELECT * FROM pl_proprietees WHERE ASSOC_Date = '".$_POST["ASSOC_Date"]."' AND ENC_Num = ".$_POST["ENC_Num"]);
+		$query = mysqli_query($db, "SELECT * FROM pl_proprietees WHERE ASSOC_Date = '".$_POST["ASSOC_Date"]."' AND ENC_Num = ".$_POST["ENC_Num"]." AND PL_id = ".$_POST["PL_id"]);
 		$proprietees = mysqli_fetch_assoc($query);
 
 		$queryListeSalaries = mysqli_query($db, "SELECT PER_Nom, PER_Prenom, SAL_NumSalarie

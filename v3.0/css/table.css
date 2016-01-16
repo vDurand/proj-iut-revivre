@@ -718,156 +718,12 @@ AJOUT GROUPE 2 PROJET REVIVRE
     color:lightgrey;
  }
 
-/*.planningTable a:link, .planningTable a:visited{
-	text-decoration: none;
-	font-family:Arial;
-	color:#000;
-}
-.planningTable {
-	margin:auto;
-	padding:0px;
-	display: inline-block;
-	border:1px solid #003f7f;
-	
-	-moz-border-radius-bottomleft:6px;
-	-webkit-border-bottom-left-radius:6px;
-	border-bottom-left-radius:6px;
-	
-	-moz-border-radius-bottomright:6px;
-	-webkit-border-bottom-right-radius:6px;
-	border-bottom-right-radius:6px;
-	
-	-moz-border-radius-topright:6px;
-	-webkit-border-top-right-radius:6px;
-	border-top-right-radius:6px;
-	
-	-moz-border-radius-topleft:6px;
-	-webkit-border-top-left-radius:6px;
-	border-top-left-radius:6px;
-}
-.planningTable table{
-    border-collapse: collapse;
-    border-spacing: 0;
-	height:100%;
-	margin:0px;
-	padding:0px;
-	table-layout: fixed;
-}
-.planningTable tbody tr:last-child td:last-child {
-	-moz-border-radius-bottomright:6px;
-	-webkit-border-bottom-right-radius:6px;
-	border-bottom-right-radius:6px;
-}
-.planningTable table thead tr td:last-child {
-	-moz-border-radius-topright:6px;
-	-webkit-border-top-right-radius:6px;
-	border-top-right-radius:6px;
-}
-.planningTable tbody tr:last-child td:first-child{
-	-moz-border-radius-bottomleft:6px;
-	-webkit-border-bottom-left-radius:6px;
-	border-bottom-left-radius:6px;
-}
-.planningTable td{
-	vertical-align:middle;
-	border:1px solid #003f7f;
-	border-width:0px 1px 1px 0px;
-	text-align:center;
-	padding:7px;
-	font-size:12px;
-	font-family:Arial;
-	font-weight:normal;
-	color:#000000;
-}
-.planningTable tr{
-	background-color: white;
-}
-.planningTable tr:last-child td{
-	border-width:0px 1px 0px 0px;
-}
-.planningTable tr td:last-child{
-	border-width:0px 0px 1px 0px;
-}
-.planningTable tr:last-child td:last-child{
-	border-width:0px 0px 0px 0px;
-}
-.planningTable thead tr td, .planningTable th{
-	border:0px solid #003f7f;
-	text-align:center;
-	border-width:0px 0px 1px 1px;
-	font-size:14px;
-	font-family:Arial;
-	color:#fff;
-	min-width:192px;
-}
-.planningTable thead tr td:last-child{
-	border-width:0px 0px 1px 1px;
-}
-.planningTable tbody tr{
-	height:80px;
-	max-height:80px;
-}
-
-.planningTable tbody tr td p{
-	width:91%;
-	float:left;
-	margin:0;
-	padding:2px 0px;
-	vertical-align:middle;
-}
-
-.planningTable #emptyColumn{
-	width:35px;
-	max-width:35px;
-}
-.planningTable #firstColumn{
-	width:80px;
-	max-width:80px;
-}*/
-
 .SpecialDate::-webkit-outer-spin-button, /* Removes arrows */
 .SpecialDate::-webkit-inner-spin-button, /* Removes arrows */
 .SpecialDate::-webkit-clear-button { /* Removes blue cross */
   -webkit-appearance: none;
   margin: 0;
 }
-/*.planningTable select{
-	margin-left: 4px;
-	border:1px solid black;
-}
-
-.daychoice label{
-	cursor:pointer;
-	-webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-.ConfigPanel{
-	margin:0 0 10px 0;
-	padding:5px 0px 5px 0px;
-	max-width:100%;
-	background-color: white;
-	box-shadow: 1px 1px 3px #555;
-	border-radius: 5px;
-}
-.ConfigPanel table{
-    border-collapse: collapse;
-    border-spacing: 0;
-	height:100%;
-	width:100%;
-	margin:0;
-	padding:0;
-}
-.ConfigPanel td{
-	max-width: 100px;
-}
-.ConfigPanel td #daytitle{
-	text-align: right;
-}*/
 
 .delCross{
 	background: #3498db;
@@ -930,58 +786,6 @@ AJOUT GROUPE 2 PROJET REVIVRE
     color:grey;
     background-color: #ebebe4;
 }
-
-/*.ScrollFrame{
-	width: 1017px;
-	height: 100%;
-	border:none;
-	overflow: auto;
-	margin:auto;
-	padding:0px;
-}
-
-.planningPrinter{
-	border-collapse: collapse;
-	margin:auto;
-}
-
-.planningPrinter th{
-	width:200px;
-	height:40px;
-	text-align:center;
-	background-color:#005fbf;
-	color:white;
-	border:1px solid #003f7f;
-}
-
-.planningPrinter td{
-	height:75px;
-	text-align:center;
-	vertical-align: middle;
-	border:1px solid #003f7f;
-}
-
-.planningPrinter #firstColumn{
-	width:100px;
-	text-align:center;
-}
-
-.planningPrinter #emptyColumn{
-	width:30px;
-	text-align:center;
-}
-
-.planningPrinter tbody tr:last-child td:last-child {
-	-moz-border-radius-bottomright:6px;
-	-webkit-border-bottom-right-radius:6px;
-	border-bottom-right-radius:6px;
-}
-
-.planningPrinter thead tr th:last-child {
-	-moz-border-radius-topright:6px;
-	-webkit-border-top-right-radius:6px;
-	border-top-right-radius:6px;
-}*/
 
 .logoContainer
 {
@@ -1046,7 +850,7 @@ AJOUT GROUPE 2 PROJET REVIVRE
 
 .emargement-hebdo th, .emargement-hebdo td{
 	border: 1px solid black;
-	padding: 3px;
+	padding: 1.8px;
 }
 
 .emargement-hebdo td{
@@ -1067,6 +871,10 @@ AJOUT GROUPE 2 PROJET REVIVRE
 	vertical-align: middle;
 }
 
+.emargement-hebdo .sal-name-cell{
+	font-size: 12px;
+}
+
 .header-emargement-hebdo{
 	display: block;
 	width: 100%;
@@ -1074,7 +882,7 @@ AJOUT GROUPE 2 PROJET REVIVRE
 }
 
 .signature-emargement-hebdo{
-	margin-top: 25px;
+	margin-top: 15px;
 }
 
 .emargement-mensuel{

@@ -82,12 +82,67 @@ if(isset($_POST['date_select_hebdo']) && isset($_POST['encadrant_select_hebdo'])
     $lastPerNum = -1;
     $CreId = 1;
     $maxCreIdBySal = -1;
+    $max_line_per_page = 15;
+    $live_person_counter = 0;
 
     while($data = mysqli_fetch_assoc($query))
     {
         if($lastPerNum != $data["PER_Num"])
         {
-            echo '</tr><tr><td>'.$data["PER_Nom"]." ".$data["PER_Prenom"].'</td>';
+            if(++$live_person_counter%15 == 0){
+                echo '</tr>
+                    </tbody>
+                </table>
+                <h4 class="signature-emargement-hebdo">Encadrant '.$encName.' - signature :</h4>
+            </page>
+            <page backtop="14mm" backbottom="5mm" backleft="2mm" backright="8mm">
+                <page_header>
+                    <h3 class="header-emargement-hebdo">Semaine n°'.$weekNumber.' : lundi '.$_POST['date_select_hebdo'].' au vendredi '.date('d/m/Y', strtotime($date." + 4 day")).'</h3>
+                </page_header>
+                <page_footer>
+                    <div style="margin-bottom:8px; text-align:center; padding:0;">';
+
+                        for($x=0; $x<sizeof($tableauLogo) && $x<6; $x++)
+                        {
+                            echo '<img src="../'.$tableauLogo[$x]["LOGO_Url"].'" style="margin:0px 3px;" />';
+                        }
+
+                echo '</div>
+                    <h4 style=" text-align:center; margin:0px; font-weight:normal;">
+                        Association Revivre Service CAP, Chemin de Mondeville - 14460 COLOMBELLES - Imprimée le : '.date('d/m/Y').'
+                    </h4>
+                </page_footer>
+                <table class="emargement-hebdo">
+                <thead>
+                    <tr>
+                        <th rowspan="2" class="name-col">NOM - Prénom</th>
+                        <th colspan="2">Lundi</th>
+                        <th colspan="2">Mardi</th>
+                        <th colspan="2">Mercredi</th>
+                        <th colspan="2">Jeudi</th>
+                        <th colspan="2">Vendredi</th>
+                    </tr>
+                    <tr>
+                        <th class="sub-th">MATIN</th>
+                        <th class="sub-th">APRÈS-MIDI</th>
+                        <th class="sub-th">MATIN</th>
+                        <th class="sub-th">APRÈS-MIDI</th>
+                        <th class="sub-th">MATIN</th>
+                        <th class="sub-th">APRÈS-MIDI</th>
+                        <th class="sub-th">MATIN</th>
+                        <th class="sub-th">APRÈS-MIDI</th>
+                        <th class="sub-th">MATIN</th>
+                        <th class="sub-th">APRÈS-MIDI</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>';
+            }
+            else{
+                echo '</tr><tr>';
+            }
+
+            echo '<td class="sal-name-cell">'.$data["PER_Nom"]." ".$data["PER_Prenom"].'</td>';
             $lastPerNum = $data["PER_Num"];
             $CreId = 1;
 
@@ -120,47 +175,25 @@ if(isset($_POST['date_select_hebdo']) && isset($_POST['encadrant_select_hebdo'])
             $CreId = 1;
         }
     }
+
+    echo '</tr>';
+    $live_person_counter++;
+    while(++$live_person_counter%15 != 0){
+        echo '<tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>';
+    }
 ?>
-            </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
             </tbody>
         </table>
         <h4 class="signature-emargement-hebdo">Encadrant <?php echo $encName ?> - signature :</h4>

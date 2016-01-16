@@ -26,9 +26,9 @@ if(isset($_POST['salarie_select_mensuel']) && isset($_POST['mois_select_mensuel'
 ?>
 <link rel="stylesheet" type="text/css" href="../../css/table.css">
 <page backtop="14mm" backbottom="5mm" backleft="4mm" backright="6mm">
-    <page_header>
+    <page_header pageset="old">
         <h4 style="text-align: center;">Salarié : <?php echo $salName ?> -  Présence pour <?php echo $tabMois[$_POST['mois_select_mensuel']-1] ?> <?php echo $_POST['annee_select_mensuel'] ?></h4>
-    </page_header>
+    </page_header pageset="old">
     <page_footer>
         <div style="margin-bottom:8px; text-align:center; padding:0;">
         <?php
