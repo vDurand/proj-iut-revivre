@@ -11,6 +11,12 @@ include('../../bandeau.php');
             $reponse = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num JOIN Type ty ON cl.TYP_Id=ty.TYP_Id JOIN Fonction fc ON cl.FCT_Id=fc.FCT_Id WHERE SAL_NumSalarie='$num' ORDER BY PER_Nom");
             $donnees = mysqli_fetch_assoc($reponse);
 
+            $numSal = $donnees["SAL_NumSalarie"];
+
+            $reponsebis = mysqli_query($db, "SELECT ME_DateSortie FROM membre WHERE SAL_NumSalarie = $numSal");
+            $dataDate = mysqli_fetch_assoc($reponsebis);
+            $dateSortie = $dataDate["ME_DateSortie"];
+
             if ($donnees) {
                 ?>
                 <div id="labelT">
@@ -77,6 +83,10 @@ include('../../bandeau.php');
                                 <tr>
                                     <th style="text-align: left; width: 200px; white-space: normal;">Fonction :</th>
                                     <td style="text-align: left; width: 300px;"><?php echo formatLOW($donnees['FCT_Nom']); ?></td>
+                                </tr>
+                                <tr>
+                                    <th style="text-align: left; width: 200px; white-space: normal;">Date de sortie :</th>
+                                    <td style="text-align: left; width: 300px;"><?php if($dateSortie != null) echo DATE_FORMAT(date_create($dateSortie),"d/m/Y"); else echo "Aucune date de sortie"; ?></td>
                                 </tr>
                             </table>
                         </td>

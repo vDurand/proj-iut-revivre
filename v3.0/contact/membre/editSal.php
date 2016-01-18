@@ -7,8 +7,19 @@ include('../../bandeau.php');
         <?php
         $num = $_POST["NumC"];
 
-        $reponse = mysqli_query($db, "SELECT * FROM Salaries cl JOIN Personnes pe ON cl.PER_Num=pe.PER_Num JOIN Type ty ON cl.TYP_Id=ty.TYP_Id Join Fonction USING (FCT_Id) WHERE SAL_NumSalarie='$num' ORDER BY PER_Nom");
+        $reponse = mysqli_query($db, "SELECT * FROM Salaries cl 
+                                        JOIN Personnes pe ON cl.PER_Num=pe.PER_Num 
+                                        JOIN Type ty ON cl.TYP_Id=ty.TYP_Id 
+                                        Join Fonction USING (FCT_Id)                                        
+                                        WHERE SAL_NumSalarie='$num' 
+                                        ORDER BY PER_Nom");
         $donnees = mysqli_fetch_assoc($reponse);
+
+        $numSal = $donnees["SAL_NumSalarie"];
+
+        $queryDateSortie = mysqli_query($db, "SELECT ME_DateSortie FROM membre WHERE SAL_NumSalarie = $numSal");
+        $donneesDateSortie = mysqli_fetch_assoc($queryDateSortie);
+        $dateSortie = $donneesDateSortie["ME_DateSortie"];
         ?>
         <div id="labelT">
             <label>Modifier Membre</label>
@@ -178,6 +189,14 @@ include('../../bandeau.php');
                                             </select>
                                         </div>
                                     </td>
+                                </tr>
+                                <tr id="Sal-DateSortie">                                    
+                                    <td style="text-align: left; width: 150px; white-space: normal;">
+                                        <label for="Type">Date de Sortie :</label>
+                                    </td>
+                                    <td>
+                                        <input id="DateSortie" name="DateSortie" type="date" class="inputC" value="<?php if($dateSortie != null) echo $dateSortie; ?>">                                           
+                                    </td>                            
                                 </tr>
                             </table>
                         </td>
