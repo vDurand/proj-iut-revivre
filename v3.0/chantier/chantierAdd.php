@@ -99,6 +99,11 @@ $pwd='../';
     		$sql4 = mysqli_query($db, $query4);
     		$errr4 = mysqli_error($db);
     	}
+      else if($etat==5){
+        $query4 ="UPDATE Chantiers SET CHA_DateFinReel = CHA_DateDebut WHERE CHA_NumDevis = '$num'";
+        $sql4 = mysqli_query($db, $query4);
+        $errr4 = mysqli_error($db);
+      }
     	
     	if($sql3){
     	    echo '<div id="good">     

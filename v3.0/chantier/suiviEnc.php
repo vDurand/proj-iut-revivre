@@ -192,7 +192,7 @@ $pwd='../';
             LEFT JOIN ChantierHeure he ON ch.CHA_NumDevis=he.CHA_NumDevis
             JOIN Encadrer en ON ch.CHA_NumDevis=en.CHA_NumDevis
             ".(($etat > 0) ? "LEFT JOIN chantieretatmax ce ON ch.CHA_NumDevis = ce.CHA_NumDevis
-            WHERE Id = ".$etat." AND " : "WHERE ")."(CHA_Echeance >= '".$year."-"."01"."-01' OR CHA_DateFinReel >= '".$year."-"."01"."-01' OR CHA_DateFinReel is null) AND CHA_DateDebut <= '".$year."-"."12"."-31'
+            WHERE Id = ".$etat." AND " : "WHERE ")."(CHA_Echeance >= '".$year."-01-01' OR CHA_DateFinReel >= '".$year."-01-01' OR CHA_DateFinReel is null) AND CHA_DateDebut <= '".$year."-12-31'
             ORDER BY CHA_Intitule";
         }
         else{
@@ -280,7 +280,7 @@ $pwd='../';
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th style="text-align: right; font-size: 14px;" colspan="2">TOTAL&nbsp;&nbsp;</th>
+                        <th style="text-align: right; font-size: 14px;" colspan="3">TOTAL&nbsp;&nbsp;</th>
                         <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totMP." €"; ?></th>
                         <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totAP." €"; ?></th>
                         <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totAT." €"; ?></th>
@@ -289,7 +289,6 @@ $pwd='../';
                         <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totHT; ?></th>
                         <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totEH; ?></th>
                         <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totNS; ?></th>
-                        <th></th>
                     </tr>
                 </tfoot>
             </table>
