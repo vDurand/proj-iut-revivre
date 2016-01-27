@@ -46,7 +46,7 @@ $pwd='../';
     <script src="../js/sorttable.js"></script>
     <link rel="stylesheet" href="../css/print.css">
     <div id="corps">
-        <div id="labelCat" style="padding-bottom: 15px;">
+        <div id="labelCat" style="padding-bottom: 25px;">
             <form method="post" action="suiviEnc.php" name="Encadrant">
                 <table align="center" style="table-layout:fixed; margin:0 auto;">
                     <tr>
@@ -125,6 +125,9 @@ $pwd='../';
                             </div>
                         </td>
                         <td><input formtarget="_blank" class="printButton" type="button" onclick="window.print();"name="printer" value="Imprimer"/></td>
+                    </tr>
+                    <tr>
+                    	<td colspan="5" style="padding: 8px 0; font-style: italic; font-size: 16px;">Utilisez les filtres pour faire apparaître des chantiers</td>
                     </tr>
                 </table>
             </form>
@@ -241,8 +244,10 @@ $pwd='../';
             ORDER BY CHA_Intitule";
     }
 
-    $reponse = mysqli_query($db, $query);
-    while ($donnees = mysqli_fetch_assoc($reponse)){
+    if($numEnc != 0 || $month != 0 || $year != 0 || $etat != 0){
+
+	    $reponse = mysqli_query($db, $query);
+	    while ($donnees = mysqli_fetch_assoc($reponse)){
 ?>
                 <tr onclick="javascript:submitViewDetail('<?php echo $donnees['CHA_NumDevis']; ?>', 'detailClient');">
                     <td><?php echo $donnees['CHA_NumDevis']; ?></td>
@@ -274,8 +279,9 @@ $pwd='../';
                     <td><?php echo (!is_null($donnees['NbSalarie'])) ? $donnees['NbSalarie'] : 0; $totNS += $donnees['NbSalarie']; ?></td>
                 </tr>
 <?php
-    }
-    mysqli_free_result($reponse);
+	    }
+	    mysqli_free_result($reponse);
+	}
 ?>
                 </tbody>
                 <tfoot>

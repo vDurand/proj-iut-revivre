@@ -1,1 +1,1 @@
-UPDATE chantiers set CHA_DateFinReel = CHA_DateDebut where CHA_NumDevis in (select CHA_NumDevis from chantieretatmax where Id=5)
+UPDATE chantiers SET CHA_DateFinReel = CHA_DateDebut WHERE CHA_NumDevis IN (SELECT CHA_NumDevis FROM chantieretatmax WHERE Id=5)
