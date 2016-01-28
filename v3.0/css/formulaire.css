@@ -1,0 +1,49 @@
+/*******************************************
+                  FILTRES
+*******************************************/
+.repertoire-form-filters{
+	margin: 25px 0;
+	text-align: right;
+}
+
+.repertoire-form-filters table{
+	width: 100%;
+	table-layout: fixed;
+}
+
+/*******************************************
+                 FORMULAIRE
+*******************************************/
+
+.repertoire-form-content{
+	position: relative;
+	margin: 25px 0 10px 0;
+	min-height: 700px;
+}
+
+/** Loading **/
+.waiting-repertoire-form{
+	background-color: lightgray;
+}
+
+.waiting-repertoire-form .form-loader{
+	width: 200px;
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+}
+
+.waiting-repertoire-form .form-loader object{
+	display: block;
+	margin: auto;
+}
+
+.waiting-repertoire-form .form-loader label{
+	padding: 10px 0px;
+	display: block;
+	text-align: center;
+	font-style: italic;
+	color: #4c4c4c;
+	font-size: 12px;
+}

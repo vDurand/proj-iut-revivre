@@ -11,8 +11,9 @@ include('bandeau.php');
 ?>
     <div id="corps">
         <div id="labelT" style="height: 58px;">
-            <label>Application web et base de données réalisées dans le cadre d'un projet de deux ans<br>par des étudiants en DUT Informatique à l'IUT de Caen</label>
+            <label>Application web et base de données réalisés dans le cadre d'un projet <br>par des étudiants en DUT Informatique à l'IUT de Caen</label>
         </div>
+        <p style="text-align: center;">2014 - 2015 :</p>
         <ul style="font-size: 17px; padding-left: 45%;">
             <li>Valentin Durand</li>
             <br>
@@ -22,7 +23,17 @@ include('bandeau.php');
             <br>
             <li>Jérémis Le Bas</li>
         </ul>
-        <p style="text-align: center;">2013 - 2015</p>
+        <br>
+        <p style="text-align: center;">2015 - 2016 :</p>
+        <ul style="font-size: 17px; padding-left: 45%;">
+            <li>Paul Jourdain</li>
+            <br>
+            <li>Florian Duval</li>
+            <br>
+            <li>Corentin Cosseron</li>
+            <br>
+            <li>Benjamin Lemaitre</li>
+        </ul>
     </div>
 <?php
 include('footer.php');
