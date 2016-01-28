@@ -47,7 +47,8 @@
     function copyPlanning($db){
             $query1 = mysqli_query($db, "INSERT INTO pl_association(SAL_NumSalarie, ENC_Num, CRE_id, PL_id, ASSOC_date)
                                         SELECT SAL_NumSalarie, ENC_Num, CRE_id, PL_id, '".$_POST['ASSOC_Date_new']."'
-                                        FROM pl_association WHERE ASSOC_date = '".$_POST['ASSOC_Date']."' AND PL_id = ".$_POST["PL_id"]." AND ENC_Num = ".$_POST['ENC_Num'].";");
+                                        FROM pl_association WHERE ASSOC_date = '".$_POST['ASSOC_Date']."' AND PL_id = ".$_POST["PL_id"]." AND ENC_Num = ".$_POST['ENC_Num']." 
+                                        AND SAL_NumSalarie IN (SELECT SAL_NumSalarie FROM salaries JOIN insertion USING(SAL_NumSalarie) WHERE TYS_id = 0);");
 
             $query2 = mysqli_query($db, "INSERT INTO pl_proprietees(ENC_Num, ASSOC_date, PL_id, ASSOC_Couleur, ASSOC_AM, ASSOC_PM, ASSOC_LastEdit)
                                         SELECT ENC_Num, '".$_POST['ASSOC_Date_new']."', PL_id, ASSOC_Couleur, ASSOC_AM, ASSOC_PM, '".date("Y-m-d")."'
