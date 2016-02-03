@@ -17,7 +17,7 @@
 
 	function getFormulaire($db){
 		if(isset($_POST["TYP_Id"]) && !empty($_POST["TYP_Id"])){
-			echo "Formulaire n°".$_POST["TYP_Id"];
+			include_once("../includes/form".$_POST["TYP_Id"].".php");
 		}
 		else{
 			echo '<h4>Une erreur s\'est produite !</h4>';

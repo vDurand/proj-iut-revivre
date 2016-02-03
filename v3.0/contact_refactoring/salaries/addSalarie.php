@@ -45,6 +45,7 @@
 				if(data.length > 0){
 					$(".repertoire-form-content").removeClass("waiting-repertoire-form");
 					$(".repertoire-form-content .form-loader").hide();
+					$(".repertoire-form-content .form").remove();
 					$(".repertoire-form-content").html($(".repertoire-form-content").html()+data);
 				}
 				else{
