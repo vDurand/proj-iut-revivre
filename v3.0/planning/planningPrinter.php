@@ -9,10 +9,10 @@ if(isset($_POST['ENC_Num']) && isset($_POST['ASSOC_Date']) && isset($_POST["PL_i
 	$db = revivre();
     mysqli_query($db, "SET NAMES 'utf8'");
 
+
+
     $query = mysqli_query($db, "SELECT PL_Libelle FROM typeplanning ORDER BY PL_id");
     $nomTypesPlanning = mysqli_fetch_all($query, MYSQLI_ASSOC);
-    $is_ava_planning = ($nomTypesPlanning[$_POST["PL_id"]-1]["PL_Libelle"] == "AVA") ? true : false;//LIGNE CRITIQUE !
-
 
     $listeJours = array("Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi");
     $query = mysqli_query($db, "SELECT concat(PER_Nom, ' ',PER_Prenom) AS nom, CNV_Couleur, CRE_id FROM pl_association
@@ -75,7 +75,7 @@ if(isset($_POST['ENC_Num']) && isset($_POST['ASSOC_Date']) && isset($_POST["PL_i
     for($x=0; $x<5; $x++)
     {
         echo '<tr>';
-        $max_line_per_days = ($is_ava_planning) ? 15 : 10;
+        $max_line_per_days = ($_POST["Page_Format"] == "A3") ? 15 : 10;
         $dateJourCourant = strtotime($_POST["ASSOC_Date"].' + '.$x.' day');
 
         if(isJourFerie(date("d/m/Y", $dateJourCourant))){
@@ -138,9 +138,8 @@ if(isset($_POST['ENC_Num']) && isset($_POST['ASSOC_Date']) && isset($_POST["PL_i
         $content .= '<span style="color:red; font-weight:bold; font-style: italic;">Plus de '.$max_line_per_days.' personnes par jour ! Certaines ne sont pas affichées !</span>';
     }
 
-    $pageformat = ($is_ava_planning) ? 'A3' : 'A4';
     require_once('../stuff/html2pdf/html2pdf.class.php');
-    $html2pdf = new HTML2PDF('P',$pageformat,'fr');
+    $html2pdf = new HTML2PDF('P',$_POST["Page_Format"],'fr');
     $html2pdf->pdf->SetAuthor('Association Revivre');
     $html2pdf->pdf->SetTitle('Planning '.strtoupper($nomTypesPlanning[$_POST["PL_id"]-1]["PL_Libelle"]).' - '.date('d/m/Y',strtotime($_POST['ASSOC_Date'])));
     $html2pdf->pdf->SetSubject('Planning hebdomadaire, Association Revivre');

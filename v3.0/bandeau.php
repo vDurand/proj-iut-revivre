@@ -21,6 +21,9 @@
 		<link rel="stylesheet" type="text/css" href="<?php echo $pwd; ?>css/alpha.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo $pwd; ?>css/planning.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo $pwd; ?>css/formulaire.css">
+		<link rel="stylesheet" type="text/css" href="<?php echo $pwd; ?>css/jquery-ui.min.css">
+		<link rel="stylesheet" type="text/css" href="<?php echo $pwd; ?>css/jquery-ui.structure.min.css">
+		<link rel="stylesheet" type="text/css" href="<?php echo $pwd; ?>css/jquery-ui.theme.min.css">
 <?php
 	$i=rand(1,2);
 	if($i==1){
@@ -41,6 +44,7 @@
         <script type="text/javascript" src="<?php echo $pwd; ?>js/angular.min.js"></script>
     	<script type="text/javascript" src="<?php echo $pwd; ?>js/raphael-min.js"></script>
     	<script type="text/javascript" src="<?php echo $pwd; ?>js/morris-0.5.1.min.js"></script>
+    	<script type="text/javascript" src="<?php echo $pwd; ?>js/jquery-ui.min.js"></script>
 		<title><?php echo $pageTitle; ?></title>
 		<!-- V. Durand | A. Freret | P. Friboulet | J. Le Bas | IUT Caen - DUT Info (2013-2015) | P. Jourdain | F. Duval | C. Cosseron | B. Lemaitre | IUT Caen - DUT Info (2015-2016)-->
 	</head>

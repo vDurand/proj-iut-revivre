@@ -142,6 +142,9 @@
 					}
 				?>
 			</div>
+			<div id="dialog-confirm" title="Format d'impression">
+				<p style="text-align:center;">Choisissez le format d'impression</p>
+			</div>
 			<script type="text/javascript">
 		<?php
 			if($_POST["ASSOC_Archi"] == "false")
@@ -187,7 +190,23 @@
 				});
 
 				$("#print").on("click", function(){
-					$.redirect("./planningPrinter.php", {"PL_id": $("#PL_id").val(), "ASSOC_Date": $("#ASSOC_Date").val(), "ENC_Num": $("#ENC_Num").val()}, "POST", "_blank");
+					$("#dialog-confirm").dialog({
+					    resizable: false,
+					    draggable: false,
+					    height: 185,
+					    modal: true,
+					    buttons: {
+					        "Format A3": function() {
+					        	$(this).dialog("close");
+					        	$.redirect("./planningPrinter.php", {"PL_id": $("#PL_id").val(), "ASSOC_Date": $("#ASSOC_Date").val(), "ENC_Num": $("#ENC_Num").val(), "Page_Format":"A3"}, "POST", "_blank");
+
+					        },
+					        "Format A4": function() {
+					        	$(this).dialog("close");
+					          	$.redirect("./planningPrinter.php", {"PL_id": $("#PL_id").val(), "ASSOC_Date": $("#ASSOC_Date").val(), "ENC_Num": $("#ENC_Num").val(), "Page_Format":"A4"}, "POST", "_blank");
+					        }
+					    }
+					});
 				});
 
 			</script>
