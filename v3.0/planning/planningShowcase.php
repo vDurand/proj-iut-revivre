@@ -214,6 +214,7 @@
 		$(".planning-table table").remove();
 		$(".planning-table .planning-menu").remove();
 		$(".planning-table .planning-logo").remove();
+		$(".planning-table #dialog-confirm").remove();
 	}
 </script>
 <?php

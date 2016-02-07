@@ -253,6 +253,15 @@
 	padding: 0;
 }
 
+.planning-printer-header h5{
+	color: red;
+	font-weight: bold;
+	text-align: center;
+	font-size: 15px;
+	margin: 3px 0 0 0;
+	padding: 0;
+}
+
 #planning-table{
 	border-collapse: collapse;
 	margin: auto;

@@ -1,6 +1,6 @@
 <?php
 $pwd = "../";
-if(isset($_POST['ENC_Num']) && isset($_POST['ASSOC_Date']) && isset($_POST["PL_id"]))
+if(isset($_POST['ENC_Num']) && isset($_POST['ASSOC_Date']) && isset($_POST["PL_id"]) && isset($_POST["Page_Format"]))
 {
     include($pwd.'assets.php');
     error_reporting(E_ALL);
@@ -10,7 +10,7 @@ if(isset($_POST['ENC_Num']) && isset($_POST['ASSOC_Date']) && isset($_POST["PL_i
     mysqli_query($db, "SET NAMES 'utf8'");
 
 
-
+    $max_line_per_days = ($_POST["Page_Format"] == "A3") ? 15 : 10;
     $query = mysqli_query($db, "SELECT PL_Libelle FROM typeplanning ORDER BY PL_id");
     $nomTypesPlanning = mysqli_fetch_all($query, MYSQLI_ASSOC);
 
@@ -35,6 +35,18 @@ if(isset($_POST['ENC_Num']) && isset($_POST['ASSOC_Date']) && isset($_POST["PL_i
     $nomEncadrant = mysqli_fetch_assoc($query);
     
     $too_much_people = false;
+
+    if($_POST["Page_Format"] == 'A4'){
+        $query = mysqli_query($db, "SELECT max(numberSal) AS number FROM 
+                                    (SELECT count(*) AS numberSal FROM pl_association 
+                                    WHERE ASSOC_date = '".$_POST["ASSOC_Date"]."' AND ENC_Num = ".$_POST["ENC_Num"]." AND PL_id = ".$_POST["PL_id"]." GROUP BY CRE_Id) as subquerytable");
+        $max_number_people = mysqli_fetch_assoc($query);
+
+        if((int)$max_number_people["number"] > 10){
+            $too_much_people = true;
+        }
+    }
+
     ob_start();
 ?>
 <link rel="stylesheet" type="text/css" href="../css/planning.css"/>
@@ -43,6 +55,11 @@ if(isset($_POST['ENC_Num']) && isset($_POST['ASSOC_Date']) && isset($_POST["PL_i
         <div class="planning-printer-header">
             <h2>PLANNING <?php echo strtoupper($nomTypesPlanning[$_POST["PL_id"]-1]["PL_Libelle"]); ?> DU <?php echo date('d/m/Y',strtotime($_POST['ASSOC_Date'])) ?> AU <?php echo date('d/m/Y',strtotime($_POST['ASSOC_Date']." + 4 day")) ?></h2>
             <h4>Encadrant : <?php echo $nomEncadrant["Nom"] ?></h4>
+            <?php
+                if($too_much_people){
+                    echo '<h5>Plus de '.$max_line_per_days.' personnes par jour ! Préférez le format A3 pour tout afficher !</h5>';
+                }
+            ?>
         </div>
     </page_header>
 
@@ -75,7 +92,6 @@ if(isset($_POST['ENC_Num']) && isset($_POST['ASSOC_Date']) && isset($_POST["PL_i
     for($x=0; $x<5; $x++)
     {
         echo '<tr>';
-        $max_line_per_days = ($_POST["Page_Format"] == "A3") ? 15 : 10;
         $dateJourCourant = strtotime($_POST["ASSOC_Date"].' + '.$x.' day');
 
         if(isJourFerie(date("d/m/Y", $dateJourCourant))){
@@ -95,7 +111,6 @@ if(isset($_POST['ENC_Num']) && isset($_POST['ASSOC_Date']) && isset($_POST["PL_i
                 }
                 elseif($lineCount >= $max_line_per_days){
                     $z++;
-                    $too_much_people = true;
                 }
                 else{
                     echo '<tr><td style="color: '.$planningContenu[$z]["CNV_Couleur"].';" class="separator">'.$planningContenu[$z++]["nom"].'</td></tr>';
@@ -133,10 +148,6 @@ if(isset($_POST['ENC_Num']) && isset($_POST['ASSOC_Date']) && isset($_POST["PL_i
 <?php
     $title = "planning_".$nomTypesPlanning[$_POST["PL_id"]-1]["PL_Libelle"]."_".str_replace(" ", "_", $nomEncadrant["Nom"])."_".date('d-m-Y',strtotime($_POST['ASSOC_Date'])).".pdf";
     $content = ob_get_clean();
-
-    if($too_much_people){
-        $content .= '<span style="color:red; font-weight:bold; font-style: italic;">Plus de '.$max_line_per_days.' personnes par jour ! Certaines ne sont pas affichées !</span>';
-    }
 
     require_once('../stuff/html2pdf/html2pdf.class.php');
     $html2pdf = new HTML2PDF('P',$_POST["Page_Format"],'fr');
