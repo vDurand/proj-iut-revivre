@@ -47,3 +47,28 @@
 	color: #4c4c4c;
 	font-size: 12px;
 }
+
+.civilian_infos, .professional_infos{
+	border-radius: 20px;
+}
+
+.civilian_infos table td{
+	padding: 8px;	
+	width: 25%;
+	text-align: center;
+	margin: 50px;
+}
+
+.civilian_infos textarea{
+	resize:none;
+}
+
+.warning_infos{
+	color : red;
+}
+
+
+.inputCom {
+	width:400px;
+	background-color: #cde5f7;
+}

@@ -17,6 +17,7 @@
 
 	function getFormulaire($db){
 		if(isset($_POST["TYP_Id"]) && !empty($_POST["TYP_Id"])){
+			include_once("../includes/form_civil.php");
 			include_once("../includes/form".$_POST["TYP_Id"].".php");
 		}
 		else{
