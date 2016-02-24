@@ -20,7 +20,7 @@
 					<td><input required="required" class="inputC" type="text" id="CLI_Nom" name="CLI_Nom"/></td>
 				</tr>
 				<tr>
-					<td><label for="CLI_Prenom">Prenom(si particuler) :</label></td>
+					<td><label for="CLI_Prenom">Prenom (si particuler) :</label></td>
 					<td><input required="required" class="inputC" type="text" id="CLI_Prenom" name="CLI_Prenom"/></td>
 					<td><label for="CLI_Adresse">Adresse :</label></td>
 					<td><textarea required="required" rows="5" class="inputC" id="CLI_Adresse" name="CLI_Adresse"/></td>
