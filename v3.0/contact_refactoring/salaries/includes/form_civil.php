@@ -1,15 +1,13 @@
-
 <div class="form">
 	<form>
 		<div align="center">
 			<label for="INS_DateEntretien"><u>Date de l'entretien* :</u></label>
 			<input type="date" id="ASSOC_Date" name="ASSOC_Date" value="<?php echo date('Y-m-d', strtotime("next monday")); ?>" step="1" class="SpecialDate">
 		</div>
-		</br>
 		<fieldset class="civilian_infos">
 			<legend align="center"><h2> Coordonnées Civiles  </h2></legend>
-			<p class="warning_infos" align="center"><b>/!\<i> Toutes ces informations sont nécessaires et obligatoires </i>/!\</b></p>
-			<table>
+			<p class="warning_infos" align="center">Toutes ces informations sont nécessaires et obligatoires</p>
+			<table class="form_table">
 				<tr>
 					<td><label for="PER_Nom">Nom :</label></td>
 					<td><input required="required" class="inputC" type="text" id="PER_Nom" name="PER_Nom"/></td>
@@ -52,23 +50,7 @@
 					<td><label for="PER_Mail">Adresse @mail :</label></td>
 					<td><input class="inputC" type="text" id="PER_Mail" name="PER_Mail"/></td>
 				</tr>
-				<!--<tr>
-					<td colspan="2"><p><b><u>Prevenir en cas d'urgence : </u></b></p></td>
-				</tr>
-				<tr>
-					<td><label for="PER_PrevNom">Nom :</label></td>
-					<td><input class="inputC" type="text" id="PER_PrevNom" name="PER_PrevNom"/></td>
-				</tr>
-				<tr>
-					<td><label for="PER_PrevPrenom">Prenom :</label>
-					<td><input class="inputC" type="text" id="PER_PrevPrenom" name="PER_PrevPrenom"/></td>
-				</tr>
-				<tr>
-					<td><label for="PER_PrevTel">Numéro :</label>
-					<td><input class="inputC" type="text" id="PER_PrevTel" name="PER_PrevTel"/></td>
-				</tr>-->
 			</table>
 		</fieldset>
-	</br>
 	</form>
 </div>

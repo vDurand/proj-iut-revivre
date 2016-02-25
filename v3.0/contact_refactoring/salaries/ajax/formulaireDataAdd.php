@@ -18,7 +18,9 @@
 	function getFormulaire($db){
 		if(isset($_POST["TYP_Id"]) && !empty($_POST["TYP_Id"])){
 			include_once("../includes/form_civil.php");
-			include_once("../includes/form".$_POST["TYP_Id"].".php");
+			if ($_POST["TYP_Id"] != 5 && $_POST["TYP_Id"] != 2)
+				include_once("../includes/form_profesional.php");
+			include_once("../includes/form_emergency.php");
 		}
 		else{
 			echo '<h4>Une erreur s\'est produite !</h4>';

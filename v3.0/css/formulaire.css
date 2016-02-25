@@ -48,8 +48,13 @@
 	font-size: 12px;
 }
 
+/*******************************************
+      FORMULAIRE DE RENTREE DE SALARIE
+*******************************************/
+
 .civilian_infos, .professional_infos{
 	border-radius: 20px;
+	margin: 15px auto;
 }
 
 .civilian_infos table td{
@@ -71,4 +76,22 @@
 .inputCom {
 	width:400px;
 	background-color: #cde5f7;
+}
+
+.tab_contrat{
+	text-align: center;
+	border: 1px solid #6b727c;
+	border-radius: 15px;
+	display: block;
+	text-align: center;
+	margin:auto;
+}
+
+.newPresCross{
+	float:left;
+	margin-right: 10px;
+}
+
+.form_table{
+	width:990px;
 }
