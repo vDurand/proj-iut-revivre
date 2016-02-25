@@ -41,7 +41,7 @@
 				<tr>
 					<td><label for="CLI_Fax">Fax :</label></td>
 					<td><input required="required" class="inputC" type="text" id="CLI_Fax" name="CLI_Fax"/></td>
-					<td><label for="CLI_Mail">Adresse @mail :</label></td>
+					<td><label for="CLI_Mail">Adresse @ email:</label></td>
 					<td><input class="inputC" type="text" id="CLI_Mail" name="CLI_Mail"/></td>
 				</tr>
 			</table>

@@ -3,7 +3,7 @@
 	<form action="postContact.php" method="post">
 		<fieldset class="civilian_infos">
 			<legend align="center"><h2> Coordonnées Civiles  </h2></legend>
-			<p class="warning_infos" align="center"><b>/!\<i> Toutes ces informations sont nécessaires et obligatoires </i>/!\</b></p>
+			<p class="warning_infos" align="center">Toutes ces informations sont nécessaires et obligatoires	</p>
 			<table>
 				<tr>
 					<td><label for="FOU_Nom">Nom :</label></td>
@@ -27,7 +27,7 @@
 				<tr>
 					<td><label for="FOU_Fax">Fax :</label></td>
 					<td><input required="required" class="inputC" type="text" id="FOU_Fax" name="FOU_Fax"/></td>
-					<td><label for="FOU_Mail">Adresse @mail :</label></td>
+					<td><label for="FOU_Mail">Adresse @ email :</label></td>
 					<td><input class="inputC" type="text" id="FOU_Mail" name="FOU_Mail"/></td>
 				</tr>
 			</table>

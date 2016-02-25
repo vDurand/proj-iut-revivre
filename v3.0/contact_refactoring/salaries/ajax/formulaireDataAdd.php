@@ -17,13 +17,19 @@
 
 	function getFormulaire($db){
 		if(isset($_POST["TYP_Id"]) && !empty($_POST["TYP_Id"])){
+			echo '<form>';
 			include_once("../includes/form_civil.php");
 			if ($_POST["TYP_Id"] != 5 && $_POST["TYP_Id"] != 2)
 				include_once("../includes/form_profesional.php");
 			include_once("../includes/form_emergency.php");
+			echo '</form>';
 		}
 		else{
 			echo '<h4>Une erreur s\'est produite !</h4>';
 		}
+		echo '<div align="center">
+				<input type="button" value="Annuler" class="buttonC">
+				<input type="button" value="Valider" class="buttonC">
+			  </div>'; 
 	}
 ?>

@@ -17,7 +17,7 @@
 				<tr>
 					<td><label> Référent identifié : </label></td>
 					<td>
-						<div class="selectType" style="width:200px">
+						<div class="selectType">
 							<select id="REF_NumRef">
 								<option value="0" selected="selected" disabled="disabled">Choisir ...</option>
 							<?php
@@ -34,7 +34,7 @@
 							<tr>
 								<td>Type de contrat : </td>
 								<td>
-									<div class="selectType" style="width:200px">
+									<div class="selectType">
 										<select id="CNT_Id">
 											<option value="0" selected="selected" disabled="disabled">Choisir ...</option>
 										<?php
@@ -48,11 +48,11 @@
 							</tr>
 							<tr>
 								<td>Nombre d'heures :</td>
-								<td><input class="inputC" type="number" id="PRO_NbHeure" name="PER_NbHeure"/></td>
+								<td><input class="inputC" type="number" id="PRO_NbHeure" name="PRO_NbHeure"/></td>
 							</tr>
 							<tr>
 								<td>Nombre de jours :</td>
-								<td><input class="inputC" type="number" id="PRO_NbJours" name="PER_NbJours"/></td>
+								<td><input class="inputC" type="number" id="PRO_NbJours" name="PRO_NbJours"/></td>
 							</tr>
 						</table>
 						<!-- ---- -->
@@ -61,7 +61,7 @@
 				<tr>
 					<td><label> Convention : </label></td>
 					<td>
-						<div class="selectType" style="width:200px">
+						<div class="selectType">
 							<select id="CNV_Id">	
 								<option value="0" selected="selected" disabled="disabled">Choisir ...</option>
 							<?php
@@ -76,7 +76,7 @@
 				<tr>
 					<td><label> Prescripteurs : </label></td>
 					<td>
-						<div class="selectType" style="width:200px">
+						<div class="selectType">
 							<select id="PRE_Id">	
 								<option value="0" selected="selected" disabled="disabled">Choisir ...</option>
 							<?php
@@ -87,7 +87,7 @@
 							</select>
 						</div>
 					</td>
-					<td colspan="2" align="left">
+					<td colspan="2" style="text-align:left">
 						<input name="nouvPres" id="nouvPres" type="button" class="delCross newPresCross" value="+">
 						<input type="text" id="PRE_Nom" disabled="disabled" placeholder="Nouveau Prescripteur ..." class="inputC">
 					</td>
@@ -95,7 +95,7 @@
 				<tr>
 					<td>Niveau Scolaire :</td>
 					<td>
-						<div class="selectType" style="width:200px">
+						<div class="selectType">
 							<select id="PRO_Niveau">
 								<option value="x"> Choisir ... </option>
 								<option value="6">6</option>
@@ -109,7 +109,7 @@
 					</td>
 					<td>Diplôme :</td>
 					<td>
-						<div class="selectType" style="width:200px">
+						<div class="selectType">
 							<select id="PRO_Diplome">
 								<option value="x"> Choisir ... </option>
 								<option value="Aucun">Sans</option>
@@ -122,17 +122,15 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan="2">
-						Reconnaissance TH<input type="checkbox" class="inputC" id="PER_Reconnaissance">
-					</td>
-					<td colspan="2">
-						Permis<input type="checkbox" class="inputC" id="PER_Permis">
-					</td>
+					<td>Reconnaissance TH : </td>
+					<td><input type="checkbox" id="PER_Reconnaissance"></td>
+					<td>Permis : </td>
+					<td><input type="checkbox" id="PER_Permis"></td>
 				</tr>
 				<tr>
 					<td>Revenus :</td>
 					<td>
-						<div class="selectType" style="width:200px">
+						<div class="selectType">
 							<select id="PRO_REvenus">
 								<option value="x"> Choisir ... </option>
 								<option value="RSA">RSA</option>
@@ -153,7 +151,7 @@
 				<tr>
 					<td>Inscris à Pôle Emploi depuis : </td>
 					<td>
-						<div class="selectType" style="width:200px">
+						<div class="selectType">
 							<select id="PRO_PoleEmploi">
 								<option value="x"> Choisir ... </option>
 								<option value="Moins de 6 mois">Moins de 6 mois</option>
@@ -166,7 +164,7 @@
 					</td>
 					<td>Sans emploi depuis depuis :</td>
 					<td>
-						<div class="selectType" style="width:200px">
+						<div class="selectType">
 							<select id="PRO_SansEmp">
 								<option value="x"> Choisir ... </option>
 								<option value="Moins de 6 mois">Moins de 6 mois</option>
@@ -181,7 +179,7 @@
 				<tr>
 					<td>Position Atelier CAP :</td>
 					<td>
-						<div class="selectType" style="width:200px">
+						<div class="selectType">
 							<select id="PRO_CAP">
 								<option value="x"> Choisir ... </option>
 								<option value="GOB">(ACI) GOB</option>
@@ -198,7 +196,7 @@
 				<tr>
 					<td> Mutuelle : </td>
 					<td>
-						<div class="selectType" style="width:200px">
+						<div class="selectType">
 							<select id="PRO_Mutuelle">
 								<option value="x"> Choisir ... </option>
 								<option value="CMU">CMU</option>
@@ -213,7 +211,7 @@
 				<tr>
 					<td> Situation Géographique : </td>
 					<td>
-						<div class="selectType" style="width:200px">
+						<div class="selectType">
 							<select id="PRO_SitGeo">
 								<option value="x"> Choisir ... </option>
 								<option value="CUCS">CUCS</option>
@@ -229,7 +227,7 @@
 				-->
 				<!-- Commentaires -->	
 				<tr>
-					<td colspan="2"><label> Remarques / Commentaires : </label></td>
+					<td colspan="2"><label> Informations Complémentaires : </label></td>
 					<td colspan="2"><textarea rows="5" class="inputCom" id="PRO_Comms" name="PRO_Comms"/></td>
 				</tr>
 			</table>
@@ -240,10 +238,12 @@
 <script type="text/javascript">
 	$(".newPresCross").on("click",function(){
 		if($("#PRE_Nom").prop("disabled")){
+			$(this).val("-");
 			$("#PRE_Nom").prop("disabled", false);
 			$("#PRE_Id").prop("disabled", true);
 		}
 		else{
+			$(this).val("+");
 			$("#PRE_Id").prop("disabled", false);
 			$("#PRE_Nom").prop("disabled", true);
 		}

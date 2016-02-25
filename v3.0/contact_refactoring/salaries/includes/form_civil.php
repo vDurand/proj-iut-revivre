@@ -47,7 +47,7 @@
 					<td><input required="required" class="inputC" type="text" id="PER_TelPort" name="PER_TelPort"/></td>
 				</tr>
 				<tr>
-					<td><label for="PER_Mail">Adresse @mail :</label></td>
+					<td><label for="PER_Mail">Adresse @ email :</label></td>
 					<td><input class="inputC" type="text" id="PER_Mail" name="PER_Mail"/></td>
 				</tr>
 			</table>

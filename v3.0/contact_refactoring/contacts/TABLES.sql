@@ -13,8 +13,8 @@ CREATE TABLE IF NOT EXISTS `typecontact` (
 --
 
 INSERT INTO `typecontact` (`TC_ID`, `TC_Nom`) VALUES
-(1, 'fournisseur'),
-(2, 'client');
+(1, 'Fournisseur'),
+(2, 'Client');
 
 
 --

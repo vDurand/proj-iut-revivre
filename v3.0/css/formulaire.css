@@ -57,10 +57,17 @@
 	margin: 15px auto;
 }
 
-.civilian_infos table td{
+.civilian_infos table td:nth-child(odd){
 	padding: 8px;	
 	width: 25%;
-	text-align: center;
+	text-align: right;
+	margin: 50px;
+}
+
+.civilian_infos table td:nth-child(even){
+	padding: 8px;	
+	width: 25%;
+	text-align: left;
 	margin: 50px;
 }
 
