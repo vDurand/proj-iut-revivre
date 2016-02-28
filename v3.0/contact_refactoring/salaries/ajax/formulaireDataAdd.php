@@ -17,19 +17,45 @@
 
 	function getFormulaire($db){
 		if(isset($_POST["TYP_Id"]) && !empty($_POST["TYP_Id"])){
-			echo '<form>';
-			include_once("../includes/form_civil.php");
-			if ($_POST["TYP_Id"] != 5 && $_POST["TYP_Id"] != 2)
-				include_once("../includes/form_profesional.php");
-			include_once("../includes/form_emergency.php");
-			echo '</form>';
+			$query_type = mysqli_query($db, "SELECT TYP_Id, TYP_Nom FROM type WHERE TYP_Nom IN ('Stagiaire', 'Salarié en Insertion', 'Atelier Occupationnel');");
+			$typeSalarie = mysqli_fetch_all($query_type, MYSQLI_ASSOC);
+			$specialSalarie = in_assoc_array_by_key($_POST["TYP_Id"], $typeSalarie, "TYP_Id");
+			$fonction = false;
+
+			echo '<form method="POST" action="'.__DIR__.'/../postSalarie.php">';
+
+
+			if($specialSalarie){
+				include_once(__DIR__."/../includes/form_date.php");
+			}
+			else{
+				$fonction = true;
+			}
+
+			include_once(__DIR__."/../includes/form_civil.php");
+
+			if($specialSalarie){
+				include_once(__DIR__."/../includes/form_emergency.php");
+				include_once(__DIR__."/../includes/form_additional.php");
+			}
+
+			echo '<div align="center">
+					<input type="button" value="Annuler" class="buttonC" onclick="$.redirect(\'../../home.php\')";>
+					<input type="button" value="Valider" class="buttonC">
+			  	</div>
+			</form>';
 		}
 		else{
 			echo '<h4>Une erreur s\'est produite !</h4>';
 		}
-		echo '<div align="center">
-				<input type="button" value="Annuler" class="buttonC">
-				<input type="button" value="Valider" class="buttonC">
-			  </div>'; 
+	}
+
+	function in_assoc_array_by_key($value, $array, $key){
+		for($x=0; $x<sizeof($array); $x++){
+			if($array[$x][$key] == $value){
+				return true;
+			}
+		}
+		return false;
 	}
 ?>

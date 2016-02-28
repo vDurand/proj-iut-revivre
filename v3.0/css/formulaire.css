@@ -52,53 +52,69 @@
       FORMULAIRE DE RENTREE DE SALARIE
 *******************************************/
 
-.civilian_infos, .professional_infos{
-	border-radius: 20px;
-	margin: 15px auto;
+.form-repertoire{
+	padding: 0;
+	margin: 25px auto;
+	background-color: white;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10), 0 2px 8px 0 rgba(0, 0, 0, 0.06);
 }
 
-.civilian_infos table td:nth-child(odd){
+.form-repertoire fieldset{
+	border: none;
+	padding: 15px 0;
+	margin: 0;
+}
+
+.form-repertoire fieldset legend{
+	padding: 8px 0px 8px 15px;
+	font-size: 20px;
+	background-color: #1d4c82;
+	width: calc(100% - 15px);
+	color: white;
+}
+
+.form-repertoire fieldset legend .required-fields-info{
+	font-size: 12px;
+	display: block;
+	font-style: italic;
+}
+
+.form-repertoire table{
+	margin: 0 10px;
+	width: calc(100% - 20px);
+}
+
+.form-repertoire fieldset table td:nth-child(odd){
 	padding: 8px;	
 	width: 25%;
 	text-align: right;
 	margin: 50px;
 }
 
-.civilian_infos table td:nth-child(even){
+.form-repertoire fieldset table td:nth-child(even){
 	padding: 8px;	
 	width: 25%;
 	text-align: left;
 	margin: 50px;
 }
 
-.civilian_infos textarea{
-	resize:none;
+.form-repertoire fieldset table tr:empty{
+	height: 25px;
 }
 
-.warning_infos{
-	color : red;
-}
-
-
-.inputCom {
-	width:400px;
+.form-repertoire fieldset textarea{
+	resize: none;
+	width: calc(100% - 29px);
 	background-color: #cde5f7;
 }
 
-.tab_contrat{
-	text-align: center;
-	border: 1px solid #6b727c;
-	border-radius: 15px;
-	display: block;
-	text-align: center;
-	margin:auto;
+.required-top-date{
+	padding-left: 15px;
 }
 
-.newPresCross{
-	float:left;
-	margin-right: 10px;
-}
-
-.form_table{
-	width:990px;
+.crossNextToField{
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 0;
 }

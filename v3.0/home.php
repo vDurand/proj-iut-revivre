@@ -4,11 +4,11 @@ $pwd="";
 ?>
 		<div id="corps">
 			<div id="labelT">     
-	            <label>Base de Données de l'Association Revivre</label>
+	            <label>Base de données de l'Association Revivre</label>
 			</div>
 			<br/>
             <div>
-                <label>&#8226; Derniers Chantiers Ajoutés :</label>
+                <label>&#8226; Derniers chantiers ajoutés :</label>
 				<span style="float: right;">
 					<button class="printButton">
                         <a style="text-decoration:none;color:#777777;" href="exportExcel/exportExcelChantiers.php">Exporter</a>
@@ -88,7 +88,7 @@ $pwd="";
 				<br/>
 				<br/>
                 <div>
-                    <label>&#8226; Derniers Membres de l'association Ajoutés :</label>
+                    <label>&#8226; Derniers membres de l'association ajoutés :</label>
                     <span style="float: right;">
                         <button class="printButton">
                             <a style="text-decoration:none;color:#777777;" href="exportExcel/exportExcelSalaries.php">Exporter</a>
@@ -152,7 +152,7 @@ $pwd="";
 				<br/>
 			<br/>
 			<div>     
-				<label>&#8226; Derniers Clients Ajoutés :</label>
+				<label>&#8226; Derniers clients ajoutés :</label>
 			</div><br>
 				<div class="listeClients">
 					<table cellpadding="5">
@@ -257,7 +257,7 @@ $pwd="";
 				<br/>
 				<br/>
 				<div>     
-				<label>&#8226; Derniers Fournisseurs Ajoutés :</label>
+				<label>&#8226; Derniers fournisseurs ajoutés :</label>
 			</div><br>
 				<div class="listeMembers">
 					<table cellpadding="5">

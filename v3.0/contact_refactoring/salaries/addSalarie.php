@@ -1,5 +1,5 @@
 <?php
-	$pageTitle = "Ajour d'un salarié";
+	$pageTitle = "Ajout d'un salarié";
 	$pwd='../../';
 	include($pwd."bandeau.php");
 
@@ -45,16 +45,20 @@
 				if(data.length > 0){
 					$(".repertoire-form-content").removeClass("waiting-repertoire-form");
 					$(".repertoire-form-content .form-loader").hide();
-					$(".repertoire-form-content .form").remove();
-					$(".repertoire-form-content").html($(".repertoire-form-content").html()+data);
+					$(".repertoire-form-content form").remove();
+					$(".repertoire-form-content").append(data);
 				}
 				else{
 					$(".repertoire-form-content").addClass("waiting-repertoire-form");
+					$(".repertoire-form-content .form-loader").show();
+					$(".repertoire-form-content form").remove();
 				}
 			});
 		}
 		else{
 			$(".repertoire-form-content").addClass("waiting-repertoire-form");
+			$(".repertoire-form-content .form-loader").show();
+			$(".repertoire-form-content form").remove();
 		}
 	});
 

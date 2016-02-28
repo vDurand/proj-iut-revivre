@@ -17,8 +17,15 @@
 
 	function getFormulaire($db){
 		if(isset($_POST["TC_ID"]) && !empty($_POST["TC_ID"])){
-			
-			include_once("../includes/form".$_POST["TC_ID"].".php");								
+			echo '<form method="POST" action="'.__DIR__.'/../postContact.php">';
+
+			include_once(__DIR__."/../includes/form".$_POST["TC_ID"].".php");
+
+			echo '<div align="center">
+					<input type="button" value="Annuler" class="buttonC" onclick="$.redirect(\'../../home.php\')">
+					<input type="button" value="Valider" class="buttonC">
+			  	</div>
+			</form>';							
 		}
 		else{
 			echo '<h4>Une erreur s\'est produite !</h4>';

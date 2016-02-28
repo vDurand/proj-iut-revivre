@@ -1,20 +1,19 @@
-<div class="form">
-	<form>
-		<fieldset class="civilian_infos">
-			<legend align="center"><h2> Personne à contacter en cas d'urgence </h2></legend>
-			<table>
-				<tr>
-					<td><label for="PER_PrevNom">Nom :</label></td>
-					<td><input class="inputC" type="text" id="PER_PrevNom" name="PER_PrevNom"/></td>
-				</tr>
-				<tr>
-					<td><label for="PER_PrevPrenom">Prenom :</label>
-					<td><input class="inputC" type="text" id="PER_PrevPrenom" name="PER_PrevPrenom"/></td>
-				</tr>
-				<tr>
-					<td><label for="PER_PrevTel">Numéro :</label>
-					<td><input class="inputC" type="text" id="PER_PrevTel" name="PER_PrevTel"/></td>
-				</tr>
-			</table>
-	</form>
+<div class="form-repertoire">
+	<fieldset>
+		<legend>Personne à contacter en cas d'urgence</legend>
+		<table>
+			<tr>
+				<td><label for="INS_UrgNom">Nom :</label></td>
+				<td><input class="inputC" type="text" id="INS_UrgNom" name="INS_UrgNom"/></td>
+			</tr>
+			<tr>
+				<td><label for="INS_UrgPrenom">Prénom :</label>
+				<td><input class="inputC" type="text" id="INS_UrgPrenom" name="INS_UrgPrenom"/></td>
+			</tr>
+			<tr>
+				<td><label for="INS_UrgTel">Numéro :</label>
+				<td><input class="inputC" type="number" id="INS_UrgTel" name="INS_UrgTel"/></td>
+			</tr>
+		</table>
+	</fieldset>
 </div>
