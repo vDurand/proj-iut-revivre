@@ -249,7 +249,7 @@ $pwd='../';
 	    $reponse = mysqli_query($db, $query);
 	    while ($donnees = mysqli_fetch_assoc($reponse)){
 ?>
-                <tr onclick="javascript:submitViewDetail('<?php echo $donnees['CHA_NumDevis']; ?>', 'detailClient');">
+                <tr onclick="storeFiltersData(); javascript:submitViewDetail('<?php echo $donnees['CHA_NumDevis']; ?>', 'detailClient');">
                     <td><?php echo $donnees['CHA_NumDevis']; ?></td>
                     <td>
                     <?php
@@ -300,6 +300,40 @@ $pwd='../';
             </table>
         </form>
     </div>
+<script type="text/javascript">
+    function storeFiltersData(){
+        localStorage.setItem('RedirectPage', 'suiviEnc.php');
+        <?php
+            if(isset($_POST['Encad'])){
+                echo "localStorage.setItem('FEncNum', '".$_POST['Encad']."');";
+            }
+            else{
+                echo "localStorage.setItem('FEncNum', '');";
+            }
+
+            if(isset($_POST['Annee'])){
+                echo "localStorage.setItem('FAnnee', '".$_POST['Annee']."');";
+            }
+            else{
+                echo "localStorage.setItem('FAnnee', '');";
+            }
+
+            if(isset($_POST['Mois'])){
+                echo "localStorage.setItem('FMois', '".$_POST['Mois']."');";
+            }
+            else{
+                echo "localStorage.setItem('FMois', '');";
+            }
+
+            if(isset($_POST['Etat'])){
+                echo "localStorage.setItem('FEtat', '".$_POST['Etat']."');";
+            }
+            else{
+                echo "localStorage.setItem('FEtat', '');";
+            }
+        ?>
+    }
+</script>
 <?php
 include('../footer.php');
 ?>

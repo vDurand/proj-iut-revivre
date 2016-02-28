@@ -142,7 +142,7 @@
 					}
 				?>
 			</div>
-			<div id="dialog-confirm" title="Format d'impression">
+			<div id="dialog-confirm" style="display: none;" title="Format d'impression">
 				<p style="text-align:center;">Choisissez le format d'impression</p>
 			</div>
 			<script type="text/javascript">

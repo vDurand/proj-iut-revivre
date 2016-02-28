@@ -12,9 +12,9 @@ INSERT INTO `typecontact` (`TC_ID`, `TC_Nom`) VALUES
 
 ALTER TABLE `clients` ADD `CLI_Prenom` VARCHAR(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `CLI_Nom`;
 
-/*DROP TABLE `insertion2`;
+DROP TABLE `insertion2`;
 DROP TABLE `salaries2`;
-DROP TABLE `personnes2`;*/
+DROP TABLE `personnes2`;
 
 CREATE TABLE IF NOT EXISTS `personnes2` (
   `PER_Num` int(11) NOT NULL AUTO_INCREMENT,
@@ -50,11 +50,6 @@ CREATE TABLE IF NOT EXISTS `salaries2` (
   KEY `TYP_Id` (`TYP_Id`),
   KEY `PER_Num` (`PER_Num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
-ALTER TABLE `salaries2`
-  ADD CONSTRAINT `fk_salaries_fctid` FOREIGN KEY (`FCT_Id`) REFERENCES `fonction` (`FCT_Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_salaries_pernum` FOREIGN KEY (`PER_Num`) REFERENCES `personnes2` (`PER_Num`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_salaries_typeid` FOREIGN KEY (`TYP_Id`) REFERENCES `type` (`TYP_Id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 CREATE TABLE IF NOT EXISTS `insertion2` (
   `SAL_NumSalarie` int(11) NOT NULL,
@@ -93,9 +88,31 @@ CREATE TABLE IF NOT EXISTS `insertion2` (
   KEY `TYS_ID` (`TYS_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-ALTER TABLE `insertion2`
+/*
+**************************************************************************************************
+                        EXECTUTE TableApdapter.php BEFORE THIS SQL CODE
+**************************************************************************************************
+*/
+SET FOREIGN_KEY_CHECKS=0;
+
+DROP TABLE `insertion`;
+DROP TABLE `salaries`;
+DROP TABLE `personnes`;
+
+RENAME TABLE `insertion2` TO `insertion`;
+RENAME TABLE `salaries2` TO `salaries`;
+RENAME TABLE `personnes2` TO `personnes`;
+
+ALTER TABLE `salaries`
+  ADD CONSTRAINT `fk_salaries_fctid` FOREIGN KEY (`FCT_Id`) REFERENCES `fonction` (`FCT_Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_salaries_pernum` FOREIGN KEY (`PER_Num`) REFERENCES `personnes` (`PER_Num`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_salaries_typeid` FOREIGN KEY (`TYP_Id`) REFERENCES `type` (`TYP_Id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE `insertion`
   ADD CONSTRAINT `fk_insertion_tysid` FOREIGN KEY (`TYS_ID`) REFERENCES `typesortie` (`TYS_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_insertion_cntid` FOREIGN KEY (`CNT_Id`) REFERENCES `contrat` (`CNT_Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_insertion_cnvid` FOREIGN KEY (`CNV_Id`) REFERENCES `convention` (`CNV_Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_insertion_refnumref` FOREIGN KEY (`REF_NumRef`) REFERENCES `referents` (`REF_NumRef`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_insertion_salnumsalarie` FOREIGN KEY (`SAL_NumSalarie`) REFERENCES `salaries2` (`SAL_NumSalarie`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_insertion_salnumsalarie` FOREIGN KEY (`SAL_NumSalarie`) REFERENCES `salaries` (`SAL_NumSalarie`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+SET FOREIGN_KEY_CHECKS=1;

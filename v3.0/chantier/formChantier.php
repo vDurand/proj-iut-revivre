@@ -1,5 +1,6 @@
 <div id="labelT">
-    <label>Detail du Chantier n°<?= $donnees['CHA_NumDevis'] ?></label>
+    <label>Détails du chantier n°<?= $donnees['CHA_NumDevis'] ?></label>
+    <input id="backwardButton" type="button" class="printButton" value="Retour" style="float:left; margin-top: 15px;"/>
     <script>
         $(document).ready(function () {
             $('.tooltip').tooltipster({
@@ -10,7 +11,7 @@
     <form method="post" action="printer.php" name="printer">
         <input type="hidden" name="NumC" value="<?php echo $donnees['CHA_NumDevis']; ?>">
 
-        <div style="text-align: right; margin-top: -25px; margin-right: 5px;"><input formtarget="_blank"
+        <div style="text-align: right; margin-top: -50px; margin-right: 5px;"><input formtarget="_blank"
                                                                                      class="printButton" type="submit"
                                                                                      name="printer" value="Imprimer"
                 <?php
@@ -395,7 +396,7 @@
 </table>
 <!-- List Tps Travail -->
 <?php
-$graphTpsOK = 0;
+//$graphTpsOK = 1;
 $totalHh = 0;
 if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM TempsTravail WHERE CHA_NumDevis='$num'"))) {
     ?>
@@ -446,8 +447,8 @@ if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM TempsTravail WHERE CHA_N
             </tbody>
         </table>
     </div>
-    <!-- <h style="padding-left: 12px; text-decoration: underline; color: #008000;">Evolution des heures de travail :</h> -->
-    <!-- Graph Tps Travail -->
+<!--     <h style="padding-left: 12px; text-decoration: underline; color: #008000;">Evolution des heures de travail :</h>
+     -->    <!-- Graph Tps Travail -->
     <!-- <div id="HoursEvolution" style="height: 400px;"></div> -->
     <!-- List Achats -->
     <?php
@@ -455,14 +456,14 @@ if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM TempsTravail WHERE CHA_N
     $donneesT = mysqli_fetch_assoc($reponseT);
 
     mysqli_free_result($reponse4);
-    $graphTpsOK = 1;
+    //$graphTpsOK = 1;
 }
 $montantHeure = 0;
 if (!empty($donneesT['CHA_TxHoraire'])) {
     $montantHeure = $donneesT['CHA_TxHoraire'] * $totalHh;
 }
 $totAchat = 0;
-$graphMntOK = 0;
+//$graphMntOK = 1;
 if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM Acheter WHERE CHA_NumDevis='$num'"))) {
 
     ?>
@@ -514,16 +515,26 @@ if (mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM Acheter WHERE CHA_NumDev
             </tbody>
         </table>
     </div>
-    <!-- <h style="padding-left: 12px; text-decoration: underline; color: #1A89D3;">Evolution des achats :</h> -->
-    <!-- Graph Achats -->
-    <!-- <div id="ProductEvolution" style="height: 400px;"></div> -->
+<!--     <h style="padding-left: 12px; text-decoration: underline; color: #1A89D3;">Evolution des achats :</h>
+     -->    <!-- Graph Achats -->
+   <!--  <div id="ProductEvolution" style="height: 400px;"></div> -->
     <?php
-    $graphMntOK = 1;
+    //$graphMntOK = 1;
 }
 mysqli_free_result($reponse);
 ?>
 </div>
 <script type="text/javascript">
+
+    $("#backwardButton").on("click", function(){
+        $.redirect(localStorage.getItem('RedirectPage'), {
+            "Encad":localStorage.getItem("FEncNum"),
+            "Annee":localStorage.getItem("FAnnee"),
+            "Mois":localStorage.getItem("FMois"),
+            "Etat":localStorage.getItem("FEtat")
+        },"POST");
+    });
+
     window.onload = function () {
         // Affiche heure restant et montant des heures dans le haut de la page
         <?php
@@ -558,116 +569,17 @@ mysqli_free_result($reponse);
                 document.getElementById('stateOfSite').style.backgroundColor = '#D50000';
                 break;
         }
-        <?php if ($graphTpsOK == 1) { ?>
-        Morris.Line({
-            element: 'HoursEvolution',
-            data: [
-                <?php
-                $i = 0;
-                $hourTable[0] = 0;
-                $dateTable[0] = 0;
-                $reponse5 = mysqli_query($db, "SELECT * FROM TempsTravail ttps JOIN Salaries sal ON ttps.SAL_NumSalarie=sal.SAL_NumSalarie JOIN Personnes pe ON pe.PER_Num=sal.PER_Num WHERE ttps.CHA_NumDevis='$num' ORDER BY ttps.TRA_Date ASC");
-                while ($donnees5 = mysqli_fetch_assoc($reponse5))
-                {
-                    $hourTable[$i] = $donnees5['TRA_Duree'];
-                    $dateTable[$i] = $donnees5['TRA_Date'];
-                    $i++;
-              }
-              mysqli_free_result($reponse5);
 
-              $sommeTable[0] = $hourTable[0];
-              $distinctDate[0] = $dateTable[0];
-              $k = 0;
-
-
-              for ($j = 1; $j < $i; $j++) {
-                  if ($dateTable[$j] == $dateTable[$j-1]) {
-                      $sommeTable[$k] = $sommeTable[$k] + $hourTable[$j];
-                  }
-                  else {
-                      $k++;
-                      $sommeTable[$k] = $hourTable[$j];
-                      $distinctDate[$k] = $dateTable[$j];
-                  }
-              }
-
-              for ($i = 0; $i < $k+1; $i++) {?>
-                {
-                    y: '<?php echo $distinctDate[$i]; ?>',
-                    a: <?php $croissance = $croissance + $sommeTable[$i]; echo $croissance; ?>
-                },
-                <?php
-                }
-                ?>
-            ],
-            xkey: 'y',
-            ykeys: ['a'],
-            labels: ['Nombre d\'heures'],
-            goals: [<?php echo $Hmax; ?>],
-            goalLineColors: ['Red'],
-            goalStrokeWidth: 4,
-            lineColors: ['green']
-        });
-        <?php } ?>
         var current = <?php if($croissance!=""){echo $croissance;}else{echo "0";} ?>;
         var maxxx = <?php echo $Hmax; ?>;
-        if (maxxx < current) {
-            //document.getElementById('hoursOnSite').style.backgroundColor = 'red';
-            //document.getElementById('hoursOnSite').style.color = 'white';
+/*        if (maxxx < current) {
+            document.getElementById('hoursOnSite').style.backgroundColor = 'red';
+            document.getElementById('hoursOnSite').style.color = 'white';
         }
         else {
-            //document.getElementById('hoursOnSite').style.backgroundColor = 'green';
-            //document.getElementById('hoursOnSite').style.color = 'white';
-        }
-        <?php if ($graphMntOK == 1) {?>
-        Morris.Line({
-            element: 'ProductEvolution',
-            data: [
-                <?php
-                $achats = 0;
-                $i = 0;
-                $buyTable[0] = 0;
-                $calTable[0] = 0;
-                $reponse5 = mysqli_query($db, "SELECT * FROM Acheter WHERE CHA_NumDevis='$num' ORDER BY ACH_Date ASC");
-                while ($donnees5 = mysqli_fetch_assoc($reponse5))
-                {
-                    $buyTable[$i] = $donnees5['ACH_Montant'];
-                        $calTable[$i] = $donnees5['ACH_Date'];
-                        $i++;
-                }
-                    mysqli_free_result($reponse5);
-
-                    $sumTable[0] = $buyTable[0];
-                    $distinctCal[0] = $calTable[0];
-                    $k = 0;
-
-                    for ($j = 1; $j < $i; $j++) {
-                        if ($calTable[$j] == $calTable[$j-1]) {
-                            $sumTable[$k] = $sumTable[$k] + $buyTable[$j];
-                        }
-                        else {
-                            $k++;
-                            $sumTable[$k] = $buyTable[$j];
-                            $distinctCal[$k] = $calTable[$j];
-                        }
-                    }
-
-                    for ($i = 0; $i < $k+1; $i++) {
-                ?>
-                {y: '<?php echo $distinctCal[$i]; ?>', a: <?php $achats = $achats + $sumTable[$i]; echo $achats; ?>},
-                <?php
-                    }
-                ?>
-            ],
-            xkey: 'y',
-            ykeys: ['a'],
-            labels: ['Montant'],
-            goals: [<?php echo $MontantMax; ?>],
-            goalLineColors: ['Red'],
-            goalStrokeWidth: 4,
-            lineColors: ['#1A89D3']
-        });
-        <?php } ?>
+            document.getElementById('hoursOnSite').style.backgroundColor = 'green';
+            document.getElementById('hoursOnSite').style.color = 'white';
+        }*/
     };
 </script>
 <?php
@@ -773,22 +685,23 @@ include('../footer.php');
             <?php } else { ?>
             progressLabel.text(progressbar.progressbar("value") + "%");
             <?php }?>
-
         });
         $(function () {
             var progressbar = $("#progressbar2"),
                 progressLabel = $(".progress-label2");
 
             progressbar.progressbar({
-                value: <?php if(!empty($MontantMax)) echo round($totAchat*100/$MontantMax, 2); else echo "100"; ?>
+                value: <?php if(!empty($MontantMax) && $MontantMax != 0) echo round($totAchat*100/$MontantMax, 2); else echo "100"; ?>
             });
-            <?php if ($totAchat*100/$MontantMax > 100) {?>
+        <?php if ($MontantMax > 0 && $totAchat*100/$MontantMax > 100) {?>
             progressLabel.text("<?php echo round($totAchat*100/$MontantMax, 2) ; ?> %");
-            <?php } else if (empty($MontantMax)&&!empty($totAchat)) { $surplusM = 1; ?>
+        <?php } else if (empty($MontantMax) && !empty($totAchat)) { $surplusM = 1; ?>
             progressLabel.text("EXCES");
-            <?php } else { ?>
+        <?php } else if($MontantMax == 0) { ?>
+            progressLabel.text("0%");
+        <?php } else { ?>
             progressLabel.text(progressbar.progressbar("value") + "%");
-            <?php } ?>
+        <?php } ?>
 
         });
     });
