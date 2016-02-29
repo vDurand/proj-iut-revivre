@@ -72,7 +72,7 @@
                 <td style="position: relative;">
                     <div class="selectType">
                         <select id="FCT_Id" name="Fonction">
-                            <option value="null" disabled="disabled" selected="selected">Choisissez une fonction</option>
+                            <option value="null" disabled="disabled" selected="selected">Choisir ...</option>
                         <?php
                         	while($data = mysqli_fetch_assoc($query_fonctions)){
                         ?>
@@ -104,7 +104,7 @@
 		else{
 			$(this).val("-");
 			$("#FCT_Id").prop("disabled", true);
-			$('<tr><td></td><td></td><td><strong>&#8618;</strong></td><td><input type="text" class="inputC" placeholder="Nouvelle fonction" required="required"/></td></tr>').insertAfter($("#addFunctionCross").parent().parent());
+			$('<tr><td><strong>&#8618;</strong></td><td><input type="text" class="inputC" placeholder="Nouvelle fonction" required="required"/></td></tr>').insertAfter($("#addFunctionCross").parent().parent());
 		}
 	});
 </script>

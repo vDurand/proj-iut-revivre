@@ -1,6 +1,6 @@
 <div id="labelT">
     <label>Détails du chantier n°<?= $donnees['CHA_NumDevis'] ?></label>
-    <input id="backwardButton" type="button" class="printButton" value="Retour" style="float:left; margin-top: 15px;"/>
+    <input id="backwardButton" type="button" class="printButton" value="Retour" style="float:left; margin-top: 15px; margin-left: 5px;"/>
     <script>
         $(document).ready(function () {
             $('.tooltip').tooltipster({
