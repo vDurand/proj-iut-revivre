@@ -6,7 +6,7 @@
 ?>
 <div class="form-repertoire">
 	<fieldset>
-		<legend>Informations complémentaires<span class="required-fields-info">Champs obligatoires*</span></legend>
+		<legend>Coordonnées Professionelles<span class="required-fields-info">Champs obligatoires*</span></legend>
 		<table class="form_table">
 			<tr>
 				<td><label>Référent identifié* :</label></td>
@@ -243,7 +243,7 @@
 			</tr>
 			<tr></tr>
 			<tr>
-				<td><label for="INS_PlusDetails">Détails supplémentaires :</label></td>
+				<td><label for="INS_PlusDetails">Informations comlémentaires :</label></td>
 				<td colspan="3"><textarea rows="2" id="INS_PlusDetails" name="INS_PlusDetails"/></td>
 			</tr>
 		</table>
