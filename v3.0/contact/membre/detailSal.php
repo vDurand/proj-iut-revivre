@@ -13,9 +13,9 @@ include('../../bandeau.php');
 
             $numSal = $donnees["SAL_NumSalarie"];
 
-            $reponsebis = mysqli_query($db, "SELECT ME_DateSortie FROM membre WHERE SAL_NumSalarie = $numSal");
-            $dataDate = mysqli_fetch_assoc($reponsebis);
-            $dateSortie = $dataDate["ME_DateSortie"];
+            //$reponsebis = mysqli_query($db, "SELECT ME_DateSortie FROM membre WHERE SAL_NumSalarie = $numSal");
+            //$dataDate = mysqli_fetch_assoc($reponsebis);
+            //$dateSortie = $dataDate["ME_DateSortie"];
 
             if ($donnees) {
                 ?>
@@ -84,10 +84,10 @@ include('../../bandeau.php');
                                     <th style="text-align: left; width: 200px; white-space: normal;">Fonction :</th>
                                     <td style="text-align: left; width: 300px;"><?php echo formatLOW($donnees['FCT_Nom']); ?></td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <th style="text-align: left; width: 200px; white-space: normal;">Date de sortie :</th>
                                     <td style="text-align: left; width: 300px;"><?php if($dateSortie != null) echo DATE_FORMAT(date_create($dateSortie),"d/m/Y"); else echo "Aucune date de sortie"; ?></td>
-                                </tr>
+                                </tr> -->
                             </table>
                         </td>
                     </tr>
@@ -97,10 +97,10 @@ include('../../bandeau.php');
                     <table id="downT">
                         <tr>
                             <td>
-              <span>
-                <input name="submit" type="submit" value="Modifier" class="buttonC">
-                <input name="retour" type="button" value="Retour"   class="buttonC" onclick="javascript:submitListMember('<?php echo $donnees['TYP_Id']; ?>');">
-              </span>
+                                <span>
+                                    <input name="submit" type="submit" value="Modifier" class="buttonC">
+                                    <input name="retour" type="button" value="Retour"   class="buttonC" onclick="javascript:submitListMember('<?php echo $donnees['TYP_Id']; ?>');">
+                                </span>
                             </td>
                         </tr>
                     </table>

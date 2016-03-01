@@ -57,12 +57,12 @@ include('../../bandeau.php');
                         <th style="text-align: left; width: 200px; white-space: normal;">Date de naissance
                             :
                         </th>
-                        <td style="text-align: left; width: 300px;"><?php echo dater($personne['INS_DateN']); ?></td>
+                        <td style="text-align: left; width: 300px;"><?php echo dater($personne['PER_DateN']); ?></td>
                     </tr>
                     <tr>
                         <th style="text-align: left; width: 200px; white-space: normal;">Nationalité :
                         </th>
-                        <td style="text-align: left; width: 300px;"><?php echo $personne['INS_Nation']; ?></td>
+                        <td style="text-align: left; width: 300px;"><?php echo $personne['PER_Nation']; ?></td>
                     </tr>
                     <tr>
                         <td colspan="2">&nbsp;</td>
@@ -144,7 +144,7 @@ include('../../bandeau.php');
                     <tr>
                         <th style="text-align: left; width: 200px; white-space: normal;">Pôle Emploi depuis :
                         </th>
-                        <td style="text-align: left; width: 300px;"><?php echo $personne['INS_PEDupuis']; ?></td>
+                        <td style="text-align: left; width: 300px;"><?php echo $personne['INS_PEDepuis']; ?></td>
                     </tr>
                     <tr>
                         <th style="text-align: left; width: 200px; white-space: normal;">Positionnement CAP :
@@ -158,7 +158,7 @@ include('../../bandeau.php');
                     <tr>
                         <td colspan="2">&nbsp;</td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <th style="text-align: left; width: 200px; white-space: normal;">Date de sortie :</th>
                         <td style="text-align: left; width: 300px;">
                             <?php if (($personne['INS_DateSortie'] == null) || $personne['INS_DateSortie'] == "0000-00-00") {
@@ -167,7 +167,7 @@ include('../../bandeau.php');
                                 echo dater($personne['INS_DateSortie']);
                             }?>
                         </td>
-                    </tr>
+                    </tr> -->
                 </table>
             </td>
             <td>
@@ -191,7 +191,7 @@ include('../../bandeau.php');
                         <th style="text-align: left; width: 200px; white-space: normal;">Lieu de naissance
                             :
                         </th>
-                        <td style="text-align: left; width: 300px;"><?php echo $personne['INS_LieuN']; ?></td>
+                        <td style="text-align: left; width: 300px;"><?php echo $personne['PER_LieuN']; ?></td>
                     </tr>
                     <tr>
                         <th style="text-align: left; width: 200px; white-space: normal;">Situation familiale
@@ -215,18 +215,18 @@ include('../../bandeau.php');
                     <tr>
                         <th style="text-align: left; width: 200px; white-space: normal;">N° Pôle Emploi :
                         </th>
-                        <td style="text-align: left; width: 300px;"><?php echo $personne['INS_NPoleEmp']; ?></td>
+                        <td style="text-align: left; width: 300px;"><?php echo $personne['PER_NPoleEmp']; ?></td>
                     </tr>
                     <tr>
                         <th style="text-align: left; width: 200px; white-space: normal;">N° Sécurité Sociale
                             :
                         </th>
-                        <td style="text-align: left; width: 300px;"><?php echo $personne['INS_NSecu']; ?></td>
+                        <td style="text-align: left; width: 300px;"><?php echo $personne['PER_NSecu']; ?></td>
                     </tr>
                     <tr>
                         <th style="text-align: left; width: 200px; white-space: normal;">N° CAF :
                         </th>
-                        <td style="text-align: left; width: 300px;"><?php echo $personne['INS_NCaf']; ?></td>
+                        <td style="text-align: left; width: 300px;"><?php echo $personne['PER_NCaf']; ?></td>
                     </tr>
                     <tr>
                         <td colspan="2">&nbsp;</td>
