@@ -244,7 +244,7 @@ function suppr_lig_nom($str)
 }
 
 // remplace les caractères non francais
-function suppr_carac_spe($txt){
+function suppr_carac($txt){
 
     $A_remplacer =  array("/Á/","/á/","/Ä/","/ä/","/Ą/","/ą/","/Ⱥ/","/ⱥ/","/Ǎ/","/ǎ/","/Ȧ/","/ȧ/","/Ạ/","/ạ/","/Ā/","/ā/","/Ã/","/ã/",
                         "/Ć/","/ć/","/C̀/","/c̀/","/Ĉ/","/ĉ/","/C̈/","/c̈/","/Ȼ/","/ȼ/","/Č/","/č/","/Ċ/","/ċ/","/C̣/","/c̣/","/C̄/","/c̄/","/C̃/","/c̃/",                      
@@ -277,19 +277,18 @@ function suppr_carac_spe($txt){
     return preg_replace($A_remplacer, $Remplacement, $txt);
 }
 
-// test si il y a des symbols tel que €
-function Test_ponctuation_Nom($txt){
-    if(preg_match('/[<>!"#$£%&€§=°ß()¤\*+,.\/:;?@\\\\^_`{\|}~\[\]]/', $txt))
-        return 1;
-    else
-        return 0;
+
+function suppr_carac_spe($txt){
+    $txt = suppr_lig_nom($txt);
+    $txt = suppr_carac($txt);
+    return $txt;
 }
 
-// test l'exsitance d'un nombre dans la chaine de charactère
-function Test_nombre($txt){
-    if(preg_match("/[0-9]/", $txt))
+// test si il y a des symbols tel que €
+function Test_caractere($txt){
+    if(preg_match('/[<>!"#$£%&€§=°ß()¤\*+,.\/:;?@\\\\^_`{\|}~\[\]]/', $txt) || preg_match("/[0-9]/", $txt))
         return 1;
-    else 
+    else
         return 0;
 }
 
@@ -299,6 +298,29 @@ function FirstToUpper($txt){
     $Remplacement = array("A","a","A","a","C","c","E","e","E","e","E","e","E","e","I","i","I","i","O","o","U","u","U","u","U","u");
     $txt = preg_replace($A_remplacer, $Remplacement, mb_substr($txt, 0, 1)).mb_substr($txt, 1);
     return ucwords($txt);
+}
+
+function isPhoneNumber($txt){
+    if(preg_match('/[0-9]{10}$/', $txt))
+        return 1;
+    else
+        return 0;
+}
+
+function isEmail($txt){
+    if(preg_match('/^(?!(?:(?:\x22?\x5C[\x00-\x7E]\x22?)|(?:\x22?[^\x5C\x22]\x22?)){255,})(?!(?:(?:\x22?\x5C[\x00-\x7E]\x22?)|(?:\x22?[^\x5C\x22]\x22?)){65,}@)(?:(?:[\x21\x23-\x27\x2A\x2B\x2D\x2F-\x39\x3D\x3F\x5E-\x7E]+)|(?:\x22(?:[\x01-\x08\x0B\x0C\x0E-\x1F\x21\x23-\x5B\x5D-\x7F]|(?:\x5C[\x00-\x7F]))*\x22))(?:\.(?:(?:[\x21\x23-\x27\x2A\x2B\x2D\x2F-\x39\x3D\x3F\x5E-\x7E]+)|(?:\x22(?:[\x01-\x08\x0B\x0C\x0E-\x1F\x21\x23-\x5B\x5D-\x7F]|(?:\x5C[\x00-\x7F]))*\x22)))*@(?:(?:(?!.*[^.]{64,})(?:(?:(?:xn--)?[a-z0-9]+(?:-[a-z0-9]+)*\.){1,126}){1,}(?:(?:[a-z][a-z0-9]*)|(?:(?:xn--)[a-z0-9]+))(?:-[a-z0-9]+)*)|(?:\[(?:(?:IPv6:(?:(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){7})|(?:(?!(?:.*[a-f0-9][:\]]){7,})(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,5})?::(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,5})?)))|(?:(?:IPv6:(?:(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){5}:)|(?:(?!(?:.*[a-f0-9]:){5,})(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,3})?::(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,3}:)?)))?(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:1[0-9]{2})|(?:[1-9]?[0-9]))(?:\.(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:1[0-9]{2})|(?:[1-9]?[0-9]))){3}))\]))$/iD', $txt))
+        return 1;
+    else
+        return 0;
+}
+
+function isPostalCode($txt){
+    if(preg_match('/[0-9]{5}$/', $txt)){
+        return 1;
+    }
+    else{
+        return 0;
+    }
 }
 
 ?>

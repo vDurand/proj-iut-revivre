@@ -35,66 +35,72 @@
   			isset($_POST["FOU_Fax"]) && isset($_POST["FOU_Mail"])){
 
             // met au bon format pour le nom et la ville
-            $nom = suppr_lig_nom($_POST["FOU_Nom"]);
-            $ville = suppr_lig_nom($_POST["FOU_Ville"]);
-
             $nom = suppr_carac_spe($_POST["FOU_Nom"]);
             $ville = suppr_carac_spe($_POST["FOU_Ville"]);
+            $telfixe = $_POST["FOU_TelFixe"];
+            $telport = $_POST["FOU_TelPort"];
+            $fax = $_POST["FOU_Fax"];
+            $codepostal = $_POST["FOU_CodePostal"];
+            $email = $_POST["FOU_Mail"];
 
-
-
-            if(Test_ponctuation_Nom($_POST["FOU_Nom"]) == 1){
+            if(Test_caractere($_POST["FOU_Nom"]) == 1){
                 echo '<div id="bad"> 
                       <label>Le nom du fournisseur contient des caractères non autorisé</label>
                       </div>';  
             }
             else{
-                if(Test_nombre($_POST["FOU_Nom"]) == 1){
+                if(Test_caractere($_POST["FOU_Ville"]) == 1){
                     echo '<div id="bad"> 
-                          <label>Le nom du fournisseur contient des nombres</label>
-                          </div>'; 
+                          <label>La ville du fournisseur contient des caractères non autorisé</label>
+                          </div>';  
                 }
                 else{
-                    if(Test_ponctuation_Nom($_POST["FOU_Ville"]) == 1){
+                    if(isPhoneNumber($telfixe) != 1 || isPhoneNumber($telport) != 1 || isPhoneNumber($fax) != 1){
                         echo '<div id="bad"> 
-                              <label>La ville du fournisseur contient des caractères non autorisé</label>
+                              <label>Il y a une erreur sur un des numéros de téléphones / fax</label>
                               </div>';  
-                    }
+                    } 
                     else{
-                        if(Test_nombre($_POST["FOU_Ville"]) == 1){
+                        if(isEmail($email) != 1){
                             echo '<div id="bad"> 
-                                  <label>La ville du fournisseur contient des nombres</label>
+                                  <label>Il y a une erreur sur l\'email</label>
                                   </div>'; 
                         }
                         else{
-
-                            $nom = strtoupper($nom);
-                            $ville = strtoupper($ville);
-
-                            $query = mysqli_query($db,"INSERT INTO fournisseurs (FOU_Nom, FOU_Adresse, FOU_CodePostal, FOU_Ville, FOU_Telephone, FOU_Portable, FOU_Fax, FOU_Email) 
-                                VALUES ('".$nom."',
-                                '".$_POST['FOU_Adresse']."',
-                                ".$_POST['FOU_CodePostal'].",
-                                '".$ville."',
-                                '".$_POST['FOU_TelFixe']."',
-                                '".$_POST['FOU_TelPort']."',
-                                '".$_POST['FOU_Fax']."',
-                                '".$_POST['FOU_Mail']."');") ;
-
-                            if(!$query){
-                                displayError("fournisseur");
-                                echo mysqli_error($db);
-                                mysqli_query($db, 'ROLLBACK;');
+                            if(isPostalCode($codepostal) != 1){
+                                echo '<div id="bad"> 
+                                      <label>Il y a une erreur sur le code postal</label>
+                                      </div>';
                             }
                             else{
-                                displaySuccess("fournisseur");
-                                mysqli_query($db, 'COMMIT;');
-                            }
+                                $nom = strtoupper($nom);
+                                $ville = strtoupper($ville);
+
+                                $query = mysqli_query($db,"INSERT INTO fournisseurs (FOU_Nom, FOU_Adresse, FOU_CodePostal, FOU_Ville, FOU_Telephone, FOU_Portable, FOU_Fax, FOU_Email) 
+                                    VALUES ('".$nom."',
+                                    '".$_POST['FOU_Adresse']."',
+                                    ".$_POST['FOU_CodePostal'].",
+                                    '".$ville."',
+                                    '".$_POST['FOU_TelFixe']."',
+                                    '".$_POST['FOU_TelPort']."',
+                                    '".$_POST['FOU_Fax']."',
+                                    '".$_POST['FOU_Mail']."');") ;
+
+                                if(!$query){
+                                    displayError("fournisseur");
+                                    echo mysqli_error($db);
+                                    mysqli_query($db, 'ROLLBACK;');
+                                }
+                                else{
+                                    displaySuccess("fournisseur");
+                                    mysqli_query($db, 'COMMIT;');
+                                }
+                            }                            
                         }
-                    }
+                    }          
                 }
             }
-  		}
+        }
   		else{
   			displayError("fournisseur");
   		}
@@ -106,58 +112,59 @@
   			isset($_POST["CLI_Fax"]) && isset($_POST["CLI_Mail"])){
 
              // met au bon format pour le nom et la ville
-            $nom = suppr_lig_nom($_POST["CLI_Nom"]);
-            $ville = suppr_lig_nom($_POST["CLI_Ville"]);
-
             $nom = suppr_carac_spe($_POST["CLI_Nom"]);
             $ville = suppr_carac_spe($_POST["CLI_Ville"]);
+            $telfixe = $_POST["CLI_TelFixe"];
+            $telport = $_POST["CLI_TelPort"];
+            $fax = $_POST["CLI_Fax"];
+            $codepostal = $_POST["CLI_CodePostal"];
+            $email = $_POST["CLI_Mail"];
 
-            if(Test_ponctuation_Nom($_POST["CLI_Nom"]) == 1){
+            if(Test_caractere($_POST["CLI_Nom"]) == 1){
                 echo '<div id="bad"> 
                       <label>Le nom du client contient des caractères non autorisé</label>
                       </div>';  
             }
             else{
-                if(Test_nombre($_POST["CLI_Nom"]) == 1){
+                if(Test_caractere($_POST["CLI_Ville"]) == 1){
                     echo '<div id="bad"> 
-                          <label>Le nom du client contient des nombres</label>
-                          </div>'; 
+                          <label>La ville du client contient des caractères non autorisé</label>
+                          </div>';  
                 }
                 else{
-                    if(Test_ponctuation_Nom($_POST["CLI_Ville"]) == 1){
+                    if(isPhoneNumber($telfixe) != 1 || isPhoneNumber($telport) != 1 || isPhoneNumber($fax) != 1){
                         echo '<div id="bad"> 
-                              <label>La ville du client contient des caractères non autorisé</label>
+                              <label>Il y a une erreur sur un des numéros de téléphones / fax</label>
                               </div>';  
-                    }
+                    } 
                     else{
-                        if(Test_nombre($_POST["CLI_Ville"]) == 1){
+                        if(isEmail($email) != 1){
                             echo '<div id="bad"> 
-                                  <label>La ville du client contient des nombres</label>
+                                  <label>Il y a une erreur sur l\'email</label>
                                   </div>'; 
                         }
                         else{
+                            if(isPostalCode($codepostal) != 1){
+                                echo '<div id="bad"> 
+                                      <label>Il y a une erreur sur le code postal</label>
+                                      </div>';
+                            }
+                            else{
+                                $nom = strtoupper($nom);
+                                $ville = strtoupper($ville);
 
-                            $nom = strtoupper($nom);
-                            $ville = strtoupper($ville);
-
-                  			if(isset($_POST["CLI_Prenom"]) && !empty($_POST["CLI_Prenom"])){ // cas particulier
+                      			if(isset($_POST["CLI_Prenom"]) && !empty($_POST["CLI_Prenom"])){ // cas particulier
 
                                 //mettre caps au debut pour les prenoms
-                                if(Test_ponctuation_Nom($_POST["CLI_Prenom"]) == 1){
-                                    echo '<div id="bad"> 
-                                          <label>Le prenom du client contient des caractères non autorisé</label>
-                                          </div>';  
-                                }
-                                else{
-                                    if(Test_nombre($_POST["CLI_Prenom"]) == 1){
+                                    if(Test_caractere($_POST["CLI_Prenom"]) == 1){
                                         echo '<div id="bad"> 
-                                              <label>Le prenom du client contient des nombres</label>
-                                              </div>'; 
+                                              <label>Le prenom du client contient des caractères non autorisé</label>
+                                              </div>';  
                                     }
-                                    else{
-                                        $prenom = ucwords($_POST["CLI_Prenom"]);
+                                    else{                                                                               
+                                        $prenom = FirstToUpper($_POST["CLI_Prenom"]);
 
-                          				$query = mysqli_query($db,"INSERT INTO clients (CLI_Nom, CLI_Prenom, CLI_Adresse, CLI_CodePostal, CLI_Ville, CLI_Telephone, CLI_Portable, CLI_Fax, CLI_Email) VALUES ('".$nom."','".$_POST["CLI_Prenom"]."','".$_POST["CLI_Adresse"]."',".$_POST["CLI_CodePostal"].",'".$ville."','".$_POST["CLI_TelFixe"]."','".$_POST["CLI_TelPort"]."','".$_POST["CLI_Fax"]."','".$_POST["CLI_Mail"]."')") ;
+                          				$query = mysqli_query($db,"INSERT INTO clients (CLI_Nom, CLI_Prenom, CLI_Adresse, CLI_CodePostal, CLI_Ville, CLI_Telephone, CLI_Portable, CLI_Fax, CLI_Email) VALUES ('".$nom."','".$prenom."','".$_POST["CLI_Adresse"]."',".$_POST["CLI_CodePostal"].",'".$ville."','".$_POST["CLI_TelFixe"]."','".$_POST["CLI_TelPort"]."','".$_POST["CLI_Fax"]."','".$_POST["CLI_Mail"]."')") ;
 
                         	  			if(!$query){
                         					displayError("client");
@@ -167,19 +174,19 @@
                         					displaySuccess("client");
                         					mysqli_query($db, 'COMMIT;');
                         				}
-                          			}
+                                    }
                                 }
-                            }
-                            else{ // cas structure
-                                $query = mysqli_query($db,"INSERT INTO clients (CLI_Nom, CLI_Adresse, CLI_CodePostal, CLI_Ville, CLI_Telephone, CLI_Portable, CLI_Fax, CLI_Email) VALUES ('".$_POST["CLI_Nom"]."','".$_POST["CLI_Adresse"]."',".$_POST["CLI_CodePostal"].",'".$_POST["CLI_Ville"]."','".$_POST["CLI_TelFixe"]."','".$_POST["CLI_TelPort"]."','".$_POST["CLI_Fax"]."','".$_POST["CLI_Mail"]."')") ;
+                                else{ // cas structure
+                                  $query = mysqli_query($db,"INSERT INTO clients (CLI_Nom, CLI_Adresse, CLI_CodePostal, CLI_Ville, CLI_Telephone, CLI_Portable, CLI_Fax, CLI_Email) VALUES ('".$_POST["CLI_Nom"]."','".$_POST["CLI_Adresse"]."',".$_POST["CLI_CodePostal"].",'".$_POST["CLI_Ville"]."','".$_POST["CLI_TelFixe"]."','".$_POST["CLI_TelPort"]."','".$_POST["CLI_Fax"]."','".$_POST["CLI_Mail"]."')") ;
 
-                                if(!$query){
-                                    displayError("client");
-                                    mysqli_query($db, 'ROLLBACK;');
-                                }
-                                else{
-                                    displaySuccess("client");
-                                    mysqli_query($db, 'COMMIT;');
+                                    if(!$query){
+                                        displayError("client");
+                                        mysqli_query($db, 'ROLLBACK;');
+                                    }
+                                    else{
+                                        displaySuccess("client");
+                                        mysqli_query($db, 'COMMIT;');
+                                    }
                                 }
                             }
                         }  
