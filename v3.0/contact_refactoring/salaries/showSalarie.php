@@ -7,42 +7,56 @@
     <?php
             $num = $_GET["NumC"];
 
-            // récupération des infos de la personne
+            // récupération de la fonction de la personne (travailleur ou salaries internes)
             $reponse1 = mysqli_query($db,
-                "SELECT * FROM Personnes JOIN Salaries USING (PER_Num) JOIN Insertion USING (SAL_NumSalarie)
-                    WHERE SAL_NumSalarie='$num' ORDER BY PER_Nom");
+                "SELECT * FROM Salaries WHERE SAL_NumSalarie='$num' ORDER BY PER_Num");
             $personne = mysqli_fetch_assoc($reponse1);
 
-            // récupération du nom du type de sortie
-            $numSortie = $personne['TYS_ID'];
-            $reponse0 = mysqli_query($db, "SELECT * FROM TypeSortie WHERE TYS_ID='$numSortie' ORDER BY TYS_Libelle");
-            $typeSortie = mysqli_fetch_assoc($reponse0);
+            // différence entre salaries et travailleurs
+            if ($personne["FCT_Id"] == 0){ // travailleurs
+                $reponse1 = mysqli_query($db, "SELECT * from Personnes
+                                                JOIN Salaries using (PER_Num)
+                                                JOIN Insertion using (SAL_NumSalarie)
+                                                WHERE SAL_NumSalarie='$num'
+                                                ORDER BY PER_Nom");
+            }
+            else{ // salaries
+                $reponse1 = mysqli_query($db, "SELECT * from Personnes
+                                                JOIN Salaries using (PER_Num)
+                                                JOIN Fonction using (FCT_Id)
+                                                WHERE SAL_NumSalarie='$num'
+                                                ORDER BY PER_Nom");
+            }
+            $personne = mysqli_fetch_assoc($reponse1);
 
-            // récupération du nom de convention
-            $numConv = $personne['CNV_Id'];
-            $reponse2 = mysqli_query($db, "SELECT * FROM Convention WHERE CNV_Id='$numConv' ORDER BY CNV_Nom");
-            $convention = mysqli_fetch_assoc($reponse2);
+            $travailleur = mysqli_num_rows(mysqli_query($db, "SELECT * from Insertion where SAL_NumSalarie = ".$personne["SAL_NumSalarie"]));
 
-            //récupération du nom de contrat
-            $numContrat = $personne['CNT_Id'];
-            $reponse3 = mysqli_query($db, "SELECT CNT_Nom FROM Contrat WHERE CNT_Id='$numContrat' ORDER BY CNT_Nom");
-            $contrat = mysqli_fetch_assoc($reponse3);
+            if ($travailleur){
+                // récupération du nom du type de sortie
+                $numSortie = $personne['TYS_ID'];
+                $reponse0 = mysqli_query($db, "SELECT * FROM TypeSortie WHERE TYS_ID='$numSortie' ORDER BY TYS_Libelle");
+                $typeSortie = mysqli_fetch_assoc($reponse0);
 
-            // récupération du nom de référent et du prescripteur
-            $numRef = $personne['REF_NumRef'];
-            $reponse4 = mysqli_query($db, "SELECT * FROM Personnes JOIN Referents USING (PER_Num) JOIN Prescripteurs USING (PRE_Id) WHERE PER_Num in (SELECT PER_Num FROM Referents WHERE REF_NumRef='$numRef')");
-            $referent = mysqli_fetch_assoc($reponse4);
+                // récupération du nom de convention
+                $numConv = $personne['CNV_Id'];
+                $reponse2 = mysqli_query($db, "SELECT * FROM Convention WHERE CNV_Id='$numConv' ORDER BY CNV_Nom");
+                $convention = mysqli_fetch_assoc($reponse2);
 
-            // récupération du nom de type de salarie
-            $numType = $personne['TYP_Id'];
-            $reponse5 = mysqli_query($db, "SELECT * FROM Type WHERE TYP_Id='$numType'");
-            $type = mysqli_fetch_assoc($reponse5);
-    
-            // test sur le type pour les formulaires
-            $query_type = mysqli_query($db, "SELECT TYP_Id, TYP_Nom FROM type WHERE TYP_Nom IN ('Stagiaire', 'Salarié en Insertion', 'Atelier Occupationnel');");
-            $typeSalarie = mysqli_fetch_all($query_type, MYSQLI_ASSOC);
-            $specialSalarie = in_assoc_array_by_key("TYP_Id", $typeSalarie, "TYP_Id");
-            $fonction = false;
+                //récupération du nom de contrat
+                $numContrat = $personne['CNT_Id'];
+                $reponse3 = mysqli_query($db, "SELECT CNT_Nom FROM Contrat WHERE CNT_Id='$numContrat' ORDER BY CNT_Nom");
+                $contrat = mysqli_fetch_assoc($reponse3);
+
+                // récupération du nom de référent et du prescripteur
+                $numRef = $personne['REF_NumRef'];
+                $reponse4 = mysqli_query($db, "SELECT * FROM Personnes JOIN Referents USING (PER_Num) JOIN Prescripteurs USING (PRE_Id) WHERE PER_Num in (SELECT PER_Num FROM Referents WHERE REF_NumRef='$numRef')");
+                $referent = mysqli_fetch_assoc($reponse4);
+
+                // récupération du nom de type de salarie
+                $numType = $personne['TYP_Id'];
+                $reponse5 = mysqli_query($db, "SELECT * FROM Type WHERE TYP_Id='$numType'");
+                $type = mysqli_fetch_assoc($reponse5);
+            }
 
             // récupération du numéro de fonction (si existe)
             $numfonction = $personne["FCT_Id"];
@@ -51,12 +65,14 @@
 
             // pré-traitement pour affichage
 
+            // Monsieur, Madame
             if ($personne["PER_Sexe"] == 1)
                 $sexe = 'M.';
             else
                 $sexe = 'Mme.';
-
-            if($personne["INS_UrgNom"] == null || $personne["INS_UrgPrenom"] == null || $personne["INS_UrgTel"] == null){
+            
+            // nom de la personne en cas d'urgence
+            if(!$travailleur || $personne["INS_UrgNom"] == null || $personne["INS_UrgPrenom"] == null || $personne["INS_UrgTel"] == null){
                 $urgPers = "Aucun contact d'urgence";
                 $urgTele = "Aucun numéro de telephone";
             }
@@ -64,7 +80,6 @@
                 $urgPers = $personne["INS_UrgNom"].' '.$personne["INS_UrgPrenom"];
                 $urgTele = $personne["INS_UrgTel"];
             }
-
 
             if ($personne) {
     ?>
@@ -78,17 +93,23 @@
                     <table class="form_table">
                         <tr>
                             <th colspan="4" style="text-align:center; text-decoration:underline">
-                                <?php echo $sexe.' '.$personne["PER_Nom"].' '.$personne["PER_Prenom"].' - '.$type["TYP_Nom"]; ?>
+                                <?php
+                                    if ($personne["FCT_Id"] == 0)
+                                        echo $sexe.' '.$personne["PER_Nom"].' '.$personne["PER_Prenom"].' - '.$type["TYP_Nom"];
+                                    else
+                                        echo $sexe.' '.$personne["PER_Nom"].' '.$personne["PER_Prenom"].' - '.$fonction["FCT_Nom"];
+                                ?>
                             </th>
                         </tr>
+                        <tr></tr>
                         <tr>
-                            <th><label for="PER_DateN">Date de Naissance* :</label></th>
+                            <th><label for="PER_DateN">Date de Naissance :</label></th>
                             <td><?php echo dater($personne["PER_DateN"]); ?></td>
-                            <th><label for="PER_LieuN">Lieu de Naissance* :</label></th>
+                            <th><label for="PER_LieuN">Lieu de Naissance :</label></th>
                             <td><?php echo $personne["PER_LieuN"]; ?></td>
                         </tr>
                         <tr>
-                            <th><label for="PER_Nation">Nationalité* :</label></th> 
+                            <th><label for="PER_Nation">Nationalité :</label></th> 
                             <td><?php echo $personne["PER_Nation"]; ?></td>
                         </tr>
                         <tr>
@@ -125,16 +146,6 @@
                             <th><label for="PER_Email">Adresse @ email :</label></th>
                             <td><?php echo $personne["PER_Email"]; ?></td>
                         </tr>
-                        <?php
-                            if ($specialSalarie){
-                        ?>
-                        <tr>
-                            <th><label for="FCT_Id">Fonction :</label></th>
-                            <td><?php echo $fonction; ?></td>
-                        </tr>
-                        <?php
-                            }
-                        ?>
                     </table>
                 </fieldset>
             </div>
@@ -154,6 +165,10 @@
                 </fieldset>
             </div>
 
+            <?php
+                if ($travailleur){
+            ?>
+
             <!-- --------------------------------- -->
             <!--    COORDONNEES PROFESSIONELLES    -->
             <!-- --------------------------------- -->
@@ -166,6 +181,7 @@
                             <th colspan="4" style="text-align:center; text-decoration:underline"><label><u>Date d'entrée dans l'association :</u></label>
                                 <?php echo dater($personne['INS_DateEntree']); ?></td>
                         </tr>
+                        <tr></tr>
                         <tr>
                             <th><label> Référent identifié : </label></th>
                             <td><?php echo $referent["PER_Nom"].' '.$referent["PER_Prenom"] ?></td>
@@ -301,20 +317,22 @@
                 </fieldset>
             </div>
         <?php
+            }
         }
         else
         {
             echo "Aucune fiche disponible";
         }
-        mysqli_free_result($reponse1);
-        mysqli_free_result($reponse2);
-        mysqli_free_result($reponse3);
-        mysqli_free_result($reponse4);
-        mysqli_free_result($reponse5);
+        if ($travailleur){
+            mysqli_free_result($reponse1);
+            mysqli_free_result($reponse2);
+            mysqli_free_result($reponse3);
+            mysqli_free_result($reponse4);
+            mysqli_free_result($reponse5);
+        }
     ?>
     </div>
 <?php
-    include('includes/form_cursus.php');
     include('../../footer.php');
 ?>
 

@@ -71,10 +71,8 @@ include('../../bandeau.php');
 						<input type="submit" name="valider" class="buttonC" value="Valider" style="font-size: 14;">
 					</td>
 					<td align="center">
-						<form method="get" name="retourCursus" action="showSalarie.php">
-						    <input type="hidden" name="NumC" value="<?php echo $numero; ?>">
-						    <input type="submit" name="retour" class="buttonC" value="Retour" style="font-size: 14;">
-					  	</form>
+					    <input type="hidden" name="NumC" value="<?php echo $numero; ?>">
+					    <input type="submit" name="retour" class="buttonC" value="Retour" style="font-size: 14;">
 					</td>
 
 				</tr>
