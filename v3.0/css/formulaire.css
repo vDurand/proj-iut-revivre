@@ -118,3 +118,7 @@
 	transform: translateY(-50%);
 	right: 0;
 }
+
+.align-center{
+	text-align: center !important;
+}

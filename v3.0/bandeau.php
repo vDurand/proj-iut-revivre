@@ -59,6 +59,18 @@
 							<li id="champs"><a href="<?php echo $pwd; ?>home.php">Accueil</a></li>
 							<li id="champs"><a href="<?php echo $pwd; ?>contact/homeContact.php">Répertoire</a>
 								<ul class="subMenu">
+									<li><a href="#">Salariés(NEW)<br>&nbsp;</a>
+										<ul>
+                                            <li><a href="<?php echo $pwd; ?>contact_refactoring/salaries/addSalarie.php">Ajouter un<br>salarié</a></li>
+                                            <li><a href="<?php echo $pwd; ?>contact_refactoring/salaries/showSalarie.php">Consulter un<br>salarié</a></li>
+										</ul>
+									</li>
+									<li><a href="#">Contacts(NEW)<br>&nbsp;</a>
+										<ul>
+                                            <li><a href="<?php echo $pwd; ?>contact_refactoring/contacts/addContact.php">Ajouter un<br>contact</a></li>
+                                            <li><a href="<?php echo $pwd; ?>contact_refactoring/contacts/showContact.php">Consulter un<br>contact</a></li>
+										</ul>
+									</li>
                                     <li><a href="<?php echo $pwd; ?>contact/addInsertion.php">Ajouter<br>en Insertion</a></li>
 									<li><a href="<?php echo $pwd; ?>contact/addContact.php">Ajouter<br>Contact</a></li>
 	                       			<li><a href="<?php echo $pwd; ?>contact/client/viewClients.php">Clients<br>&nbsp;</a>

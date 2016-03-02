@@ -164,16 +164,16 @@
                                     else{                                                                               
                                         $prenom = FirstToUpper($_POST["CLI_Prenom"]);
 
-                          				$query = mysqli_query($db,"INSERT INTO clients (CLI_Nom, CLI_Prenom, CLI_Adresse, CLI_CodePostal, CLI_Ville, CLI_Telephone, CLI_Portable, CLI_Fax, CLI_Email) VALUES ('".$nom."','".$prenom."','".$_POST["CLI_Adresse"]."',".$_POST["CLI_CodePostal"].",'".$ville."','".$_POST["CLI_TelFixe"]."','".$_POST["CLI_TelPort"]."','".$_POST["CLI_Fax"]."','".$_POST["CLI_Mail"]."')") ;
+                          				      $query = mysqli_query($db,"INSERT INTO clients (CLI_Nom, CLI_Prenom, CLI_Adresse, CLI_CodePostal, CLI_Ville, CLI_Telephone, CLI_Portable, CLI_Fax, CLI_Email) VALUES ('".$nom."','".$prenom."','".$_POST["CLI_Adresse"]."',".$_POST["CLI_CodePostal"].",'".$ville."','".$_POST["CLI_TelFixe"]."','".$_POST["CLI_TelPort"]."','".$_POST["CLI_Fax"]."','".$_POST["CLI_Mail"]."')") ;
 
-                        	  			if(!$query){
-                        					displayError("client");
-                        					mysqli_query($db, 'ROLLBACK;');
-                        	  			}
-                        				else{
-                        					displaySuccess("client");
-                        					mysqli_query($db, 'COMMIT;');
-                        				}
+                              	  			if(!$query){
+                                					displayError("client");
+                                					mysqli_query($db, 'ROLLBACK;');
+                              	  			}
+                                				else{
+                                					displaySuccess("client");
+                                					mysqli_query($db, 'COMMIT;');
+                                				}
                                     }
                                 }
                                 else{ // cas structure

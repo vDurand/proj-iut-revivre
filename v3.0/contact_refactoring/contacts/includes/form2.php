@@ -1,49 +1,60 @@
 <!-- ajout d'un client -->
 <div class="form-repertoire">
-	<!--
 	<fieldset class="civilian_infos">
-		<legend align="center"><h2>Type de client</h2></legend>
-		<div align="center">
-			<input type="radio" id="CLI_structure" name="CLI_type" checked>Structure
-			<input type="radio" id="CLI_particulier" name="CLI_type">Particulier
-		</div>
-	</fieldset>
-	</br>
-	-->
-	<fieldset class="civilian_infos">
-		<legend>Coordonnées Civiles<span class="required-fields-info">Champs obligatoires*</span></legend>
+		<legend>Coordonnées civiles<span class="required-fields-info">Champs obligatoires*</span></legend>
 		<table>
 			<tr>
-				<td><label for="CLI_Nom">Nom* :</label></td>
+				<td colspan="4" class="align-center">
+					<input type="radio" id="CLI_structure" name="CLI_type" class="CLI_type" checked="checked" value="1"><label for="CLI_type">Structure</label>
+					<input type="radio" id="CLI_particulier" name="CLI_type" class="CLI_type" value="2"><label for="CLI_type">Particulier</label>
+				</td>
+			</tr>
+			<tr></tr>
+			<tr>
+				<td><label for="CLI_Nom">Nom <span id="client_type">de la structure</span>* :</label></td>
 				<td><input required="required" class="inputC" type="text" id="CLI_Nom" name="CLI_Nom"/></td>
+				<td><label for="CLI_Prenom" id="label_CLI_Prenom" style="display: none;">Prénom du particulier:</label></td>
+				<td><input class="inputC" type="text" id="CLI_Prenom" name="CLI_Prenom" style="display: none;"/></td>
 			</tr>
+			<tr></tr>
 			<tr>
-				<td><label for="CLI_Prenom">Prenom (si particuler) :</label></td>
-				<td><input class="inputC" type="text" id="CLI_Prenom" name="CLI_Prenom"/></td>
-				<td><label for="CLI_Adresse">Adresse :</label></td>
-				<td><textarea required="required" rows="5" class="inputC" id="CLI_Adresse" name="CLI_Adresse"/></td>
-			</tr>
-			<tr>
-				<td><label for="CLI_TelFixe">Téléphone Fixe* :</label></td>
-				<td><input required="required" class="inputC" type="text" id="CLI_TelFixe" name="CLI_TelFixe"/></td>
-				<td><label for="CLI_CodePostal">Code Postal* :</label></td>
+				<td><label for="CLI_Adresse">Adresse* :</label></td>
+				<td><input class="inputC" type="text" required="required" id="CLI_Adresse" name="CLI_Adresse"/></td>
+				<td><label for="CLI_CodePostal">Code postal* :</label></td>
 				<td><input required="required" class="inputC" type="text" id="CLI_CodePostal" name="CLI_CodePostal"/></td>
 			</tr>
 			<tr>
-				<td><label for="CLI_TelPort">Téléphone Portable :</label></td>
-				<td><input class="inputC" type="text" id="CLI_TelPort" name="CLI_TelPort"/></td>
 				<td><label for="CLI_Ville">Ville* :</label></td>
 				<td><input required="required" class="inputC" type="text" id="CLI_Ville" name="CLI_Ville"/></td>
 			</tr>
-			
+			<tr></tr>
+			<tr>
+				<td><label for="CLI_TelFixe">Téléphone fixe* :</label></td>
+				<td><input required="required" class="inputC" type="text" id="CLI_TelFixe" name="CLI_TelFixe"/></td>
+				<td><label for="CLI_TelPort">Téléphone portable :</label></td>
+				<td><input class="inputC" type="text" id="CLI_TelPort" name="CLI_TelPort"/></td>
+			</tr>
 			<tr>
 				<td><label for="CLI_Fax">Fax :</label></td>
 				<td><input class="inputC" type="text" id="CLI_Fax" name="CLI_Fax"/></td>
-				<td><label for="CLI_Mail">Adresse @ email:</label></td>
+				<td><label for="CLI_Mail">Adresse @ email :</label></td>
 				<td><input class="inputC" type="text" id="CLI_Mail" name="CLI_Mail"/></td>
 			</tr>
 		</table>
 	</fieldset>
 	<input type="hidden" id="Num_form" name="Num_form" value="2">
 </div>
+<script type="text/javascript">
+	$(".CLI_type").on("change", function(){
+		if($(this).prop("id") == "CLI_structure"){
+			$("#label_CLI_Prenom, #CLI_Prenom").hide();
+			$("#CLI_Prenom").val("");
+			$("#client_type").html("de la structure");
+		}
+		else{
+			$("#label_CLI_Prenom, #CLI_Prenom").show();
+			$("#client_type").html("du particulier");
+		}
+	});
+</script>
 
