@@ -1,3 +1,6 @@
+html{
+	overflow-y: scroll; 
+}
 body{
 	background-image:url(../images/background.jpg);
 	font-family: Helvetica;
@@ -8,6 +11,7 @@ body{
 	width: 1045px;
 	margin: 30px auto 10px auto;
 	background: #426996;
+	position: relative;
 }
 
 #entete {
