@@ -52,20 +52,21 @@
       FORMULAIRE DE RENTREE DE SALARIE
 *******************************************/
 
-.form-repertoire{
+.repertoire-bloc{
 	padding: 0;
 	margin: 25px auto;
 	background-color: white;
 	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10), 0 2px 8px 0 rgba(0, 0, 0, 0.06);
 }
 
-.form-repertoire fieldset{
+.repertoire-bloc fieldset{
 	border: none;
-	padding: 15px 0;
+	padding: 0;
+	/*padding: 15px 0;*/
 	margin: 0;
 }
 
-.form-repertoire fieldset legend{
+.repertoire-bloc fieldset legend{
 	padding: 8px 0px 8px 15px;
 	font-size: 20px;
 	background-color: #1d4c82;
@@ -73,40 +74,139 @@
 	color: white;
 }
 
-.form-repertoire fieldset legend .required-fields-info{
+.repertoire-bloc fieldset legend .required-fields-info{
 	font-size: 12px;
 	display: block;
 	font-style: italic;
 }
 
-.form-repertoire table{
-	margin: 0 10px;
+.repertoire-bloc fieldset table:not(.cursus-table){
 	width: calc(100% - 20px);
+	table-layout: fixed;
 }
 
-.form-repertoire fieldset table td:nth-child(odd){
+.repertoire-bloc fieldset .form_table{
+	margin: 0 10px;
+	padding: 15px 0;
+}
+
+.repertoire-bloc fieldset .form_table td:nth-child(odd){
 	padding: 8px;	
 	width: 25%;
 	text-align: right;
 	margin: 50px;
 }
 
-.form-repertoire fieldset table td:nth-child(even){
+.repertoire-bloc fieldset .form_table td:nth-child(even){
 	padding: 8px;	
 	width: 25%;
 	text-align: left;
 	margin: 50px;
 }
 
-.form-repertoire fieldset table tr:empty{
+.repertoire-bloc fieldset table tr:empty, .repertoire-bloc fieldset table tr > *:empty{
 	height: 25px;
 }
 
-.form-repertoire fieldset textarea{
+.repertoire-bloc fieldset textarea{
 	resize: none;
 	width: calc(100% - 29px);
 	background-color: #cde5f7;
 }
+
+.repertoire-bloc fieldset .showcase_table{
+	border-collapse: collapse;
+	margin: 0;
+	width: 100%;
+}
+
+.repertoire-bloc fieldset .showcase_table tr{
+	height: 35px;
+	width: 100%;
+	line-height: 35px;
+}
+
+.repertoire-bloc fieldset .showcase_table tr:nth-child(even){
+	background-color: #f6f6f6;
+}
+
+.repertoire-bloc fieldset .showcase_table td:nth-child(even){
+	text-align: left;
+	padding: 0px 5px; 
+}
+
+.repertoire-bloc fieldset .showcase_table td:nth-child(odd){
+	text-align: right;
+	padding: 0px 5px;
+	font-weight: bold;
+}
+
+.repertoire-bloc fieldset .showcase_table td i.no-data{
+	color: gray;
+}
+
+.repertoire-bloc fieldset .showcase-header{
+	background-color: white;
+	padding: 10px;
+	margin-bottom: -25px;
+	font-weight: 200;
+	font-size: 20px; 
+}
+
+.repertoire-bloc fieldset .cursus-table{
+	margin: 20px 10px;
+	border-collapse: collapse;
+	width: calc(100% - 20px);
+}
+
+.repertoire-bloc fieldset .cursus-table tr{
+	height: 30px;
+	background-color: #e7e7e7;
+	line-height: 30px;
+	vertical-align: middle;
+}
+
+.repertoire-bloc fieldset .cursus-table tr td{
+	text-align: center;
+}
+
+.repertoire-bloc fieldset .cursus-table td.cursus-title{
+	font-weight: bold;
+	height: 35px;
+}
+
+.repertoire-bloc fieldset .cursus-table td.cursus-arrow{
+	width: 25px;
+}
+
+.repertoire-bloc fieldset .cursus-table td.cursus-arrow img{
+	display: block;
+}
+
+.repertoire-bloc fieldset .cursus-table td.cursus-details{
+	font-style: italic;
+}
+
+.repertoire-bloc fieldset .cursus-table td.cursus-contrat{
+	width: 28%;
+	padding: 5px 0;
+}
+
+.repertoire-bloc fieldset .cursus-table td.cursus-contrat div{
+	color: white;
+	background-color: #446a96;
+	margin: 0 30px;
+	height: 100%;
+	border-radius: 20px;
+}
+
+.repertoire-bloc fieldset .cursus-table td.cursus-number{
+	font-weight: bold;
+	color: white;
+	background-color: #446a96;
+	padding: 0 1px;
+}
+
 
 .required-top-date{
 	padding-left: 15px;

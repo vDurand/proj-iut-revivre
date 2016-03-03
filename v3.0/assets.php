@@ -323,4 +323,15 @@ function isPostalCode($txt){
     }
 }
 
+function convertToPhoneNumber($txt){
+    if(preg_match( '/^(0[1-9])([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})$/', $txt,  $matches))
+    {
+        return $matches[1].' '.$matches[2].' '.$matches[3].' '.$matches[4].' '.$matches[5];
+        
+    }
+    else{
+        return $txt;
+    }
+}
+
 ?>

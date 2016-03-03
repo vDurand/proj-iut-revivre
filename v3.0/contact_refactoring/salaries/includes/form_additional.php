@@ -4,9 +4,9 @@
 	$prescripteurs = mysqli_fetch_all($query_pres, MYSQLI_ASSOC);
 	$query_contrat =  mysqli_query($db, "SELECT * FROM contrat ORDER BY CNT_id");
 ?>
-<div class="form-repertoire">
+<div class="repertoire-bloc">
 	<fieldset>
-		<legend>Coordonnées Professionelles<span class="required-fields-info">Champs obligatoires*</span></legend>
+		<legend>Informations complémentaires<span class="required-fields-info">Champs obligatoires*</span></legend>
 		<table class="form_table">
 			<tr>
 				<td><label>Référent identifié* :</label></td>
@@ -243,7 +243,7 @@
 			</tr>
 			<tr></tr>
 			<tr>
-				<td><label for="INS_PlusDetails">Informations comlémentaires :</label></td>
+				<td><label for="INS_PlusDetails">Autres détails :</label></td>
 				<td colspan="3"><textarea rows="2" id="INS_PlusDetails" name="INS_PlusDetails"/></td>
 			</tr>
 		</table>

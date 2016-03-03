@@ -1,7 +1,7 @@
 <?php
     $query_fonctions = mysqli_query($db, "SELECT * FROM Fonction WHERE FCT_Id <> 0 ORDER BY FCT_Nom");
 ?>
-<div class="form-repertoire">
+<div class="repertoire-bloc">
 	<fieldset>
 		<legend>Coordonnées civiles<span class="required-fields-info">Champs obligatoires*</span></legend>
 		<table class="form_table">
@@ -29,7 +29,7 @@
 				<td><input required="required" class="inputC" type="text" id="PER_Nation" name="PER_Nation"/></td>
 			</tr>
 			<tr>
-				<td><label for="PER_Adresse">Adresse :</label></td>
+				<td><label for="PER_Adresse">Rue, lotissement :</label></td>
 				<td><input class="inputC" type="text" id="PER_Adresse" name="PER_Adresse"/></td>
 				<td><label for="PER_Ville">Ville :</label></td>
 				<td><input class="inputC" type="text" id="PER_Ville" name="PER_Ville"/></td>

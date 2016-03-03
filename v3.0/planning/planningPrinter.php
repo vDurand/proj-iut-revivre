@@ -57,7 +57,7 @@ if(isset($_POST['ENC_Num']) && isset($_POST['ASSOC_Date']) && isset($_POST["PL_i
             <h4>Encadrant : <?php echo $nomEncadrant["Nom"] ?></h4>
             <?php
                 if($too_much_people){
-                    echo '<h5>Plus de '.$max_line_per_days.' personnes par jour ! Préférez le format A3 pour tout afficher !</h5>';
+                    echo '<h5>Plus de '.$max_line_per_days.' personnes par jour ! Choisissez le format A3 pour tout afficher !</h5>';
                 }
             ?>
         </div>
