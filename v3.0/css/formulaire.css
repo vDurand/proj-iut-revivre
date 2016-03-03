@@ -81,7 +81,7 @@
 }
 
 .repertoire-bloc fieldset table:not(.cursus-table){
-	width: calc(100% - 20px);
+	width: calc(100%);
 	table-layout: fixed;
 }
 
