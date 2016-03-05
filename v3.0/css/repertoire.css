@@ -205,8 +205,33 @@
 	color: white;
 	background-color: #446a96;
 	padding: 0 1px;
+	width: 14px;
 }
 
+.repertoire-bloc fieldset .cursus-table .form-cursus-wrapper{
+	table-layout: fixed;
+	padding: 15px 0;
+}
+
+.repertoire-bloc fieldset .cursus-table .form-cursus-wrapper td{
+	padding: 2px 25px;
+}
+
+.repertoire-bloc fieldset .cursus-table .form-cursus-wrapper td .buttonC{
+	margin-top: 10px;
+}
+
+.repertoire-bloc fieldset .cursus-table .form-cursus-wrapper td:nth-child(odd){
+	text-align: right;
+}
+
+.repertoire-bloc fieldset .cursus-table .form-cursus-wrapper td:nth-child(even){
+	text-align: left;
+}
+
+.repertoire-bloc fieldset .cursus-table .form-cursus-wrapper .inputC, .repertoire-bloc fieldset .cursus-table .form-cursus-wrapper .selectType{
+	width: 100%;
+}
 
 .required-top-date{
 	padding-left: 15px;

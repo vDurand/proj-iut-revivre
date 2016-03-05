@@ -56,6 +56,9 @@
             $numType = $personne['TYP_Id'];
             $reponse5 = mysqli_query($db, "SELECT * FROM Type WHERE TYP_Id='$numType'");
             $type = mysqli_fetch_assoc($reponse5);
+
+            $query_contrat = mysqli_query($db, "SELECT TYP_Id, TYP_Nom FROM type WHERE TYP_Id NOT IN (SELECT TYP_Id FROM salaries WHERE SAL_NumSalarie = ".$num.") 
+                                            AND TYP_Nom <> 'Salarié' ORDER BY TYP_Id;");
         }
 
         // récupération du numéro de fonction (si existe)
@@ -313,7 +316,7 @@
 <!--    CURSUS PROFESSIONELLES    -->
 <!-- ---------------------------- -->
 
-<div class="repertoire-bloc">
+<div id="cursus-bloc" class="repertoire-bloc">
     <fieldset>
         <legend>Cursus professionnel</legend>
         <?php
@@ -324,17 +327,13 @@
                 <tbody>
                 <?php
                     $donnees = mysqli_query($db, "SELECT * FROM cursus JOIN type USING(TYP_Id) WHERE SAL_NumSalarie = ".$personne['SAL_NumSalarie']." ORDER BY CUR_Date asc");
-                    if(mysqli_num_rows($donnees) == 0){
-                        echo "<tr>
-                                <td style=\"text-align:center; colspan=\"4\"><i> Aucun cursus disponible pour ce salarié </i></td>
-                              </tr>";
-                    }
-                    else{
+                    if(mysqli_num_rows($donnees) > 0){
                         $x = 1;
                         while($reponse = mysqli_fetch_assoc($donnees)){
                             if(isset($oldTypeSalarie)){
                                 echo '<tr></tr>';
                             }
+
                             echo '<tr>
                                     <td rowspan="2" class="cursus-number">'.$x++.'</td>
                                     <td colspan="3" class="cursus-title">Changement le '.dater($reponse['CUR_Date']).'</td>
@@ -344,20 +343,61 @@
                                     <td class="cursus-contrat"><div>'.((isset($oldTypeSalarie)) ? $oldTypeSalarie : 'Aucun contrat').'</div></td>
                                     <td class="cursus-arrow"><img src="'.$pwd.'images/right-arrow.png"/></td>
                                     <td class="cursus-contrat"><div>'.$reponse['TYP_Nom'].'</div></td>
-                                    <td class="cursus-details">'.$reponse['CUR_Comment'].'</td>
+                                    <td class="cursus-details">'.((!empty($reponse['CUR_Comment'])) ? $reponse['CUR_Comment'] : 'Aucun commentaire').'</td>
                                 </tr>';
+                           
                             $oldTypeSalarie = $reponse['TYP_Nom'];
                         }
                     }
-                    echo '<tr></tr>
-                        <tr>
+                    if(mysqli_num_rows($donnees) > 0){
+                        echo '<tr></tr>';
+                    }
+                    echo '<tr id="awaiting-cursus">
                             <td class="cursus-number">?</td>
-                             <td class="cursus-contrat"><div>'.((isset($oldTypeSalarie)) ? $oldTypeSalarie : 'Aucun contrat').'</div></td>
+                            <td class="cursus-contrat"><div>'.((isset($oldTypeSalarie)) ? $oldTypeSalarie : 'Aucun contrat').'</div></td>
                             <td class="cursus-arrow"><img src="'.$pwd.'images/right-arrow.png"/></td>
                             <td class="cursus-contrat"><div>???</div></td>
-                            <td class="cursus-details"><input type="button" class="buttonC" value="Ajouter" style="margin: 5px 0px;"/></td>
+                            <td class="cursus-details"><input type="button" id="addCursus" class="buttonC" value="Ajouter" style="margin: 5px 0px;"/></td>
                         </tr>';
                 ?>
+                    <tr id="awaiting-form-cursus" style="display: none;">
+                        <td class="cursus-number"></td>
+                        <td colspan="4">
+                            <form method="POST" action="./postSalarie.php">
+                                <table class="form-cursus-wrapper">
+                                    <tbody>
+                                        <tr>
+                                            <td><label for="CUR_Date">Date du changement* :</label></td>
+                                            <td><input type="date" id="CUR_Date" name="CUR_Date" class="inputC" required="required"/></td>
+                                            <td colspan="2" style="text-align: left;"><label for="CUR_Comment">Commentaire <i>(50 caractères maximum)</i> :</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label for="CUR_Comment">Type de contrat* :</label></td>
+                                            <td>
+                                                <div class="selectType">
+                                                    <select required="required" id="TYP_Id" name="TYP_Id">
+                                                        <option value="0" selected="selected" disabled="disabled">Choisir..</option>
+                                                    <?php
+                                                        while($data = mysqli_fetch_assoc($query_contrat)){
+                                                            echo '<option value="'.$data["TYP_Id"].'">'.$data["TYP_Nom"].'</option>';
+                                                        }
+                                                    ?>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                            <td colspan="2"><input type="text" id="CUR_Comment" name="CUR_Comment" class="inputC" maxlength="50"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"><input type="button" id="cancelAddCursus" class="buttonC" value="Annuler"/></td>
+                                            <td colspan="2"><input type="submit" id="validAddCursus" class="buttonC" value="Valider"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <input type="hidden" id="SAL_NumSalarie" name="SAL_NumSalarie" value="<?php echo $num; ?>"/>
+                                <input type="hidden" id="request_type" name="request_type" value="cursus"/>
+                            </form>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -369,7 +409,21 @@
     </fieldset>
 </div>
 <script type="text/javascript">
-    
+    $("#addCursus").on("click", function(){
+        $("#cursus-bloc legend").append('<span class="required-fields-info">Champs obligatoires*</span>');
+        $("#awaiting-cursus").hide();
+        $("#awaiting-form-cursus").show();
+    });
+
+    $("#cancelAddCursus").on("click", function(){
+        $("#cursus-bloc legend .required-fields-info").remove();
+        $("#awaiting-cursus").show();
+        $("#awaiting-form-cursus").hide();
+    });
+
+    function getDataAjax(url, params, callback){
+        $.post(url, params, callback);
+    }
 </script>
 <?php
             }
@@ -397,15 +451,4 @@
 </div>
 <?php
     include('../../footer.php');
-?>
-
-<?php
-    function in_assoc_array_by_key($value, $array, $key){
-        for($x=0; $x<sizeof($array); $x++){
-            if($array[$x][$key] == $value){
-                return true;
-            }
-        }
-        return false;
-    }
 ?>

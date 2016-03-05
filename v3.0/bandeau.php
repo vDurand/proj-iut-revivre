@@ -25,7 +25,7 @@
 		<link rel="stylesheet" type="text/css" href="<?php echo $pwd; ?>css/table.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo $pwd; ?>css/alpha.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo $pwd; ?>css/planning.css">
-		<link rel="stylesheet" type="text/css" href="<?php echo $pwd; ?>css/formulaire.css">
+		<link rel="stylesheet" type="text/css" href="<?php echo $pwd; ?>css/repertoire.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo $pwd; ?>css/jquery-ui.min.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo $pwd; ?>css/jquery-ui.structure.min.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo $pwd; ?>css/jquery-ui.theme.min.css">

@@ -46,7 +46,7 @@
 											PER_NPoleEmp,
 											PER_NSecu,
 											PER_NCaf) 
-									VALUES ('".addslashes($d["PER_Num"])."',
+									VALUES ('".$d["PER_Num"]."',
 											'".addslashes($d["PER_Nom"])."',
 											'".addslashes($d["PER_Prenom"])."',
 											'".$d["PER_TelFixe"]."',
@@ -117,7 +117,7 @@
 												'".addslashes($da["INS_Mutuelle"])."',
 												".$da["CNV_Id"].",
 												".$da["CNT_Id"].",
-												'".$da["INS_DateEntree"]."',
+												'".(($da["INS_DateEntree"] == "") ? '2015-01-01' : $da["INS_DateEntree"])."',
 												".(($da["INS_NbHeures"] == "") ? 0 : $da["INS_NbHeures"]).",
 												".(($da["INS_NbJours"] == "") ? 0 : $da["INS_NbJours"]).",
 												'".addslashes($da["INS_RevenuDepuis"])."',

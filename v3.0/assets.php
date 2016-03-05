@@ -88,6 +88,15 @@ function removeAccents($txt){
     return $txt;
 }
 
+function in_assoc_array_by_key($value, $array, $key){
+    for($x=0; $x<sizeof($array); $x++){
+        if($array[$x][$key] == $value){
+            return true;
+        }
+    }
+    return false;
+}
+
 // Retire les caracteres spéciaux
 function removeWeirdChar($txt){
     mb_regex_encoding('UTF-8');

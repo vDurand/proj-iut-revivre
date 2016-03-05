@@ -118,18 +118,18 @@ ALTER TABLE `insertion`
 SET FOREIGN_KEY_CHECKS=1;
 
 CREATE TABLE IF NOT EXISTS `cursus` (
-  `CUR_numero` int(5) NOT NULL AUTO_INCREMENT,
   `CUR_Date` date NOT NULL,
-  `Sal_NumSalarie` int(5) NOT NULL,
-  `TYP_Id` int (11) NOT NULL,
-  `CUR_Comment` varchar(50),
-  `CUR_Visible` int(1) NOT NULL,
-  PRIMARY KEY (`CUR_numero`)
-);
+  `SAL_NumSalarie` int(5) NOT NULL,
+  `TYP_Id` int(11) NOT NULL,
+  `CUR_Comment` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`CUR_Date`,`SAL_NumSalarie`),
+  KEY `fk_numero_salarie` (`SAL_NumSalarie`),
+  KEY `fk_type_salarie` (`TYP_Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 ALTER TABLE `cursus`
-  ADD CONSTRAINT `fk_numero_salarie` FOREIGN KEY (`SAL_NumSalarie`) REFERENCES `salaries` (`SAL_NumSalarie`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_type_salarie` FOREIGN KEY (`TYP_Id`) REFERENCES `type`(`TYP_Id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_cursus_salnum` FOREIGN KEY (`SAL_NumSalarie`) REFERENCES `salaries` (`SAL_NumSalarie`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_cursus_type` FOREIGN KEY (`TYP_Id`) REFERENCES `type`(`TYP_Id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*
 **************************************************************************************************
@@ -137,5 +137,4 @@ ALTER TABLE `cursus`
 **************************************************************************************************
 */
 
-INSERT INTO `cursus` (`CUR_Date`, `Sal_NumSalarie`, `TYP_Id`, `CUR_Comment`, `CUR_Visible`) VALUES ('2016-03-03',221,8, "Affectation chez les salariés en insertion", 1);
-UPDATE `salaries` SET `TYP_Id` = 8 WHERE `Sal_NumSalarie` = 221;
+/*RIEN POUR L'INSTANT*/

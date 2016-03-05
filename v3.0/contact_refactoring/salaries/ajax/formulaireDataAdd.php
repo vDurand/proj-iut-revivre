@@ -49,13 +49,4 @@
 			echo '<h4>Une erreur s\'est produite !</h4>';
 		}
 	}
-
-	function in_assoc_array_by_key($value, $array, $key){
-		for($x=0; $x<sizeof($array); $x++){
-			if($array[$x][$key] == $value){
-				return true;
-			}
-		}
-		return false;
-	}
 ?>
