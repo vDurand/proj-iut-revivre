@@ -75,7 +75,7 @@
 										VALUES ('".$da["SAL_NumSalarie"]."',
 												'".$d["PER_Num"]."',
 												'".$da["TYP_Id"]."',
-												'".$da["SAL_Actif"]."',
+												'".((isset($da["INS_DateSortie"]) && (!empty($da["INS_DateSortie"]) && $da["INS_DateSortie"] != "0000-00-00")) ? 0 : 1)."',
 												'".$da["FCT_Id"]."',
 												'".((isset($da["INS_DateSortie"])) ? $da["INS_DateSortie"] : "")."');"
 									);

@@ -12,9 +12,9 @@ INSERT INTO `typecontact` (`TC_ID`, `TC_Nom`) VALUES
 
 ALTER TABLE `clients` ADD `CLI_Prenom` VARCHAR(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `CLI_Nom`;
 
-DROP TABLE `insertion2`;
+/*DROP TABLE `insertion2`;
 DROP TABLE `salaries2`;
-DROP TABLE `personnes2`;
+DROP TABLE `personnes2`;*/
 
 CREATE TABLE IF NOT EXISTS `personnes2` (
   `PER_Num` int(11) NOT NULL AUTO_INCREMENT,

@@ -49,7 +49,7 @@
 }
 
 /*******************************************
-      FORMULAIRE DE RENTREE DE SALARIE
+      FORMULAIRE D'AJOUT/AFFICHAGE DANS LE REPERTOIRE
 *******************************************/
 
 .repertoire-bloc{
@@ -62,7 +62,6 @@
 .repertoire-bloc fieldset{
 	border: none;
 	padding: 0;
-	/*padding: 15px 0;*/
 	margin: 0;
 }
 
@@ -139,10 +138,6 @@
 	text-align: right;
 	padding: 0px 5px;
 	font-weight: bold;
-}
-
-.repertoire-bloc fieldset .showcase_table td i.no-data{
-	color: gray;
 }
 
 .repertoire-bloc fieldset .showcase-header{
@@ -233,6 +228,62 @@
 	width: 100%;
 }
 
+.repertoire-show-filters table{
+	margin: 20px 25px;
+	table-layout: fixed;
+	width: calc(100% - 50px);
+	text-align: right;
+}
+
+.repertoire-show-filters table thead th, .repertoire-show-filters table tbody td:last-child{
+	text-align: left;
+}
+
+.repertoire-show-list table{
+	border: 1px solid black;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.repertoire-show-list table thead{
+	background-color: #005fbf;
+	color: white;
+}
+
+.repertoire-show-list table tbody tr{
+	cursor: pointer;
+}
+
+.repertoire-show-list table tbody tr:nth-child(odd){
+	background-color: white;
+}
+.repertoire-show-list table tbody tr:nth-child(even){
+	background-color: #eaeaea;
+}
+
+.repertoire-show-list table tbody tr:hover{
+	background-color: #97c9fc;
+	color: white;
+}
+
+.repertoire-show-list table tbody tr:hover i.no-data{
+	color: white;
+}
+
+.repertoire-show-list table th{
+	height: 35px;
+}
+
+.repertoire-show-list table td{
+	text-align: center;
+	font-size: 14px;
+	height: 25px;
+}
+
+.repertoire-show-list table thead th, .repertoire-show-list table tbody td{
+	border: 1px solid black;
+}
+
 .required-top-date{
 	padding-left: 15px;
 }
@@ -246,4 +297,8 @@
 
 .align-center{
 	text-align: center !important;
+}
+
+i.no-data{
+	color: gray;
 }

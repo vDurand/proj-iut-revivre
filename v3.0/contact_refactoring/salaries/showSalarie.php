@@ -9,82 +9,83 @@
         $num = $_GET["SalNum"];
 
         // récupération de la fonction de la personne (travailleur ou salaries internes)
-        $reponse1 = mysqli_query($db, "SELECT * FROM Salaries WHERE SAL_NumSalarie='$num' ORDER BY PER_Num");
+        $reponse1 = mysqli_query($db, "SELECT * FROM salaries WHERE SAL_NumSalarie='$num' ORDER BY PER_Num");
         $personne = mysqli_fetch_assoc($reponse1);
-
-        // différence entre salaries et travailleurs
-        if ($personne["FCT_Id"] == 0){ // travailleurs
-            $reponse1 = mysqli_query($db, "SELECT * from Personnes
-                                            JOIN Salaries using (PER_Num)
-                                            JOIN Insertion using (SAL_NumSalarie)
-                                            WHERE SAL_NumSalarie='$num'
-                                            ORDER BY PER_Nom");
-        }
-        else{ // salaries
-            $reponse1 = mysqli_query($db, "SELECT * from Personnes
-                                            JOIN Salaries using (PER_Num)
-                                            JOIN Fonction using (FCT_Id)
-                                            WHERE SAL_NumSalarie='$num'
-                                            ORDER BY PER_Nom");
-        }
-        $personne = mysqli_fetch_assoc($reponse1);
-
-        $travailleur = mysqli_num_rows(mysqli_query($db, "SELECT * from Insertion where SAL_NumSalarie = ".$personne["SAL_NumSalarie"]));
-
-        if($travailleur > 0){
-            // récupération du nom du type de sortie
-            $numSortie = $personne['TYS_ID'];
-            $reponse0 = mysqli_query($db, "SELECT * FROM TypeSortie WHERE TYS_ID='$numSortie' ORDER BY TYS_Libelle");
-            $typeSortie = mysqli_fetch_assoc($reponse0);
-
-            // récupération du nom de convention
-            $numConv = $personne['CNV_Id'];
-            $reponse2 = mysqli_query($db, "SELECT * FROM Convention WHERE CNV_Id='$numConv' ORDER BY CNV_Nom");
-            $convention = mysqli_fetch_assoc($reponse2);
-
-            //récupération du nom de contrat
-            $numContrat = $personne['CNT_Id'];
-            $reponse3 = mysqli_query($db, "SELECT CNT_Nom FROM Contrat WHERE CNT_Id='$numContrat' ORDER BY CNT_Nom");
-            $contrat = mysqli_fetch_assoc($reponse3);
-
-            // récupération du nom de référent et du prescripteur
-            $numRef = $personne['REF_NumRef'];
-            $reponse4 = mysqli_query($db, "SELECT * FROM Personnes JOIN Referents USING (PER_Num) JOIN Prescripteurs USING (PRE_Id) WHERE PER_Num in (SELECT PER_Num FROM Referents WHERE REF_NumRef='$numRef')");
-            $referent = mysqli_fetch_assoc($reponse4);
-
-            // récupération du nom de type de salarie
-            $numType = $personne['TYP_Id'];
-            $reponse5 = mysqli_query($db, "SELECT * FROM Type WHERE TYP_Id='$numType'");
-            $type = mysqli_fetch_assoc($reponse5);
-
-            $query_contrat = mysqli_query($db, "SELECT TYP_Id, TYP_Nom FROM type WHERE TYP_Id NOT IN (SELECT TYP_Id FROM salaries WHERE SAL_NumSalarie = ".$num.") 
-                                            AND TYP_Nom <> 'Salarié' ORDER BY TYP_Id;");
-        }
-
-        // récupération du numéro de fonction (si existe)
-        $numfonction = $personne["FCT_Id"];
-        $reponse6 = mysqli_query($db, "SELECT FCT_Nom from fonction where FCT_Id in (SELECT FCT_ID from salaries where PER_num = ".$num.")");
-        $fonction = mysqli_fetch_assoc($reponse6);
-
-        // pré-traitement pour affichage
-
-        // Monsieur, Madame
-        if ($personne["PER_Sexe"] == 1)
-            $sexe = 'M.';
-        else
-            $sexe = 'Mme';
         
-        // nom de la personne en cas d'urgence
-        if(!$travailleur || $personne["INS_UrgNom"] == null || $personne["INS_UrgPrenom"] == null || $personne["INS_UrgTel"] == null){
-            $urgPers = "Aucun contact d'urgence";
-            $urgTele = "Aucun numéro de téléphone";
-        }
-        else{
-            $urgPers = $personne["INS_UrgNom"].' '.$personne["INS_UrgPrenom"];
-            $urgTele = $personne["INS_UrgTel"];
-        }
+        if($personne){
+        // différence entre salaries et travailleurs
+            if($personne["FCT_Id"] == 0){ // travailleurs
+                $reponse1 = mysqli_query($db, "SELECT * from personnes
+                                                JOIN salaries using (PER_Num)
+                                                JOIN insertion using (SAL_NumSalarie)
+                                                WHERE SAL_NumSalarie='$num'
+                                                ORDER BY PER_Nom");
+            }
+            else{ // salaries
+                $reponse1 = mysqli_query($db, "SELECT * from personnes
+                                                JOIN salaries using (PER_Num)
+                                                JOIN fonction using (FCT_Id)
+                                                WHERE SAL_NumSalarie='$num'
+                                                ORDER BY PER_Nom");
+            }
+            $personne = mysqli_fetch_assoc($reponse1);
 
-        if ($personne) {
+            $travailleur = mysqli_num_rows(mysqli_query($db, "SELECT * from Insertion where SAL_NumSalarie = ".$personne["SAL_NumSalarie"]));
+            
+            if($travailleur > 0){
+                // récupération du nom du type de sortie
+                $numSortie = $personne['TYS_ID'];
+                $reponse0 = mysqli_query($db, "SELECT * FROM TypeSortie WHERE TYS_ID='$numSortie' ORDER BY TYS_Libelle");
+                $typeSortie = mysqli_fetch_assoc($reponse0);
+
+                // récupération du nom de convention
+                $numConv = $personne['CNV_Id'];
+                $reponse2 = mysqli_query($db, "SELECT * FROM Convention WHERE CNV_Id='$numConv' ORDER BY CNV_Nom");
+                $convention = mysqli_fetch_assoc($reponse2);
+
+                //récupération du nom de contrat
+                $numContrat = $personne['CNT_Id'];
+                $reponse3 = mysqli_query($db, "SELECT CNT_Nom FROM Contrat WHERE CNT_Id='$numContrat' ORDER BY CNT_Nom");
+                $contrat = mysqli_fetch_assoc($reponse3);
+
+                // récupération du nom de référent et du prescripteur
+                $numRef = $personne['REF_NumRef'];
+                $reponse4 = mysqli_query($db, "SELECT * FROM Personnes JOIN Referents USING (PER_Num) JOIN Prescripteurs USING (PRE_Id) WHERE PER_Num in (SELECT PER_Num FROM Referents WHERE REF_NumRef='$numRef')");
+                $referent = mysqli_fetch_assoc($reponse4);
+
+                // récupération du nom de type de salarie
+                $numType = $personne['TYP_Id'];
+                $reponse5 = mysqli_query($db, "SELECT * FROM Type WHERE TYP_Id='$numType'");
+                $type = mysqli_fetch_assoc($reponse5);
+
+                $query_contrat = mysqli_query($db, "SELECT TYP_Id, TYP_Nom FROM type WHERE TYP_Id NOT IN (SELECT TYP_Id FROM salaries WHERE SAL_NumSalarie = ".$num.") 
+                                                AND TYP_Nom <> 'Salarié' ORDER BY TYP_Id;");
+            }
+
+            // récupération du numéro de fonction (si existe)
+            $numfonction = $personne["FCT_Id"];
+            $reponse6 = mysqli_query($db, "SELECT FCT_Nom from fonction where FCT_Id in (SELECT FCT_ID from salaries where PER_num = ".$num.")");
+            $fonction = mysqli_fetch_assoc($reponse6);
+
+            // pré-traitement pour affichage
+
+            // Monsieur, Madame
+            if ($personne["PER_Sexe"] == 1){
+                $sexe = 'M.';
+            }
+            else{
+                $sexe = 'Mme';
+            }
+            
+            // nom de la personne en cas d'urgence
+            if(!$travailleur || $personne["INS_UrgNom"] == null || $personne["INS_UrgPrenom"] == null || $personne["INS_UrgTel"] == null){
+                $urgPers = "Aucun contact d'urgence";
+                $urgTele = "Aucun numéro de téléphone";
+            }
+            else{
+                $urgPers = $personne["INS_UrgNom"].' '.$personne["INS_UrgPrenom"];
+                $urgTele = $personne["INS_UrgTel"];
+            }
     ?>
 <!-- ------------------------- -->
 <!--    COORDONNEES CIVILES    -->
@@ -99,9 +100,9 @@
             echo $sexe.' '.$personne["PER_Nom"].' '.$personne["PER_Prenom"].', '.mb_strtolower($fonction["FCT_Nom"], 'UTF-8').' à l\'association';
         }
     ?>
-        <input type="button" class="printButton" style="float: left; margin-top: 15px; margin-left: 5px;" value="Retour"/>
-        <input type="button" class="printButton" style="float: right; margin-top: 15px; margin-left: 5px;" value="Modifier"/>
     </label>
+    <input type="button" class="printButton" id="goBackward" style="float: left; margin-top: 15px; margin-left: 5px;" value="Retour"/>
+    <input type="button" class="printButton" id="goEdit" style="float: right; margin-top: 15px; margin-left: 5px;" value="Modifier"/>
 </div>
 <div class="repertoire-bloc">
     <fieldset>
@@ -319,9 +320,6 @@
 <div id="cursus-bloc" class="repertoire-bloc">
     <fieldset>
         <legend>Cursus professionnel</legend>
-        <?php
-            if($personne){
-        ?>
         <div>
             <table class="cursus-table">
                 <tbody>
@@ -368,7 +366,7 @@
                                     <tbody>
                                         <tr>
                                             <td><label for="CUR_Date">Date du changement* :</label></td>
-                                            <td><input type="date" id="CUR_Date" name="CUR_Date" class="inputC" required="required"/></td>
+                                            <td><input type="date" id="CUR_Date" name="CUR_Date" class="inputC" required="required" min="<?php echo $personne['INS_DateEntree']; ?>"/></td>
                                             <td colspan="2" style="text-align: left;"><label for="CUR_Comment">Commentaire <i>(50 caractères maximum)</i> :</label></td>
                                         </tr>
                                         <tr>
@@ -403,22 +401,35 @@
         </div>
         <?php
         }
-        else
-             echo "<div id='error'>Une erreur est survenue dans l'affichage du cursus</div>";
         ?>
     </fieldset>
 </div>
+<?php
+    }
+    else
+    {
+        echo '<div id="info"> 
+            <label>Aucune fiche disponible pour le numéro de salarié '.$num.'</label>
+        </div>';
+    }
+?>
 <script type="text/javascript">
-    $("#addCursus").on("click", function(){
-        $("#cursus-bloc legend").append('<span class="required-fields-info">Champs obligatoires*</span>');
-        $("#awaiting-cursus").hide();
-        $("#awaiting-form-cursus").show();
-    });
+    $(document).ready(function(){
+        $("#addCursus").on("click", function(){
+            $("#cursus-bloc legend").append('<span class="required-fields-info">Champs obligatoires*</span>');
+            $("#awaiting-cursus").hide();
+            $("#awaiting-form-cursus").show();
+        });
 
-    $("#cancelAddCursus").on("click", function(){
-        $("#cursus-bloc legend .required-fields-info").remove();
-        $("#awaiting-cursus").show();
-        $("#awaiting-form-cursus").hide();
+        $("#cancelAddCursus").on("click", function(){
+            $("#cursus-bloc legend .required-fields-info").remove();
+            $("#awaiting-cursus").show();
+            $("#awaiting-form-cursus").hide();
+        });
+
+        $("#goBackward").on("click", function(){
+            $.redirect("./listSalaries.php");
+        });
     });
 
     function getDataAjax(url, params, callback){
@@ -426,21 +437,6 @@
     }
 </script>
 <?php
-            }
-        }
-        else
-        {
-            echo '<div id="info"> 
-                <label>Aucune fiche disponible pour le numéro de salarié '.$num.'</label>
-            </div>';
-        }
-        if($travailleur){
-            mysqli_free_result($reponse1);
-            mysqli_free_result($reponse2);
-            mysqli_free_result($reponse3);
-            mysqli_free_result($reponse4);
-            mysqli_free_result($reponse5);
-        }
     }
     else{
         echo '<div id="bad"> 
