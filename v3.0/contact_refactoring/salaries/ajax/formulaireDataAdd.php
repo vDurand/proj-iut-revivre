@@ -43,6 +43,7 @@
 			}
 
 			echo '<div align="center">
+                    <input type="hidden" id="request_type" name="request_type" value="addSalarie"/>
 					<input type="button" value="Annuler" class="buttonC" onclick="$.redirect(\'../../home.php\')";>
 					<input type="button" value="Valider" class="buttonC">
 			  	</div>
