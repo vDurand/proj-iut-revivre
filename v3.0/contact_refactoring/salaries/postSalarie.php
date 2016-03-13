@@ -4,14 +4,22 @@
 
 	if(isset($_POST["request_type"]) && !empty($_POST["request_type"])){
 
+	echo '<div id="corps">';
+
+		print_r($_POST);
+		echo '<br/>';
+
 		switch($_POST["request_type"]){
 			case "cursus":
 				postCursus($db);
 				break;
-			case "salarie";
+			case "addSalarie";
 				postSalarie($db);
-				break;	
+				break;
 		}
+
+	echo '</div>';
+
 	}
 
 	function postSalarie($db){
@@ -21,7 +29,7 @@
 
         // !!!! NE PAS OUBLIER DE FAIRE LES TESTS SUR LES CHAMPS  !!!!
 
-        if (isset($_POST["SAL_NumSalarie"]) && !empty($_POST["SAL_NumSalarie"]) && isset($_POST["TYP_Id"]) && !empty($_POST["TYP_Id"]){
+        if (isset($_POST["TYP_Id"]) && !empty($_POST["TYP_Id"])){
 
         // traitement civils
 
@@ -29,33 +37,37 @@
 
         	$specialSalarie = isset($_POST["FCT_Id"]) && !empty($_POST["FCT_Id"]);
 
-        	if (verif_infos){
+        	if ($verif_infos){
+		        echo "<p>Infos civiles OK</p>";
 
-		        if ($_POST["TYP_Id"] <= 5){
+		        if ($_POST["TYP_Id"] > 5){
 
 		        	$verif_urgence = isset($_POST["INS_UrgNom"]) && !empty($_POST["INS_UrgNom"])
 		        					&& isset($_POST["INS_UrgPrenom"]) && !empty($_POST["INS_UrgPrenom"])
 		        					&& isset($_POST["INS_UrgTel"]) && !empty($_POST["INS_UrgTel"]);
 
+		        	if ($verif_urgence){
+		        		echo "<p>Infos Urgence OK</p>";
+		        	}
+		        	else
+		        		echo "<p>Pas de contact d'urgence</p>";
+
 		        	$verif_pro = verification_pro();
 
-		        	if (verif_pro && verif_urgence){
-			        	// traitement contact d'urgence
-			        	// traitement pro
+		        	if ($verif_pro){
+		        		echo "<p>Infos Pro OK</p>";
 		        	}
 		        	else{
-						displayError("Veuillez remplir correctement toutes les informations professionelles du salariés !".$_POST["CUR_Date"].mysqli_error($db));
+						displayError("Veuillez remplir correctement toutes les informations professionelles du salariés !"	);
 		        	}
 		        }
-		        else
-
 			}
 			else{
-				displayError("Veuillez remplir correctement toutes les informations civiles du salariés !".$_POST["CUR_Date"].mysqli_error($db));
+				displayError("Veuillez remplir correctement toutes les informations civiles du salariés !");
 			}
         }
-        else
-			displayError("Une erreur s'est produite pendant l'envoi du formulaire !");
+        else{
+			displayError("Une erreur s'est produite pendant l'envoi du formulaire - 2 !");
 		}
 	}
 
@@ -102,18 +114,15 @@
 			&& isset($_POST["PER_NSecu"]) && !empty($_POST["PER_NSecu"]);
 	}
 
-	function 
-
 	function verification_pro(){
 
-		return isset($_POST["REF_NumRef"]) && !empty($_POST["REF_NumRef"])
-			&& isset($_POST["INS_DateEntree"]) && !empty($_POST["INS_DateEntree"])
-			&& isset($_POST["PRE_Id"]) && !empty($_POST["PRE_Id"])
+		$pro = 
+			isset($_POST["INS_DateEntree"]) && !empty($_POST["INS_DateEntree"])
+			//&& isset($_POST["REF_NumRef"]) && !empty($_POST["REF_NumRef"])
+			//&& isset($_POST["PRE_Id"]) && !empty($_POST["PRE_Id"])
 			&& isset($_POST["INS_NivScol"]) && !empty($_POST["INS_NivScol"])
 			&& isset($_POST["INS_Diplome"]) && !empty($_POST["INS_Diplome"])
 			&& isset($_POST["INS_SituationF"]) && !empty($_POST["INS_SituationF"])
-			&& isset($_POST["INS_RecoTH"])
-			&& isset($_POST["INS_Permis"])
 			&& isset($_POST["INS_Revenu"]) && !empty($_POST["INS_Revenu"])
 			&& isset($_POST["INS_RevenuDepuis"]) && !empty($_POST["INS_RevenuDepuis"])
 			&& isset($_POST["INS_PEDepuis"]) && !empty($_POST["INS_PEDepuis"])
@@ -122,7 +131,25 @@
 			&& isset($_POST["INS_Mutuelle"]) && !empty($_POST["INS_Mutuelle"])
 			&& isset($_POST["INS_SituGeo"]) && !empty($_POST["INS_SituGeo"])
 			&& isset($_POST["INS_Repas"]) && !empty($_POST["INS_Repas"])
-			&& isset($_POST["INS_TRepas"]) && !empty($_POST["INS_TRepas"])
+			&& isset($_POST["INS_TRepas"]) && !empty($_POST["INS_TRepas"]);
+
+			if (!isset($_POST["PRE_Id"]) && isset($_POST["NewRefPrenom"]) && !empty($_POST["NewPrePrenom"])
+				                         && isset($_POST["NewReNom"]) && !empty($_POST["NewPreNom"])){
+				$ajoutRef = 'INSERT INTO personnes (PER_Nom, PER_Prenom) values ('.$$_POST["NewReNom"].','.$_POST["NewRePrenom"].')';
+			}
+			elseif (!isset($_POST["REF_NumRef"]) && !empty($_POST["REF_NumRef"])) {
+				displayError("Erreur dans la fiche du salarie : problème avec le référent !");
+			}
+
+			if (!isset($_POST["PRE_Id"]) && isset($_POST["NewPre"]) && !empty($_POST["NewPre"])){
+				echo '<p> Nouveau Prescripteurs : '.$_POST["NewPre"].'</p>';
+				$ajoutPre = 'INSERT INTO prescripteurs (PRE_Nom) values ('.$nomPre.')';
+			}
+			elseif (!isset($_POST["PRE_Id"]) && !empty($_POST["PRE_Id"])) {
+				displayError("Erreur dans la fiche du salarie : problème avec le prescripteur !");
+			}
+
+		return $pro;
 	}
 
 	function displayError($message){

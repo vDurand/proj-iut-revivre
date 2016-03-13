@@ -12,11 +12,11 @@
 				<td><input required="required" class="inputC" type="text" id="PER_Prenom" name="PER_Prenom"/></td>
 			</tr>
 			<tr>
-				<td><label for="PER_Sexe">Sexe* : </label></td>
+				<td><label>Sexe* : </label></td>
 				<td>
-					<input required="required" type="radio" id="homme" name="homme" value="1">
+					<input required="required" type="radio" id="homme" name="PER_Sexe" value="1">
 					<label>Homme</label>
-                    <input type="radio" id="femme" name="femme" value="0">
+                    <input type="radio" id="femme" name="PER_Sexe" value="0">
 					<label>Femme</label>
 				</td>
 				<td><label for="PER_DateN">Date de Naissance* :</label></td>

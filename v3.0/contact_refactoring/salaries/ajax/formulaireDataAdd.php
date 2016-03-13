@@ -25,7 +25,7 @@
 			$specialSalarie = in_assoc_array_by_key($_POST["TYP_Id"], $typeSalarie, "TYP_Id");
 			$fonction = false;
 
-			echo '<form method="POST" action="'.__DIR__.'/../postSalarie.php">';
+			echo '<form method="POST" action="../salaries/postSalarie.php">';
 
 
 			if($specialSalarie){
@@ -43,9 +43,10 @@
 			}
 
 			echo '<div align="center">
-                    <input type="hidden" id="request_type" name="request_type" value="addSalarie"/>
 					<input type="button" value="Annuler" class="buttonC" onclick="$.redirect(\'../../home.php\')";>
-					<input type="button" value="Valider" class="buttonC">
+                    <input type="hidden" id="request_type" name="request_type" value="addSalarie"/>
+                    <input type="hidden" id="TYP_Id" name="TYP_Id" value="'.$_POST["TYP_Id"].'"/>
+					<input type="submit" value="Valider" class="buttonC">
 			  	</div>
 			</form>';
 		}

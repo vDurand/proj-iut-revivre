@@ -12,7 +12,7 @@
 				<td><label>Référent identifié* :</label></td>
 				<td style="position:relative;">
 					<div class="selectType">
-						<select required="required" id="REF_NumRef">
+						<select required="required" id="REF_NumRef" name="REF_NumRef">
 							<option value="0" selected="selected" disabled="disabled">Choisir ...</option>
 				    <?php
 	                    for($x=0; $x<sizeof($prescripteurs); $x++)
@@ -43,7 +43,7 @@
 				<td><label>Convention* :</label></td>
 				<td>
 					<div class="selectType">
-						<select required="required" id="CNV_Id">	
+						<select required="required" id="CNV_Id" name="CNV_Id">	
 							<option value="0" selected="selected" disabled="disabled">Choisir ...</option>
 						<?php
 							while($data = mysqli_fetch_assoc($query_conv)){
@@ -59,7 +59,7 @@
 				<td>Type de contrat* :</td>
 				<td>
 					<div class="selectType">
-						<select required="required" id="CNT_Id">
+						<select required="required" id="CNT_Id" name="CNT_Id">
 							<option value="0" selected="selected" disabled="disabled">Choisir ...</option>
 						<?php
 							while($data = mysqli_fetch_assoc($query_contrat)){
@@ -77,7 +77,7 @@
 				<td><label>Prescripteurs* :</label></td>
 				<td style="position:relative;">
 					<div class="selectType">
-						<select required="required" id="PRE_Id">	
+						<select required="required" id="PRE_Id" name="PRE_Id">	
 							<option value="0" selected="selected" disabled="disabled">Choisir ...</option>
 						<?php
 							for($x=0; $x<sizeof($prescripteurs); $x++){
@@ -91,7 +91,7 @@
 				<td>Niveau Scolaire* :</td>
 				<td>
 					<div class="selectType">
-						<select required="required" id="INS_NivScol">
+						<select required="required" id="INS_NivScol" name="INS_NivScol">
 							<option value="0" disabled="disabled" selected="selected"> Choisir ... </option>
 	                        <option value="Non scolarisé">Non scolarisé</option>
 	                        <option value="3 et +">3 et +</option>
@@ -107,7 +107,7 @@
 				<td>Diplôme* :</td>
 				<td>
 					<div class="selectType">
-						<select required="required" id="INS_Diplome">
+						<select required="required" id="INS_Diplome" name="INS_Diplome">
 							<option value="0" disabled="disabled" selected="selected"> Choisir ... </option>
 							<option value="Aucun">Sans</option>
 							<option value="Brevet">Brevet des Colèges</option>
@@ -130,7 +130,7 @@
 				<td>Revenus* :</td>
 				<td>
 					<div class="selectType">
-						<select required="required" id="INS_Revenu">
+						<select required="required" id="INS_Revenu" name="INS_Revenu">
 							<option value="0" disabled="disabled" selected="selected"> Choisir ... </option>
 							<option value="RSA">RSA</option>
 							<option value="ASS">ASS</option>
@@ -144,7 +144,7 @@
 				<td>Revenus depuis* :</td>
 				<td>
 					<div class="selectType">
-						<select required="required" id="INS_RevenuDepuis">
+						<select required="required" id="INS_RevenuDepuis" name="INS_RevenuDepuis">
 							<option value="0" disabled="disabled" selected="selected"> Choisir ... </option>
 							<option value="Moins de 6 mois">Moins de 6 mois</option>
 							<option value="De 6 à 11 mois">De 6 à 11 mois</option>
@@ -158,7 +158,7 @@
 				<td>Inscris à Pôle Emploi depuis* : </td>
 				<td>
 					<div class="selectType">
-						<select required="required" id="INS_PEDepuis">
+						<select required="required" id="INS_PEDepuis" name="INS_PEDepuis">
 							<option value="0" disabled="disabled" selected="selected"> Choisir ... </option>
 							<option value="Moins de 6 mois">Moins de 6 mois</option>
 							<option value="De 6 à 11 mois">De 6 à 11 mois</option>
@@ -171,7 +171,7 @@
 				<td>Sans emploi depuis depuis* :</td>
 				<td>
 					<div class="selectType">
-						<select required="required" id="INS_SEDepuis">
+						<select required="required" id="INS_SEDepuis" name="INS_SEDepuis">
 							<option value="0" disabled="disabled" selected="selected"> Choisir ... </option>
 							<option value="Moins de 6 mois">Moins de 6 mois</option>
 							<option value="De 6 à 11 mois">De 6 à 11 mois</option>
@@ -201,7 +201,7 @@
 				<td>Mutuelle* :</td>
 				<td>
 					<div class="selectType">
-						<select required="required" id="INS_Mutuelle">
+						<select required="required" id="INS_Mutuelle" name="INS_Mutuelle">
 							<option value="0" disabled="disabled" selected="selected"> Choisir ... </option>
 							<option value="CMU">CMU</option>
 							<option value="CMU_Comp">CMU Complémentaire</option>
@@ -215,7 +215,7 @@
 				<td>Situation Géographique* :</td>
 				<td>
 					<div class="selectType">
-						<select required="required" id="INS_SituGeo">
+						<select required="required" id="INS_SituGeo" name="INS_SituGeo">
 							<option value="0" disabled="disabled" selected="selected"> Choisir ... </option>
 							<option value="CUCS">CUCS</option>
 							<option value="ZUS">ZUS</option>
@@ -259,7 +259,7 @@
 		else{
 			$(this).val("-");
 			$("#REF_NumRef").prop("disabled", true);
-			$('<tr><td><strong>&#8618;</strong></td><td><input type="text" class="inputC" placeholder="Nouveau référent" required="required"/></td></tr>').insertAfter($("#REF_NumRef").parent().parent().parent());
+			$('<tr><td><strong>&#8618;</strong></td><td><input type="text" id="NewRefNom"    name="NewReNom"     class="inputC" placeholder="Nom" required="required"/></td><td><input type="text" id="NewRefPrenom" name="NewRefPrenom" class="inputC" placeholder="Prenom" required="required"/></td></tr>').insertAfter($("#REF_NumRef").parent().parent().parent());
 		}
 	});
 
@@ -272,7 +272,7 @@
 		else{
 			$(this).val("-");
 			$("#PRE_Id").prop("disabled", true);
-			$('<tr><td><strong>&#8618;</strong></td><td><input type="text" class="inputC" placeholder="Nouveau prescripteur" required="required"/></td></tr>').insertAfter($("#PRE_Id").parent().parent().parent());
+			$('<tr><td><strong>&#8618;</strong></td><td><input type="text" id="NewPre" name="Newpre" class="inputC" placeholder="Nouveau prescripteur" required="required"/></td></tr>').insertAfter($("#PRE_Id").parent().parent().parent());
 		}
 	});
 </script>
