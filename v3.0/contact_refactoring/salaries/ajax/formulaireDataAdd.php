@@ -25,27 +25,27 @@
 			$specialSalarie = in_assoc_array_by_key($_POST["TYP_Id"], $typeSalarie, "TYP_Id");
 			$fonction = false;
 
-			echo '<form method="POST" action="../salaries/postSalarie.php">';
+			echo '<form method="POST" action="postSalarie.php">';
 
 
 			if($specialSalarie){
-				include_once(__DIR__."/../includes/form_date.php");
+				include_once("../includes/form_date.php");
 			}
 			else{
 				$fonction = true;
 			}
 
-			include_once(__DIR__."/../includes/form_civil.php");
+			include_once("../includes/form_civil.php");
 
 			if($specialSalarie){
-				include_once(__DIR__."/../includes/form_emergency.php");
-				include_once(__DIR__."/../includes/form_additional.php");
+				include_once("../includes/form_emergency.php");
+				include_once("../includes/form_additional.php");
 			}
 
 			echo '<div align="center">
-					<input type="button" value="Annuler" class="buttonC" onclick="$.redirect(\'../../home.php\')";>
-                    <input type="hidden" id="request_type" name="request_type" value="addSalarie"/>
+                    <input type="hidden" id="request_type" name="request_type" value="add"/>
                     <input type="hidden" id="TYP_Id" name="TYP_Id" value="'.$_POST["TYP_Id"].'"/>
+					<input type="button" value="Annuler" class="buttonC" onclick="$.redirect(\'../../home.php\')";>
 					<input type="submit" value="Valider" class="buttonC">
 			  	</div>
 			</form>';

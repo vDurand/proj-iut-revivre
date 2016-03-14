@@ -3,7 +3,6 @@
 	$pwd='../../';
 	include($pwd.'bandeau.php');
 	$query = mysqli_query($db, "SELECT TYP_Id, TYP_Nom FROM Type ORDER BY TYP_Id");
-
 ?>
 <div id="corps">
 	<div id="labelT">

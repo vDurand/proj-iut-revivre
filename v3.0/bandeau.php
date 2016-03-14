@@ -29,8 +29,8 @@
 		<link rel="stylesheet" type="text/css" href="<?php echo $pwd; ?>css/jquery-ui.min.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo $pwd; ?>css/jquery-ui.structure.min.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo $pwd; ?>css/jquery-ui.theme.min.css">
-		<link rel="icon" href="'.$pwd.'images/favicon1.png" sizes="16x16"/>
-		<link rel="icon" href="'.$pwd.'images/favicon1.ico" sizes="16x16"/>
+		<link rel="icon" href="<?php echo $pwd; ?>images/favicon1.png" sizes="16x16"/>
+		<link rel="icon" href="<?php echo $pwd; ?>images/favicon1.ico" sizes="16x16"/>
 		<link rel="stylesheet" type="text/css" href="<?php echo $pwd; ?>css/tooltipster.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo $pwd; ?>css/morris-0.5.1.css">
         <script type="text/javascript" src="<?php echo $pwd; ?>js/jquery.min.js"></script>

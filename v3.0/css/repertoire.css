@@ -103,6 +103,12 @@
 	margin: 50px;
 }
 
+.repertoire-bloc fieldset .form_table input.value-error, .repertoire-bloc fieldset .form_table textarea.value-error, .repertoire-bloc fieldset .form_table div.value-error{
+	outline: none;
+	border: 2px solid #b94747;
+	background-color: rgba(248,135,135,0.5);
+}
+
 .repertoire-bloc fieldset table tr:empty, .repertoire-bloc fieldset table tr > *:empty{
 	height: 25px;
 }
@@ -240,9 +246,10 @@
 }
 
 .repertoire-show-list table{
-	border: 1px solid black;
+	border: 1px solid #003f7f;
 	border-collapse: collapse;
 	width: 100%;
+	table-layout: fixed;
 }
 
 .repertoire-show-list table thead{
@@ -277,11 +284,18 @@
 .repertoire-show-list table td{
 	text-align: center;
 	font-size: 14px;
-	height: 25px;
+	height: calc(36px - 10px);
+}
+
+.form-errors{
+	margin: 35px 0 10px 0;
+	background-color: #f88787;
+	border: 2px solid #b94747;
+	padding: 0px 10px;
 }
 
 .repertoire-show-list table thead th, .repertoire-show-list table tbody td{
-	border: 1px solid black;
+	border: 1px solid #003f7f;
 }
 
 .required-top-date{
@@ -301,4 +315,11 @@
 
 i.no-data{
 	color: gray;
+}
+
+.truncate {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

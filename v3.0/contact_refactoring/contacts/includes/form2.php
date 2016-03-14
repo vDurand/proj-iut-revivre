@@ -50,11 +50,13 @@
 	$(".CLI_type").on("change", function(){
 		if($(this).prop("id") == "CLI_structure"){
 			$("#label_CLI_Prenom, #CLI_Prenom").hide();
+			$("#CLI_Prenom").prop("required", "");
 			$("#CLI_Prenom").val("");
 			$("#client_type").html("de la structure");
 		}
 		else{
 			$("#label_CLI_Prenom, #CLI_Prenom").show();
+			$("#CLI_Prenom").prop("required", "required");
 			$("#client_type").html("du particulier");
 		}
 	});

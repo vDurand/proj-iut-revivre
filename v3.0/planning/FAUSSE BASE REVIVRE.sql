@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 13 Janvier 2016 à 11:55
+-- Généré le :  Mar 08 Mars 2016 à 21:40
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -145,8 +145,8 @@ CREATE TABLE IF NOT EXISTS `chantiermax` (
 ,`ClientCP` int(11)
 ,`NumClient` int(11)
 ,`Structure` varchar(9)
-,`Resp` varchar(20)
-,`RespP` varchar(20)
+,`Resp` varchar(25)
+,`RespP` varchar(25)
 ,`IdMax` int(11)
 );
 -- --------------------------------------------------------
@@ -156,9 +156,9 @@ CREATE TABLE IF NOT EXISTS `chantiermax` (
 --
 CREATE TABLE IF NOT EXISTS `chantierresp` (
 `RNumDevis` int(11)
-,`Resp` varchar(20)
-,`RespP` varchar(20)
-,`NumSal` int(5)
+,`Resp` varchar(25)
+,`RespP` varchar(25)
+,`NumSal` int(11)
 );
 -- --------------------------------------------------------
 
@@ -190,6 +190,7 @@ CREATE TABLE IF NOT EXISTS `chantiers` (
 CREATE TABLE IF NOT EXISTS `clients` (
   `CLI_NumClient` int(11) NOT NULL AUTO_INCREMENT,
   `CLI_Nom` varchar(45) DEFAULT NULL,
+  `CLI_Prenom` varchar(20) DEFAULT NULL,
   `CLI_Adresse` varchar(45) DEFAULT NULL,
   `CLI_CodePostal` int(11) DEFAULT NULL,
   `CLI_Ville` varchar(45) DEFAULT NULL,
@@ -273,6 +274,22 @@ INSERT INTO `convention` (`CNV_Id`, `CNV_Nom`, `CNV_Couleur`) VALUES
 (3, 'ASSH', '#14479b'),
 (4, 'CUCS', '#000000'),
 (5, 'FAJ', '#e157ff');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `cursus`
+--
+
+CREATE TABLE IF NOT EXISTS `cursus` (
+  `CUR_Date` date NOT NULL,
+  `SAL_NumSalarie` int(5) NOT NULL,
+  `TYP_Id` int(11) NOT NULL,
+  `CUR_Comment` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`CUR_Date`,`SAL_NumSalarie`),
+  KEY `fk_numero_salarie` (`SAL_NumSalarie`),
+  KEY `fk_type_salarie` (`TYP_Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -428,143 +445,125 @@ CREATE TABLE IF NOT EXISTS `fournisseurs` (
 --
 
 CREATE TABLE IF NOT EXISTS `insertion` (
-  `SAL_NumSalarie` int(5) NOT NULL,
-  `INS_DateEntretien` date DEFAULT NULL,
-  `INS_DateN` date DEFAULT NULL,
-  `INS_LieuN` varchar(45) DEFAULT NULL,
-  `INS_Nation` varchar(45) DEFAULT NULL,
+  `SAL_NumSalarie` int(11) NOT NULL,
+  `INS_DateEntretien` date NOT NULL,
   `INS_SituationF` varchar(45) DEFAULT NULL,
-  `INS_NPoleEmp` varchar(45) DEFAULT NULL,
-  `INS_NSecu` varchar(45) DEFAULT NULL,
-  `INS_NCaf` varchar(45) DEFAULT NULL,
-  `INS_NivScol` varchar(15) DEFAULT NULL,
-  `INS_Diplome` varchar(45) DEFAULT NULL,
-  `INS_Permis` tinyint(1) DEFAULT NULL,
-  `INS_RecoTH` tinyint(1) DEFAULT NULL,
-  `INS_Revenu` varchar(45) DEFAULT NULL,
-  `INS_Mutuelle` varchar(45) DEFAULT NULL,
+  `INS_NivScol` varchar(15) NOT NULL,
+  `INS_Diplome` varchar(45) NOT NULL,
+  `INS_Permis` tinyint(1) NOT NULL,
+  `INS_RecoTH` tinyint(1) NOT NULL,
+  `INS_Revenu` varchar(45) NOT NULL,
+  `INS_Mutuelle` varchar(45) NOT NULL,
   `CNV_Id` int(11) NOT NULL,
   `CNT_Id` int(11) NOT NULL,
-  `INS_DateEntree` date DEFAULT NULL,
-  `INS_NbHeures` int(11) DEFAULT NULL,
-  `INS_NbJours` int(11) DEFAULT NULL,
-  `INS_RevenuDepuis` varchar(45) DEFAULT NULL,
-  `INS_SEDepuis` varchar(45) DEFAULT NULL,
-  `INS_PEDupuis` varchar(45) DEFAULT NULL,
-  `INS_Repas` varchar(25) DEFAULT NULL,
-  `INS_Positionmt` varchar(45) DEFAULT NULL,
-  `INS_SituGeo` varchar(45) DEFAULT NULL,
+  `INS_DateEntree` date NOT NULL,
+  `INS_NbHeures` int(5) DEFAULT NULL,
+  `INS_NbJours` int(3) DEFAULT NULL,
+  `INS_RevenuDepuis` varchar(45) NOT NULL,
+  `INS_SEDepuis` varchar(45) NOT NULL,
+  `INS_PEDepuis` varchar(45) NOT NULL,
+  `INS_Repas` tinyint(1) NOT NULL,
+  `INS_TRepas` tinyint(1) NOT NULL,
+  `INS_Positionmt` varchar(45) NOT NULL,
+  `INS_SituGeo` varchar(45) NOT NULL,
   `REF_NumRef` int(11) NOT NULL,
-  `INS_DateSortie` date DEFAULT NULL,
-  `TYS_ID` int(11) NOT NULL,
+  `TYS_ID` int(11) DEFAULT NULL,
+  `INS_PlusDetails` text,
+  `INS_UrgNom` varchar(25) DEFAULT NULL,
+  `INS_UrgPrenom` varchar(25) DEFAULT NULL,
+  `INS_UrgTel` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`SAL_NumSalarie`),
-  KEY `fk_Insertion_Salaries1_idx` (`SAL_NumSalarie`),
-  KEY `fk_Insertion_Convention1_idx` (`CNV_Id`),
-  KEY `fk_Insertion_Contrat1_idx` (`CNT_Id`),
-  KEY `fk_Insertion_Referent1_idx` (`REF_NumRef`),
-  KEY `fk_Insertion_TypeSortie_idx` (`TYS_ID`)
+  KEY `SAL_NumSalarie` (`SAL_NumSalarie`,`CNV_Id`,`CNT_Id`,`REF_NumRef`,`TYS_ID`),
+  KEY `SAL_NumSalarie_2` (`SAL_NumSalarie`),
+  KEY `CNV_Id` (`CNV_Id`),
+  KEY `CNT_Id` (`CNT_Id`),
+  KEY `REF_NumRef` (`REF_NumRef`),
+  KEY `TYS_ID` (`TYS_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `insertion`
 --
 
-INSERT INTO `insertion` (`SAL_NumSalarie`, `INS_DateEntretien`, `INS_DateN`, `INS_LieuN`, `INS_Nation`, `INS_SituationF`, `INS_NPoleEmp`, `INS_NSecu`, `INS_NCaf`, `INS_NivScol`, `INS_Diplome`, `INS_Permis`, `INS_RecoTH`, `INS_Revenu`, `INS_Mutuelle`, `CNV_Id`, `CNT_Id`, `INS_DateEntree`, `INS_NbHeures`, `INS_NbJours`, `INS_RevenuDepuis`, `INS_SEDepuis`, `INS_PEDupuis`, `INS_Repas`, `INS_Positionmt`, `INS_SituGeo`, `REF_NumRef`, `INS_DateSortie`, `TYS_ID`) VALUES
-(255, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, NULL, 0),
-(256, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, 0),
-(257, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, 0),
-(258, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, 0),
-(259, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 0),
-(260, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, 0),
-(261, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, 0),
-(262, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 0),
-(263, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 0),
-(264, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 0),
-(265, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, 0),
-(266, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, 0),
-(267, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL, 0),
-(268, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, 0),
-(269, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, 0),
-(270, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 0),
-(271, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL, 0),
-(272, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 0),
-(273, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL, 0),
-(274, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL, 0),
-(275, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, NULL, 0),
-(276, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, 0),
-(277, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, 0),
-(278, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL, 0),
-(279, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 0),
-(280, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL, 0),
-(281, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL, 0),
-(282, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 0),
-(283, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, NULL, 0),
-(284, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL, 0),
-(285, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL, 0),
-(286, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, 0),
-(287, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, 0),
-(288, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, 0),
-(289, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 0),
-(290, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 0),
-(291, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 0),
-(292, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, 0),
-(293, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, 0),
-(294, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 0),
-(295, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, NULL, 0),
-(296, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, 0),
-(297, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, NULL, 0),
-(298, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, NULL, 0),
-(299, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, 0),
-(300, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 0),
-(301, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, 0),
-(302, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 0),
-(303, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, NULL, 0),
-(304, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, 0),
-(305, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, 0),
-(306, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, 0),
-(307, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL, 0),
-(308, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, NULL, 0),
-(309, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL, 0),
-(310, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL, 0),
-(311, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, 0),
-(312, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, 0),
-(313, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 0),
-(314, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, 0),
-(315, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, 0),
-(316, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, NULL, 0),
-(317, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, NULL, 0),
-(318, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, 0),
-(319, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 0),
-(320, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, 0),
-(321, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 0),
-(322, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, NULL, 0),
-(323, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, 0),
-(324, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, 0),
-(325, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, 0),
-(326, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, NULL, 0),
-(327, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 0),
-(328, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, 0),
-(329, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, 0),
-(330, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 0),
-(331, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, NULL, 0),
-(332, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL, 0),
-(333, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, NULL, 0),
-(334, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, NULL, 0),
-(335, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, 0),
-(336, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, NULL, 0),
-(337, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL, 0),
-(338, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 0),
-(339, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL, 0),
-(340, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, 0),
-(341, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 0),
-(342, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, 0),
-(343, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, 0),
-(344, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 0),
-(345, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 0),
-(346, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, 0),
-(347, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, 0),
-(348, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, NULL, 0),
-(349, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, 0);
+INSERT INTO `insertion` (`SAL_NumSalarie`, `INS_DateEntretien`, `INS_SituationF`, `INS_NivScol`, `INS_Diplome`, `INS_Permis`, `INS_RecoTH`, `INS_Revenu`, `INS_Mutuelle`, `CNV_Id`, `CNT_Id`, `INS_DateEntree`, `INS_NbHeures`, `INS_NbJours`, `INS_RevenuDepuis`, `INS_SEDepuis`, `INS_PEDepuis`, `INS_Repas`, `INS_TRepas`, `INS_Positionmt`, `INS_SituGeo`, `REF_NumRef`, `TYS_ID`, `INS_PlusDetails`, `INS_UrgNom`, `INS_UrgPrenom`, `INS_UrgTel`) VALUES
+(23, '0000-00-00', 'et magnis', '2', '', 1, 0, '', '', 2, 2, '0000-00-00', 33, 3, '', '', '', 0, 0, '', '', 5, 0, 'magna ac consequat metus sapien ut', NULL, NULL, NULL),
+(24, '0000-00-00', 'ut massa', '2', '', 1, 0, '', '', 2, 1, '0000-00-00', 29, 2, '', '', '', 1, 1, '', '', 4, 40, NULL, NULL, NULL, NULL),
+(25, '0000-00-00', 'proin', '2', '', 1, 1, '', '', 1, 1, '0000-00-00', 26, 5, '', '', '', 0, 1, '', '', 3, 0, NULL, 'Greene', 'Ann', '132560282'),
+(26, '0000-00-00', 'cras', '5', '', 1, 0, '', '', 2, 1, '0000-00-00', 20, 5, '', '', '', 1, 1, '', '', 2, 0, NULL, 'Lawson', 'Rebecca', '606733512'),
+(27, '0000-00-00', 'nunc proin', '3', '', 0, 0, '', '', 2, 3, '0000-00-00', 34, 4, '', '', '', 0, 1, '', '', 4, 0, 'purus aliquet at feugiat non pretium quis lectus', NULL, NULL, NULL),
+(28, '0000-00-00', 'aliquet ultrices', '5', '', 0, 0, '', '', 1, 2, '0000-00-00', 9, 1, '', '', '', 1, 1, '', '', 1, 0, NULL, NULL, NULL, NULL),
+(29, '0000-00-00', 'nulla ultrices', '1', '', 1, 1, '', '', 2, 3, '0000-00-00', 6, 2, '', '', '', 0, 1, '', '', 2, 0, NULL, 'Montgomery', 'Susan', '631407883'),
+(30, '0000-00-00', 'suspendisse potenti', '4', '', 0, 0, '', '', 1, 3, '0000-00-00', 32, 3, '', '', '', 1, 0, '', '', 3, 0, 'fusce posuere felis sed lacus morbi sem', 'Cooper', 'Susan', '212229786'),
+(31, '0000-00-00', 'vulputate nonummy', '3', '', 1, 0, '', '', 1, 1, '0000-00-00', 29, 2, '', '', '', 1, 0, '', '', 3, 0, NULL, 'Perkins', 'Clarence', '157374816'),
+(32, '0000-00-00', 'porta', '5', '', 0, 1, '', '', 2, 2, '0000-00-00', 10, 5, '', '', '', 0, 0, '', '', 4, 14, NULL, 'Garrett', 'Craig', '491818919'),
+(33, '0000-00-00', 'vel nulla', '1', '', 0, 1, '', '', 2, 1, '0000-00-00', 10, 1, '', '', '', 0, 1, '', '', 1, 0, NULL, 'Bryant', 'Justin', '390352673'),
+(34, '0000-00-00', 'curae duis', '2', '', 1, 1, '', '', 1, 3, '0000-00-00', 23, 2, '', '', '', 0, 1, '', '', 2, 0, 'turpis enim blandit mi in porttitor pede justo eu', 'Ortiz', 'Samuel', '134281204'),
+(35, '0000-00-00', 'risus semper', '2', '', 0, 0, '', '', 1, 3, '0000-00-00', 25, 4, '', '', '', 0, 1, '', '', 3, 0, NULL, 'Cunningham', 'Todd', '552431159'),
+(36, '0000-00-00', 'velit', '3', '', 1, 0, '', '', 1, 2, '0000-00-00', 27, 3, '', '', '', 1, 1, '', '', 4, 0, NULL, 'Lawson', 'Kelly', '160706674'),
+(37, '0000-00-00', 'vestibulum ante', '0', '', 1, 0, '', '', 1, 3, '0000-00-00', 12, 4, '', '', '', 1, 0, '', '', 4, 0, 'mattis odio donec vitae nisi', 'Jordan', 'Kelly', '330495656'),
+(38, '0000-00-00', 'ut', '5', '', 1, 0, '', '', 2, 1, '0000-00-00', 3, 1, '', '', '', 1, 1, '', '', 1, 0, NULL, 'Gordon', 'Lisa', '567931399'),
+(39, '0000-00-00', 'quis', '4', '', 1, 0, '', '', 1, 2, '0000-00-00', 18, 3, '', '', '', 1, 1, '', '', 1, 33, 'tempus vel pede morbi porttitor lorem', 'Dixon', 'Ralph', '334278105'),
+(40, '0000-00-00', 'potenti in', '5', '', 1, 1, '', '', 1, 3, '0000-00-00', 19, 2, '', '', '', 1, 0, '', '', 2, 29, NULL, NULL, NULL, NULL),
+(41, '0000-00-00', 'egestas', '4', '', 0, 1, '', '', 2, 2, '0000-00-00', 2, 3, '', '', '', 1, 0, '', '', 1, 0, NULL, 'Long', 'Jack', '128412318'),
+(42, '0000-00-00', 'nulla facilisi', '3', '', 1, 1, '', '', 2, 2, '0000-00-00', 8, 1, '', '', '', 1, 0, '', '', 4, 0, 'est donec odio justo sollicitudin ut suscipit a feugiat', 'Ramos', 'Gerald', '521900713'),
+(43, '0000-00-00', 'at', '4', '', 0, 1, '', '', 1, 1, '0000-00-00', 28, 1, '', '', '', 0, 0, '', '', 5, 0, 'tempus vel pede morbi porttitor lorem id ligula', 'Jacobs', 'Judy', '611675673'),
+(44, '0000-00-00', 'nulla tellus', '2', '', 0, 1, '', '', 2, 3, '0000-00-00', 32, 1, '', '', '', 0, 0, '', '', 4, 0, NULL, 'Morgan', 'Brian', '564989229'),
+(45, '0000-00-00', 'justo morbi', '2', '', 1, 1, '', '', 2, 2, '0000-00-00', 26, 4, '', '', '', 0, 0, '', '', 3, 27, NULL, NULL, NULL, NULL),
+(46, '0000-00-00', 'ligula pellentesque', '5', '', 0, 0, '', '', 1, 2, '0000-00-00', 23, 3, '', '', '', 1, 1, '', '', 2, 0, NULL, 'Arnold', 'Debra', '252713109'),
+(47, '0000-00-00', 'mattis nibh', '5', '', 0, 0, '', '', 1, 3, '0000-00-00', 4, 5, '', '', '', 1, 0, '', '', 2, 0, 'dui proin leo odio porttitor id consequat in consequat ut', NULL, NULL, NULL),
+(48, '0000-00-00', 'posuere', '0', '', 0, 1, '', '', 2, 3, '0000-00-00', 32, 4, '', '', '', 0, 1, '', '', 5, 25, 'ultrices aliquet maecenas leo odio', 'Gray', 'Marilyn', '607955283'),
+(49, '0000-00-00', 'amet', '3', '', 1, 1, '', '', 2, 3, '0000-00-00', 12, 1, '', '', '', 0, 0, '', '', 5, 0, 'volutpat convallis morbi odio odio elementum eu interdum eu tincidunt in leo maecenas pulvinar', 'Peterson', 'Sean', '284780194'),
+(50, '0000-00-00', 'quam', '2', '', 0, 1, '', '', 1, 2, '0000-00-00', 16, 3, '', '', '', 0, 0, '', '', 1, 0, 'eros elementum pellentesque quisque porta volutpat erat quisque erat eros viverra eget', 'Day', 'Susan', '411214908'),
+(51, '0000-00-00', 'quam fringilla', '2', '', 1, 0, '', '', 1, 1, '0000-00-00', 24, 2, '', '', '', 0, 1, '', '', 3, 15, NULL, 'Robinson', 'Susan', '460096429'),
+(52, '0000-00-00', 'nec', '4', '', 0, 0, '', '', 2, 2, '0000-00-00', 35, 3, '', '', '', 0, 1, '', '', 1, 0, 'volutpat eleifend donec ut dolor morbi vel lectus in quam fringilla rhoncus mauris enim leo', NULL, NULL, NULL),
+(53, '0000-00-00', 'non mi', '4', '', 1, 0, '', '', 2, 2, '0000-00-00', 32, 3, '', '', '', 0, 1, '', '', 4, 0, NULL, 'George', 'Bonnie', '194898602'),
+(54, '0000-00-00', 'quis', '4', '', 0, 0, '', '', 1, 1, '0000-00-00', 2, 3, '', '', '', 1, 1, '', '', 1, 0, NULL, 'Carr', 'Russell', '581447536'),
+(55, '0000-00-00', 'quis', '2', '', 1, 0, '', '', 2, 1, '0000-00-00', 19, 3, '', '', '', 0, 0, '', '', 4, 18, NULL, 'Holmes', 'Doris', '431808104'),
+(56, '0000-00-00', 'luctus nec', '2', '', 1, 0, '', '', 2, 3, '0000-00-00', 31, 4, '', '', '', 1, 0, '', '', 4, 0, 'odio condimentum id luctus nec molestie sed justo pellentesque viverra pede ac diam cras pellentesque', NULL, NULL, NULL),
+(57, '0000-00-00', 'et ultrices', '2', '', 1, 0, '', '', 2, 2, '0000-00-00', 19, 2, '', '', '', 0, 1, '', '', 3, 14, 'amet sem fusce consequat nulla nisl nunc nisl duis bibendum felis sed interdum venenatis', 'Johnston', 'Justin', '364908292'),
+(58, '0000-00-00', 'nisi vulputate', '0', '', 1, 1, '', '', 2, 1, '0000-00-00', 33, 1, '', '', '', 0, 0, '', '', 3, 40, 'velit donec diam neque vestibulum eget vulputate ut ultrices vel augue vestibulum', NULL, NULL, NULL),
+(59, '0000-00-00', 'ipsum', '5', '', 0, 1, '', '', 2, 3, '0000-00-00', 22, 4, '', '', '', 0, 0, '', '', 3, 0, 'non mauris morbi non lectus aliquam sit amet diam in magna bibendum imperdiet', NULL, NULL, NULL),
+(60, '0000-00-00', 'ac', '1', '', 0, 0, '', '', 1, 3, '0000-00-00', 34, 2, '', '', '', 0, 1, '', '', 3, 35, 'rutrum at lorem integer tincidunt ante vel ipsum praesent blandit lacinia erat vestibulum sed', 'Martin', 'Kathryn', '347652766'),
+(61, '0000-00-00', 'eget elit', '5', '', 0, 0, '', '', 1, 1, '0000-00-00', 35, 5, '', '', '', 1, 1, '', '', 3, 0, NULL, 'Myers', 'Debra', '669573244'),
+(62, '0000-00-00', 'eget', '2', '', 0, 0, '', '', 1, 1, '0000-00-00', 34, 1, '', '', '', 1, 0, '', '', 3, 0, 'aenean lectus pellentesque eget nunc donec quis orci eget', 'Boyd', 'Matthew', '470646787'),
+(63, '0000-00-00', 'odio elementum', '3', '', 1, 1, '', '', 2, 3, '0000-00-00', 2, 2, '', '', '', 1, 0, '', '', 4, 0, NULL, 'Long', 'Gerald', '384425725'),
+(64, '0000-00-00', 'risus auctor', '3', '', 0, 1, '', '', 1, 3, '0000-00-00', 22, 1, '', '', '', 1, 1, '', '', 5, 33, NULL, NULL, NULL, NULL),
+(65, '0000-00-00', 'rutrum', '0', '', 0, 1, '', '', 1, 2, '0000-00-00', 16, 4, '', '', '', 1, 0, '', '', 3, 0, 'suspendisse potenti in eleifend quam a odio in', 'Watkins', 'Randy', '354759506'),
+(66, '0000-00-00', 'habitasse', '2', '', 1, 1, '', '', 2, 1, '0000-00-00', 4, 2, '', '', '', 0, 1, '', '', 1, 17, NULL, 'Henry', 'Virginia', '338318574'),
+(67, '0000-00-00', 'sapien', '2', '', 0, 0, '', '', 1, 3, '0000-00-00', 33, 1, '', '', '', 0, 0, '', '', 4, 0, NULL, 'Watson', 'Chris', '425201515'),
+(68, '0000-00-00', 'nullam sit', '3', '', 1, 1, '', '', 1, 3, '0000-00-00', 3, 1, '', '', '', 0, 1, '', '', 5, 14, NULL, 'West', 'Pamela', '662119560'),
+(69, '0000-00-00', 'nisl nunc', '1', '', 1, 1, '', '', 1, 3, '0000-00-00', 22, 2, '', '', '', 0, 0, '', '', 4, 0, NULL, 'Kelley', 'Ashley', '652262077'),
+(70, '0000-00-00', 'posuere nonummy', '3', '', 0, 0, '', '', 2, 1, '0000-00-00', 8, 2, '', '', '', 0, 0, '', '', 4, 44, 'vulputate vitae nisl aenean lectus pellentesque eget nunc donec quis', 'Hicks', 'Mary', '626310150'),
+(71, '0000-00-00', 'bibendum', '0', '', 0, 0, '', '', 2, 1, '0000-00-00', 29, 5, '', '', '', 0, 0, '', '', 5, 0, NULL, 'Dean', 'Kevin', '140000091'),
+(72, '0000-00-00', 'eget', '2', '', 1, 1, '', '', 2, 1, '0000-00-00', 20, 3, '', '', '', 1, 0, '', '', 1, 3, NULL, NULL, NULL, NULL),
+(73, '0000-00-00', 'augue', '2', '', 1, 1, '', '', 2, 1, '0000-00-00', 30, 5, '', '', '', 0, 0, '', '', 3, 0, NULL, NULL, NULL, NULL),
+(74, '0000-00-00', 'erat nulla', '4', '', 1, 0, '', '', 2, 1, '0000-00-00', 34, 4, '', '', '', 1, 0, '', '', 2, 44, NULL, NULL, NULL, NULL),
+(75, '0000-00-00', 'justo', '0', '', 1, 1, '', '', 2, 3, '0000-00-00', 6, 2, '', '', '', 1, 1, '', '', 1, 0, 'nulla tellus in sagittis dui vel nisl duis ac nibh fusce', NULL, NULL, NULL),
+(76, '0000-00-00', 'etiam', '3', '', 1, 0, '', '', 2, 3, '0000-00-00', 4, 1, '', '', '', 0, 0, '', '', 3, 0, NULL, NULL, NULL, NULL),
+(77, '0000-00-00', 'quam sapien', '1', '', 1, 0, '', '', 2, 2, '0000-00-00', 24, 3, '', '', '', 0, 0, '', '', 5, 4, 'primis in faucibus orci luctus et ultrices', NULL, NULL, NULL),
+(78, '0000-00-00', 'ac', '2', '', 1, 0, '', '', 2, 3, '0000-00-00', 30, 3, '', '', '', 0, 0, '', '', 3, 0, NULL, 'Williams', 'Robin', '426487716'),
+(79, '0000-00-00', 'vestibulum', '3', '', 0, 1, '', '', 2, 1, '0000-00-00', 20, 4, '', '', '', 0, 1, '', '', 5, 0, NULL, 'Carter', 'Brenda', '511569502'),
+(80, '0000-00-00', 'pellentesque', '0', '', 0, 0, '', '', 2, 2, '0000-00-00', 32, 3, '', '', '', 0, 0, '', '', 5, 0, NULL, 'Collins', 'Kimberly', '110206020'),
+(81, '0000-00-00', 'sit amet', '3', '', 1, 0, '', '', 1, 2, '0000-00-00', 28, 1, '', '', '', 0, 0, '', '', 5, 0, 'in sagittis dui vel nisl duis ac nibh fusce lacus purus aliquet', 'Campbell', 'Harold', '491374101'),
+(82, '0000-00-00', 'orci', '2', '', 1, 0, '', '', 2, 2, '0000-00-00', 24, 5, '', '', '', 1, 1, '', '', 1, 0, 'vivamus in felis eu sapien cursus vestibulum proin eu mi nulla ac enim', 'Fernandez', 'Raymond', '124917824'),
+(83, '0000-00-00', 'montes', '3', '', 0, 0, '', '', 1, 3, '0000-00-00', 33, 4, '', '', '', 1, 1, '', '', 4, 8, NULL, 'Brown', 'Theresa', '372662948'),
+(84, '0000-00-00', 'duis', '2', '', 1, 0, '', '', 1, 1, '0000-00-00', 18, 5, '', '', '', 0, 1, '', '', 3, 0, NULL, NULL, NULL, NULL),
+(85, '0000-00-00', 'sed tincidunt', '2', '', 1, 0, '', '', 1, 3, '0000-00-00', 20, 2, '', '', '', 0, 1, '', '', 5, 0, NULL, 'Warren', 'James', '269919075'),
+(86, '0000-00-00', 'aliquam non', '4', '', 0, 0, '', '', 2, 3, '0000-00-00', 32, 3, '', '', '', 0, 1, '', '', 2, 0, 'at vulputate vitae nisl aenean', 'Anderson', 'Gloria', '352806257'),
+(87, '0000-00-00', 'tempus vivamus', '2', '', 1, 0, '', '', 1, 2, '0000-00-00', 8, 3, '', '', '', 0, 1, '', '', 4, 0, 'sagittis dui vel nisl duis ac nibh fusce lacus purus aliquet at feugiat non pretium', 'James', 'Mark', '688807539'),
+(88, '0000-00-00', 'gravida', '0', '', 0, 0, '', '', 2, 3, '0000-00-00', 11, 4, '', '', '', 0, 0, '', '', 5, 22, 'dapibus duis at velit eu est congue elementum in hac', 'Fisher', 'Kelly', '390071034'),
+(89, '0000-00-00', 'fermentum justo', '5', '', 0, 1, '', '', 2, 3, '0000-00-00', 31, 2, '', '', '', 1, 1, '', '', 5, 0, 'congue eget semper rutrum nulla nunc purus phasellus in felis donec semper sapien a', 'Matthews', 'Shirley', '561428019'),
+(90, '0000-00-00', 'tristique in', '5', '', 0, 1, '', '', 2, 1, '0000-00-00', 29, 3, '', '', '', 0, 1, '', '', 1, 0, 'auctor gravida sem praesent id', NULL, NULL, NULL),
+(91, '0000-00-00', 'id ligula', '1', '', 0, 1, '', '', 2, 2, '0000-00-00', 16, 1, '', '', '', 0, 0, '', '', 5, 0, 'eget eros elementum pellentesque quisque porta', NULL, NULL, NULL),
+(92, '0000-00-00', 'cras non', '1', '', 1, 1, '', '', 2, 2, '0000-00-00', 30, 5, '', '', '', 0, 1, '', '', 2, 15, 'scelerisque quam turpis adipiscing lorem vitae mattis nibh ligula nec sem duis aliquam', 'Gutierrez', 'Kenneth', '109681315'),
+(93, '0000-00-00', 'quisque erat', '0', '', 1, 1, '', '', 1, 2, '0000-00-00', 19, 3, '', '', '', 0, 0, '', '', 4, 0, NULL, 'Wheeler', 'Chris', '633055462'),
+(94, '0000-00-00', 'vestibulum', '3', '', 0, 1, '', '', 1, 2, '0000-00-00', 2, 3, '', '', '', 1, 1, '', '', 2, 34, 'lacus at turpis donec posuere metus vitae ipsum aliquam non', 'Perez', 'Catherine', '368318914'),
+(95, '0000-00-00', 'magna vulputate', '5', '', 0, 1, '', '', 2, 3, '0000-00-00', 31, 5, '', '', '', 0, 1, '', '', 2, 0, NULL, NULL, NULL, NULL),
+(96, '0000-00-00', 'odio cras', '4', '', 0, 0, '', '', 2, 2, '0000-00-00', 18, 4, '', '', '', 1, 0, '', '', 1, 42, NULL, 'Andrews', 'Christopher', '598062550'),
+(97, '0000-00-00', 'aliquet ultrices', '0', '', 1, 0, '', '', 1, 1, '0000-00-00', 3, 2, '', '', '', 0, 0, '', '', 3, 1, 'commodo placerat praesent blandit nam nulla integer pede justo lacinia eget tincidunt eget tempus vel', 'Bowman', 'Ryan', '207987032'),
+(98, '0000-00-00', 'justo', '3', '', 0, 1, '', '', 1, 2, '0000-00-00', 10, 2, '', '', '', 0, 0, '', '', 3, 16, 'consequat lectus in est risus auctor sed tristique in', 'Robinson', 'Willie', '629671009'),
+(99, '0000-00-00', 'nulla suspendisse', '0', '', 1, 0, '', '', 1, 1, '0000-00-00', 20, 1, '', '', '', 1, 1, '', '', 1, 0, NULL, 'Ortiz', 'Julie', '638091251'),
+(100, '0000-00-00', 'donec semper', '0', '', 1, 0, '', '', 1, 2, '0000-00-00', 8, 4, '', '', '', 0, 0, '', '', 5, 0, 'etiam justo etiam pretium iaculis', 'King', 'Emily', '651527136');
 
 -- --------------------------------------------------------
 
@@ -677,123 +676,130 @@ CREATE TABLE IF NOT EXISTS `outil` (
 
 CREATE TABLE IF NOT EXISTS `personnes` (
   `PER_Num` int(11) NOT NULL AUTO_INCREMENT,
-  `PER_Nom` varchar(20) NOT NULL,
-  `PER_Prenom` varchar(20) DEFAULT NULL,
+  `PER_Nom` varchar(25) NOT NULL,
+  `PER_Prenom` varchar(25) NOT NULL,
   `PER_TelFixe` varchar(15) DEFAULT NULL,
   `PER_TelPort` varchar(15) DEFAULT NULL,
   `PER_Fax` varchar(15) DEFAULT NULL,
-  `PER_Email` varchar(45) DEFAULT NULL,
-  `PER_Adresse` varchar(45) NOT NULL,
-  `PER_CodePostal` int(11) NOT NULL DEFAULT '14000',
-  `PER_Ville` varchar(45) NOT NULL DEFAULT 'Caen',
+  `PER_Email` varchar(50) DEFAULT NULL,
+  `PER_Adresse` varchar(50) DEFAULT NULL,
+  `PER_CodePostal` int(5) DEFAULT NULL,
+  `PER_Ville` varchar(50) DEFAULT NULL,
+  `PER_DateN` date NOT NULL,
+  `PER_LieuN` varchar(45) NOT NULL,
+  `PER_Nation` varchar(45) NOT NULL DEFAULT 'Française',
+  `PER_NPoleEmp` varchar(45) DEFAULT NULL,
+  `PER_NSecu` varchar(45) DEFAULT NULL,
+  `PER_NCaf` varchar(45) DEFAULT NULL,
+  `PER_Sexe` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`PER_Num`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=534 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=101 ;
 
 --
 -- Contenu de la table `personnes`
 --
 
-INSERT INTO `personnes` (`PER_Num`, `PER_Nom`, `PER_Prenom`, `PER_TelFixe`, `PER_TelPort`, `PER_Fax`, `PER_Email`, `PER_Adresse`, `PER_CodePostal`, `PER_Ville`) VALUES
-(1, 'THOMAS', 'Margaret', '7434867543', '6695204158', '3130597652', 'mthomas0@pen.io', '30 Rieder Crossing', 14000, 'Santa Bárbara d''Oeste'),
-(2, 'COLEMAN', 'Helen', '338024584', '4074271385', '9730332661', 'hcoleman1@ox.ac.uk', '5674 Golf Course Junction', 14000, 'Bicaj'),
-(3, 'WILLIS', 'Michael', '4437820817', '2256925181', '5622261846', 'mwillis2@paginegialle.it', '538 Holy Cross Street', 14000, 'Perushtitsa'),
-(4, 'PHILLIPS', 'Jason', '1655248909', '1201787473', '3891147480', 'jphillips3@reuters.com', '8 Quincy Road', 14000, '‘Uzeir'),
-(5, 'TAYLOR', 'Benjamin', '4658001986', '7921768264', '6271957046', 'btaylor4@ihg.com', '43481 Dapin Avenue', 14000, 'Nagano-shi'),
-(6, 'HARRISON', 'Judith', '9601871160', '6569735262', '7706721579', 'jharrison5@ocn.ne.jp', '1 Holmberg Trail', 14000, 'Sancha'),
-(7, 'REED', 'Robert', '2018076935', '7461001609', '2213182195', 'rreed6@redcross.org', '8553 Michigan Circle', 14000, 'Yuanba'),
-(8, 'ROMERO', 'Donna', '3572071243', '3562127087', '6222616840', 'dromero7@intel.com', '2765 Eastlawn Center', 72204, 'Little Rock'),
-(9, 'WATSON', 'Debra', '7244670091', '2486394968', '3817182269', 'dwatson8@seesaa.net', '259 Moose Lane', 14000, 'Žirovnica'),
-(10, 'TAYLOR', 'Kimberly', '6588043743', '6045428933', '4169461377', 'ktaylor9@cam.ac.uk', '0951 Monica Plaza', 14000, 'Cikananga'),
-(11, 'WALKER', 'Antonio', '2533657431', '9836486670', '1802837769', 'awalkera@buzzfeed.com', '50141 Messerschmidt Way', 14000, 'Ipauçu'),
-(12, 'TUCKER', 'Melissa', '5068141213', '4626203182', '3020147751', 'mtuckerb@163.com', '932 Loftsgordon Trail', 14000, 'Kawaguchi'),
-(13, 'CRUZ', 'Steven', '5150629786', '6460137015', '4278098056', 'scruzc@latimes.com', '4 Kingsford Terrace', 14000, 'Kanbe'),
-(14, 'SNYDER', 'Catherine', '9746382104', '903360234', '8020049981', 'csnyderd@woothemes.com', '69858 Straubel Way', 14000, 'Sanjian'),
-(15, 'THOMPSON', 'Phyllis', '9641944702', '842190181', '1644006847', 'pthompsone@cornell.edu', '7268 Troy Way', 14000, 'Tiehe'),
-(16, 'RUSSELL', 'Susan', '6888239395', '2820678012', '309954887', 'srussellf@parallels.com', '2229 Spenser Place', 14000, 'Ibagué'),
-(17, 'JOHNSTON', 'Robert', '2262541669', '4536225969', '3389254650', 'rjohnstong@cbc.ca', '1 7th Plaza', 14000, 'Forestville'),
-(18, 'CARROLL', 'Helen', '327355235', '3998818275', '8503325231', 'hcarrollh@apache.org', '39550 Di Loreto Avenue', 14000, 'Pejek'),
-(19, 'GORDON', 'Jimmy', '2842387531', '9159972071', '8385171858', 'jgordoni@java.com', '2270 6th Circle', 14000, 'Cárdenas'),
-(20, 'BRYANT', 'Pamela', '3472108733', '4275345084', '9831969175', 'pbryantj@ocn.ne.jp', '68677 Delladonna Drive', 14000, 'Jetis'),
-(21, 'JOHNSTON', 'Maria', '4514538762', '3360622797', '2249895694', 'mjohnstonk@github.io', '0 Declaration Park', 14000, 'Sua'),
-(22, 'HALL', 'Jonathan', '3473048427', '4855512443', '3749125608', 'jhalll@indiegogo.com', '2 Manitowish Hill', 14000, 'Phù Cát'),
-(23, 'RUIZ', 'Sara', '8331950123', '8657533012', '7254161745', 'sruizm@accuweather.com', '79036 Melody Terrace', 14000, 'Polańczyk'),
-(24, 'GUTIERREZ', 'Charles', '7983020909', '4001090657', '9797516143', 'cgutierrezn@angelfire.com', '22097 Crest Line Street', 14000, 'Chengyang'),
-(25, 'REYES', 'Annie', '2890306007', '9394230402', '1948143230', 'areyeso@foxnews.com', '4786 Ronald Regan Drive', 14000, 'Prey Veng'),
-(26, 'EDWARDS', 'Richard', '2914858399', '4534286451', '8072331207', 'redwardsp@admin.ch', '0 Mcbride Road', 14000, 'Al Qanāyāt'),
-(27, 'RYAN', 'Carl', '1487890740', '7614209279', '8512411562', 'cryanq@bizjournals.com', '0 Armistice Circle', 14000, 'Munggang'),
-(28, 'FORD', 'Dennis', '4222107854', '5855671619', '2800912898', 'dfordr@loc.gov', '01188 Northview Crossing', 14000, 'Pyrgetós'),
-(29, 'HUNTER', 'Steve', '8112347363', '9983358051', '8015675094', 'shunters@liveinternet.ru', '23020 Sherman Avenue', 14000, 'Lenart v Slov. Goricah'),
-(30, 'MURRAY', 'Michael', '2833399465', '5762185952', '8873234074', 'mmurrayt@globo.com', '01 Waubesa Road', 14000, 'Nzega'),
-(31, 'MOORE', 'Rebecca', '6630475580', '5823715374', '1204536588', 'rmooreu@gmpg.org', '48634 Mandrake Parkway', 14000, 'Kunčina'),
-(32, 'COLEMAN', 'Nancy', '169671781', '4268980460', '2751546041', 'ncolemanv@jalbum.net', '004 Lien Street', 14000, 'Tataouine'),
-(33, 'HERNANDEZ', 'Anne', '3524516153', '9367033794', '9806242710', 'ahernandezw@desdev.cn', '0038 Bay Place', 14000, 'Неготино'),
-(34, 'KING', 'Gloria', '2531884136', '9261435886', '2071054538', 'gkingx@rakuten.co.jp', '832 Rusk Road', 14000, 'Lower Hutt'),
-(35, 'ANDERSON', 'Todd', '6556947605', '2678692078', '4177027710', 'tandersony@si.edu', '93447 Reindahl Alley', 78304, 'Poissy'),
-(36, 'WEST', 'Donald', '8499427403', '8171783445', '2135332116', 'dwestz@scientificamerican.com', '2656 Gulseth Trail', 3070, 'Corujeira'),
-(37, 'LEE', 'Justin', '1501492898', '2976561842', '3908506925', 'jlee10@jalbum.net', '24 Eagan Pass', 14000, 'Starcevica'),
-(38, 'BENNETT', 'Rebecca', '3933572090', '290751550', '747579419', 'rbennett11@jugem.jp', '5 Iowa Lane', 4950, 'Pomar'),
-(39, 'SANDERS', 'Nicole', '6673071762', '275401876', '3179369946', 'nsanders12@de.vu', '469 Hermina Road', 14000, 'Železný Brod'),
-(40, 'REYES', 'Brenda', '2233677341', '169449181', '2611725206', 'breyes13@wix.com', '8 Carey Circle', 14000, 'El Coco'),
-(41, 'EDWARDS', 'Nancy', '7382987942', '9820798400', '1418165350', 'nedwards14@youtu.be', '70 Forest Place', 14000, 'Wierzawice'),
-(42, 'BANKS', 'Martin', '7033122714', '6808566032', '5065801148', 'mbanks15@earthlink.net', '0 Starling Terrace', 14000, 'San Francisco'),
-(43, 'JENKINS', 'Phyllis', '7824143902', '5221611310', '9586699966', 'pjenkins16@zdnet.com', '8225 Milwaukee Junction', 14000, 'El Kef'),
-(44, 'HART', 'Jesse', '6637434011', '4306876777', '8891564073', 'jhart17@indiatimes.com', '928 Dexter Parkway', 14000, 'Gaotian'),
-(45, 'RODRIGUEZ', 'Brandon', '984120756', '7020404091', '2523099162', 'brodriguez18@latimes.com', '618 Lighthouse Bay Parkway', 14000, 'Lile'),
-(46, 'HARRISON', 'Todd', '7882916178', '8283457053', '6654995522', 'tharrison19@cnn.com', '595 Kings Plaza', 14000, 'Chatuchak'),
-(47, 'CLARK', 'Louis', '5282015824', '481136841', '4766185488', 'lclark1a@ezinearticles.com', '89 Merchant Road', 17110, 'Harrisburg'),
-(48, 'RICHARDSON', 'Sandra', '1453263940', '8076515711', '2111403730', 'srichardson1b@adobe.com', '386 Saint Paul Circle', 14000, 'Gálvez'),
-(49, 'HUNTER', 'Walter', '5541007893', '9150571974', '6756369520', 'whunter1c@walmart.com', '9420 Chinook Way', 14000, 'Bryukhovetskaya'),
-(50, 'RUIZ', 'Paula', '8026483132', '2078429248', '6830072933', 'pruiz1d@sourceforge.net', '495 3rd Drive', 14000, 'Kardamás'),
-(51, 'PETERS', 'Shawn', '4212177846', '9688611041', '5598467082', 'speters1e@ning.com', '609 American Crossing', 14000, 'Alofi'),
-(52, 'WOODS', 'Sean', '1029151629', '2285689077', '1385811636', 'swoods1f@oracle.com', '77382 Schmedeman Street', 14000, 'Xiaoxi'),
-(53, 'RUSSELL', 'David', '2316623792', '1382267559', '5574239605', 'drussell1g@amazon.com', '81 Bobwhite Pass', 14000, 'Llorente'),
-(54, 'BURKE', 'Jeremy', '6610657955', '5920428162', '2951060335', 'jburke1h@intel.com', '7181 Karstens Terrace', 14000, 'Yihe'),
-(55, 'FISHER', 'Julia', '172214101', '3027361638', '3061482458', 'jfisher1i@google.co.uk', '34687 Coleman Drive', 14000, 'Potosí'),
-(56, 'ADAMS', 'Mildred', '9270467680', '8921641942', '6593738346', 'madams1j@surveymonkey.com', '19478 Manufacturers Street', 14000, 'Parumasan'),
-(57, 'CRAWFORD', 'Ernest', '3443101861', '8476132334', '3666652435', 'ecrawford1k@nifty.com', '73386 Arkansas Street', 14000, 'Kahama'),
-(58, 'MARTIN', 'Edward', '6877715432', '1426261114', '3360792860', 'emartin1l@mapquest.com', '69918 Russell Circle', 14000, 'Gudang'),
-(59, 'DAY', 'Kevin', '9572104056', '9180912307', '8803193272', 'kday1m@aol.com', '23 7th Park', 14000, 'Tarfaya'),
-(60, 'OLSON', 'Jose', '9792135304', '2163468805', '8170636352', 'jolson1n@about.me', '0 Meadow Valley Alley', 30505, 'Vicente Guerrero'),
-(61, 'RILEY', 'Howard', '9738011677', '7584535302', '6212846946', 'hriley1o@globo.com', '014 Sycamore Point', 14000, 'Tuchów'),
-(62, 'LARSON', 'Teresa', '5609289213', '3261816868', '9092211568', 'tlarson1p@freewebs.com', '92538 Raven Street', 14000, 'Pringgoboyo'),
-(63, 'PAYNE', 'Walter', '6744279315', '7852146010', '5249954930', 'wpayne1q@vkontakte.ru', '1 Norway Maple Circle', 14000, 'Lianghu'),
-(64, 'GONZALES', 'Jose', '9819861224', '3062965751', '155839326', 'jgonzales1r@amazon.co.jp', '56334 Donald Avenue', 14000, 'Vani'),
-(65, 'FIELDS', 'Keith', '7987024664', '520947763', '9756348793', 'kfields1s@myspace.com', '03243 Huxley Trail', 14000, 'Watubuku'),
-(66, 'MCCOY', 'Juan', '3747395246', '3849142169', '5386411111', 'jmccoy1t@1und1.de', '64168 Jenna Plaza', 14000, 'Luwu'),
-(67, 'PIERCE', 'Carol', '9695572763', '4432033515', '2442974342', 'cpierce1u@google.fr', '6284 Springview Park', 14000, 'Bojongsari'),
-(68, 'AUSTIN', 'Aaron', '4337634613', '871385716', '9601180794', 'aaustin1v@wsj.com', '33 Carioca Junction', 14000, 'Zaña'),
-(69, 'COLEMAN', 'Diana', '8259239561', '2492847542', '5306889769', 'dcoleman1w@yelp.com', '17 Walton Street', 14000, 'Campo Alegre'),
-(70, 'REED', 'Rebecca', '3225063983', '478445967', '2464261697', 'rreed1x@gmpg.org', '3 Stephen Park', 14000, 'Yuzhou'),
-(71, 'LEE', 'Betty', '5626883408', '6138144753', '3082297472', 'blee1y@squidoo.com', '92517 Boyd Pass', 14000, 'Krajan Karanganyar'),
-(72, 'WARREN', 'Kelly', '2123690550', '1741849310', '4150441869', 'kwarren1z@cam.ac.uk', '0 Raven Street', 14000, 'Arroio do Meio'),
-(73, 'FOX', 'Gloria', '3995782830', '563252652', '9619237712', 'gfox20@senate.gov', '549 Del Sol Parkway', 14000, 'Jutiapa'),
-(74, 'WATSON', 'Richard', '398649623', '4537177873', '7107598661', 'rwatson21@vkontakte.ru', '3708 Stang Drive', 14000, 'Gaoleshan'),
-(75, 'THOMAS', 'Arthur', '4593411576', '9704097656', '9353620758', 'athomas22@admin.ch', '47 Nevada Lane', 14000, 'Vélo'),
-(76, 'WARREN', 'Douglas', '1229539839', '7719046010', '6506369742', 'dwarren23@chron.com', '788 Gerald Avenue', 14000, 'Wattala'),
-(77, 'STEWART', 'Kathleen', '2638799815', '3984204633', '7716374563', 'kstewart24@godaddy.com', '922 Bashford Pass', 14000, 'Xiazhai'),
-(78, 'YOUNG', 'George', '3129680687', '1923946976', '8600728441', 'gyoung25@japanpost.jp', '66 Dakota Alley', 14000, 'Suhopolje'),
-(79, 'GRAHAM', 'Kelly', '5395692319', '1138498187', '4316013158', 'kgraham26@jimdo.com', '65379 Nobel Pass', 14000, 'Biritiba Mirim'),
-(80, 'EDWARDS', 'Christopher', '8728515262', '3517941167', '774596668', 'cedwards27@de.vu', '67108 Blue Bill Park Pass', 14000, 'Zinder'),
-(81, 'HUNTER', 'Shirley', '8750833470', '3306908096', '1565777776', 'shunter28@bigcartel.com', '51 Raven Drive', 14000, 'Paipu'),
-(82, 'ELLIOTT', 'Victor', '1300494677', '8289123417', '5499543236', 'velliott29@gnu.org', '96585 Darwin Alley', 14000, 'Caracal'),
-(83, 'ANDREWS', 'Gerald', '5537931477', '9569758154', '3674816752', 'gandrews2a@google.com.br', '748 Waubesa Plaza', 14000, 'Namalenga'),
-(84, 'SPENCER', 'Kelly', '9284966932', '2405885443', '6428450331', 'kspencer2b@berkeley.edu', '48939 Vidon Junction', 14000, 'Togur'),
-(85, 'MENDOZA', 'Ashley', '2505148948', '2640962244', '2816834785', 'amendoza2c@ameblo.jp', '19540 International Drive', 14000, 'Makui'),
-(86, 'SNYDER', 'Aaron', '2472110425', '9078944035', '7012978428', 'asnyder2d@elpais.com', '706 Lillian Point', 14000, 'Tupã'),
-(87, 'HAYES', 'Heather', '1118735925', '6219262114', '367340427', 'hhayes2e@xing.com', '8214 Spenser Court', 14000, 'Mkushi'),
-(88, 'GOMEZ', 'Laura', '7157582019', '8527102748', '2861332275', 'lgomez2f@google.com.hk', '66 Gulseth Terrace', 14000, 'Sindangraja'),
-(89, 'CAMPBELL', 'Jerry', '8739348950', '4972958161', '9314377455', 'jcampbell2g@blog.com', '54 Springview Trail', 14000, 'Banisilan'),
-(90, 'GRIFFIN', 'Christine', '3777270407', '8776156193', '4585680897', 'cgriffin2h@dedecms.com', '819 Northfield Center', 14000, 'Gulong'),
-(91, 'WEBB', 'Lillian', '7446692838', '7182182267', '4363377968', 'lwebb2i@ed.gov', '12 Morning Pass', 14000, 'Baofeng'),
-(92, 'ROSE', 'Mark', '3053596803', '8109491958', '6318056114', 'mrose2j@addtoany.com', '77703 Kingsford Parkway', 14000, 'Al Midyah'),
-(93, 'RUSSELL', 'Henry', '8760868885', '7565795506', '4183337952', 'hrussell2k@dailymail.co.uk', '4 Forest Dale Way', 14000, 'Boulsa'),
-(94, 'SCHMIDT', 'Patrick', '7015200400', '3893568260', '4319628025', 'pschmidt2l@tinypic.com', '0624 Tony Hill', 14000, 'Dajin'),
-(95, 'OLIVER', 'Christine', '8938259744', '6582457663', '8600363448', 'coliver2m@csmonitor.com', '196 Sutteridge Parkway', 14000, 'Wangmo'),
-(96, 'LEE', 'Denise', '2404351281', '2701593325', '6527140709', 'dlee2n@umn.edu', '75955 Bartelt Parkway', 14000, 'Mijiang'),
-(97, 'WILLIAMS', 'Phyllis', '2977018856', '3654110953', '6939255902', 'pwilliams2o@tuttocitta.it', '9912 Sugar Plaza', 14000, 'Radzanów'),
-(98, 'PARKER', 'Bruce', '8574368322', '7345483937', '5205554275', 'bparker2p@domainmarket.com', '44 Carberry Lane', 14000, 'Qianjin'),
-(99, 'SCHMIDT', 'Michelle', '1147065402', '5566350492', '1200262026', 'mschmidt2q@usnews.com', '1171 Moose Circle', 14000, 'Baoxing'),
-(100, 'LITTLE', 'Linda', '8544202086', '3826383424', '9760192947', 'llittle2r@naver.com', '1985 Nevada Street', 14000, 'Kulase');
+INSERT INTO `personnes` (`PER_Num`, `PER_Nom`, `PER_Prenom`, `PER_TelFixe`, `PER_TelPort`, `PER_Fax`, `PER_Email`, `PER_Adresse`, `PER_CodePostal`, `PER_Ville`, `PER_DateN`, `PER_LieuN`, `PER_Nation`, `PER_NPoleEmp`, `PER_NSecu`, `PER_NCaf`, `PER_Sexe`) VALUES
+(1, 'Miller', 'Johnny', '546524785', '699092389', '311888803', 'jmiller0@dion.ne.jp', '5908 Rutledge Avenue', 0, 'Baixo Guandu', '0000-00-00', 'Brazil', 'Tetum', '4905478224383349144', '4905478224383349144', NULL, 0),
+(2, 'Romero', 'Rose', '575733020', '659381690', '487673162', NULL, '05985 Warbler Lane', 0, 'Fukumitsu', '0000-00-00', 'Japan', 'Croatian', '6333288389878337', '6333288389878337', NULL, 1),
+(3, 'Harrison', 'Karen', '469265702', '626092198', '172101924', 'kharrison2@ted.com', '621 Graceland Park', 0, 'Levallois-Perret', '0000-00-00', 'France', 'Irish Gaelic', '3587770017783047', '3587770017783047', '3587770017783047', 1),
+(4, 'Fisher', 'Nancy', '559682955', '618632145', '398267746', NULL, '32395 Westerfield Plaza', 0, 'Newport News', '0000-00-00', 'United States', 'Portuguese', '5602252624370183', '5602252624370183', '5602252624370183', 1),
+(5, 'Kim', 'Barbara', NULL, '625368773', '327912673', 'bkim4@cocolog-nifty.com', '6 Grayhawk Point', 0, 'Zhijin', '0000-00-00', 'China', 'Latvian', '3557432436612861', '3557432436612861', NULL, 0),
+(6, 'James', 'Jose', '454792000', '648930954', '128651560', 'jjames5@cbc.ca', '86787 Forest Avenue', 0, 'Chesma', '0000-00-00', 'Russia', 'Kashmiri', '3541201706321118', '3541201706321118', '3541201706321118', 1),
+(7, 'Hayes', 'Joshua', '483574250', '680534837', '271391072', 'jhayes6@cdc.gov', '08469 Pawling Parkway', 0, 'Joroinen', '0000-00-00', 'Finland', 'Luxembourgish', '3529868713138788', '3529868713138788', '3529868713138788', 0),
+(8, 'Campbell', 'Paul', NULL, '604236995', '232751705', 'pcampbell7@miitbeian.gov.cn', '1345 Leroy Avenue', 0, 'Banjar Asahduren', '0000-00-00', 'Indonesia', 'Irish Gaelic', '3530457790212992', '3530457790212992', '3530457790212992', 1),
+(9, 'Webb', 'Joseph', '580198135', '645145895', '444142455', NULL, '1 Emmet Court', 0, 'Fengcheng', '0000-00-00', 'China', 'Tswana', '5602219740866626', '5602219740866626', '5602219740866626', 0),
+(10, 'Ramos', 'Susan', '543878367', '679360352', '237666352', 'sramos9@ebay.com', '63 Northfield Alley', 0, 'Sewon', '0000-00-00', 'Indonesia', 'Hiri Motu', '6759208254898595', '6759208254898595', '6759208254898595', 0),
+(11, 'Griffin', 'Amy', NULL, '660163970', '288857676', 'agriffina@squidoo.com', '0417 Thackeray Pass', 0, 'Phra Phrom', '0000-00-00', 'Thailand', 'Finnish', '63042957378235732', '63042957378235732', '63042957378235732', 1),
+(12, 'Matthews', 'Victor', '162062245', '668797353', '400111155', NULL, '39948 Hooker Parkway', 0, 'Kezilei', '0000-00-00', 'China', 'New Zealand Sign Language', '3582494773210468', '3582494773210468', NULL, 1),
+(13, 'Brooks', 'Mark', '402122541', '659777162', '423345052', 'mbrooksc@imageshack.us', '5 Fieldstone Street', 0, 'Avesta', '0000-00-00', 'Sweden', 'Polish', '5048373497133094', '5048373497133094', '5048373497133094', 1),
+(14, 'Foster', 'Jonathan', '425198369', '606435943', '177954431', NULL, '93 High Crossing Terrace', 0, 'Renhe', '0000-00-00', 'China', 'Guaraní', '6761689044718787', '6761689044718787', '6761689044718787', 0),
+(15, 'Hayes', 'Justin', '249424774', '615407897', '487891612', 'jhayese@hatena.ne.jp', '24886 Magdeline Crossing', 0, 'Ḩadādah', '0000-00-00', 'Yemen', 'Tok Pisin', '3534205125848493', '3534205125848493', '3534205125848493', 1),
+(16, 'Fisher', 'Bruce', '507828311', '697571196', '324161876', 'bfisherf@furl.net', '49 Fieldstone Alley', 0, 'Järfälla', '0000-00-00', 'Sweden', 'Guaraní', '6767722706197810', '6767722706197810', NULL, 0),
+(17, 'Schmidt', 'Jean', NULL, '631173333', '325830713', 'jschmidtg@bigcartel.com', '4974 Moland Place', 0, 'Al Jubayhah', '0000-00-00', 'Jordan', 'Bosnian', '3575133793410778', '3575133793410778', '3575133793410778', 1),
+(18, 'Lawson', 'Bonnie', NULL, '622666290', '360614627', 'blawsonh@domainmarket.com', '804 Carey Avenue', 0, 'Rubik', '0000-00-00', 'Albania', 'Latvian', '3586847733237820', '3586847733237820', '3586847733237820', 1),
+(19, 'Harris', 'Cheryl', NULL, '640892160', '321412517', 'charrisi@rakuten.co.jp', '084 Golden Leaf Drive', 0, 'Đống Đa', '0000-00-00', 'Vietnam', 'Chinese', '3534320678487613', '3534320678487613', '3534320678487613', 1),
+(20, 'Spencer', 'Phillip', '239308768', NULL, '596461380', NULL, '352 Logan Street', 0, 'Guan’e', '0000-00-00', 'China', 'Quechua', '3560100572307274', '3560100572307274', '3560100572307274', 1),
+(21, 'Stanley', 'Julia', '473852644', '647353886', '264194581', 'jstanleyk@yandex.ru', '4 Oneill Pass', 0, 'Kanggye-si', '0000-00-00', 'North Korea', 'Aymara', '503824270435454000', '503824270435454000', '503824270435454000', 0),
+(22, 'Vasquez', 'Phillip', '246777187', '612610522', '352567699', 'pvasquezl@ucla.edu', '334 Dapin Center', 0, 'Tucaní', '0000-00-00', 'Venezuela', 'Haitian Creole', '5007667660302272', '5007667660302272', '5007667660302272', 0),
+(23, 'Rivera', 'Andrea', '417945879', '656678711', '318530487', 'ariveram@nymag.com', '804 Independence Parkway', 0, 'Kerep Wetan', '0000-00-00', 'Indonesia', 'Dutch', '30384167604364', '30384167604364', '30384167604364', 1),
+(24, 'Baker', 'Scott', '105978517', '620462677', '406335635', NULL, '244 Banding Avenue', 0, 'Liucheng', '0000-00-00', 'China', 'Fijian', '5602211068402951', '5602211068402951', '5602211068402951', 0),
+(25, 'Mcdonald', 'Brenda', NULL, '631068893', '196634512', 'bmcdonaldo@nytimes.com', '8 Surrey Junction', 0, 'Rzhev', '0000-00-00', 'Russia', 'Marathi', '3575331127346078', '3575331127346078', '3575331127346078', 1),
+(26, 'Ferguson', 'Doris', '352488070', '688143979', '541425367', NULL, '96 Village Center', 0, 'Malianchuan', '0000-00-00', 'China', 'Malayalam', '6767441232370912', '6767441232370912', '6767441232370912', 1),
+(27, 'Richards', 'Amy', '265459382', '633557080', '136688067', 'arichardsq@hp.com', '5 Warbler Circle', 0, 'Wuxi', '0000-00-00', 'China', 'Quechua', '6331104214639393862', '6331104214639393862', NULL, 1),
+(28, 'Taylor', 'Chris', NULL, '611862547', '302510422', 'ctaylorr@pagesperso-orange.fr', '37 Eggendart Lane', 0, 'Nerk’in Getashen', '0000-00-00', 'Armenia', 'Ndebele', '5602217826881014927', '5602217826881014927', NULL, 1),
+(29, 'Gutierrez', 'Scott', NULL, '686214409', '217932306', 'sgutierrezs@stanford.edu', '28 Dexter Drive', 4, 'Čajetina', '0000-00-00', 'Serbia', 'Luxembourgish', '6759480873299527', '6759480873299527', NULL, 1),
+(30, 'Stanley', 'Paul', '421714061', '651936028', '571305294', 'pstanleyt@rediff.com', '892 Drewry Park', 0, 'Dob', '0000-00-00', 'Slovenia', 'Bislama', '3571851075604271', '3571851075604271', '3571851075604271', 1),
+(31, 'Ward', 'Henry', '239030929', '666093731', '544868011', NULL, '0374 Petterle Hill', 0, 'Kunri', '0000-00-00', 'Pakistan', 'Dzongkha', '3550243546908769', '3550243546908769', '3550243546908769', 0),
+(32, 'Alexander', 'Ryan', '457702441', NULL, '541331965', 'ralexanderv@bandcamp.com', '2818 Dottie Center', 0, 'Leon', '0000-00-00', 'Spain', 'Guaraní', '4936179232293079', '4936179232293079', '4936179232293079', 1),
+(33, 'Morris', 'Eugene', '215849824', '612196076', '165186188', 'emorrisw@ucsd.edu', '933 Kennedy Center', 0, 'Béreldange', '0000-00-00', '', 'Dhivehi', NULL, '6304229241879224132', '6304229241879224132', 1),
+(34, 'Barnes', 'Paul', '573709185', '674807382', '528504562', 'pbarnesx@earthlink.net', '531 Golf View Terrace', 0, 'Almeria', '0000-00-00', 'Spain', 'Catalan', '3544539206660437', '3544539206660437', '3544539206660437', 1),
+(35, 'Hicks', 'Linda', '221750446', NULL, '329189897', NULL, '54303 Oxford Hill', 0, 'Esquipulas', '0000-00-00', 'Guatemala', 'Hindi', '337941984057264', '337941984057264', '337941984057264', 0),
+(36, 'Lawrence', 'Terry', '201843107', '675786667', '121426054', 'tlawrencez@marriott.com', '8214 Northridge Alley', 0, 'Bekwai', '0000-00-00', 'Ghana', 'Hiri Motu', '3585173493332714', '3585173493332714', '3585173493332714', 0),
+(37, 'Chapman', 'Pamela', NULL, NULL, '132860920', 'pchapman10@list-manage.com', '080 Westridge Road', 0, 'Legrada', '0000-00-00', 'Philippines', 'Latvian', '201845082784013', '201845082784013', NULL, 1),
+(38, 'Diaz', 'Daniel', NULL, '697768776', '274319562', NULL, '8 Bayside Junction', 0, 'Hendījān', '0000-00-00', 'Iran', 'Pashto', '560222790466070472', '560222790466070472', '560222790466070472', 0),
+(39, 'Scott', 'Phyllis', '532745573', '617356998', '549743671', 'pscott12@redcross.org', '5718 Doe Crossing Plaza', 0, 'Chowki Jamali', '0000-00-00', 'Pakistan', 'Indonesian', '4844721148805016', '4844721148805016', '4844721148805016', 1),
+(40, 'Henderson', 'Linda', NULL, '632967448', '202969841', 'lhenderson13@cbc.ca', '4 Glendale Park', 0, 'Greensboro', '0000-00-00', 'United States', 'Moldovan', '3583208310405319', '3583208310405319', NULL, 1),
+(41, 'Boyd', 'George', '459824416', '658749966', '228755843', 'gboyd14@reference.com', '6 Monica Hill', 0, 'Bailu', '0000-00-00', 'China', 'Maltese', '3533323369530858', '3533323369530858', '3533323369530858', 1),
+(42, 'Brown', 'Sara', '292522170', '616039283', '323166422', 'sbrown15@netvibes.com', '2880 Warrior Center', 0, 'Capalayan', '0000-00-00', 'Philippines', 'Dari', '3567554872466235', '3567554872466235', '3567554872466235', 1),
+(43, 'Murphy', 'James', '264274271', '616767233', '499774781', 'jmurphy16@nhs.uk', '05616 Meadow Ridge Trail', 7, 'Whitegate', '0000-00-00', 'Ireland', '', '201434580373650', '201434580373650', '201434580373650', 1),
+(44, 'Alexander', 'Beverly', '402578015', '613960660', '243308567', 'balexander17@etsy.com', '5365 6th Pass', 0, 'Salām Khēl', '0000-00-00', 'Afghanistan', 'Czech', '3560466901339969', '3560466901339969', '3560466901339969', 0),
+(45, 'Gibson', 'Steve', '457999399', '691422436', '321948753', 'sgibson18@flavors.me', '56 Kim Drive', 1, 'Kista', '0000-00-00', 'Sweden', '', '3549985535735579', '3549985535735579', '3549985535735579', 1),
+(46, 'Grant', 'Fred', '537427769', '617547756', '475506319', 'fgrant19@lycos.com', '00 Fallview Hill', 0, 'Atlanta', '0000-00-00', 'United States', 'Marathi', '3533502605235543', '3533502605235543', '3533502605235543', 1),
+(47, 'Peterson', 'Martin', '512825391', '618781062', '512024746', 'mpeterson1a@rediff.com', '20784 New Castle Point', 0, 'Omoku', '0000-00-00', 'Nigeria', 'Albanian', '374283236021143', '374283236021143', NULL, 1),
+(48, 'Howard', 'Marilyn', NULL, '653124923', '102366421', 'mhoward1b@economist.com', '001 Cardinal Street', 0, 'Ḩājjīābād', '0000-00-00', 'Iran', 'Spanish', '201679672548417', '201679672548417', '201679672548417', 0),
+(49, 'Fields', 'Chris', '253585912', '676268016', '485378865', NULL, '9277 Quincy Way', 0, 'Intipucá', '0000-00-00', 'El Salvador', 'Croatian', '5038938176611435926', '5038938176611435926', NULL, 1),
+(50, 'Walker', 'Arthur', NULL, '620443587', '462888760', 'awalker1d@washingtonpost.com', '14 Talmadge Way', 0, 'Naqadeh', '0000-00-00', 'Iran', 'Chinese', '3531450601052458', '3531450601052458', '3531450601052458', 0),
+(51, 'Allen', 'Edward', '244671857', '652726858', '482331896', 'eallen1e@oracle.com', '85 Florence Circle', 0, 'Padangtiji', '0000-00-00', 'Indonesia', 'Swahili', '4017955004593', '4017955004593', NULL, 0),
+(52, 'Perez', 'Michael', '402422020', '637423457', '501159376', NULL, '675 Artisan Court', 0, 'Guiset East', '0000-00-00', 'Philippines', 'Northern Sotho', '5485944295736708', '5485944295736708', NULL, 1),
+(53, 'Oliver', 'Ryan', NULL, '677504294', '487301017', 'roliver1g@ucoz.ru', '5867 Sunfield Plaza', 0, 'Lahan Sai', '0000-00-00', 'Thailand', 'Spanish', '67599100606424442', '67599100606424442', '67599100606424442', 1),
+(54, 'Porter', 'Debra', '273141080', '675582001', '379305864', 'dporter1h@shinystat.com', '554 Merchant Pass', 0, 'Tobi Village', '0000-00-00', 'Palau', 'Sotho', '3584834622066629', '3584834622066629', '3584834622066629', 0),
+(55, 'Davis', 'Lori', NULL, '610544067', '591446307', NULL, '481 David Court', 0, 'Poddor’ye', '0000-00-00', 'Russia', 'Chinese', '6761916488063218', '6761916488063218', NULL, 1),
+(56, 'Phillips', 'Juan', '388535664', '683146650', '117989174', 'jphillips1j@mac.com', '2 Rigney Point', 0, 'Kindersley', '0000-00-00', 'Canada', 'Latvian', '4905684223473926043', '4905684223473926043', NULL, 1),
+(57, 'Warren', 'Ann', '228595998', '610807332', '581964275', 'awarren1k@squidoo.com', '48741 Spenser Avenue', 0, 'Surkhet', '0000-00-00', 'Nepal', 'Romanian', '4936959132368273432', '4936959132368273432', '4936959132368273432', 1),
+(58, 'Gray', 'Bobby', NULL, '658165719', '478183876', NULL, '49295 Sloan Place', 0, 'Jāsk', '0000-00-00', 'Iran', 'Norwegian', '30380401923925', '30380401923925', '30380401923925', 1),
+(59, 'Ramirez', 'Joseph', '304514806', '637240967', '279266429', NULL, '56 Northfield Parkway', 0, 'Greenville', '0000-00-00', 'Liberia', 'Tajik', '30037555574058', '30037555574058', NULL, 1),
+(60, 'Brown', 'Kenneth', NULL, '634483587', '198264333', NULL, '6427 Bunker Hill Street', 0, 'Karangnunggal', '0000-00-00', 'Indonesia', 'Burmese', '3572619640087374', '3572619640087374', '3572619640087374', 1),
+(61, 'Montgomery', 'Kelly', '443193318', '655646735', '138959546', 'kmontgomery1o@craigslist.org', '3 South Street', 0, 'Gambang', '0000-00-00', 'Indonesia', 'Māori', '5111325645829090', '5111325645829090', '5111325645829090', 1),
+(62, 'Patterson', 'Walter', '542273783', '686803787', '105195655', 'wpatterson1p@sciencedaily.com', '8772 Elgar Junction', 0, 'Yuecheng', '0000-00-00', 'China', 'Hiri Motu', '6331101783336533', '6331101783336533', '6331101783336533', 0),
+(63, 'Evans', 'Roy', '371045351', '618720629', '598668295', 'revans1q@businesswire.com', '6342 Anniversary Street', 0, 'Higuerote', '0000-00-00', 'Venezuela', 'Tswana', '4017958724974011', '4017958724974011', NULL, 1),
+(64, 'Lewis', 'Kelly', '186002488', '688534070', '538375151', 'klewis1r@marriott.com', '95 Shelley Terrace', 0, 'Nalus', '0000-00-00', 'Philippines', 'Hindi', '3579930525575679', '3579930525575679', '3579930525575679', 1),
+(65, 'Price', 'Walter', '219561296', '654078496', '404445456', 'wprice1s@dell.com', '676 Eastlawn Center', 0, 'Yulin', '0000-00-00', 'China', 'Persian', '3547696661375286', '3547696661375286', '3547696661375286', 0),
+(66, 'Watkins', 'Anna', '353259500', '653525200', '389972196', 'awatkins1t@cam.ac.uk', '7 Forest Lane', 0, 'Granja', '0000-00-00', 'Portugal', 'Norwegian', '347646987955061', '347646987955061', NULL, 1),
+(67, 'Parker', 'Frances', '254999029', '663730737', '567886763', NULL, '29 Southridge Lane', 0, 'København', '0000-00-00', 'Denmark', 'Malayalam', '503820492419381181', '503820492419381181', '503820492419381181', 1),
+(68, 'Bowman', 'Jeffrey', '463744870', '687721344', '229895692', 'jbowman1v@nationalgeographic.com', '481 5th Lane', 0, 'Qianjin', '0000-00-00', 'China', 'Dzongkha', '5108750591419916', '5108750591419916', '5108750591419916', 0),
+(69, 'Bailey', 'Jimmy', '567313868', '661670036', '530827528', 'jbailey1w@cocolog-nifty.com', '342 Fairview Junction', 0, 'Yélimané', '0000-00-00', 'Mali', 'Mongolian', '3545128604041876', '3545128604041876', '3545128604041876', 1),
+(70, 'Tucker', 'Julie', '164431678', NULL, '275183120', 'jtucker1x@rambler.ru', '0837 Mcguire Point', 0, 'Qiqing', '0000-00-00', 'China', 'Malagasy', '3569760333489975', '3569760333489975', '3569760333489975', 1),
+(71, 'Mccoy', 'Philip', '331400387', '628180265', '252365180', 'pmccoy1y@marriott.com', '18515 Mallard Avenue', 0, 'Huazhou', '0000-00-00', 'China', 'Malay', '5602211907875870', '5602211907875870', '5602211907875870', 1),
+(72, 'Johnson', 'Diana', NULL, '661009459', '268678457', 'djohnson1z@samsung.com', '78710 Bayside Court', 0, 'Valday', '0000-00-00', 'Russia', 'West Frisian', '372301075156655', '372301075156655', NULL, 1),
+(73, 'Graham', 'Sean', '245314177', NULL, '292420241', 'sgraham20@ucsd.edu', '01 Stoughton Park', 0, 'Fentange', '0000-00-00', 'Luxembourg', 'Thai', '4041598795458', '4041598795458', '4041598795458', 0),
+(74, 'Perez', 'Cynthia', NULL, '619961999', '114247052', 'cperez21@ustream.tv', '4 Carioca Lane', 0, 'Beaconsfield', '0000-00-00', 'Canada', '', '4913036905171619', '4913036905171619', '4913036905171619', 1),
+(75, 'Reynolds', 'Fred', '112956296', NULL, '199598944', 'freynolds22@t.co', '03 Pine View Trail', 0, 'Unawatuna', '0000-00-00', 'Sri Lanka', 'Dari', '5108757913178278', '5108757913178278', NULL, 1),
+(76, 'Moreno', 'Virginia', '286097467', '638455248', '594457580', NULL, '35 Fulton Way', 0, 'Cana Chapetón', '0000-00-00', 'Dominican Republic', 'Estonian', '201428804322220', '201428804322220', '201428804322220', 0),
+(77, 'Rivera', 'Ronald', '204617869', NULL, '296464029', 'rrivera24@nifty.com', '3 Old Shore Hill', 0, 'Cannes', '0000-00-00', 'France', 'Norwegian', '67716615008590530', '67716615008590530', '67716615008590530', 1),
+(78, 'Clark', 'Richard', NULL, '684232645', '133795720', NULL, '605 Buena Vista Avenue', 0, 'Dakoro', '0000-00-00', 'Niger', 'Māori', '5038819259776699595', '5038819259776699595', NULL, 0),
+(79, 'Hunter', 'Susan', NULL, '684427087', '102062635', 'shunter26@webnode.com', '42 Badeau Alley', 0, 'Pavlysh', '0000-00-00', 'Ukraine', 'Hungarian', '30488353072680', '30488353072680', '30488353072680', 0),
+(80, 'Olson', 'Ruth', '503305260', '654999435', '179479684', 'rolson27@woothemes.com', '4 Division Circle', 0, 'Bogo', '0000-00-00', 'Cameroon', 'Chinese', '374622124143453', '374622124143453', NULL, 0),
+(81, 'Miller', 'Katherine', '250010404', '675886186', '237752156', 'kmiller28@house.gov', '30 Meadow Valley Street', 0, 'Balut', '0000-00-00', 'Philippines', 'New Zealand Sign Language', '3589775912882560', '3589775912882560', '3589775912882560', 1),
+(82, 'Cooper', 'Deborah', '448363224', '633878607', '557284319', 'dcooper29@cornell.edu', '665 Sutherland Parkway', 0, 'Macapo', '0000-00-00', 'Venezuela', 'Bosnian', '5048370592487383', '5048370592487383', '5048370592487383', 1),
+(83, 'Jordan', 'Joe', NULL, '679284565', '383280868', 'jjordan2a@simplemachines.org', '630 Northridge Pass', 0, 'Sinop', '0000-00-00', 'Brazil', 'Zulu', '3536277083540253', '3536277083540253', '3536277083540253', 0),
+(84, 'Morales', 'Joe', NULL, '639939468', '432410606', 'jmorales2b@ed.gov', '9 Norway Maple Plaza', 0, 'Badajoz', '0000-00-00', 'Spain', 'Montenegrin', '5468256715433829', '5468256715433829', '5468256715433829', 0),
+(85, 'Wagner', 'Joe', '173374208', '662883745', '559730114', 'jwagner2c@ucla.edu', '5303 Hudson Place', 0, 'Cerquilho', '0000-00-00', 'Brazil', 'Malagasy', '3585666697471204', '3585666697471204', NULL, 1),
+(86, 'Lewis', 'Stephanie', '438917800', '623221859', '587074479', 'slewis2d@nymag.com', '501 Dixon Parkway', 0, 'Cibaregbeg', '0000-00-00', 'Indonesia', 'Catalan', '3556604251906849', '3556604251906849', '3556604251906849', 0),
+(87, 'Rivera', 'Janice', '241351379', '649594496', '410575786', 'jrivera2e@illinois.edu', '341 Ramsey Terrace', 0, 'Baisha', '0000-00-00', 'China', 'English', '5010121090466609', '5010121090466609', '5010121090466609', 1),
+(88, 'Clark', 'Annie', '405696886', '670334465', '596471875', 'aclark2f@skyrock.com', '552 Vahlen Center', 0, 'Rogów', '0000-00-00', 'Poland', 'Belarusian', '6386474171280959', '6386474171280959', '6386474171280959', 0),
+(89, 'Bennett', 'Philip', NULL, '660415589', '560316428', NULL, '43263 Swallow Alley', 0, 'Moville', '0000-00-00', 'Ireland', '', '5010123934417848', '5010123934417848', '5010123934417848', 0),
+(90, 'Graham', 'Lillian', '588095401', '641957837', '573668609', 'lgraham2h@examiner.com', '0703 Nobel Hill', 0, 'Tarouca', '0000-00-00', 'Portugal', 'Spanish', '3554723529127574', '3554723529127574', '3554723529127574', 0),
+(91, 'Sullivan', 'Steve', '587691490', '647973276', '582376209', 'ssullivan2i@gnu.org', '90 Algoma Trail', 0, 'Robatal', '0000-00-00', 'Indonesia', 'Malagasy', '30445794867011', '30445794867011', NULL, 1),
+(92, 'Thomas', 'Kevin', '127362973', '689345539', '408577052', NULL, '8 Muir Street', 0, 'Diang', '0000-00-00', '', 'Arabic', NULL, '36138774456541', '36138774456541', 0),
+(93, 'Reyes', 'Samuel', '480054947', '629999940', '121997584', 'sreyes2k@mashable.com', '07 Jay Lane', 0, 'Croix', '0000-00-00', 'France', 'Papiamento', '5177104965508753', '5177104965508753', '5177104965508753', 0),
+(94, 'James', 'Paula', NULL, '696614948', '509075208', 'pjames2l@zimbio.com', '0089 Lotheville Drive', 0, 'Tanda', '0000-00-00', 'Egypt', 'Norwegian', '3540770867087495', '3540770867087495', '3540770867087495', 1),
+(95, 'Dixon', 'Donna', '333736738', '605332891', '462650783', 'ddixon2m@paginegialle.it', '69061 American Ash Junction', 0, 'Caomiao', '0000-00-00', 'China', 'Kashmiri', '3538736819307160', '3538736819307160', NULL, 0),
+(96, 'Murphy', 'Carol', NULL, '639189539', '170998119', 'cmurphy2n@unesco.org', '5 Comanche Center', 0, 'Honolulu', '0000-00-00', 'United States', '', '491126775551572420', '491126775551572420', NULL, 0),
+(97, 'Martinez', 'Douglas', NULL, '625949003', '442755339', NULL, '15294 Arkansas Place', 0, 'Poniklá', '0000-00-00', 'Czech Republic', 'Tsonga', '3560069269379757', '3560069269379757', '3560069269379757', 1),
+(98, 'Thomas', 'Anthony', NULL, '628069294', '568578990', 'athomas2p@umn.edu', '260 Northland Plaza', 0, 'Huzhuang', '0000-00-00', 'China', 'Norwegian', '3589416930845004', '3589416930845004', '3589416930845004', 0),
+(99, 'Rose', 'Amy', '101282294', '673028548', '118057221', 'arose2q@dagondesign.com', '0308 Judy Court', 0, 'Padina', '0000-00-00', 'Serbia', 'Kashmiri', '201609633578898', '201609633578898', NULL, 0),
+(100, 'Gutierrez', 'Carolyn', NULL, '610292739', '424703870', NULL, '2152 Ohio Terrace', 0, 'Taotang', '0000-00-00', 'China', 'Tetum', '3531819618894765', '3531819618894765', '3531819618894765', 0);
 
 -- --------------------------------------------------------
 
@@ -814,22 +820,6 @@ CREATE TABLE IF NOT EXISTS `pl_association` (
   KEY `fk_pl_cre_inser` (`CRE_id`),
   KEY `PL_id` (`PL_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Contenu de la table `pl_association`
---
-
-INSERT INTO `pl_association` (`SAL_NumSalarie`, `ENC_Num`, `CRE_id`, `PL_id`, `ASSOC_date`, `ASSOC_Archi`) VALUES
-(284, 253, 1, 2, '2016-01-18', 0),
-(284, 253, 2, 2, '2016-01-18', 0),
-(284, 253, 3, 2, '2016-01-18', 0),
-(284, 253, 4, 2, '2016-01-18', 0),
-(284, 253, 5, 2, '2016-01-18', 0),
-(284, 253, 6, 2, '2016-01-18', 0),
-(284, 253, 7, 2, '2016-01-18', 0),
-(284, 253, 8, 2, '2016-01-18', 0),
-(284, 253, 9, 2, '2016-01-18', 0),
-(284, 253, 10, 2, '2016-01-18', 0);
 
 -- --------------------------------------------------------
 
@@ -877,14 +867,6 @@ CREATE TABLE IF NOT EXISTS `pl_logo` (
   KEY `fk_logo_plid` (`PL_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Contenu de la table `pl_logo`
---
-
-INSERT INTO `pl_logo` (`LOGO_Id`, `ENC_Num`, `ASSOC_Date`, `PL_id`) VALUES
-(4, 253, '2016-01-18', 2),
-(5, 253, '2016-01-18', 2);
-
 -- --------------------------------------------------------
 
 --
@@ -904,13 +886,6 @@ CREATE TABLE IF NOT EXISTS `pl_proprietees` (
   KEY `fk_proprietees_date` (`ASSOC_date`),
   KEY `fk_proprietees_plid` (`PL_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `pl_proprietees`
---
-
-INSERT INTO `pl_proprietees` (`ENC_Num`, `ASSOC_date`, `PL_id`, `ASSOC_Couleur`, `ASSOC_AM`, `ASSOC_PM`, `ASSOC_LastEdit`) VALUES
-(253, '2016-01-18', 2, '#407280', '08h00 - 12h00', '13h00 - 18h00', '2016-01-13 11:55:15');
 
 -- --------------------------------------------------------
 
@@ -975,26 +950,11 @@ CREATE TABLE IF NOT EXISTS `referents` (
 --
 
 INSERT INTO `referents` (`REF_NumRef`, `PER_Num`, `PRE_Id`) VALUES
-(1, 1, 1),
-(2, 2, 1),
-(3, 3, 1),
-(4, 4, 1),
-(5, 5, 1);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `repas`
---
-
-CREATE TABLE IF NOT EXISTS `repas` (
-  `REP_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `REP_Entrée` varchar(45) DEFAULT NULL,
-  `REP_Plat` varchar(45) DEFAULT NULL,
-  `REP_Dessert` varchar(45) DEFAULT NULL,
-  `REP_Boisson` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`REP_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+(1, 4, 1),
+(2, 5, 1),
+(3, 6, 1),
+(4, 7, 1),
+(5, 8, 1);
 
 -- --------------------------------------------------------
 
@@ -1003,122 +963,124 @@ CREATE TABLE IF NOT EXISTS `repas` (
 --
 
 CREATE TABLE IF NOT EXISTS `salaries` (
-  `SAL_NumSalarie` int(5) NOT NULL AUTO_INCREMENT,
+  `SAL_NumSalarie` int(11) NOT NULL AUTO_INCREMENT,
   `PER_Num` int(11) NOT NULL,
   `TYP_Id` int(11) NOT NULL,
   `SAL_Actif` tinyint(1) NOT NULL DEFAULT '1',
   `FCT_Id` int(11) NOT NULL,
+  `SAL_DateSortie` date DEFAULT NULL,
   PRIMARY KEY (`SAL_NumSalarie`),
-  KEY `fk_Salaries_Personnes1_idx` (`PER_Num`),
-  KEY `fk_Salaries_Type1_idx` (`TYP_Id`),
-  KEY `fk_Salaries_Fonction1_idx` (`FCT_Id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=350 ;
+  KEY `FCT_Id` (`FCT_Id`),
+  KEY `SAL_Actif` (`SAL_Actif`),
+  KEY `TYP_Id` (`TYP_Id`),
+  KEY `PER_Num` (`PER_Num`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=101 ;
 
 --
 -- Contenu de la table `salaries`
 --
 
-INSERT INTO `salaries` (`SAL_NumSalarie`, `PER_Num`, `TYP_Id`, `SAL_Actif`, `FCT_Id`) VALUES
-(250, 1, 2, 1, 4),
-(251, 2, 2, 1, 4),
-(252, 3, 2, 1, 4),
-(253, 4, 2, 1, 4),
-(254, 5, 2, 1, 4),
-(255, 6, 8, 1, 0),
-(256, 7, 8, 1, 0),
-(257, 8, 8, 1, 0),
-(258, 9, 8, 1, 0),
-(259, 10, 8, 1, 0),
-(260, 11, 8, 1, 0),
-(261, 12, 8, 1, 0),
-(262, 13, 8, 1, 0),
-(263, 14, 8, 1, 0),
-(264, 15, 8, 1, 0),
-(265, 16, 8, 1, 0),
-(266, 17, 8, 1, 0),
-(267, 18, 8, 1, 0),
-(268, 19, 8, 1, 0),
-(269, 20, 8, 1, 0),
-(270, 21, 8, 1, 0),
-(271, 22, 8, 1, 0),
-(272, 23, 8, 1, 0),
-(273, 24, 8, 1, 0),
-(274, 25, 8, 1, 0),
-(275, 26, 8, 1, 0),
-(276, 27, 8, 1, 0),
-(277, 28, 8, 1, 0),
-(278, 29, 8, 1, 0),
-(279, 30, 8, 1, 0),
-(280, 31, 8, 1, 0),
-(281, 32, 8, 1, 0),
-(282, 33, 8, 1, 0),
-(283, 34, 8, 1, 0),
-(284, 35, 8, 1, 0),
-(285, 36, 8, 1, 0),
-(286, 37, 8, 1, 0),
-(287, 38, 8, 1, 0),
-(288, 39, 8, 1, 0),
-(289, 40, 8, 1, 0),
-(290, 41, 8, 1, 0),
-(291, 42, 8, 1, 0),
-(292, 43, 8, 1, 0),
-(293, 44, 8, 1, 0),
-(294, 45, 8, 1, 0),
-(295, 46, 8, 1, 0),
-(296, 47, 8, 1, 0),
-(297, 48, 8, 1, 0),
-(298, 49, 8, 1, 0),
-(299, 50, 8, 1, 0),
-(300, 51, 8, 1, 0),
-(301, 52, 8, 1, 0),
-(302, 53, 8, 1, 0),
-(303, 54, 8, 1, 0),
-(304, 55, 8, 1, 0),
-(305, 56, 8, 1, 0),
-(306, 57, 8, 1, 0),
-(307, 58, 8, 1, 0),
-(308, 59, 8, 1, 0),
-(309, 60, 8, 1, 0),
-(310, 61, 8, 1, 0),
-(311, 62, 8, 1, 0),
-(312, 63, 8, 1, 0),
-(313, 64, 8, 1, 0),
-(314, 65, 8, 1, 0),
-(315, 66, 8, 1, 0),
-(316, 67, 8, 1, 0),
-(317, 68, 8, 1, 0),
-(318, 69, 8, 1, 0),
-(319, 70, 8, 1, 0),
-(320, 71, 8, 1, 0),
-(321, 72, 8, 1, 0),
-(322, 73, 8, 1, 0),
-(323, 74, 8, 1, 0),
-(324, 75, 8, 1, 0),
-(325, 76, 8, 1, 0),
-(326, 77, 8, 1, 0),
-(327, 78, 8, 1, 0),
-(328, 79, 8, 1, 0),
-(329, 80, 8, 1, 0),
-(330, 81, 8, 1, 0),
-(331, 82, 8, 1, 0),
-(332, 83, 8, 1, 0),
-(333, 84, 8, 1, 0),
-(334, 85, 8, 1, 0),
-(335, 86, 8, 1, 0),
-(336, 87, 8, 1, 0),
-(337, 88, 8, 1, 0),
-(338, 89, 8, 1, 0),
-(339, 90, 8, 1, 0),
-(340, 91, 8, 1, 0),
-(341, 92, 8, 1, 0),
-(342, 93, 8, 1, 0),
-(343, 94, 8, 1, 0),
-(344, 95, 8, 1, 0),
-(345, 96, 8, 1, 0),
-(346, 97, 8, 1, 0),
-(347, 98, 8, 1, 0),
-(348, 99, 8, 1, 0),
-(349, 100, 8, 1, 0);
+INSERT INTO `salaries` (`SAL_NumSalarie`, `PER_Num`, `TYP_Id`, `SAL_Actif`, `FCT_Id`, `SAL_DateSortie`) VALUES
+(1, 1, 2, 0, 8, '0000-00-00'),
+(2, 2, 2, 1, 4, NULL),
+(3, 3, 2, 0, 4, '0000-00-00'),
+(4, 4, 2, 0, 4, '0000-00-00'),
+(5, 5, 2, 1, 4, NULL),
+(6, 6, 2, 0, 4, '0000-00-00'),
+(7, 7, 2, 1, 4, NULL),
+(8, 8, 2, 0, 4, '0000-00-00'),
+(9, 9, 5, 1, 22, NULL),
+(10, 10, 5, 1, 22, NULL),
+(11, 11, 5, 1, 22, NULL),
+(12, 12, 5, 1, 22, NULL),
+(13, 13, 5, 0, 22, '0000-00-00'),
+(14, 14, 5, 0, 22, '0000-00-00'),
+(15, 15, 5, 1, 22, NULL),
+(16, 16, 5, 1, 22, NULL),
+(17, 17, 5, 1, 22, NULL),
+(18, 18, 5, 1, 22, NULL),
+(19, 19, 5, 1, 22, NULL),
+(20, 20, 5, 1, 22, NULL),
+(21, 21, 5, 0, 22, '0000-00-00'),
+(22, 22, 5, 1, 22, NULL),
+(23, 23, 7, 1, 0, NULL),
+(24, 24, 7, 1, 0, NULL),
+(25, 25, 7, 1, 0, NULL),
+(26, 26, 7, 0, 0, '0000-00-00'),
+(27, 27, 7, 1, 0, NULL),
+(28, 28, 7, 0, 0, '0000-00-00'),
+(29, 29, 7, 1, 0, NULL),
+(30, 30, 7, 0, 0, '0000-00-00'),
+(31, 31, 7, 0, 0, '0000-00-00'),
+(32, 32, 7, 1, 0, NULL),
+(33, 33, 7, 1, 0, NULL),
+(34, 34, 7, 1, 0, NULL),
+(35, 35, 7, 1, 0, NULL),
+(36, 36, 7, 1, 0, NULL),
+(37, 37, 7, 1, 0, NULL),
+(38, 38, 7, 1, 0, NULL),
+(39, 39, 7, 1, 0, NULL),
+(40, 40, 7, 1, 0, NULL),
+(41, 41, 7, 1, 0, NULL),
+(42, 42, 8, 1, 0, NULL),
+(43, 43, 8, 1, 0, NULL),
+(44, 44, 8, 0, 0, '0000-00-00'),
+(45, 45, 8, 1, 0, NULL),
+(46, 46, 8, 1, 0, NULL),
+(47, 47, 8, 1, 0, NULL),
+(48, 48, 8, 1, 0, NULL),
+(49, 49, 8, 1, 0, NULL),
+(50, 50, 8, 1, 0, NULL),
+(51, 51, 8, 0, 0, '0000-00-00'),
+(52, 52, 8, 1, 0, NULL),
+(53, 53, 8, 0, 0, '0000-00-00'),
+(54, 54, 8, 1, 0, NULL),
+(55, 55, 8, 1, 0, NULL),
+(56, 56, 8, 0, 0, '0000-00-00'),
+(57, 57, 8, 0, 0, '0000-00-00'),
+(58, 58, 8, 1, 0, NULL),
+(59, 59, 8, 0, 0, '0000-00-00'),
+(60, 60, 8, 0, 0, '0000-00-00'),
+(61, 61, 8, 1, 0, NULL),
+(62, 62, 8, 0, 0, '0000-00-00'),
+(63, 63, 8, 0, 0, '0000-00-00'),
+(64, 64, 8, 0, 0, '0000-00-00'),
+(65, 65, 8, 0, 0, '0000-00-00'),
+(66, 66, 8, 1, 0, NULL),
+(67, 67, 8, 1, 0, NULL),
+(68, 68, 8, 0, 0, '0000-00-00'),
+(69, 69, 8, 1, 0, NULL),
+(70, 70, 8, 1, 0, NULL),
+(71, 71, 8, 1, 0, NULL),
+(72, 72, 8, 1, 0, NULL),
+(73, 73, 8, 1, 0, NULL),
+(74, 74, 8, 1, 0, NULL),
+(75, 75, 8, 1, 0, NULL),
+(76, 76, 8, 1, 0, NULL),
+(77, 77, 8, 0, 0, '0000-00-00'),
+(78, 78, 8, 0, 0, '0000-00-00'),
+(79, 79, 8, 0, 0, '0000-00-00'),
+(80, 80, 8, 1, 0, '0000-00-00'),
+(81, 81, 8, 1, 0, NULL),
+(82, 82, 8, 1, 0, NULL),
+(83, 83, 8, 1, 0, NULL),
+(84, 84, 8, 1, 0, NULL),
+(85, 85, 8, 0, 0, '0000-00-00'),
+(86, 86, 9, 0, 0, '0000-00-00'),
+(87, 87, 9, 1, 0, NULL),
+(88, 88, 9, 0, 0, '0000-00-00'),
+(89, 89, 9, 1, 0, NULL),
+(90, 90, 9, 1, 0, NULL),
+(91, 91, 9, 1, 0, NULL),
+(92, 92, 9, 0, 0, '0000-00-00'),
+(93, 93, 9, 0, 0, '0000-00-00'),
+(94, 94, 9, 1, 0, NULL),
+(95, 95, 9, 1, 0, NULL),
+(96, 96, 9, 0, 0, '0000-00-00'),
+(97, 97, 9, 0, 0, '0000-00-00'),
+(98, 98, 9, 1, 0, NULL),
+(99, 99, 9, 0, 0, '0000-00-00'),
+(100, 100, 9, 0, 0, '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -1157,8 +1119,8 @@ INSERT INTO `type` (`TYP_Id`, `TYP_Nom`) VALUES
 (2, 'Salarié'),
 (5, 'Bénévole'),
 (7, 'Stagiaire'),
-(8, 'Salarié en Insertion'),
-(9, 'Atelier Occupationnel');
+(8, 'Salarié en insertion'),
+(9, 'Atelier occupationnel');
 
 -- --------------------------------------------------------
 
@@ -1192,6 +1154,26 @@ INSERT INTO `typeachat` (`TAC_Id`, `TAC_Type`) VALUES
 (13, 'Tuteur'),
 (14, 'Collier Souple'),
 (15, 'Location Tondeuse Debroussailleuse');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `typecontact`
+--
+
+CREATE TABLE IF NOT EXISTS `typecontact` (
+  `TC_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `TC_Nom` varchar(12) CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`TC_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Contenu de la table `typecontact`
+--
+
+INSERT INTO `typecontact` (`TC_ID`, `TC_Nom`) VALUES
+(1, 'Fournisseur'),
+(2, 'Client');
 
 -- --------------------------------------------------------
 
@@ -1265,18 +1247,18 @@ INSERT INTO `typesortie` (`TYS_ID`, `TYS_Libelle`, `TYS_Numero`, `TYS_Active`) V
 (1, 'CDD < 6 mois (Intérim + CDD courts renouvelés)', 1, 0),
 (3, 'CDI', 3, 0),
 (4, 'Qualification', 4, 0),
-(5, 'Suivi de parcours en CDDI au CAP', 5, 0),
-(8, 'Positionnement sur l''emploi (employabilité immédiate)', 8, 0),
+(5, 'Suivi de parcours en CDDI au CAP', 23, 1),
+(8, 'Positionnement sur l''emploi (employabilité immédiate)', 25, 1),
 (10, 'Congés de longue durée (maternité, maladie)', 16, 1),
-(11, 'Réorientation action sociale', 11, 0),
-(13, 'Suite de parcours sur une autre convention', 13, 0),
+(11, 'Réorientation action sociale', 28, 1),
+(13, 'Suite de parcours sur une autre convention', 29, 1),
 (14, 'Prise des droits à la retraite', 15, 1),
 (15, 'Incapacité à reprendre une activité professionnelle', 15, 0),
 (16, 'Décision administrative / Décision de justice', 18, 1),
-(17, 'Décision commune d''arrêter (en lien avec le référent)', 17, 0),
-(18, 'Interruption à l''initiative de la structure', 18, 0),
+(17, 'Décision commune d''arrêter (en lien avec le référent)', 30, 1),
+(18, 'Interruption à l''initiative de la structure', 31, 1),
 (19, 'Interruption à l''initiative du stagiaire : passage éclair', 19, 0),
-(20, 'Interruption à l''initiative du stagiaire : abandon', 20, 0),
+(20, 'Interruption à l''initiative du stagiaire : abandon', 32, 1),
 (22, 'Décès', 17, 1),
 (23, 'Période d''essai non validée', 23, 0),
 (25, 'En CDI dans la structure ou filiale', 1, 1),
@@ -1296,22 +1278,12 @@ INSERT INTO `typesortie` (`TYS_ID`, `TYS_Libelle`, `TYS_Numero`, `TYS_Active`) V
 (39, 'Rupture employeur pour faute grave du salarié', 19, 1),
 (40, 'Transfert d''employeur', 20, 1),
 (41, 'Rupture pendant la période d''essai à l''initiative de l''employeur', 21, 1),
-(42, 'Rupture pendant la période d''essai à l''initiative du salarié', 22, 1);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `vehicules`
---
-
-CREATE TABLE IF NOT EXISTS `vehicules` (
-  `VEH_Immatriculation` varchar(7) CHARACTER SET utf8 NOT NULL,
-  `VEH_Marque` varchar(10) CHARACTER SET utf8 NOT NULL,
-  `VEH_Model` varchar(15) CHARACTER SET utf8 NOT NULL,
-  `VEH_Annee` int(11) NOT NULL,
-  `VEH_Couleur` varchar(10) CHARACTER SET utf8 NOT NULL,
-  PRIMARY KEY (`VEH_Immatriculation`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+(42, 'Rupture pendant la période d''essai à l''initiative du salarié', 22, 1),
+(44, 'Accès à la formation non qualifiante', 24, 1),
+(46, 'Orientation milieu protégé', 26, 1),
+(47, 'Soins', 27, 1),
+(48, 'Permissionnaire', 33, 1),
+(49, 'Prévu, n''est pas venu', 34, 1);
 
 -- --------------------------------------------------------
 
@@ -1392,8 +1364,7 @@ ALTER TABLE `acheter`
 -- Contraintes pour la table `carburant`
 --
 ALTER TABLE `carburant`
-  ADD CONSTRAINT `fk_Salaries_has_Vehicules_Salaries1` FOREIGN KEY (`SAL_NumSalarie`) REFERENCES `salaries` (`SAL_NumSalarie`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Salaries_has_Vehicules_Vehicules1` FOREIGN KEY (`VEH_Immatriculation`) REFERENCES `vehicules` (`VEH_Immatriculation`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Salaries_has_Vehicules_Salaries1` FOREIGN KEY (`SAL_NumSalarie`) REFERENCES `salaries` (`SAL_NumSalarie`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `commanditer`
@@ -1407,6 +1378,13 @@ ALTER TABLE `commanditer`
 --
 ALTER TABLE `controle`
   ADD CONSTRAINT `fk_Controle_Chantiers1` FOREIGN KEY (`CHA_NumDevis`) REFERENCES `chantiers` (`CHA_NumDevis`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Contraintes pour la table `cursus`
+--
+ALTER TABLE `cursus`
+  ADD CONSTRAINT `fk_cursus_salnum` FOREIGN KEY (`SAL_NumSalarie`) REFERENCES `salaries` (`SAL_NumSalarie`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_cursus_type` FOREIGN KEY (`TYP_Id`) REFERENCES `type` (`TYP_Id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `employerclient`
@@ -1447,25 +1425,23 @@ ALTER TABLE `etatoutil`
 -- Contraintes pour la table `facturer`
 --
 ALTER TABLE `facturer`
-  ADD CONSTRAINT `fk_Repas_has_Salaries_Repas1` FOREIGN KEY (`REP_ID`) REFERENCES `repas` (`REP_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_Repas_has_Salaries_Salaries1` FOREIGN KEY (`SAL_NumSalarie`) REFERENCES `salaries` (`SAL_NumSalarie`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `insertion`
 --
 ALTER TABLE `insertion`
-  ADD CONSTRAINT `fk_Insertion_Contrat1` FOREIGN KEY (`CNT_Id`) REFERENCES `contrat` (`CNT_Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Insertion_Convention1` FOREIGN KEY (`CNV_Id`) REFERENCES `convention` (`CNV_Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Insertion_Referent1` FOREIGN KEY (`REF_NumRef`) REFERENCES `referents` (`REF_NumRef`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Insertion_Salaries1` FOREIGN KEY (`SAL_NumSalarie`) REFERENCES `salaries` (`SAL_NumSalarie`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Insertion_TypeSortie` FOREIGN KEY (`TYS_ID`) REFERENCES `typesortie` (`TYS_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_insertion_tysid` FOREIGN KEY (`TYS_ID`) REFERENCES `typesortie` (`TYS_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_insertion_cntid` FOREIGN KEY (`CNT_Id`) REFERENCES `contrat` (`CNT_Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_insertion_cnvid` FOREIGN KEY (`CNV_Id`) REFERENCES `convention` (`CNV_Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_insertion_refnumref` FOREIGN KEY (`REF_NumRef`) REFERENCES `referents` (`REF_NumRef`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_insertion_salnumsalarie` FOREIGN KEY (`SAL_NumSalarie`) REFERENCES `salaries` (`SAL_NumSalarie`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `location`
 --
 ALTER TABLE `location`
   ADD CONSTRAINT `fk_Location_Kilometrage1` FOREIGN KEY (`KIL_ID`) REFERENCES `kilometrage` (`KIL_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `Immatriculation` FOREIGN KEY (`VEH_Immatriculation`) REFERENCES `vehicules` (`VEH_Immatriculation`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `NumSalarie` FOREIGN KEY (`SAL_NumSalarie`) REFERENCES `salaries` (`SAL_NumSalarie`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
@@ -1516,9 +1492,9 @@ ALTER TABLE `referents`
 -- Contraintes pour la table `salaries`
 --
 ALTER TABLE `salaries`
-  ADD CONSTRAINT `fk_Salaries_Fonction1` FOREIGN KEY (`FCT_Id`) REFERENCES `fonction` (`FCT_Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Salaries_Personnes1` FOREIGN KEY (`PER_Num`) REFERENCES `personnes` (`PER_Num`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_Salaries_Type1` FOREIGN KEY (`TYP_Id`) REFERENCES `type` (`TYP_Id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_salaries_fctid` FOREIGN KEY (`FCT_Id`) REFERENCES `fonction` (`FCT_Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_salaries_pernum` FOREIGN KEY (`PER_Num`) REFERENCES `personnes` (`PER_Num`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_salaries_typeid` FOREIGN KEY (`TYP_Id`) REFERENCES `type` (`TYP_Id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `tempstravail`

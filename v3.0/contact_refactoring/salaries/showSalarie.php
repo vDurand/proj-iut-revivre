@@ -94,10 +94,10 @@
     <label>
     <?php
         if ($personne["FCT_Id"] == 0){
-            echo $sexe.' '.$personne["PER_Nom"].' '.$personne["PER_Prenom"].', '.mb_strtolower($type["TYP_Nom"], 'UTF-8').' à l\'association';
+            echo $sexe.' '.stripslashes($personne["PER_Nom"]).' '.stripslashes($personne["PER_Prenom"]).', '.stripslashes(mb_strtolower($type["TYP_Nom"], 'UTF-8')).' à l\'association';
         }
         else{
-            echo $sexe.' '.$personne["PER_Nom"].' '.$personne["PER_Prenom"].', '.mb_strtolower($fonction["FCT_Nom"], 'UTF-8').' à l\'association';
+            echo $sexe.' '.stripslashes($personne["PER_Nom"]).' '.stripslashes($personne["PER_Prenom"]).', '.stripslashes(mb_strtolower($fonction["FCT_Nom"], 'UTF-8')).' à l\'association';
         }
     ?>
     </label>
@@ -113,7 +113,7 @@
                     <td>Date de naissance :</td>
                     <td><?php echo (!empty($personne["PER_DateN"])) ? dater($personne["PER_DateN"]) : '<i class="no-data">Aucune date</i>'; ?></td>
                     <td>Lieu de naissance :</td>
-                    <td><?php echo (!empty($personne["PER_LieuN"])) ? $personne["PER_LieuN"] : '<i class="no-data">Aucune lieu</i>'; ?></td>
+                    <td><?php echo (!empty($personne["PER_LieuN"])) ? stripslashes($personne["PER_LieuN"]) : '<i class="no-data">Aucune lieu</i>'; ?></td>
                 </tr>
                 <tr>
                     <td>Sexe :</td>
@@ -128,7 +128,7 @@
                         ?>
                     </td>
                     <td>Nationalité :</td> 
-                    <td><?php echo (!empty($personne["PER_Nation"])) ? $personne["PER_Nation"] : '<i class="no-data">Aucune nationalité</i>'; ?></td>
+                    <td><?php echo (!empty($personne["PER_Nation"])) ? stripslashes($personne["PER_Nation"]) : '<i class="no-data">Aucune nationalité</i>'; ?></td>
                 </tr>
                 <tr>
                     <td></td>
@@ -138,9 +138,9 @@
                 </tr>
                 <tr>
                     <td>Rue, lotissement :</td>
-                    <td><?php echo (!empty($personne["PER_Adresse"])) ? $personne["PER_Adresse"] : '<i class="no-data">Aucune adresse</i>'; ?></td>
+                    <td><?php echo (!empty($personne["PER_Adresse"])) ? stripslashes($personne["PER_Adresse"]) : '<i class="no-data">Aucune adresse</i>'; ?></td>
                     <td>Ville :</td>
-                    <td><?php echo (!empty($personne["PER_Ville"])) ? $personne["PER_Ville"] : '<i class="no-data">Aucune ville</i>'; ?></td>
+                    <td><?php echo (!empty($personne["PER_Ville"])) ? stripslashes($personne["PER_Ville"]) : '<i class="no-data">Aucune ville</i>'; ?></td>
                 </tr>
                 <tr>
                     <td>Code postal :</td>
@@ -201,7 +201,7 @@
         <table class="showcase_table">
             <tbody>
                 <tr>
-                    <td colspan="3"><div align="center" ><?php echo $urgPers.' - '.$urgTele ?></div></td>
+                    <td colspan="3"><div align="center" ><?php echo stripslashes($urgPers).' - '.$urgTele ?></div></td>
                 </tr>
             </tbody>
         </table>
@@ -229,7 +229,7 @@
                 </tr>
                 <tr>
                     <td>Référent identifié :</td>
-                    <td><?php echo (!empty($referent["PER_Nom"]) && !empty($referent["PER_Prenom"])) ? $referent["PER_Nom"].' '.$referent["PER_Prenom"] : '<i class="no-data">Aucun référent</i>'; ?></td>
+                    <td><?php echo (!empty($referent["PER_Nom"]) && !empty($referent["PER_Prenom"])) ? stripslashes($referent["PER_Nom"]).' '.stripslashes($referent["PER_Prenom"]) : '<i class="no-data">Aucun référent</i>'; ?></td>
                     <td>Type de contrat : </td>
                     <td><?php echo (!empty($contrat["CNT_Nom"])) ? $contrat["CNT_Nom"] : '<i class="no-data">Aucun contrat</i>'; ?></td>
 
@@ -242,7 +242,7 @@
                 </tr>
                 <tr>
                     <td>Prescripteurs :</td>
-                    <td><?php echo (!empty($referent["PRE_Nom"])) ? $referent["PRE_Nom"] : '<i class="no-data">Aucune prescripteur</i>'; ?></td>
+                    <td><?php echo (!empty($referent["PRE_Nom"])) ? stripslashes($referent["PRE_Nom"]) : '<i class="no-data">Aucune prescripteur</i>'; ?></td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -306,7 +306,7 @@
                 -->  
                 <tr>
                     <td>Autre détails :</td>
-                    <td colspan="3"><?php echo (!empty($personne["INS_PlusDetails"])) ? $personne["INS_PlusDetails"] : '<i class="no-data">Aucun autres détails</i>'; ?></td>
+                    <td colspan="3"><?php echo (!empty($personne["INS_PlusDetails"])) ? stripslashes($personne["INS_PlusDetails"]) : '<i class="no-data">Aucun autres détails</i>'; ?></td>
                 </tr>
             </tbody>
         </table>
@@ -340,11 +340,11 @@
                                 <tr>
                                     <td class="cursus-contrat"><div>'.((isset($oldTypeSalarie)) ? $oldTypeSalarie : 'Aucun contrat').'</div></td>
                                     <td class="cursus-arrow"><img src="'.$pwd.'images/right-arrow.png"/></td>
-                                    <td class="cursus-contrat"><div>'.$reponse['TYP_Nom'].'</div></td>
-                                    <td class="cursus-details">'.((!empty($reponse['CUR_Comment'])) ? $reponse['CUR_Comment'] : 'Aucun commentaire').'</td>
+                                    <td class="cursus-contrat"><div>'.stripslashes($reponse['TYP_Nom']).'</div></td>
+                                    <td class="cursus-details">'.((!empty($reponse['CUR_Comment'])) ? stripslashes($reponse['CUR_Comment']) : 'Aucun commentaire').'</td>
                                 </tr>';
                            
-                            $oldTypeSalarie = $reponse['TYP_Nom'];
+                            $oldTypeSalarie = stripslashes($reponse['TYP_Nom']);
                         }
                     }
                     if(mysqli_num_rows($donnees) > 0){

@@ -88,7 +88,7 @@ $pwd="";
 				<br/>
 				<br/>
                 <div>
-                    <label>&#8226; Derniers membres de l'association ajoutés :</label>
+                    <label>&#8226; Derniers salariés de l'association ajoutés :</label>
                     <span style="float: right;">
                         <button class="printButton">
                             <a style="text-decoration:none;color:#777777;" href="exportExcel/exportExcelSalaries.php">Exporter</a>
