@@ -2,18 +2,180 @@
 	$pwd = "../../";
 	include($pwd.'bandeau.php');
 
-	$error_handler = "";
+	$error_handler = "";	
 
 	if(isset($_POST["request_type"]) && !empty($_POST["request_type"])){
-
 		switch($_POST["request_type"]){
 			case "cursus":
 				postCursus($db);
 				break;
 			case "add";
 				addSalarie($db, $error_handler);
-				break;	
+				break;
+			case "edit":
+				editSalarie($db, $error_handler);
+				break;
+
+			default:
+		        echo '<div id="bad"> 
+		              <label>Une erreur s\'est produite lors de l\'envoi du formulaire !</label>
+		              </div>'; 
+		        break;	
 		}
+	}
+
+	function editSalarie($db, &$error_handler){
+        if(isset($_POST["TYP_Id"]) && !empty($_POST["TYP_Id"])){
+			
+			$querying = true;
+			$verif_infos = verification_civile(($_POST["TYP_Id"] <= 5), $error_handler);
+
+			if($_POST["TYP_Id"] > 5){
+				$verif_infos = verification_urgent($error_handler);
+				$verif_infos =  verification_pro($error_handler);
+			}
+
+			if($verif_infos){
+	        	if(mysqli_query($db, 'SET autocommit=0;') && mysqli_query($db, 'START TRANSACTION;')){
+	        		$requete = ("UPDATE personnes set 
+										PER_Nom = '".addslashes($_POST["PER_Nom"])."',
+										PER_Prenom = '".addslashes($_POST["PER_Prenom"])."',
+										PER_TelFixe = '".addslashes($_POST["PER_TelFixe"])."',
+										PER_TelPort = '".addslashes($_POST["PER_TelPort"])."',
+										PER_Fax = '".addslashes($_POST["PER_Fax"])."',
+										PER_Email = '".addslashes($_POST["PER_Email"])."',
+										PER_Adresse = '".addslashes($_POST["PER_Adresse"])."',
+										PER_CodePostal = ".$_POST["PER_CodePostal"].",
+										PER_Ville = '".addslashes($_POST["PER_Ville"])."',
+										PER_DateN = '".$_POST["PER_DateN"]."',
+										PER_LieuN = '".addslashes($_POST["PER_LieuN"])."',
+										PER_Nation = '".addslashes($_POST["PER_Nation"])."',
+										PER_NPoleEmp = '".$_POST["PER_NPoleEmp"]."', 
+										PER_NSecu = ".$_POST["PER_NSecu"].",
+										PER_NCaf = '".$_POST["PER_NCaf"]."',
+										PER_Sexe = ".$_POST["PER_Sexe"]."
+								WHERE PER_Num in (
+									SELECT PER_Num from salaries WHERE
+									SAL_NumSalarie = ".$_POST["SAL_NumSalarie"].")");
+
+					//echo $requete;
+
+					$querying = mysqli_query($db, $requete);
+
+					if($querying){
+						if(isset($_POST["SAL_DateSortie"]) && !empty($_POST["SAL_DateSortie"])){
+							$querying = mysqli_query($db, "UPDATE salaries set SAL_DateSortie = ".$_POST["SAL_DateSortie"]);
+						}
+
+						if($querying){
+							if($_POST["TYP_Id"] > 5){
+
+								if(isset($_POST["new_PRE_Id"])){ // si le champs du prescripteurs est rempli, on ajoute le nouveau prescripteur ...
+									$requete = "INSERT INTO prescripteurs (PRE_Nom) VALUES ('".addslashes($_POST["new_PRE_Id"])."')";
+									echo $requete;
+									$querying = mysqli_query($db, $requete);
+									// ... et on met à jour la fiche en remplacant le PRE_Id par le numéro du nouveau prescripteur rentré
+									$requete = "UPDATE referents set PRE_Id = max(PRE_Id) where PER_Num = (select PER_Num from salaries where SAL_NumSalarie = ".$_POST["SAL_NumSalarie"].")";
+									echo $requete;
+									$querying = mysqli_query($db, $requete);
+								}
+								// sinon on remplace le numéro par celui du nouveau
+								$requete = "UPDATE referents set PRE_Id = ".$_POST["PRE_Id"]." where PER_Num = (select PER_Num from salaries where SAL_NumSalarie = ".$_POST["SAL_NumSalarie"].")";
+								echo $requete;
+								$querying = mysqli_query($db, $requete);
+
+								if(isset($_POST["new_REF_NumRef"])){ // si un nouveau referents est rentré, on l'ajoute dans les personnes
+									$referentName = explode(" ", $_POST["new_REF_NumRef"]);
+									$requete = "INSERT INTO personnes (PER_Nom, PER_Prenom)
+										VALUES ('".strtoupper(suppr_carac_spe($referentName[0]))."', '".FirstToUpper(suppr_carac_spe($referentName[1]))."');";
+									$querying = mysqli_query($db, $requete);
+
+									// on ajoute ce referents dans la table des referents en y associant le numéro de la personne réferente et celle de la personne reférencée
+									// sinon le numéro d'un nouveau prescripteurs déjà existants
+									$querying = mysqli_query($db, "INSERT INTO referents VALUES ((SELECT max(REF_NumRef)+1 FROM (SELECT * FROM referents) AS rtable), (SELECT max(PER_Num) FROM personnes),
+									".(isset($_POST["new_REF_NumRef"]) ? "(SELECT max(REF_NumRef) FROM prescripteurs)" : $_POST["REF_NumRef"]).");");
+								}
+
+								if($querying){
+									$requete = "UPDATE insertion set
+													INS_DateEntretien = '".$_POST["INS_DateEntretien"]."',
+													INS_SituationF = '".addslashes($_POST["INS_SituationF"])."',
+													INS_NivScol = '".$_POST["INS_NivScol"]."',
+													INS_Diplome = '".$_POST["INS_Diplome"]."',
+													INS_Permis = '".$_POST["INS_Permis"]."',
+													INS_RecoTH = '".$_POST["INS_RecoTH"]."',
+													INS_Revenu = '".$_POST["INS_Revenu"]."',
+													INS_Mutuelle = '".$_POST["INS_Mutuelle"]."',
+													CNV_Id = '".$_POST["CNV_Id"]."',
+													CNT_Id = '".$_POST["CNT_Id"]."',
+													INS_NbHeures = '".$_POST["INS_NbHeures"]."',
+													INS_RevenuDepuis = '".$_POST["INS_RevenuDepuis"]."',
+													INS_SEDepuis = '".$_POST["INS_SEDepuis"]."',
+													INS_PEDepuis = '".$_POST["INS_PEDepuis"]."',
+													INS_Repas = '".$_POST["INS_Repas"]."',
+													INS_TRepas = '".$_POST["INS_TRepas"]."',
+													INS_Positionmt = '".$_POST["INS_Positionmt"]."',
+													INS_SituGeo = '".$_POST["INS_SituGeo"]."',
+													INS_PlusDetails = '".addslashes($_POST["INS_PlusDetails"])."'
+												WHERE SAL_NumSalarie = ".$_POST["SAL_NumSalarie"];
+
+									$querying = mysql_query($db, $requete);
+
+									if ($querying){
+										if (isset($_POST["INS_UrgNom"]) && isset($_POST["INS_UrgPrenom"]) && isset($_POST["INS_UrgTel"])
+											&& !empty($_POST["INS_UrgNom"]) && !empty($_POST["INS_UrgNom"]) && !empty($_POST["INS_UrgNom"]));
+									}
+
+									if($querying){
+										displaySuccess((($_POST["PER_Sexe"]) ? "M. " : "Mme ").$_POST["PER_Nom"]." ".$_POST["PER_Prenom"]." a bien été enregistré".(($_POST["PER_Sexe"]) ? "" : "(e)")." !");
+										mysqli_query($db, 'COMMIT;');
+										redirectPage($_POST["SAL_NumSalarie"]);
+									}
+									else{
+										displayError("Une erreur s'est produite pendant l'envoi du formulaire, réessayez 1 !");
+										mysqli_query($db, 'ROLLBACK;');
+										//redirectPageFormErrors($error_handler, "edit");
+									}
+								}
+								else{
+									displayError("Une erreur s'est produite pendant l'envoi du formulaire, réessayez 2 !");
+									mysqli_query($db, 'ROLLBACK;');
+									//redirectPageFormErrors($error_handler, "edit");
+								}
+							}
+							else{
+								displaySuccess((($_POST["PER_Sexe"]) ? "M. " : "Mme ").$_POST["PER_Nom"]." ".$_POST["PER_Prenom"]." a bien été enregistré".(($_POST["PER_Sexe"]) ? "" : "(e)")." !");
+								mysqli_query($db, 'COMMIT;');
+								redirectPage($_POST["SAL_NumSalarie"]);
+							}
+						}
+						else{
+							displayError("Une erreur s'est produite pendant l'envoi du formulaire, réessayez 3 !");
+							mysqli_query($db, 'ROLLBACK;');
+							//redirectPageFormErrors($error_handler, "edit");
+						}
+					}
+					else{
+						displayError("Une erreur s'est produite pendant l'envoi du formulaire, réessayez 4 ! ");
+						mysqli_query($db, 'ROLLBACK;');
+						//redirectPageFormErrors($error_handler, "edit");
+					}
+				}
+				else{
+					displayError("Une erreur s'est produite pendant l'envoi du formulaire, réessayez 5 ! ");
+					mysqli_query($db, 'ROLLBACK;');
+					//redirectPageFormErrors($error_handler, "edit");
+				}
+			}
+			else{
+				displayError("Veuillez remplir correctement tous les champs du formulaire, réessayez 6 !");
+				//redirectPageFormErrors($error_handler, "edit");	
+			}
+        }
+        else{
+			displayError("Une erreur s'est produite pendant l'envoi du formulaire ! 7 ");
+		}
+
 	}
 
 	function addSalarie($db, &$error_handler){

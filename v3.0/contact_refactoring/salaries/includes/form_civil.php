@@ -7,63 +7,63 @@
 		<table class="form_table">
 			<tr>
 				<td><label for="PER_Nom">Nom* :</label></td>
-				<td><input required="required" class="inputC" type="text" id="PER_Nom" name="PER_Nom" <?php echo isset($_POST["PER_Nom"]) ? 'value="'.stripslashes($_POST["PER_Nom"]).'"' : "";?>/></td>
+				<td><input required="required" class="inputC" type="text" id="PER_Nom" name="PER_Nom" <?php echo isset($personne["PER_Nom"]) ? 'value="'.stripslashes($personne["PER_Nom"]).'"' : "";?>/></td>
 				<td><label for="PER_Prenom">Prénom* :</label></td>
-				<td><input required="required" class="inputC" type="text" id="PER_Prenom" name="PER_Prenom" <?php echo isset($_POST["PER_Prenom"]) ? 'value="'.stripslashes($_POST["PER_Prenom"]).'"' : "";?>/></td>
+				<td><input required="required" class="inputC" type="text" id="PER_Prenom" name="PER_Prenom" <?php echo isset($personne["PER_Prenom"]) ? 'value="'.stripslashes($personne["PER_Prenom"]).'"' : "";?>/></td>
 			</tr>
 			<tr>
 				<td><label for="PER_Sexe">Sexe* : </label></td>
 				<td>
-					<input required="required" type="radio" id="PER_Sexe" name="PER_Sexe" value="1" <?php echo (isset($_POST["PER_Sexe"]) && $_POST["PER_Sexe"] == "1" ) ? 'checked="checked"' : "";?>/>
+					<input required="required" type="radio" id="PER_Sexe" name="PER_Sexe" value="1" <?php echo (isset($personne["PER_Sexe"]) && $personne["PER_Sexe"] == "1" ) ? 'checked="checked"' : "";?>/>
 					<label>Homme</label>
-                    <input type="radio" id="PER_Sexe" name="PER_Sexe" value="0" <?php echo (isset($_POST["PER_Sexe"]) && $_POST["PER_Sexe"] == "0" ) ? 'checked="checked"' : "";?>/>
+                    <input type="radio" id="PER_Sexe" name="PER_Sexe" value="0" <?php echo (isset($personne["PER_Sexe"]) && $personne["PER_Sexe"] == "0" ) ? 'checked="checked"' : "";?>/>
 					<label>Femme</label>
 				</td>
 				<td><label for="PER_DateN">Date de Naissance* :</label></td>
-				<td><input required="required" class="inputC" type="date" id="PER_DateN" name="PER_DateN" <?php echo isset($_POST["PER_DateN"]) ? 'value="'.$_POST["PER_DateN"].'"' : "";?>/></td>
+				<td><input required="required" class="inputC" type="date" id="PER_DateN" name="PER_DateN" <?php echo isset($personne["PER_DateN"]) ? 'value="'.$personne["PER_DateN"].'"' : "";?>/></td>
 			</tr>
 			<tr>
 				<td><label for="PER_LieuN">Lieu de Naissance* :</label></td>
-				<td><input required="required" class="inputC" type="text" id="PER_LieuN" name="PER_LieuN" <?php echo isset($_POST["PER_LieuN"]) ? 'value="'.stripslashes($_POST["PER_LieuN"]).'"' : "";?>/></td>
+				<td><input required="required" class="inputC" type="text" id="PER_LieuN" name="PER_LieuN" <?php echo isset($personne["PER_LieuN"]) ? 'value="'.stripslashes($personne["PER_LieuN"]).'"' : "";?>/></td>
 				<td><label for="PER_Nation">Nationalité* :</label></td>	
-				<td><input required="required" class="inputC" type="text" id="PER_Nation" name="PER_Nation" <?php echo isset($_POST["PER_Nation"]) ? 'value="'.stripslashes($_POST["PER_Nation"]).'"' : "";?>/></td>
+				<td><input required="required" class="inputC" type="text" id="PER_Nation" name="PER_Nation" <?php echo isset($personne["PER_Nation"]) ? 'value="'.stripslashes($personne["PER_Nation"]).'"' : "";?>/></td>
 			</tr>
 			<tr>
 				<td><label for="PER_Adresse">Rue, lotissement :</label></td>
-				<td><input class="inputC" type="text" id="PER_Adresse" name="PER_Adresse" <?php echo isset($_POST["PER_Adresse"]) ? 'value="'.stripslashes($_POST["PER_Adresse"]).'"' : "";?>/></td>
+				<td><input class="inputC" type="text" id="PER_Adresse" name="PER_Adresse" <?php echo isset($personne["PER_Adresse"]) ? 'value="'.stripslashes($personne["PER_Adresse"]).'"' : "";?>/></td>
 				<td><label for="PER_Ville">Ville :</label></td>
-				<td><input class="inputC" type="text" id="PER_Ville" name="PER_Ville" <?php echo isset($_POST["PER_Ville"]) ? 'value="'.stripslashes($_POST["PER_Ville"]).'"' : "";?>/></td>
+				<td><input class="inputC" type="text" id="PER_Ville" name="PER_Ville" <?php echo isset($personne["PER_Ville"]) ? 'value="'.stripslashes($personne["PER_Ville"]).'"' : "";?>/></td>
 			</tr>
 			<tr>
 				<td><label for="PER_CodePostal">Code postal :</label></td>
-				<td><input class="inputC" type="number" id="PER_CodePostal" name="PER_CodePostal" min="1000" max="99999" <?php echo isset($_POST["PER_CodePostal"]) ? 'value="'.$_POST["PER_CodePostal"].'"' : "";?>/></td>
+				<td><input class="inputC" type="number" id="PER_CodePostal" name="PER_CodePostal" min="1000" max="99999" <?php echo isset($personne["PER_CodePostal"]) ? 'value="'.$personne["PER_CodePostal"].'"' : "";?>/></td>
 			</tr>
 			<tr></tr>
 			<tr>
 				<td><label for="PER_NCaf">Numéro de CAF :</label></td>
-				<td><input class="inputC" type="number" id="PER_NCaf" name="PER_NCaf" <?php echo isset($_POST["PER_NCaf"]) ? 'value="'.$_POST["PER_NCaf"].'"' : "";?>/></td>
+				<td><input class="inputC" type="number" id="PER_NCaf" name="PER_NCaf" <?php echo isset($personne["PER_NCaf"]) ? 'value="'.$personne["PER_NCaf"].'"' : "";?>/></td>
 				<td><label for="PER_NPoleEmp">Numéro Pôle Emploi :</label></td>
-				<td><input class="inputC" type="number" id="PER_NPoleEmp" name="PER_NPoleEmp" <?php echo isset($_POST["PER_NPoleEmp"]) ? 'value="'.$_POST["PER_NPoleEmp"].'"' : "";?>/></td>
+				<td><input class="inputC" type="number" id="PER_NPoleEmp" name="PER_NPoleEmp" <?php echo isset($personne["PER_NPoleEmp"]) ? 'value="'.$personne["PER_NPoleEmp"].'"' : "";?>/></td>
 			</tr>
 			<tr>
 				<td><label for="PER_NSecu">Numéro de Sécurité Sociale* :</label></td>
-				<td><input required="required" class="inputC" type="number" id="PER_NSecu" name="PER_NSecu" <?php echo isset($_POST["PER_NSecu"]) ? 'value="'.$_POST["PER_NSecu"].'"' : "";?>/></td>
+				<td><input required="required" class="inputC" type="number" id="PER_NSecu" name="PER_NSecu" <?php echo isset($personne["PER_NSecu"]) ? 'value="'.$personne["PER_NSecu"].'"' : "";?>/></td>
 			</tr>
 			<tr></tr>
 			<tr>
 				<td><label for="PER_TelFixe">Téléphone Fixe :</label></td>
-				<td><input class="inputC" type="number" id="PER_TelFixe" name="PER_TelFixe" <?php echo isset($_POST["PER_TelFixe"]) ? 'value="'.$_POST["PER_TelFixe"].'"' : "";?>/></td>
+				<td><input class="inputC" type="number" id="PER_TelFixe" name="PER_TelFixe" <?php echo isset($personne["PER_TelFixe"]) ? 'value="'.$personne["PER_TelFixe"].'"' : "";?>/></td>
 				<td><label for="PER_TelPort">Téléphone Portable :</label></td>
-				<td><input class="inputC" type="number" id="PER_TelPort" name="PER_TelPort" <?php echo isset($_POST["PER_TelPort"]) ? 'value="'.$_POST["PER_TelPort"].'"' : "";?>/></td>
+				<td><input class="inputC" type="number" id="PER_TelPort" name="PER_TelPort" <?php echo isset($personne["PER_TelPort"]) ? 'value="'.$personne["PER_TelPort"].'"' : "";?>/></td>
 			</tr>
 			<tr>
 				<td><label for="PER_Fax">Fax :</label></td>
-				<td><input class="inputC" type="number" id="PER_Fax" name="PER_Fax" <?php echo isset($_POST["PER_Fax"]) ? 'value="'.$_POST["PER_Fax"].'"' : "";?>/></td>
+				<td><input class="inputC" type="number" id="PER_Fax" name="PER_Fax" <?php echo isset($personne["PER_Fax"]) ? 'value="'.$personne["PER_Fax"].'"' : "";?>/></td>
 				<td><label for="PER_Email">Adresse @ email :</label></td>
-				<td><input class="inputC" type="text" id="PER_Email" name="PER_Email" <?php echo isset($_POST["PER_Email"]) ? 'value="'.stripslashes($_POST["PER_Email"]).'"' : "";?>/></td>
+				<td><input class="inputC" type="text" id="PER_Email" name="PER_Email" <?php echo isset($personne["PER_Email"]) ? 'value="'.stripslashes($personne["PER_Email"]).'"' : "";?>/></td>
 			</tr>
 		<?php
-			if($fonction){
+			if($fonction || $_POST["request_type"] != "edit" && $_POST["TYP_Id"] <= 5){
 		?>
 			<tr>
 				<td>
@@ -76,7 +76,7 @@
                         <?php
                         	while($data = mysqli_fetch_assoc($query_fonctions)){
                         ?>
-                            <option value="<?php echo $data['FCT_Id']; ?>"<?php echo (isset($_POST["FCT_Id"]) && $_POST["FCT_Id"] == $data['FCT_Id']) ? ' selected="selected"' : "";?>><?php echo $data['FCT_Nom']; ?></option>
+                            <option value="<?php echo $data['FCT_Id']; ?>"<?php echo (isset($personne["FCT_Id"]) && $personne["FCT_Id"] == $data['FCT_Id']) ? ' selected="selected"' : "";?>><?php echo $data['FCT_Nom']; ?></option>
                         <?php
                         	}
                         ?>
@@ -110,10 +110,10 @@
 			}
 		});
 		<?php
-			if(isset($_POST["new_FCT_Id"])){
+			if(isset($personne["new_FCT_Id"])){
 		?>
 			$("#addFunctionCross").trigger("click");
-			$("#new_FCT_Id").val("<?php echo $_POST["new_FCT_Id"]; ?>");
+			$("#new_FCT_Id").val("<?php echo $personne["new_FCT_Id"]; ?>");
 		<?php
 			}
 		?>

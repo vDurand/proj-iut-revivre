@@ -101,9 +101,22 @@
         }
     ?>
     </label>
-    <input type="button" class="printButton" id="goBackward" style="float: left; margin-top: 15px; margin-left: 5px;" value="Retour"/>
-    <input type="button" class="printButton" id="goEdit" style="float: right; margin-top: 15px; margin-left: 5px;" value="Modifier"/>
+    <table align="center" class="form_table" style="padding:auto">
+        <tr>
+            <td><input type="button" class="printButton" id="goBackward" style="float: left; margin-top: 15px; margin-left: 5px;" value="Retour"/></td>
+            <td>
+                <form action="./editSalarie.php" method="post" name="goEdit">
+                    <input type="hidden" id="SAL_NumSalarie" name="SAL_NumSalarie" value="<?php echo $personne["SAL_NumSalarie"]?>">
+                    <input type="hidden" id="request_type" name="request_type" value="edit">
+                    <input type="hidden" id="TYP_Id" name="TYP_Id" value="<?php echo $personne["TYP_Id"]?>">
+                    <input type="hidden" id="Head_Title" name="Head_Title" value="Edition de la fiche de <?php echo $sexe.' '.$personne["PER_Nom"].' '.$personne["PER_Prenom"]?>">
+                    <input type="submit" class="printButton" id="goEdit" style="float: right; margin-top: 15px; margin-left: 5px;" value="Modifier"/>
+                </form>
+            </td>
+        </tr>
+    </table>
 </div>
+<br><br>
 <div class="repertoire-bloc">
     <fieldset>
         <legend>Coordonnées civiles</legend>
@@ -298,11 +311,15 @@
                     <td></td>
                     <td></td>
                 </tr>
+                    <td>Date de sortie :</td>
+                    <td><?php echo (!empty($personne["INS_DateSortie"])) ? $personne["INS_DateSortie"] : '<i class="no-data">Pas encore sorti</i>'; ?></td>
+                    <td>Type de sortie :</td>
+                    <td><?php echo (!empty($typeSortie["TYS_Libelle"])) ? $typeSortie["TYS_Libelle"] : '<i class="no-data">Aucun Type de sortie</i>'; ?></td>
                 <!--
                 <tr>
                     Ici, normalement une case avec les repas, mais à définir en fonction de la suite.
                     Ici, type de sortie et date de sortie
-                </tr>s
+                </tr>
                 -->  
                 <tr>
                     <td>Autre détails :</td>
@@ -430,6 +447,11 @@
         $("#goBackward").on("click", function(){
             $.redirect("./listSalaries.php");
         });
+
+        $("#goEdit").on("click", function(){
+            $.redirect("./editSalarie.php");
+        });
+
     });
 
     function getDataAjax(url, params, callback){
