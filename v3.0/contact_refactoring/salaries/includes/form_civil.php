@@ -12,11 +12,11 @@
 				<td><input required="required" class="inputC" type="text" id="PER_Prenom" name="PER_Prenom" <?php echo isset($personne["PER_Prenom"]) ? 'value="'.stripslashes($personne["PER_Prenom"]).'"' : "";?>/></td>
 			</tr>
 			<tr>
-				<td><label for="PER_Sexe">Sexe* : </label></td>
+				<td><label for="PER_Sexe">Sexe* :</label></td>
 				<td>
-					<input required="required" type="radio" id="PER_Sexe" name="PER_Sexe" value="1" <?php echo (isset($personne["PER_Sexe"]) && $personne["PER_Sexe"] == "1" ) ? 'checked="checked"' : "";?>/>
+					<input required="required" type="radio" id="PER_Sexe" name="PER_Sexe" value="true" <?php echo (isset($personne["PER_Sexe"]) && $personne["PER_Sexe"] == "true") ? 'checked="checked"' : "";?>/>
 					<label>Homme</label>
-                    <input type="radio" id="PER_Sexe" name="PER_Sexe" value="0" <?php echo (isset($personne["PER_Sexe"]) && $personne["PER_Sexe"] == "0" ) ? 'checked="checked"' : "";?>/>
+                    <input type="radio" id="PER_Sexe" name="PER_Sexe" value="false" <?php echo (isset($personne["PER_Sexe"]) && $personne["PER_Sexe"] == "false" ) ? 'checked="checked"' : "";?>/>
 					<label>Femme</label>
 				</td>
 				<td><label for="PER_DateN">Date de Naissance* :</label></td>
@@ -36,36 +36,38 @@
 			</tr>
 			<tr>
 				<td><label for="PER_CodePostal">Code postal :</label></td>
-				<td><input class="inputC" type="number" id="PER_CodePostal" name="PER_CodePostal" min="1000" max="99999" <?php echo isset($personne["PER_CodePostal"]) ? 'value="'.$personne["PER_CodePostal"].'"' : "";?>/></td>
+				<td><input class="inputC" type="number" id="PER_CodePostal" name="PER_CodePostal" min="1000" max="99999" 
+					<?php echo (isset($personne["PER_CodePostal"]) && $personne["PER_CodePostal"] > 999) ? 'value="'.$personne["PER_CodePostal"].'"' : "";?>/></td>
 			</tr>
 			<tr></tr>
 			<tr>
 				<td><label for="PER_NCaf">Numéro de CAF :</label></td>
-				<td><input class="inputC" type="number" id="PER_NCaf" name="PER_NCaf" <?php echo isset($personne["PER_NCaf"]) ? 'value="'.$personne["PER_NCaf"].'"' : "";?>/></td>
+				<td><input class="inputC" type="text" id="PER_NCaf" name="PER_NCaf" <?php echo isset($personne["PER_NCaf"]) ? 'value="'.$personne["PER_NCaf"].'"' : "";?>/></td>
 				<td><label for="PER_NPoleEmp">Numéro Pôle Emploi :</label></td>
-				<td><input class="inputC" type="number" id="PER_NPoleEmp" name="PER_NPoleEmp" <?php echo isset($personne["PER_NPoleEmp"]) ? 'value="'.$personne["PER_NPoleEmp"].'"' : "";?>/></td>
+				<td><input class="inputC" type="text" id="PER_NPoleEmp" name="PER_NPoleEmp" <?php echo isset($personne["PER_NPoleEmp"]) ? 'value="'.$personne["PER_NPoleEmp"].'"' : "";?>/></td>
 			</tr>
 			<tr>
 				<td><label for="PER_NSecu">Numéro de Sécurité Sociale* :</label></td>
-				<td><input required="required" class="inputC" type="number" id="PER_NSecu" name="PER_NSecu" <?php echo isset($personne["PER_NSecu"]) ? 'value="'.$personne["PER_NSecu"].'"' : "";?>/></td>
+				<td><input required="required" class="inputC" type="text" id="PER_NSecu" name="PER_NSecu" <?php echo isset($personne["PER_NSecu"]) ? 'value="'.$personne["PER_NSecu"].'"' : "";?>/></td>
 			</tr>
 			<tr></tr>
 			<tr>
 				<td><label for="PER_TelFixe">Téléphone Fixe :</label></td>
-				<td><input class="inputC" type="number" id="PER_TelFixe" name="PER_TelFixe" <?php echo isset($personne["PER_TelFixe"]) ? 'value="'.$personne["PER_TelFixe"].'"' : "";?>/></td>
+				<td><input class="inputC" type="text" id="PER_TelFixe" name="PER_TelFixe" maxlength="10" <?php echo isset($personne["PER_TelFixe"]) ? 'value="'.$personne["PER_TelFixe"].'"' : "";?>/></td>
 				<td><label for="PER_TelPort">Téléphone Portable :</label></td>
-				<td><input class="inputC" type="number" id="PER_TelPort" name="PER_TelPort" <?php echo isset($personne["PER_TelPort"]) ? 'value="'.$personne["PER_TelPort"].'"' : "";?>/></td>
+				<td><input class="inputC" type="text" id="PER_TelPort" name="PER_TelPort" maxlength="10" <?php echo isset($personne["PER_TelPort"]) ? 'value="'.$personne["PER_TelPort"].'"' : "";?>/></td>
 			</tr>
 			<tr>
 				<td><label for="PER_Fax">Fax :</label></td>
-				<td><input class="inputC" type="number" id="PER_Fax" name="PER_Fax" <?php echo isset($personne["PER_Fax"]) ? 'value="'.$personne["PER_Fax"].'"' : "";?>/></td>
+				<td><input class="inputC" type="text" id="PER_Fax" name="PER_Fax" maxlength="10" <?php echo isset($personne["PER_Fax"]) ? 'value="'.$personne["PER_Fax"].'"' : "";?>/></td>
 				<td><label for="PER_Email">Adresse @ email :</label></td>
 				<td><input class="inputC" type="text" id="PER_Email" name="PER_Email" <?php echo isset($personne["PER_Email"]) ? 'value="'.stripslashes($personne["PER_Email"]).'"' : "";?>/></td>
 			</tr>
-		<?php
-			if($fonction || $_POST["request_type"] != "edit" && $_POST["TYP_Id"] <= 5){
-		?>
+
 			<tr>
+				<?php
+					if($fonction && $_POST["TYP_Id"] <= 5){
+				?>
 				<td>
                     <label for="FCT_Id">Fonction* :</label>
                 </td>
@@ -84,10 +86,17 @@
                     </div>
                     <input type="button" value="+" id="addFunctionCross" class="delCross crossNextToField"/>
                 </td>
+                <?php
+					}
+					
+					if($_POST["request_type"] == "edit"){
+				?>
+					<td><label for="SAL_DateSortie">Date de sortie :</label></td>
+					<td><input type="date" id="SAL_DateSortie" name="SAL_DateSortie" class="inputC" step="1" <?php echo isset($personne["SAL_DateSortie"]) ? 'value="'.$personne["SAL_DateSortie"].'"' : "";?>></td>
+				<?php
+					}
+				?>
 			</tr>
-		<?php
-			}
-		?>
 		</table>
 	</fieldset>
 </div>
@@ -114,6 +123,9 @@
 		?>
 			$("#addFunctionCross").trigger("click");
 			$("#new_FCT_Id").val("<?php echo $personne["new_FCT_Id"]; ?>");
+			if(inputErrorList.new_FCT_Id != null){
+				$("#new_FCT_Id").addClass("value-error");
+			}
 		<?php
 			}
 		?>

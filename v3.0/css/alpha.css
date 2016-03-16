@@ -109,6 +109,11 @@
     outline: none;
 }
 
+.selectType select:disabled {
+    cursor: inherit;
+}
+
+
 .selectType2 {
     padding: 0;
     margin: 0;

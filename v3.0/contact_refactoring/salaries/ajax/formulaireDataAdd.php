@@ -45,7 +45,7 @@
 			echo '<div align="center">
                     <input type="hidden" id="request_type" name="request_type" value="add"/>
                     <input type="hidden" id="TYP_Id" name="TYP_Id" value="'.$_POST["TYP_Id"].'"/>
-					<input type="button" value="Annuler" class="buttonC" onclick="$.redirect(\'../../home.php\')";>
+					<input type="button" value="Annuler" class="buttonC" onclick="$.redirect(\'../../home.php\');">
 					<input type="submit" value="Valider" class="buttonC">
 			  	</div>
 			</form>';
@@ -82,9 +82,9 @@
                 		<td><?php echo (($data["PER_Prenom"] != "") ? $data["PER_Prenom"] : '<i class="no-data">Aucun nom</i>') ?></td>
 	                    <td><?php echo (($data["PER_TelFixe"] != "") ? convertToPhoneNumber($data["PER_TelFixe"]) : '<i class="no-data">Aucun numéro</i>'); ?></td>
 	                    <td><?php echo (($data["PER_TelPort"] != "") ? convertToPhoneNumber($data["PER_TelPort"]) : '<i class="no-data">Aucun numéro</i>'); ?></td>
-	                    <td><?php echo (($data["PER_Email"] != "") ? $data["PER_Email"] : '<i class="no-data">Aucun e-mail</i>'); ?></td>
-	                    <td><?php echo (($data["PER_Adresse"] != "") ? $data["PER_Adresse"] : '<i class="no-data">Aucune rue/lotissement</i>'); ?></td>
-	                    <td><?php echo (($data["PER_Ville"] != "") ? $data["PER_Ville"] : '<i class="no-data">Aucune ville</i>'); ?></td>
+	                    <td class="truncate"><?php echo (($data["PER_Email"] != "") ? $data["PER_Email"] : '<i class="no-data">Aucun e-mail</i>'); ?></td>
+	                    <td class="truncate"><?php echo (($data["PER_Adresse"] != "") ? $data["PER_Adresse"] : '<i class="no-data">Aucune rue/lotissement</i>'); ?></td>
+	                    <td class="truncate"><?php echo (($data["PER_Ville"] != "") ? $data["PER_Ville"] : '<i class="no-data">Aucune ville</i>'); ?></td>
 	                </tr>
 	<?php
 				}

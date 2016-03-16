@@ -16,7 +16,7 @@
 			</tr>
 			<tr>
 				<td><label for="INS_UrgTel">Téléphone :</label></td>
-				<td><input class="inputC" type="number" id="INS_UrgTel" name="INS_UrgTel" <?php echo isset($personne["INS_UrgTel"]) ? 'value="'.$personne["INS_UrgTel"].'"' : "";?>/></td>
+				<td><input class="inputC" type="text" id="INS_UrgTel" name="INS_UrgTel" maxlength="10" <?php echo isset($personne["INS_UrgTel"]) ? 'value="'.$personne["INS_UrgTel"].'"' : "";?>/></td>
 				<td></td>
 				<td></td>
 			</tr>

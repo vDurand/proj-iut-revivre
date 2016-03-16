@@ -54,6 +54,8 @@
 						</select>
 					</div>
 				</td>
+				<td><label for="INS_SituationF">Situation Familiale :</label></td>
+				<td><input class="inputC" type="text" id="INS_SituationF" name="INS_SituationF" <?php echo isset($personne["INS_SituationF"]) ? 'value="'.stripslashes($personne["INS_SituationF"]).'"' : "";?>/></td>
 			</tr>
 			<tr></tr>
 			<tr>
@@ -71,25 +73,10 @@
 					</div>
 				</td>
 				<td><label for="INS_NbHeures">Nombre d'heures :</label></td>
-				<td><input class="inputC" type="number" id="INS_NbHeures" name="INS_NbHeures" value="0" <?php echo isset($personne["INS_NbHeures"]) ? 'value="'.$personne["INS_NbHeures"].'"' : "";?>/></td>
+				<td><input class="inputC" type="number" id="INS_NbHeures" name="INS_NbHeures" <?php echo isset($personne["INS_NbHeures"]) ? 'value="'.$personne["INS_NbHeures"].'"' : 'value="0"';?>/></td>
 			</tr>
 			<tr></tr>
 			<tr>
-				<td><label>Prescripteurs* :</label></td>
-				<td style="position:relative;">
-					<div class="selectType">
-						<select required="required" id="PRE_Id" name="PRE_Id">	
-							<option value="0" selected="selected" disabled="disabled">Choisir ...</option>
-						<?php
-							for($x=0; $x<sizeof($prescripteurs); $x++){
-								echo '<option value="'.$prescripteurs[$x]["PRE_Id"].'"'.((isset($personne["PRE_Id"]) && $personne["PRE_Id"] == $prescripteurs[$x]["PRE_Id"]) ? ' selected="selected"' : "").'>'
-										.$prescripteurs[$x]["PRE_Nom"].'</option>';
-							}
-						?>
-						</select>
-					</div>
-					<input type="button" value="+" id="addPrescripteurCross" class="delCross crossNextToField"/>
-				</td>
 				<td>Niveau Scolaire* :</td>
 				<td>
 					<div class="selectType">
@@ -104,8 +91,6 @@
 						</select>
 					</div>
 				</td>
-			</tr>
-			<tr>
 				<td>Diplôme* :</td>
 				<td>
 					<div class="selectType">
@@ -119,12 +104,10 @@
 						</select>
 					</div>
 				</td>
-				<td><label for="INS_RecoTH">Reconnaissance TH : </label></td>
-				<td><input type="checkbox" id="INS_RecoTH" name="INS_RecoTH" value="1" <?php echo (isset($personne["INS_RecoTH"]) && $personne["INS_RecoTH"] == "1") ? 'checked="checked"' : "";?>></td>
 			</tr>
 			<tr>
-				<td><label for="INS_SituationF">Situation Familiale :</label></td>
-				<td><input class="inputC" type="text" id="INS_SituationF" name="INS_SituationF" <?php echo isset($personne["INS_SituationF"]) ? 'value="'.stripslashes($personne["INS_SituationF"]).'"' : "";?>/></td>
+				<td><label for="INS_RecoTH">Reconnaissance TH :</label></td>
+				<td><input type="checkbox" id="INS_RecoTH" name="INS_RecoTH" value="1" <?php echo (isset($personne["INS_RecoTH"]) && $personne["INS_RecoTH"] == "1") ? 'checked="checked"' : "";?>></td>
 				<td><label for="INS_Permis">Permis : </label></td>
 				<td><input type="checkbox" id="INS_Permis" name="INS_Permis" value="1" <?php echo (isset($personne["INS_Permis"]) && $personne["INS_Permis"] == "1") ? 'checked="checked"' : "";?>></td>
 			</tr>
@@ -162,6 +145,7 @@
 					<div class="selectType">
 						<select required="required" id="INS_PEDepuis" name="INS_PEDepuis">
 							<option value="0" disabled="disabled" selected="selected">Choisir ...</option>
+							<option value="Non inscrit"<?php echo (isset($personne["INS_PEDepuis"]) && $personne["INS_PEDepuis"] == "Non inscrit") ? ' selected="selected"' : "";?>>Non inscrit</option>
 							<option value="Moins de 6 mois"<?php echo (isset($personne["INS_PEDepuis"]) && $personne["INS_PEDepuis"] == "Moins de 6 mois") ? ' selected="selected"' : "";?>>Moins de 6 mois</option>
 							<option value="De 6 à 11 mois"<?php echo (isset($personne["INS_PEDepuis"]) && $personne["INS_PEDepuis"] == "De 6 à 11 mois") ? ' selected="selected"' : "";?>>De 6 à 11 mois</option>
 							<option value="De 12 à 23 mois"<?php echo (isset($personne["INS_PEDepuis"]) && $personne["INS_PEDepuis"] == "De 12 à 23 mois") ? ' selected="selected"' : "";?>>De 12 à 23 mois</option>
@@ -232,6 +216,7 @@
 					<div class="selectType">
 						<select required="required" id="INS_SituGeo" name="INS_SituGeo">
 							<option value="0" disabled="disabled" selected="selected">Choisir ...</option>
+							<option value="Autre"<?php echo (isset($personne["INS_SituGeo"]) && $personne["INS_SituGeo"] == "Autre") ? ' selected="selected"' : "";?>>Autre</option>
 							<option value="CUCS"<?php echo (isset($personne["INS_SituGeo"]) && $personne["INS_SituGeo"] == "CUCS") ? ' selected="selected"' : "";?>>CUCS</option>
 							<option value="ZUS"<?php echo (isset($personne["INS_SituGeo"]) && $personne["INS_SituGeo"] == "ZUS") ? ' selected="selected"' : "";?>>ZUS</option>
 						</select>
@@ -241,14 +226,14 @@
 			</tr>
 			<tr></tr>
 			<tr>
-				<td><label for="INS_Repas">Repas* : </label></td>
+				<td><label for="INS_Repas">Repas* :</label></td>
 				<td>
 					<input required="required" type="radio" id="INS_Repas" name="INS_Repas" value="true" <?php echo (isset($personne["INS_Repas"]) && $personne["INS_Repas"] == "true") ? ' checked="checked"' : "";?>>
 					<label>Oui</label>
                     <input type="radio" id="INS_Repas" name="INS_Repas" value="false" <?php echo (isset($personne["INS_Repas"]) && $personne["INS_Repas"] == "false") ? ' checked="checked"' : "";?>>
 					<label>Non</label>
 				</td>
-				<td><label for="INS_TRepas">Type de repas*: </label></td>
+				<td><label for="INS_TRepas">Type de repas* :</label></td>
 				<td>
 					<input required="required" type="radio" id="INS_TRepas" name="INS_TRepas" value="true" <?php echo (isset($personne["INS_TRepas"]) && $personne["INS_TRepas"] == "true") ? ' checked="checked"' : "";?>>
 					<label>Avec porc</label>
@@ -256,34 +241,28 @@
 					<label>Sans porc</label>
 				</td>
 			</tr>
-			<tr></tr>
-			<?php if ($_POST["request_type"] == "edit")
-				{
-				?>
-				<tr>
-					<td><label for="INS_DateEntree">Date de sortie :</label></td>
-					<td><input type="date" id="INS_DateSortie" name="INS_DateSortie" class="inputC" step="1" <?php echo isset($personne["INS_DateSortie"]) ? 'value="'.$personne["INS_DateSortie"].'"' : "";?>></td>
-					<td><label for="INS_DateEntree">Type de sortie :</label></td>
-					<td>
+			<?php if ($_POST["request_type"] == "edit"){?>
+			<tr>
+				<td><label for="TYS_ID">Type de sortie :</label></td>
+				<td>
+					<?php
+						$query_sorties = mysqli_query($db, 'SELECT * FROM typesortie ORDER BY TYS_Numero');
+						$sorties = mysqli_fetch_all($query_sorties, MYSQLI_ASSOC);
+					?>
+					<div class="selectType">
+						<select id="TYS_ID" name="TYS_ID">	
 						<?php
-							$query_sorties = mysqli_query($db, 'SELECT * FROM typesortie ORDER BY TYS_Id');
-							$sorties = mysqli_fetch_all($query_sorties, MYSQLI_ASSOC);
+							for($x=0; $x<sizeof($sorties); $x++){
+								echo '<option value="'.$sorties[$x]["TYS_ID"].'"'.((isset($personne["TYS_ID"]) && $personne["TYS_ID"] == $sorties[$x]["TYS_ID"]) ? ' selected="selected"' : "").'>'
+										.$sorties[$x]["TYS_Numero"]." - ".$sorties[$x]["TYS_Libelle"].'</option>';
+							}
 						?>
-						<div class="selectType">
-							<select id="TYS_ID" name="TYS_ID">	
-								<option value="0" selected="selected" disabled="disabled">Choisir ...</option>
-							<?php
-								for($x=0; $x<sizeof($sorties); $x++){
-									echo '<option value="'.$sorties[$x]["TYS_ID"].'"'.((isset($sorties["TYS_ID"]) && $sorties["TYS_ID"] == $sorties[$x]["TYS_ID"]) ? ' selected="selected"' : "").'>'
-											.$sorties[$x]["TYS_Libelle"].'</option>';
-								}
-							?>
-							</select>
-						</div>
-					</td>
-
-
-
+						</select>
+					</div>
+				</td>
+				<td></td>
+				<td></td>
+			</tr>
 			<?php
 				}
 			?>
@@ -308,38 +287,36 @@
 			else{
 				$(this).val("-");
 				$("#REF_NumRef").prop("disabled", true);
-				$('<tr><td><strong>&#8618;</strong></td><td><input type="text" class="inputC" placeholder="Nouveau référent" required="required" id="new_REF_NumRef" name="new_REF_NumRef"/></td></tr>')
-					.insertAfter($("#REF_NumRef").parent().parent().parent());
+
+				<?php
+					echo '$(\'<tr>\
+						<td><strong>&#8618;</strong></td>\
+						<td><input type="text" class="inputC" placeholder="NOM Prénom" required="required" id="new_REF_NumRef" name="new_REF_NumRef"/></td>\
+						<td><strong>Prescripteur :</strong></td><td><div class="selectType"><select required="required" id="PRE_Id" name="PRE_Id">\
+							<option value="0" selected="selected" disabled="disabled">Choisir ...</option>';
+					for($x=0; $x<sizeof($prescripteurs); $x++){
+						echo '<option value="'.$prescripteurs[$x]["PRE_Id"].'"'.((isset($personne["PRE_Id"]) && $personne["PRE_Id"] == $prescripteurs[$x]["PRE_Id"]) ? ' selected="selected"' : "").'>'
+								.$prescripteurs[$x]["PRE_Nom"].'</option>';
+					}
+					echo '</select></div></td></tr>\').insertAfter($("#REF_NumRef").parent().parent().parent());'
+				?>
 			}
 		});
 
-		$("#addPrescripteurCross").on("click", function(){
-			if($("#PRE_Id").prop("disabled")){
-				$(this).val("+");
-				$("#PRE_Id").parent().parent().parent().next().remove();
-				$("#PRE_Id").prop("disabled", false);
-			}
-			else{
-				$(this).val("-");
-				$("#PRE_Id").prop("disabled", true);
-				$('<tr><td><strong>&#8618;</strong></td><td><input type="text" class="inputC" placeholder="Nouveau prescripteur" required="required" id="new_PRE_Id" name="new_PRE_Id"/></td></tr>')
-					.insertAfter($("#PRE_Id").parent().parent().parent());
-			}
-		});
 		<?php
 		if(isset($personne["new_REF_NumRef"])){
 		?>
 			$("#addReferentCross").trigger("click");
 			$("#new_REF_NumRef").val("<?php echo $personne["new_REF_NumRef"];?>");
+			
+			if(inputErrorList.new_REF_NumRef != null){
+				$("#new_REF_NumRef").addClass("value-error");
+			}
+			if(inputErrorList.PRE_Id != null){
+				$("#PRE_Id").parent().addClass("value-error");
+			}
 		<?php
 		}
-
-		if(isset($personne["new_PRE_Id"])){
-		?>
-			$("#addPrescripteurCross").trigger("click");
-			$("#new_PRE_Id").val("<?php echo $personne["new_PRE_Id"];?>");
-		<?php
-			}
 		?>
 	});
 </script>

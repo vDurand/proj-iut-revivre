@@ -298,6 +298,11 @@
 	border: 1px solid #003f7f;
 }
 
+.repertoire-manage-buttons{
+	text-align: center;
+	margin-top: 10px;
+}
+
 .required-top-date{
 	padding-left: 15px;
 }

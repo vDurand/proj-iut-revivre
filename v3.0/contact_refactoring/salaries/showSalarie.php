@@ -59,12 +59,11 @@
                 $type = mysqli_fetch_assoc($reponse5);
 
                 $query_contrat = mysqli_query($db, "SELECT TYP_Id, TYP_Nom FROM type WHERE TYP_Id NOT IN (SELECT TYP_Id FROM salaries WHERE SAL_NumSalarie = ".$num.") 
-                                                AND TYP_Nom <> 'Salarié' ORDER BY TYP_Id;");
+                                                AND TYP_Nom <> 'Salarié' AND TYP_Nom <> 'Bénévole' ORDER BY TYP_Id;");
             }
 
             // récupération du numéro de fonction (si existe)
-            $numfonction = $personne["FCT_Id"];
-            $reponse6 = mysqli_query($db, "SELECT FCT_Nom from fonction where FCT_Id in (SELECT FCT_ID from salaries where PER_num = ".$num.")");
+            $reponse6 = mysqli_query($db, "SELECT FCT_Nom FROM fonction where FCT_Id = ".$personne["FCT_Id"].";");
             $fonction = mysqli_fetch_assoc($reponse6);
 
             // pré-traitement pour affichage
@@ -87,36 +86,19 @@
                 $urgTele = $personne["INS_UrgTel"];
             }
     ?>
-<!-- ------------------------- -->
-<!--    COORDONNEES CIVILES    -->
-<!-- ------------------------- -->
+
 <div id="labelT">
     <label>
     <?php
-        if ($personne["FCT_Id"] == 0){
-            echo $sexe.' '.stripslashes($personne["PER_Nom"]).' '.stripslashes($personne["PER_Prenom"]).', '.stripslashes(mb_strtolower($type["TYP_Nom"], 'UTF-8')).' à l\'association';
+        if($personne["FCT_Id"] == 0){
+            echo $sexe.' '.stripslashes($personne["PER_Nom"]).' '.stripslashes($personne["PER_Prenom"]).', '.stripslashes($type["TYP_Nom"]).' à l\'association';
         }
         else{
-            echo $sexe.' '.stripslashes($personne["PER_Nom"]).' '.stripslashes($personne["PER_Prenom"]).', '.stripslashes(mb_strtolower($fonction["FCT_Nom"], 'UTF-8')).' à l\'association';
+            echo $sexe.' '.stripslashes($personne["PER_Nom"]).' '.stripslashes($personne["PER_Prenom"]).', '.stripslashes($fonction["FCT_Nom"]).' à l\'association';
         }
     ?>
     </label>
-    <table align="center" class="form_table" style="padding:auto">
-        <tr>
-            <td><input type="button" class="printButton" id="goBackward" style="float: left; margin-top: 15px; margin-left: 5px;" value="Retour"/></td>
-            <td>
-                <form action="./editSalarie.php" method="post" name="goEdit">
-                    <input type="hidden" id="SAL_NumSalarie" name="SAL_NumSalarie" value="<?php echo $personne["SAL_NumSalarie"]?>">
-                    <input type="hidden" id="request_type" name="request_type" value="edit">
-                    <input type="hidden" id="TYP_Id" name="TYP_Id" value="<?php echo $personne["TYP_Id"]?>">
-                    <input type="hidden" id="Head_Title" name="Head_Title" value="Edition de la fiche de <?php echo $sexe.' '.$personne["PER_Nom"].' '.$personne["PER_Prenom"]?>">
-                    <input type="submit" class="printButton" id="goEdit" style="float: right; margin-top: 15px; margin-left: 5px;" value="Modifier"/>
-                </form>
-            </td>
-        </tr>
-    </table>
 </div>
-<br><br>
 <div class="repertoire-bloc">
     <fieldset>
         <legend>Coordonnées civiles</legend>
@@ -124,7 +106,7 @@
             <tbody>
                 <tr>
                     <td>Date de naissance :</td>
-                    <td><?php echo (!empty($personne["PER_DateN"])) ? dater($personne["PER_DateN"]) : '<i class="no-data">Aucune date</i>'; ?></td>
+                    <td><?php echo (!empty($personne["PER_DateN"]) && $personne["PER_DateN"] != "0000-00-00") ? dater($personne["PER_DateN"]) : '<i class="no-data">Aucune date</i>'; ?></td>
                     <td>Lieu de naissance :</td>
                     <td><?php echo (!empty($personne["PER_LieuN"])) ? stripslashes($personne["PER_LieuN"]) : '<i class="no-data">Aucune lieu</i>'; ?></td>
                 </tr>
@@ -197,14 +179,23 @@
                     <td>Adresse @ email :</td>
                     <td><?php echo (!empty($personne["PER_Email"])) ? '<a href="mailto:'.$personne["PER_Email"].'">'.$personne["PER_Email"].'</a>' : '<i class="no-data">Aucun e-mail</i>'; ?></td>
                 </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Date de sortie :</td>
+                    <td><?php echo (!empty($personne["SAL_DateSortie"]) && $personne["SAL_DateSortie"] != "0000-00-00") ? dater($personne["SAL_DateSortie"]) : '<i class="no-data">Pas encore sorti</i>'; ?></td>
+                    <td></td>
+                    <td></td>
+                </tr>
             </tbody>
         </table>
     </fieldset>
 </div>
 
-<!-- ---------------------------------- -->
-<!--    A CONTACTER EN CAS D'URGENCE    -->
-<!-- ---------------------------------- -->
 <?php
     if ($travailleur){
 ?>
@@ -220,10 +211,6 @@
         </table>
     </fieldset>
 </div>
-
-<!-- --------------------------------- -->
-<!--   INFORMATIONS COMPLEMENTAIRES    -->
-<!-- --------------------------------- -->
 
 <div class="repertoire-bloc">
     <fieldset>
@@ -243,19 +230,30 @@
                 <tr>
                     <td>Référent identifié :</td>
                     <td><?php echo (!empty($referent["PER_Nom"]) && !empty($referent["PER_Prenom"])) ? stripslashes($referent["PER_Nom"]).' '.stripslashes($referent["PER_Prenom"]) : '<i class="no-data">Aucun référent</i>'; ?></td>
-                    <td>Type de contrat : </td>
-                    <td><?php echo (!empty($contrat["CNT_Nom"])) ? $contrat["CNT_Nom"] : '<i class="no-data">Aucun contrat</i>'; ?></td>
-
+                    <td>Prescripteur :</td>
+                    <td><?php echo (!empty($referent["PRE_Nom"])) ? stripslashes($referent["PRE_Nom"]) : '<i class="no-data">Aucune prescripteur</i>'; ?></td>
                 </tr>
                 <tr>
+                    <td>Convention :</td>
+                    <td><?php echo (!empty($convention["CNV_Nom"])) ? $convention["CNV_Nom"] : '<i class="no-data">Aucune convention</i>'; ?></td>
+                    <td>Situation Familliale :</td>
+                    <td><?php echo (!empty($personne["INS_SituationF"])) ? $personne["INS_SituationF"] : '<i class="no-data">Aucune</i>'; ?></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Type de contrat :</td>
+                    <td><?php echo (!empty($contrat["CNT_Nom"])) ? $contrat["CNT_Nom"] : '<i class="no-data">Aucun contrat</i>'; ?></td>
                     <td>Nombre d'heures :</td>
                     <td><?php echo (!empty($personne["INS_NbHeures"])) ? $personne["INS_NbHeures"] : '<i class="no-data">Aucune heure</i>'; ?></td>
-                    <td> Convention : </td>
-                    <td><?php echo (!empty($convention["CNV_Nom"])) ? $convention["CNV_Nom"] : '<i class="no-data">Aucune convention</i>'; ?></td>
                 </tr>
                 <tr>
-                    <td>Prescripteurs :</td>
-                    <td><?php echo (!empty($referent["PRE_Nom"])) ? stripslashes($referent["PRE_Nom"]) : '<i class="no-data">Aucune prescripteur</i>'; ?></td>
+                    <td></td>
+                    <td></td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -266,7 +264,7 @@
                     <td><?php echo (!empty($personne["INS_Diplome"])) ? $personne["INS_Diplome"] : '<i class="no-data">Aucun diplôme</i>'; ?></td>
                 </tr>
                 <tr>
-                    <td>Reconnaissance td : </td>
+                    <td>Reconnaissance TH : </td>
                     <td>
                         <?php
                         if ($personne['INS_RecoTH'] == 0) {
@@ -289,15 +287,15 @@
                 </tr>
                 <tr>
                     <td>Revenus :</td>
-                    <td><?php echo (!empty($personne["INS_RevenuDepuis"])) ? $personne["INS_RevenuDepuis"] : '<i class="no-data">Aucun revenu</i>'; ?></td>
-                    <td></td>
-                    <td></td>
+                    <td><?php echo (!empty($personne["INS_Revenu"])) ? $personne["INS_Revenu"] : '<i class="no-data">Aucun revenu</i>'; ?></td>
+                    <td>Revenus depuis :</td>
+                    <td><?php echo (!empty($personne["INS_RevenuDepuis"])) ? $personne["INS_RevenuDepuis"] : '<i class="no-data">Aucune durée</i>'; ?></td>
                 </tr>
                 <tr>
                     <td>Inscris à Pôle Emploi depuis :</td>
                     <td><?php echo (!empty($personne["INS_PEDepuis"])) ? $personne["INS_PEDepuis"] : '<i class="no-data">Aucune durée</i>'; ?></td>
                     <td>Sans emploi depuis depuis :</td>
-                    <td><?php echo (!empty($personne["INS_SEDepuis"])) ? $personne["INS_SEDepuis"] : '<i class="no-data">Aucun durée</i>'; ?></td>
+                    <td><?php echo (!empty($personne["INS_SEDepuis"])) ? $personne["INS_SEDepuis"] : '<i class="no-data">Aucune durée</i>'; ?></td>
                 </tr>
                 <tr>
                     <td>Position atelier CAP :</td>
@@ -311,10 +309,50 @@
                     <td></td>
                     <td></td>
                 </tr>
-                    <td>Date de sortie :</td>
-                    <td><?php echo (!empty($personne["INS_DateSortie"])) ? $personne["INS_DateSortie"] : '<i class="no-data">Pas encore sorti</i>'; ?></td>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Repas :</td>
+                    <td>
+                    <?php
+                        if($personne['INS_Repas'] == 0) {
+                            echo "Non";
+                        } else {
+                            echo "Oui";
+                        }
+                    ?>
+                    </td>
+                    <?php
+                        if($personne['INS_Repas'] == 1) {
+                            echo '<td>Type de repas :</td><td>';
+
+                            if($personne['INS_TRepas'] == 0) {
+                                echo "Sans porc";
+                            } else {
+                                echo "Avec porc";
+                            }
+
+                            echo '</td>';
+                        }
+                        else{
+                            echo '<td></td><td></td>';
+                        }
+                    ?>
+                </tr>
+                <tr>
                     <td>Type de sortie :</td>
-                    <td><?php echo (!empty($typeSortie["TYS_Libelle"])) ? $typeSortie["TYS_Libelle"] : '<i class="no-data">Aucun Type de sortie</i>'; ?></td>
+                    <td colspan="3"><?php echo (!empty($typeSortie["TYS_Libelle"])) ? $typeSortie["TYS_Numero"]." - ".$typeSortie["TYS_Libelle"] : '<i class="no-data">Aucun type de sortie</i>'; ?></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
                 <!--
                 <tr>
                     Ici, normalement une case avec les repas, mais à définir en fonction de la suite.
@@ -329,10 +367,6 @@
         </table>
     </fieldset>
 </div>
-
-<!-- ---------------------------- -->
-<!--    CURSUS PROFESSIONELLES    -->
-<!-- ---------------------------- -->
 
 <div id="cursus-bloc" class="repertoire-bloc">
     <fieldset>
@@ -364,16 +398,19 @@
                             $oldTypeSalarie = stripslashes($reponse['TYP_Nom']);
                         }
                     }
-                    if(mysqli_num_rows($donnees) > 0){
-                        echo '<tr></tr>';
+
+                    if((empty($personne["SAL_DateSortie"]) || $personne["SAL_DateSortie"] == "0000-00-00") && $personne["TYS_ID"] < 0){
+                        if(mysqli_num_rows($donnees) > 0){
+                            echo '<tr></tr>';
+                        }
+                        echo '<tr id="awaiting-cursus">
+                                <td class="cursus-number">?</td>
+                                <td class="cursus-contrat"><div>'.((isset($oldTypeSalarie)) ? $oldTypeSalarie : 'Aucun contrat').'</div></td>
+                                <td class="cursus-arrow"><img src="'.$pwd.'images/right-arrow.png"/></td>
+                                <td class="cursus-contrat"><div>???</div></td>
+                                <td class="cursus-details"><input type="button" id="addCursus" class="buttonC" value="Ajouter" style="margin: 5px 0px;"/></td>
+                            </tr>';
                     }
-                    echo '<tr id="awaiting-cursus">
-                            <td class="cursus-number">?</td>
-                            <td class="cursus-contrat"><div>'.((isset($oldTypeSalarie)) ? $oldTypeSalarie : 'Aucun contrat').'</div></td>
-                            <td class="cursus-arrow"><img src="'.$pwd.'images/right-arrow.png"/></td>
-                            <td class="cursus-contrat"><div>???</div></td>
-                            <td class="cursus-details"><input type="button" id="addCursus" class="buttonC" value="Ajouter" style="margin: 5px 0px;"/></td>
-                        </tr>';
                 ?>
                     <tr id="awaiting-form-cursus" style="display: none;">
                         <td class="cursus-number"></td>
@@ -416,10 +453,14 @@
                 </tbody>
             </table>
         </div>
-        <?php
-        }
-        ?>
     </fieldset>
+</div>
+<?php
+    }
+?>
+<div class="repertoire-manage-buttons">
+    <input type="button" class="buttonC" id="goBackward" value="Retour"/>
+    <input type="submit" class="buttonC" id="goEdit" value="Modifier"/>
 </div>
 <?php
     }
@@ -449,11 +490,16 @@
         });
 
         $("#goEdit").on("click", function(){
-            $.redirect("./editSalarie.php");
+            $.redirect("./editSalarie.php", 
+            {
+                "request_type":"edit", 
+                "SAL_NumSalarie":<?php echo $personne["SAL_NumSalarie"]?>,
+                "TYP_Id":<?php echo $personne["TYP_Id"]?>,
+                "Head_Title":"Edition de la fiche de <?php echo $sexe.' '.$personne["PER_Nom"].' '.$personne["PER_Prenom"]?>"
+            },"post");
         });
 
     });
-
     function getDataAjax(url, params, callback){
         $.post(url, params, callback);
     }
