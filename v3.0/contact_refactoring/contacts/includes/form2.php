@@ -4,42 +4,62 @@
 		<legend>Coordonnées civiles<span class="required-fields-info">Champs obligatoires*</span></legend>
 		<table class="form_table">
 			<tbody>
-				<tr>
-					<td colspan="4" class="align-center">
-						<input type="radio" id="CLI_structure" name="CLI_type" class="CLI_type" checked="checked" value="1"><label for="CLI_type">Structure</label>
-						<input type="radio" id="CLI_particulier" name="CLI_type" class="CLI_type" value="2"><label for="CLI_type">Particulier</label>
-					</td>
-				</tr>
-				<tr></tr>
+			<?php
+				if(!isset($_POST["edit"])){
+			?>
+						<tr>
+							<td colspan="4" class="align-center">
+								<input type="radio" id="CLI_structure" name="CLI_type" class="CLI_type" checked="checked" value="1"><label for="CLI_type">Structure</label>
+								<input type="radio" id="CLI_particulier" name="CLI_type" class="CLI_type" value="2"><label for="CLI_type">Particulier</label>
+							</td>
+						</tr>
+						<tr></tr>
+			<?php
+				}
+			?>
 				<tr>
 					<td><label for="CLI_Nom">Nom <span id="client_type">de la structure</span>* :</label></td>
-					<td><input required="required" class="inputC" type="text" id="CLI_Nom" name="CLI_Nom"/></td>
-					<td><label for="CLI_Prenom" id="label_CLI_Prenom" style="display: none;">Prénom du particulier:</label></td>
-					<td><input class="inputC" type="text" id="CLI_Prenom" name="CLI_Prenom" style="display: none;"/></td>
+					<td><input required="required" class="inputC" type="text" id="CLI_Nom" name="CLI_Nom" <?php echo isset($_POST["CLI_Nom"]) ? 'value="'.stripslashes($_POST["CLI_Nom"]).'"' : "";?> /></td>
+			<?php
+				if(!isset($_POST["edit"])){
+			?>
+					<td><label for="CLI_Prenom" id="label_CLI_Prenom" style="display: none;">Prénom du particulier*:</label></td>
+					<td><input class="inputC" type="text" id="CLI_Prenom" name="CLI_Prenom" style="display: none;" <?php echo isset($_POST["CLI_Prenom"]) ? 'value="'.stripslashes($_POST["CLI_Prenom"]).'"' : "";?>/></td>
+			<?php
+				}
+				else{
+					if(isset($_POST["CLI_Prenom"])){
+			?>
+						<td><label for="CLI_Prenom" id="label_CLI_Prenom">Prénom du particulier*:</label></td>
+						<td><input class="inputC" type="text" id="CLI_Prenom" name="CLI_Prenom" <?php echo 'value="'.stripslashes($_POST["CLI_Prenom"]).'"';?>/></td>
+			<?php
+					}
+				}
+			?>
 				</tr>
 				<tr></tr>
 				<tr>
 					<td><label for="CLI_Adresse">Rue, lotissement* :</label></td>
-					<td><input class="inputC" type="text" required="required" id="CLI_Adresse" name="CLI_Adresse"/></td>
+					<td><input class="inputC" type="text" required="required" id="CLI_Adresse" name="CLI_Adresse" <?php echo isset($_POST["CLI_Adresse"]) ? 'value="'.stripslashes($_POST["CLI_Adresse"]).'"' : "";?>/></td>
 					<td><label for="CLI_CodePostal">Code postal* :</label></td>
-					<td><input required="required" class="inputC" type="text" id="CLI_CodePostal" name="CLI_CodePostal"/></td>
+					<td><input required="required" class="inputC" type="text" id="CLI_CodePostal" name="CLI_CodePostal" <?php echo isset($_POST["CLI_CodePostal"]) ? 'value="'.stripslashes($_POST["CLI_CodePostal"]).'"' : "";?>/></td>
 				</tr>
 				<tr>
 					<td><label for="CLI_Ville">Ville* :</label></td>
-					<td><input required="required" class="inputC" type="text" id="CLI_Ville" name="CLI_Ville"/></td>
+					<td><input required="required" class="inputC" type="text" id="CLI_Ville" name="CLI_Ville" <?php echo isset($_POST["CLI_Ville"]) ? 'value="'.stripslashes($_POST["CLI_Ville"]).'"' : "";?>/></td>
 				</tr>
 				<tr></tr>
 				<tr>
 					<td><label for="CLI_TelFixe">Téléphone fixe* :</label></td>
-					<td><input required="required" class="inputC" type="text" id="CLI_TelFixe" name="CLI_TelFixe"/></td>
+					<td><input required="required" class="inputC" type="text" id="CLI_TelFixe" name="CLI_TelFixe" <?php echo isset($_POST["CLI_TelFixe"]) ? 'value="'.stripslashes($_POST["CLI_TelFixe"]).'"' : "";?>/></td>
 					<td><label for="CLI_TelPort">Téléphone portable :</label></td>
-					<td><input class="inputC" type="text" id="CLI_TelPort" name="CLI_TelPort"/></td>
+					<td><input class="inputC" type="text" id="CLI_TelPort" name="CLI_TelPort" <?php echo isset($_POST["CLI_TelPort"]) ? 'value="'.stripslashes($_POST["CLI_TelPort"]).'"' : "";?>/></td>
 				</tr>
 				<tr>
 					<td><label for="CLI_Fax">Fax :</label></td>
-					<td><input class="inputC" type="text" id="CLI_Fax" name="CLI_Fax"/></td>
-					<td><label for="CLI_Mail">Adresse @ email :</label></td>
-					<td><input class="inputC" type="text" id="CLI_Mail" name="CLI_Mail"/></td>
+					<td><input class="inputC" type="text" id="CLI_Fax" name="CLI_Fax" <?php echo isset($_POST["CLI_Fax"]) ? 'value="'.stripslashes($_POST["CLI_Fax"]).'"' : "";?>/></td>
+					<td><label for="CLI_Email">Adresse @ email :</label></td>
+					<td><input class="inputC" type="text" id="CLI_Email" name="CLI_Email" <?php echo isset($_POST["CLI_Email"]) ? 'value="'.stripslashes($_POST["CLI_Email"]).'"' : "";?>/></td>
 				</tr>
 			</tbody>
 		</table>

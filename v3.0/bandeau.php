@@ -67,7 +67,7 @@
 								<li><a href="#">Contacts (NEW)<span>&#9656;</span></a>
 									<ul class="sub-menu">
                                         <li><a href="<?php echo $pwd; ?>contact_refactoring/contacts/addContact.php">Ajouter un contact</a></li>
-                                        <li><a href="<?php echo $pwd; ?>contact_refactoring/contacts/showContact.php">Consulter un contact</a></li>
+                                        <li><a href="<?php echo $pwd; ?>contact_refactoring/contacts/listContacts.php">Liste des contacts</a></li>
 									</ul>
 								</li>
                                 <li><a href="<?php echo $pwd; ?>contact/addInsertion.php">Ajouter en insertion</a></li>

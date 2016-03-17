@@ -1,0 +1,124 @@
+/*******************************************
+                  FILTRES
+*******************************************/
+.repertoire-form-filters{
+	margin: 25px 0;
+	text-align: right;
+}
+
+.repertoire-form-filters table{
+	width: 100%;
+	table-layout: fixed;
+}
+
+/*******************************************
+                 FORMULAIRE
+*******************************************/
+
+.repertoire-form-content{
+	position: relative;
+	margin: 25px 0 10px 0;
+	min-height: 700px;
+}
+
+/** Loading **/
+.waiting-repertoire-form{
+	background-color: lightgray;
+}
+
+.waiting-repertoire-form .form-loader{
+	width: 200px;
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+}
+
+.waiting-repertoire-form .form-loader object{
+	display: block;
+	margin: auto;
+}
+
+.waiting-repertoire-form .form-loader label{
+	padding: 10px 0px;
+	display: block;
+	text-align: center;
+	font-style: italic;
+	color: #4c4c4c;
+	font-size: 12px;
+}
+
+/*******************************************
+      FORMULAIRE DE RENTREE DE SALARIE
+*******************************************/
+
+.form-repertoire{
+	padding: 0;
+	margin: 25px auto;
+	background-color: white;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10), 0 2px 8px 0 rgba(0, 0, 0, 0.06);
+}
+
+.form-repertoire fieldset{
+	border: none;
+	padding: 15px 0;
+	margin: 0;
+}
+
+.form-repertoire fieldset legend{
+	padding: 8px 0px 8px 15px;
+	font-size: 20px;
+	background-color: #1d4c82;
+	width: calc(100% - 15px);
+	color: white;
+}
+
+.form-repertoire fieldset legend .required-fields-info{
+	font-size: 12px;
+	display: block;
+	font-style: italic;
+}
+
+.form-repertoire table{
+	margin: 0 10px;
+	width: calc(100% - 20px);
+}
+
+.form-repertoire fieldset table td:nth-child(odd){
+	padding: 8px;	
+	width: 25%;
+	text-align: right;
+	margin: 50px;
+}
+
+.form-repertoire fieldset table td:nth-child(even){
+	padding: 8px;	
+	width: 25%;
+	text-align: left;
+	margin: 50px;
+}
+
+.form-repertoire fieldset table tr:empty{
+	height: 25px;
+}
+
+.form-repertoire fieldset textarea{
+	resize: none;
+	width: calc(100% - 29px);
+	background-color: #cde5f7;
+}
+
+.required-top-date{
+	padding-left: 15px;
+}
+
+.crossNextToField{
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 0;
+}
+
+.align-center{
+	text-align: center !important;
+}

@@ -1,213 +1,481 @@
 <?php
-	$pageTitle = "Ajout d'un contact";
-	$pwd='../../';
+	$pwd = "../../";
 	include($pwd.'bandeau.php');
-?>
-<div id="corps">
-<?php
 
-	if(isset($_POST["Num_form"]) && !empty($_POST["Num_form"])){
-		switch($_POST["Num_form"]){
+	$error_handler = "";
 
-			case 1: // ajout d'un fournisseur
-				ajoutFournisseur($db);
+	if(isset($_POST["request_type"]) && !empty($_POST["request_type"])){
+
+		switch($_POST["request_type"]){
+			case "add";
+				addContact($db, $error_handler);
 				break;
-
-			case 2: // ajout d'un client
-				ajoutClient($db);
+			case "edit";
+				editContact($db, $error_handler);
 				break;
-
-      default:
-        echo '<div id="bad"> 
-              <label>Une erreur s\'est produite lors de l\'envoi du formulaire !</label>
-              </div>'; 
-        break;		
+			case "employe";
+				addEmploye($db, $error_handler);
+				break;	
+			case "editEmploye";
+				editEmploye($db, $error_handler);
+				break;
 		}
 	}
-?>
-</div>
-<?php
-  	include($pwd.'footer.php');
 
-  	function ajoutFournisseur($db){
+	function editEmploye($db, $error_handler){
+		if(isset($_POST["PER_Num"]) && !empty($_POST["PER_Num"]) && isset($_POST["Type"]) && !empty($_POST["Type"]) && isset($_POST["TC_ID"]) && !empty($_POST["TC_ID"]) && isset($_POST["ConNum"]) && !empty($_POST["ConNum"])){
 
-  		if(isset($_POST["FOU_Nom"]) && isset($_POST["FOU_Adresse"]) && isset($_POST["FOU_TelFixe"]) && isset($_POST["FOU_CodePostal"]) && isset($_POST["FOU_TelPort"]) && isset($_POST["FOU_Ville"]) && 
-  			isset($_POST["FOU_Fax"]) && isset($_POST["FOU_Mail"])){
+			$prep="PER";
+			$table="personnes";
+			$verif_infos = verification_civile($error_handler, $prep);
 
-            // met au bon format pour le nom et la ville
-            $nom = suppr_carac_spe($_POST["FOU_Nom"]);
-            $ville = suppr_carac_spe($_POST["FOU_Ville"]);
-            $telfixe = $_POST["FOU_TelFixe"];
-            $telport = $_POST["FOU_TelPort"];
-            $fax = $_POST["FOU_Fax"];
-            $codepostal = $_POST["FOU_CodePostal"];
-            $email = $_POST["FOU_Mail"];
+			/*if(isset($_POST["Fonction"]) && !empty($_POST["Fonction"])){
+				$fieldOk = isset($_POST[$prep."_Prenom"]) && !empty($_POST[$prep."_Prenom"]);
+				$_POST[$prep."_Prenom"] = FirstToUpper(suppr_carac_spe($_POST[$prep."_Prenom"]));
+			}*/
 
-            if(Test_caractere($_POST["FOU_Nom"]) == 1){
-                echo '<div id="bad"> 
-                      <label>Le nom du fournisseur contient des caractères non autorisé</label>
-                      </div>';  
-            }
-            else{
-                if(Test_caractere($_POST["FOU_Ville"]) == 1){
-                    echo '<div id="bad"> 
-                          <label>La ville du fournisseur contient des caractères non autorisé</label>
-                          </div>';  
-                }
-                else{
-                    if(isPhoneNumber($telfixe) != 1 || isPhoneNumber($telport) != 1 || isPhoneNumber($fax) != 1){
-                        echo '<div id="bad"> 
-                              <label>Il y a une erreur sur un des numéros de téléphones / fax</label>
-                              </div>';  
-                    } 
-                    else{
-                        if(isEmail($email) != 1){
-                            echo '<div id="bad"> 
-                                  <label>Il y a une erreur sur l\'email</label>
-                                  </div>'; 
-                        }
-                        else{
-                            if(isPostalCode($codepostal) != 1){
-                                echo '<div id="bad"> 
-                                      <label>Il y a une erreur sur le code postal</label>
-                                      </div>';
-                            }
-                            else{
-                                $nom = strtoupper($nom);
-                                $ville = strtoupper($ville);
+			if($verif_infos){
+	        	if(mysqli_query($db, 'SET autocommit=0;') && mysqli_query($db, 'START TRANSACTION;')){
+					if($querying){
+						$querying = mysqli_query($db,  "UPDATE ".$table." SET ".$prep."_Nom = '".$_POST[$prep."_Nom"]."',
+																			 ".$prep."_Prenom = '".$_POST[$prep."_Prenom"]."',
+																			 ".$prep."_Adresse = '".$_POST[$prep."_Adresse"]."',
+																			 ".$prep."_CodePostal = ".$_POST[$prep."_CodePostal"].",
+																			 ".$prep."_Ville = '".$_POST[$prep."_Ville"]."',
+																			 ".$prep."_TelFixe = '".$_POST[$prep."_TelFixe"]."',
+																			 ".$prep."_TelPort = '".$_POST[$prep."_TelPort"]."',
+																			 ".$prep."_Fax = '".$_POST[$prep."_Fax"]."',
+																			 ".$prep."_Email = '".$_POST[$prep."_Email"]."'
+														WHERE ".$prep."_Num=".$_POST["PER_Num"].";");
 
-                                $query = mysqli_query($db,"INSERT INTO fournisseurs (FOU_Nom, FOU_Adresse, FOU_CodePostal, FOU_Ville, FOU_Telephone, FOU_Portable, FOU_Fax, FOU_Email) 
-                                    VALUES ('".$nom."',
-                                    '".$_POST['FOU_Adresse']."',
-                                    ".$_POST['FOU_CodePostal'].",
-                                    '".$ville."',
-                                    '".$_POST['FOU_TelFixe']."',
-                                    '".$_POST['FOU_TelPort']."',
-                                    '".$_POST['FOU_Fax']."',
-                                    '".$_POST['FOU_Mail']."');") ;
+						if($querying && $_POST["TC_ID"] == 1){		
+							$querying = mysqli_query($db,"UPDATE employerfourn SET EMF_Fonction='".addslashes($_POST["Fonction"])."' WHERE CLI_NumClient = ".$_POST["ConNum"]." AND PER_Num = ".$_POST["PER_Num"]);	
 
-                                if(!$query){
-                                    displayError("fournisseur");
-                                    echo mysqli_error($db);
-                                    mysqli_query($db, 'ROLLBACK;');
-                                }
-                                else{
-                                    displaySuccess("fournisseur");
-                                    mysqli_query($db, 'COMMIT;');
-                                }
-                            }                            
-                        }
-                    }          
-                }
-            }
+							if($querying){
+								displaySuccess("L'employé a bien été modifié !");
+								mysqli_query($db, 'COMMIT;');
+								redirectPage($_POST["ConNum"],$_POST["TC_ID"]);
+							}
+							else{
+								displayError("Une erreur s'est produite pendant l'envoi du formulaire, réessayez !");
+								mysqli_query($db, 'ROLLBACK;');
+								redirectPageFormErrors($error_handler, "edit",$_POST["TC_ID"]);
+							}		
+						}
+						else{
+							if($querying && $_POST["TC_ID"] == 2){
+								$querying = mysqli_query($db,"UPDATE employerclient SET EMC_Fonction='".addslashes($_POST["Fonction"])."' WHERE CLI_NumClient = ".$_POST["ConNum"]." AND PER_Num = ".$_POST["PER_Num"]);	
+							}
+							else{
+								displayError("Une erreur s'est produite pendant l'envoi du formulaire, réessayez !");
+								mysqli_query($db, 'ROLLBACK;');
+								redirectPageFormErrors($error_handler, "edit",$_POST["TC_ID"]);
+							}
+						}
+					}
+					else{
+						displayError("Une erreur s'est produite pendant l'envoi du formulaire, réessayez !");
+						mysqli_query($db, 'ROLLBACK;');
+						redirectPageFormErrors($error_handler, "edit",$_POST["TC_ID"]);
+					}
+				}
+				else{
+					displayError("Une erreur s'est produite pendant l'envoi du formulaire !");
+				}
+			}
+			else{
+				displayError("Veuillez remplir correctement tous les champs du formulaire, réessayez !");
+				redirectPageFormErrors($error_handler, "edit",$_POST["TC_ID"]);	
+			}
+		}
+		else{
+			displayError("Une erreur s'est produite pendant l'envoi du formulaire !");
+		}
+	}
+
+	function addContact($db, &$error_handler){
+        if(isset($_POST["TC_ID"]) && !empty($_POST["TC_ID"])){
+			
+			if($_POST["TC_ID"] == 1){
+				$type = "Fournisseur";
+	            $prep = "FOU";
+	            $table = "fournisseurs";
+	        }
+	        else {
+	            $type = "Client";
+	            $prep = "CLI";
+	            $table = "clients";
+	        }
+
+			$querying = true;
+			$verif_infos = verification_civile($error_handler, $prep);
+
+			if($verif_infos){
+	        	if(mysqli_query($db, 'SET autocommit=0;') && mysqli_query($db, 'START TRANSACTION;')){
+	        		
+					if($querying){
+						$querying = mysqli_query($db, "INSERT INTO ".$table." (".$prep."_Nom, ".$prep."_Telephone, ".$prep."_Portable, ".$prep."_Fax, ".$prep."_Email, ".$prep."_Adresse, ".$prep."_CodePostal, ".$prep."_Ville) 
+							VALUES (
+							'".addslashes($_POST[$prep."_Nom"])."', 
+							'".addslashes($_POST[$prep."_TelFixe"])."',
+							'".addslashes($_POST[$prep."_TelPort"])."', 
+							'".addslashes($_POST[$prep."_Fax"])."',
+							'".addslashes($_POST[$prep."_Email"])."',
+							'".addslashes($_POST[$prep."_Adresse"])."',
+							            ".$_POST[$prep."_CodePostal"].", 
+							'".addslashes($_POST[$prep."_Ville"])."');");
+
+						if($querying && $type == "Client"){	
+							$querynum = mysqli_query($db,"SELECT MAX(CLI_NumClient) as num from clients;");	
+							$numclient = mysqli_fetch_assoc($querynum);			
+							$querying = mysqli_query($db,"UPDATE clients SET CLI_Prenom='".addslashes($_POST[$prep."_Prenom"])."' WHERE CLI_NumClient = ".$numclient["num"]	);
+							if($querying){
+								displaySuccess("Le ".$type." a bien été enregistré !");
+								$query = mysqli_query($db, "SELECT max(CLI_NumClient) as ConNum FROM clients;");
+								$TC_ID = 2;
+								$data = mysqli_fetch_assoc($query);
+								mysqli_query($db, 'COMMIT;');
+								redirectPage($data["ConNum"],$TC_ID);
+							}
+							else{
+								displayError("Une erreur s'est produite pendant l'envoi du formulaire, réessayez !");
+								mysqli_query($db, 'ROLLBACK;');
+								redirectPageFormErrors($error_handler, "add",$_POST["TC_ID"]);
+							}				
+						}
+						else{
+							if($querying){
+								displaySuccess("Le ".$type." a bien été enregistré !");
+								if($type == "Fournisseur"){
+									$query = mysqli_query($db, "SELECT max(FOU_NumFournisseur) as ConNum FROM fournisseurs;");
+									$TC_ID = 1;
+								}
+								else{
+									$query = mysqli_query($db, "SELECT max(CLI_NumClient) as ConNum FROM clients;");
+									$TC_ID = 2;
+								}
+								$data = mysqli_fetch_assoc($query);
+								mysqli_query($db, 'COMMIT;');
+								redirectPage($data["ConNum"],$TC_ID);
+							}
+							else{
+								displayError("Une erreur s'est produite pendant l'envoi du formulaire, réessayez !");
+								mysqli_query($db, 'ROLLBACK;');
+								redirectPageFormErrors($error_handler, "add",$_POST["TC_ID"]);
+							}
+						}
+					}
+					else{
+						displayError("Une erreur s'est produite pendant l'envoi du formulaire, réessayez !");
+						mysqli_query($db, 'ROLLBACK;');
+						redirectPageFormErrors($error_handler, "add",$_POST["TC_ID"]);
+					}
+		        }
+		        else{
+					displayError("Une erreur s'est produite pendant l'envoi du formulaire !");
+				}
+			}
+			else{
+				displayError("Veuillez remplir correctement tous les champs du formulaire, réessayez !");
+				redirectPageFormErrors($error_handler, "add",$_POST["TC_ID"]);	
+			}
         }
-  		else{
-  			displayError("fournisseur");
-  		}
-  	}
+        else{
+			displayError("Une erreur s'est produite pendant l'envoi du formulaire !");
+		}
+	}
 
-  	function ajoutClient($db){
+	function editContact($db, $error_handler){
+		$typeClient = "";
+		if(isset($_POST["ConNum"]) && !empty($_POST["ConNum"]) && isset($_POST["TC_ID"]) && !empty($_POST["TC_ID"])){
+			if($_POST["TC_ID"] == 1){
+				$prep = "FOU";
+				$table = "fournisseurs";
+				$type = "Fournisseur";				
+			}
+			else{
+				if($_POST["TC_ID"] == 2){
+					$prep = "CLI";
+					$table = "clients";
+					$type = "Client";
 
-  		if(isset($_POST["CLI_Nom"]) && isset($_POST["CLI_Adresse"]) && isset($_POST["CLI_TelFixe"]) && isset($_POST["CLI_CodePostal"]) && isset($_POST["CLI_TelPort"]) && isset($_POST["CLI_Ville"]) && 
-  			isset($_POST["CLI_Fax"]) && isset($_POST["CLI_Mail"])){
+					if(isset($_POST["TypeClient"]) && $_POST["TypeClient"]=="particulier"){
+						$typeClient = "particulier";
+					}				
+				}
+				else{
+					displayError("Une erreur s'est produite pendant l'envoi du formulaire !");
+				}
+			}
 
-             // met au bon format pour le nom et la ville
-            $nom = suppr_carac_spe($_POST["CLI_Nom"]);
-            $ville = suppr_carac_spe($_POST["CLI_Ville"]);
-            $telfixe = $_POST["CLI_TelFixe"];
-            $telport = $_POST["CLI_TelPort"];
-            $fax = $_POST["CLI_Fax"];
-            $codepostal = $_POST["CLI_CodePostal"];
-            $email = $_POST["CLI_Mail"];
+			$querying = true;
+			$verif_infos = verification_civile($error_handler, $prep, $typeClient);
 
-            if(Test_caractere($_POST["CLI_Nom"]) == 1){
-                echo '<div id="bad"> 
-                      <label>Le nom du client contient des caractères non autorisé</label>
-                      </div>';  
-            }
-            else{
-                if(Test_caractere($_POST["CLI_Ville"]) == 1){
-                    echo '<div id="bad"> 
-                          <label>La ville du client contient des caractères non autorisé</label>
-                          </div>';  
-                }
-                else{
-                    if(isPhoneNumber($telfixe) != 1 || isPhoneNumber($telport) != 1 || isPhoneNumber($fax) != 1){
-                        echo '<div id="bad"> 
-                              <label>Il y a une erreur sur un des numéros de téléphones / fax</label>
-                              </div>';  
-                    } 
-                    else{
-                        if(isEmail($email) != 1){
-                            echo '<div id="bad"> 
-                                  <label>Il y a une erreur sur l\'email</label>
-                                  </div>'; 
-                        }
-                        else{
-                            if(isPostalCode($codepostal) != 1){
-                                echo '<div id="bad"> 
-                                      <label>Il y a une erreur sur le code postal</label>
-                                      </div>';
-                            }
-                            else{
-                                $nom = strtoupper($nom);
-                                $ville = strtoupper($ville);
+			if($verif_infos){
+	        	if(mysqli_query($db, 'SET autocommit=0;') && mysqli_query($db, 'START TRANSACTION;')){
+					if($querying){
+						$querying = mysqli_query($db,  "UPDATE ".$table." SET ".$prep."_Nom = '".$_POST[$prep."_Nom"]."',
+																			 ".$prep."_Adresse = '".$_POST[$prep."_Adresse"]."',
+																			 ".$prep."_CodePostal = ".$_POST[$prep."_CodePostal"].",
+																			 ".$prep."_Ville = '".$_POST[$prep."_Ville"]."',
+																			 ".$prep."_Telephone = '".$_POST[$prep."_TelFixe"]."',
+																			 ".$prep."_Portable = '".$_POST[$prep."_TelPort"]."',
+																			 ".$prep."_Fax = '".$_POST[$prep."_Fax"]."',
+																			 ".$prep."_Email = '".$_POST[$prep."_Email"]."'
+														WHERE ".$prep."_Num".$type."=".$_POST["ConNum"].";");
 
-                      			if(isset($_POST["CLI_Prenom"]) && !empty($_POST["CLI_Prenom"])){ // cas particulier
+						if($querying && $type == "Client" && $typeClient == "particulier"){		
+							$querying = mysqli_query($db,"UPDATE clients SET CLI_Prenom='".addslashes($_POST[$prep."_Prenom"])."' WHERE CLI_NumClient = ".$_POST["ConNum"]);
+							if($querying){
+								displaySuccess("Le ".$type." a bien été modifié !");
+								mysqli_query($db, 'COMMIT;');
+								redirectPage($_POST["ConNum"],$_POST["TC_ID"]);
+							}
+							else{
+								displayError("Une erreur s'est produite pendant l'envoi du formulaire, réessayez !");
+								mysqli_query($db, 'ROLLBACK;');
+								redirectPageFormErrors($error_handler, "edit",$_POST["TC_ID"]);
+							}				
+						}
+						else{
+							if($querying){
+								displaySuccess("Le ".$type." a bien été modifié !");
+								mysqli_query($db, 'COMMIT;');
+								redirectPage($_POST["ConNum"],$_POST["TC_ID"]);
+							}
+							else{
+								displayError("Une erreur s'est produite pendant l'envoi du formulaire, réessayez !");
+								mysqli_query($db, 'ROLLBACK;');
+								redirectPageFormErrors($error_handler, "edit",$_POST["TC_ID"]);
+							}
+						}
+					}
+					else{
+						displayError("Une erreur s'est produite pendant l'envoi du formulaire, réessayez !");
+						mysqli_query($db, 'ROLLBACK;');
+						redirectPageFormErrors($error_handler, "edit",$_POST["TC_ID"]);
+					}
+				}
+				else{
+					displayError("Une erreur s'est produite pendant l'envoi du formulaire !");
+				}
+			}
+			else{
+				displayError("Veuillez remplir correctement tous les champs du formulaire, réessayez !");
+				redirectPageFormErrors($error_handler, "edit",$_POST["TC_ID"]);	
+			}
 
-                                //mettre caps au debut pour les prenoms
-                                    if(Test_caractere($_POST["CLI_Prenom"]) == 1){
-                                        echo '<div id="bad"> 
-                                              <label>Le prenom du client contient des caractères non autorisé</label>
-                                              </div>';  
-                                    }
-                                    else{                                                                               
-                                        $prenom = FirstToUpper($_POST["CLI_Prenom"]);
+		}
+		else{
+			displayError("Une erreur s'est produite pendant l'envoi du formulaire !");
+		}
+	}
 
-                          				      $query = mysqli_query($db,"INSERT INTO clients (CLI_Nom, CLI_Prenom, CLI_Adresse, CLI_CodePostal, CLI_Ville, CLI_Telephone, CLI_Portable, CLI_Fax, CLI_Email) VALUES ('".$nom."','".$prenom."','".$_POST["CLI_Adresse"]."',".$_POST["CLI_CodePostal"].",'".$ville."','".$_POST["CLI_TelFixe"]."','".$_POST["CLI_TelPort"]."','".$_POST["CLI_Fax"]."','".$_POST["CLI_Mail"]."')") ;
+	function addEmploye($db){
+		if(isset($_POST["typeClient"]) && !empty($_POST["typeClient"]) && isset($_POST["connum"]) && !empty($_POST["connum"])){
+			if($_POST["typeClient"] == "Fournisseur"){								
+				$type = "fournisseur";
+				$TC_ID = 1;
+			}
+			else{
+				if($_POST["typeClient"] == "structure"){										
+					$type = "client";
+					$TC_ID = 2;
+				}
+				else{
+					displayError("Une erreur s'est produite pendant l'envoi du formulaire !");
+				}
+			}
 
-                              	  			if(!$query){
-                                					displayError("client");
-                                					mysqli_query($db, 'ROLLBACK;');
-                              	  			}
-                                				else{
-                                					displaySuccess("client");
-                                					mysqli_query($db, 'COMMIT;');
-                                				}
-                                    }
-                                }
-                                else{ // cas structure
-                                  $query = mysqli_query($db,"INSERT INTO clients (CLI_Nom, CLI_Adresse, CLI_CodePostal, CLI_Ville, CLI_Telephone, CLI_Portable, CLI_Fax, CLI_Email) VALUES ('".$_POST["CLI_Nom"]."','".$_POST["CLI_Adresse"]."',".$_POST["CLI_CodePostal"].",'".$_POST["CLI_Ville"]."','".$_POST["CLI_TelFixe"]."','".$_POST["CLI_TelPort"]."','".$_POST["CLI_Fax"]."','".$_POST["CLI_Mail"]."')") ;
+			if(!empty($_POST["Fonction"])){
+				$_POST["Fonction"] = FirstToUpper(suppr_carac_spe($_POST["Fonction"]));
+			}
+			else{
+				$_POST["Fonction"] = null;
+			}
+			
+			$verif_infos = verification_civile($error_handler, "PER");
 
-                                    if(!$query){
-                                        displayError("client");
-                                        mysqli_query($db, 'ROLLBACK;');
-                                    }
-                                    else{
-                                        displaySuccess("client");
-                                        mysqli_query($db, 'COMMIT;');
-                                    }
-                                }
-                            }
-                        }  
-                    }
-                }
-            }
-  		}
-  		else{
-  			displayError("client");
-  		}
-  	}
+			if($verif_infos){
+				if(mysqli_query($db, 'SET autocommit=0;') && mysqli_query($db, 'START TRANSACTION;')){
+					$query1 = mysqli_query($db, "INSERT INTO personnes (PER_Nom, PER_Prenom, PER_Adresse, PER_CodePostal, PER_Ville, PER_TelFixe, PER_TelPort, PER_Fax, PER_Email)
+												 VALUES ('".$_POST["PER_Nom"]."',
+												 '".$_POST["PER_Prenom"]."',
+												 '".$_POST["PER_Adresse"]."',
+												  ".$_POST["PER_CodePostal"].",
+												 '".$_POST["PER_Ville"]."',
+												 '".$_POST["PER_TelFixe"]."',
+												 '".$_POST["PER_TelPort"]."',
+												 '".$_POST["PER_Fax"]."',
+												 '".$_POST["PER_Email"]."')");
+					if($query1){
 
-  	function displayError($txt){
-  		echo '<div id="bad"> 
-              <label>Une erreur s\'est produite lors de l\'ajout d\'un '.$txt.' !</label>
-              </div>';        
-  	}
+						$query2 = mysqli_query($db,"SELECT MAX(PER_Num) as EmpNum FROM personnes");
+						$empnum = mysqli_fetch_assoc($query2);
 
-  	function displaySuccess($txt){
-        echo '<div id="good">
-	        <label> Le '.$txt.' a été sauvegardé avec succès !</label>
-	        </div>';	    
-  	}
+						if($type=="fournisseur"){
+							$req="INSERT INTO employerfourn VALUES (".$_POST["connum"].", ".$empnum["EmpNum"].", '".$_POST["Fonction"]."');";
+						} 
+						else{
+							$req="INSERT INTO employerclient VALUES (".$_POST["connum"].", ".$empnum["EmpNum"].", '".$_POST["Fonction"]."');";
+						}
+
+						$query3 = mysqli_query($db,$req);
+
+						if($query2 && $query3){
+							displaySuccess("L'employé a bien été enregistré !");
+							mysqli_query($db, 'COMMIT;');
+							redirectPage($_POST["connum"],$TC_ID);
+						}
+						else{
+							displayError("Une erreur s'est produite pendant l'envoi du formulaire, réessayez !");
+							echo mysqli_error($db);
+							mysqli_query($db, 'ROLLBACK;');
+						}
+					}
+					else{
+						displayError("Une erreur s'est produite pendant l'envoi du formulaire, réessayez !");
+						mysqli_query($db, 'ROLLBACK;');
+					}
+				}
+				else{
+					displayError("Une erreur s'est produite pendant l'envoi du formulaire !");
+				}
+			}
+		}
+	}
+
+	function verification_civile(&$error_handler, $prep, $type=""){
+		
+		$fieldOk = isset($_POST[$prep."_Nom"]) && !empty($_POST[$prep."_Nom"])
+				&& isset($_POST[$prep."_Adresse"]) 
+				&& isset($_POST[$prep."_Ville"])
+				&& isset($_POST[$prep."_CodePostal"])
+				&& isset($_POST[$prep."_TelFixe"]);
+
+		if(($prep == "CLI" && $type == "particulier") || $prep == "PER"){
+			$fieldOk = isset($_POST[$prep."_Prenom"]) && !empty($_POST[$prep."_Prenom"]);
+			$_POST[$prep."_Prenom"] = FirstToUpper(suppr_carac_spe($_POST[$prep."_Prenom"]));
+		}
+
+		$_POST[$prep."_Nom"] = strtoupper(suppr_carac_spe($_POST[$prep."_Nom"]));
+		$_POST[$prep."_Adresse"] = (!empty($_POST[$prep."_Adresse"])) ? FirstToUpper(suppr_carac_spe($_POST[$prep."_Adresse"])) : null;
+		$_POST[$prep."_Ville"] = (!empty($_POST[$prep."_Ville"])) ? strtoupper(suppr_carac_spe($_POST[$prep."_Ville"])) : null;
+
+		if(!empty($_POST[$prep."_CodePostal"])){
+			if(isPostalCode($_POST[$prep."_CodePostal"])){
+				$_POST[$prep."_CodePostal"] = str_replace(array(" ", ".", "-"), "", $_POST[$prep."_CodePostal"]);
+			}
+			else{
+				$error_handler .= $prep."_CodePostal|Le code postal n'est pas conforme;";
+				$fieldOk = false;
+			}
+		}
+		else{
+			$_POST[$prep."_CodePostal"] = null;
+		}
+		
+		if(!empty($_POST[$prep."_TelFixe"])){
+			if(isPhoneNumber($_POST[$prep."_TelFixe"])){
+				$_POST[$prep."_TelFixe"] = str_replace(array(" ", ".", "-"), "", $_POST[$prep."_TelFixe"]);
+			}
+			else{
+				$error_handler .= $prep."_TelFixe|Le numéro de téléphone fixe n'est pas conforme;";
+				$fieldOk = false;
+			}
+		}
+		else{
+			$_POST[$prep."_TelFixe"] = null;
+		}
+
+		if(!empty($_POST[$prep."_TelPort"])){
+			if(isPhoneNumber($_POST[$prep."_TelPort"])){
+				$_POST[$prep."_TelPort"] = str_replace(array(" ", ".", "-"), "", $_POST[$prep."_TelPort"]);
+			}
+			else{
+				$error_handler .= $prep."_TelPort|Le numéro de téléphone portable n'est pas conforme;";
+				$fieldOk = false;
+			}
+		}
+		else{
+			$_POST[$prep."_TelPort"] = null;
+		}
+
+		if(!empty($_POST[$prep."_Fax"])){
+			if(isPhoneNumber($_POST[$prep."_Fax"])){
+				$_POST[$prep."_Fax"] = str_replace(array(" ", ".", "-"), "", $_POST[$prep."_Fax"]);
+			}
+			else{
+				$error_handler .= $prep."_Fax|Le numéro de fax n'est pas conforme;";
+				$fieldOk = false;
+			}
+		}
+		else{
+			$_POST[$prep."_Fax"] = null;
+		}
+
+		if(!empty($_POST[$prep."_Email"])){
+			if(!isEmail($_POST[$prep."_Email"])){
+				$error_handler .= $prep."_Email|L'email n'est pas conforme (adresse@site.extension);";
+				$fieldOk = false;
+			}
+		}
+		else{
+			$_POST[$prep."_Email"] = null;
+		}
+
+		return $fieldOk;
+	}
+	
+	function displayError($message){
+		echo '<div id="corps">
+				<div id="bad"> 
+	            	<label>'.$message.'</label>
+	            </div>
+	          </div>';
+	}
+
+	function displaySuccess($message){
+		echo '<div id="corps">
+				<div id="good"> 
+	            	<label>'.$message.'</label>
+	            </div>
+	          </div>';
+	}
+
+	function redirectPage($ConNum,$TC_ID){
+		if($TC_ID == 1){
+		    echo '<script type="text/javascript">
+	    			setTimeout(function(){
+	                    $.redirect("./showContact.php", {"ConNum": '.$ConNum.',"TC_ID": '.$TC_ID.'}, "POST");
+	                }, 2500);
+				</script>';
+		}
+		else{
+			 echo '<script type="text/javascript">
+	    			setTimeout(function(){
+	                    $.redirect("./showContact.php", {"ConNum": '.$ConNum.',"TC_ID": '.$TC_ID.',"TypeClient": "structure"}, "POST");
+	                }, 2500);
+				</script>';
+		}
+	}
+
+	function redirectPageFormErrors(&$error_handler, $type, $TC_ID){
+		echo '<form action="editContact.php" method="POST" id="tempForm">';
+		foreach ($_POST as $key => $value) {
+			echo '<input type="hidden" name="'.htmlentities($key).'" value="'.htmlentities($value).'">';
+		}
+	    echo '<input type="hidden" name="Post_Errors" value="'.$error_handler.'">
+	    	<input type="hidden" name="Head_Title" value="Ajout d\'un contact">
+	    	<input type="hidden" name="TC_ID" value="'.$TC_ID.'">
+	    	<input type="hidden" id="request_type" name="request_type" value="'.$type.'"/>
+	    	</form>
+	    	<script type="text/javascript">
+    			setTimeout(function(){
+                   //$("#tempForm").submit();
+                }, 2500);
+			</script>';
+	}
+
+	include($pwd.'footer.php');
 ?>
