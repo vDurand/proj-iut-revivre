@@ -44,31 +44,23 @@
 		if(isset($_POST["TC_ID"]) && !empty($_POST["TC_ID"])){
 
 			if($_POST["TC_ID"] == 1){ // partie fournisseur
-
 				$prep="FOU";
 				$type="Fournisseur";
-				$query = mysqli_query($db, "SELECT FOU_NumFournisseur, FOU_Nom, FOU_Telephone, FOU_Portable, FOU_Email, FOU_Adresse, FOU_Ville FROM fournisseurs ;");
-																
+				$query = mysqli_query($db, "SELECT FOU_NumFournisseur, FOU_Nom, FOU_Telephone, FOU_Portable, FOU_Email, FOU_Adresse, FOU_Ville FROM fournisseurs;");											
+			}
+			else if($_POST["TC_ID"] == 2 && isset($_POST["TypeClient"]) && !empty($_POST["TypeClient"])){
+				$prep="CLI";
+				$type="Client";
+
+				if($_POST["TypeClient"] == "structure"){
+					$query = mysqli_query($db, "SELECT CLI_NumClient, CLI_Nom, CLI_Telephone, CLI_Portable, CLI_Email, CLI_Adresse, CLI_Ville FROM clients WHERE CLI_Prenom IS NULL OR CLI_Prenom = '';");
+				}
+				else if($_POST["TypeClient"] == "particulier"){
+					$query = mysqli_query($db, "SELECT CLI_NumClient, CLI_Nom, CLI_Prenom, CLI_Telephone, CLI_Portable, CLI_Email, CLI_Adresse, CLI_Ville FROM clients WHERE CLI_Prenom IS NOT NULL AND CLI_Prenom <> '';");
+				}
 			}
 			else{
-				if($_POST["TC_ID"] == 2){
-					$prep="CLI";
-					$type="Client";
-
-					if($_POST["TypeClient"]=="structure"){
-						$query = mysqli_query($db, "SELECT CLI_NumClient, CLI_Nom, CLI_Telephone, CLI_Portable, CLI_Email, CLI_Adresse, CLI_Ville 
-													FROM clients WHERE CLI_Prenom is null;");
-					}
-					else{
-						if($_POST["TypeClient"]=="particulier"){
-							$query = mysqli_query($db, "SELECT CLI_NumClient, CLI_Nom, CLI_Prenom, CLI_Telephone, CLI_Portable, CLI_Email, CLI_Adresse, CLI_Ville 
-														FROM clients WHERE CLI_Prenom is not null;");
-						}
-					}
-				}
-				else{
-					echo '<h4>Une erreur s\'est produite !</h4>';
-				}
+				echo '<h4>Une erreur s\'est produite !</h4>';
 			}
 		?>
 			<div class="repertoire-show-list">
@@ -77,7 +69,7 @@
 	            		<tr>
 	                		<th>Nom</th>
 	                		<?php
-	                		if($prep=="CLI" && $_POST["TypeClient"]=="particulier"){
+	                		if($prep=="CLI" && $_POST["TypeClient"] == "particulier"){
 	                			echo "<th>Prenom</th>";
 	                		}
 	                		?>
@@ -96,7 +88,7 @@
 	                		<td><?php echo (($data[$prep."_Nom"] != "") ? $data[$prep."_Nom"] : '<i class="no-data">Aucun nom</i>') ?></td>
 	                		
 	                	<?php
-	                		if($prep=="CLI" && $_POST["TypeClient"]=="particulier"){
+	                		if($prep=="CLI" && $_POST["TypeClient"] == "particulier"){
 	                	?>
 	                		<td>		
 	                		 	<?php echo (($data["CLI_Prenom"] != "") ? $data["CLI_Prenom"] : '<i class="no-data">Aucun prenom</i>'); ?>
@@ -186,7 +178,13 @@
 			<div class="align-center">
                 <input name="cancelInfoEmploye" type="button" id="cancelInfoEmploye" value="Retour" class="buttonC">  
                 <input type="button" value="Modifier" class="buttonC" 
-                onclick="$.redirect('editContact.php',{'request_type':'Employe','PER_Num': <?php echo $employe["PER_Num"] ?> , 'Type': '<?php echo $_POST["Type"]; ?>', 'TC_ID': <?php echo $_POST["TC_ID"]; ?> ,'ConNum':<?php echo $_POST["ConNum"]; ?> }, 'POST');" />                  
+                onclick="$.redirect('editContact.php',
+                		{'request_type':'Employe',
+                		'PER_Num': <?php echo $employe["PER_Num"] ?>, 
+                		'Type': '<?php echo $_POST["Type"]; ?>', 
+                		'TC_ID': <?php echo $_POST["TC_ID"]; ?>,
+                		'ConNum': <?php echo $_POST["ConNum"]; ?> },
+                		'POST');" />                  
             </div>
 <?php                            
 		}

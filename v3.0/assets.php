@@ -343,4 +343,11 @@ function convertToPhoneNumber($txt){
     }
 }
 
+function deleteSpecialChars($string)
+{
+    $pattern = ['/[<>!"#$£%&€§=°()¤\*+,.\/:;?@\\\\^_`{\|}~\[\]]/', "/'+/", "/^'{1,}|'{1,}$/"];
+    $remplacement = ["", "'", "'"];
+    return trim(preg_replace($pattern, $remplacement, trim($string)));
+}
+
 ?>

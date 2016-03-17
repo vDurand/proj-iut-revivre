@@ -13,7 +13,7 @@
         //header("Location: maintenance.php");
 	}
     if(!isset($pageTitle)){
-        $pageTitle = "Intranet association Revivre";
+        $pageTitle = "Intranet Association Revivre";
     }
 ?>
 <!DOCTYPE html>
@@ -58,17 +58,29 @@
 						<li id="champs">
 							<span class="item-title">Répertoire<span>&#9662;</span></span>
 							<ul class="sub-menu">
-								<li><a href="#">Salariés (NEW)<span>&#9656;</span></a>
+								<li><a href="#">Salariés<span>&#9656;</span></a>
 									<ul class="sub-menu">
                                         <li><a href="<?php echo $pwd; ?>contact_refactoring/salaries/addSalarie.php">Ajouter un salarié</a></li>
                                         <li><a href="<?php echo $pwd; ?>contact_refactoring/salaries/listSalaries.php">Liste des salariés</a></li>
 									</ul>
 								</li>
-								<li><a href="#">Contacts (NEW)<span>&#9656;</span></a>
+								<li><a href="#">Contacts<span>&#9656;</span></a>
 									<ul class="sub-menu">
                                         <li><a href="<?php echo $pwd; ?>contact_refactoring/contacts/addContact.php">Ajouter un contact</a></li>
                                         <li><a href="<?php echo $pwd; ?>contact_refactoring/contacts/listContacts.php">Liste des contacts</a></li>
 									</ul>
+								</li>
+								<li><a href="<?php echo $pwd; ?>contact/partenaire/viewRef.php">Référents</a></li>
+                                <li>
+                                	<a href="#">Administratif<span>&#9656;</span></a>
+                                    <ul class="sub-menu">
+                                        <li><a href="<?php echo $pwd; ?>contact/convention.php">Conventions</a></li>
+                                        <li><a href="<?php echo $pwd; ?>contact/logoProperties.php">Logos</a></li>
+                                        <li><a href="<?php echo $pwd; ?>contact/sorties.php">Type de sorties</a></li>
+                                        <li><a href="<?php echo $pwd; ?>contact/prescripteurs.php">Prescripteurs</a></li>
+                                    </ul>
+                                </li>
+                               	<li>
 								</li>
                                 <li><a href="<?php echo $pwd; ?>contact/addInsertion.php">Ajouter en insertion</a></li>
 								<li><a href="<?php echo $pwd; ?>contact/addContact.php">Ajouter contact</a></li>
@@ -101,21 +113,6 @@
 									?>										
 									</ul>
 								</li>
-                                <li>
-                                	<a href="<?php echo $pwd; ?>contact/partenaire/viewPartenaires.php">Partenaires<span>&#9656;</span></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="<?php echo $pwd; ?>contact/partenaire/viewRef.php">Référents</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                	<a href="#">Administratif<span>&#9656;</span></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="<?php echo $pwd; ?>contact/convention.php">Conventions</a></li>
-                                        <li><a href="<?php echo $pwd; ?>contact/logoProperties.php">Logos</a></li>
-                                        <li><a href="<?php echo $pwd; ?>contact/sorties.php">Type de sorties</a></li>
-                                        <li><a href="<?php echo $pwd; ?>contact/prescripteurs.php">Prescripteurs</a></li>
-                                    </ul>
-                                </li>
                 			</ul>
 						</li>
 						<li id="champs">

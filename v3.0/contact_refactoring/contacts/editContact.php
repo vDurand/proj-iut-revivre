@@ -7,7 +7,6 @@
 	if(isset($_POST["request_type"]) && !empty($_POST["request_type"])){
 
 		$typeClient = null;
-		$request_type = "edit";
 
 		switch($_POST["request_type"]){
 			case "Fournisseur":
@@ -110,40 +109,50 @@
 	}
 
 	function editClient($db){
-		if(isset($_POST["ConNum"]) && !empty($_POST["ConNum"]) && isset($_POST["TC_ID"]) && !empty($_POST["TC_ID"])){
-			echo '<form method="POST" action="postContact.php">';
-			$query = mysqli_query($db, "SELECT * from clients WHERE CLI_NumClient = ".$_POST["ConNum"].";");
-			$client = mysqli_fetch_assoc($query);
+		if(isset($_POST["TC_ID"]) && !empty($_POST["TC_ID"])){
+			if(isset($_POST["ConNum"]) && !empty($_POST["ConNum"])){
 
-			!empty($client["CLI_Nom"]) ? $_POST["CLI_Nom"] = $client["CLI_Nom"] : "" ;
-			!empty($client["CLI_Adresse"]) ? $_POST["CLI_Adresse"] = $client["CLI_Adresse"] : "" ;
-			!empty($client["CLI_CodePostal"]) ? $_POST["CLI_CodePostal"] = $client["CLI_CodePostal"] : "" ;
-			!empty($client["CLI_Ville"]) ? $_POST["CLI_Ville"] = $client["CLI_Ville"] : "" ;
-			!empty($client["CLI_Telephone"]) ? $_POST["CLI_TelFixe"] = $client["CLI_Telephone"] : "" ;
-			!empty($client["CLI_Portable"]) ? $_POST["CLI_TelPort"] = $client["CLI_Portable"] : "" ;
-			!empty($client["CLI_Fax"]) ? $_POST["CLI_Fax"] = $client["CLI_Fax"] : "" ;
-			!empty($client["CLI_Email"]) ? $_POST["CLI_Email"] = $client["CLI_Email"] : "" ;
-			$_POST["edit"]=true;
+				$query = mysqli_query($db, "SELECT * from clients WHERE CLI_NumClient = ".$_POST["ConNum"].";");
+				$client = mysqli_fetch_assoc($query);
+			}
+			else if(isset($_POST["Post_Errors"]) && !empty($_POST["Post_Errors"])){
+		        include_once("includes/form_errors.php");
+		        foreach ($_POST as $key => $value){
+		            $client[$key] = $value;
+		        }
+		    }
+			$client_edit = true;
 ?>
-			<div id="labelT">
-			    <label>
-			    <?php
-				    if(!empty($client["CLI_Prenom"]) && $client["CLI_Prenom"]!=null){
-						$_POST["CLI_Prenom"] = $client["CLI_Prenom"];
-						echo 'Modification de '.stripslashes($client["CLI_Nom"]).' '.stripslashes($client["CLI_Prenom"]).', client de l\'association';
-						echo '<input type="hidden" id="TypeClient" name="TypeClient" value="particulier"/>';
-						$typeClient = "particulier";
-					}
-					else{
-						echo 'Modification de '.stripslashes($client["CLI_Nom"]).', client de l\'association';
-						echo '<input type="hidden" id="TypeClient" name="TypeClient" value="structure"/>';
-						$typeClient = "structure";
-					}			        
-			    ?>
-			    </label>
-			</div>
+		    <form method="POST" action="postContact.php">
+				<div id="labelT">
+				    <label>
+				    <?php
+					    if(!empty($client["CLI_Prenom"]) && $client["CLI_Prenom"]!=null){
+							echo 'Modification de '.stripslashes($client["CLI_Nom"]).' '.stripslashes($client["CLI_Prenom"]).', client (particulier) de l\'association';
+							echo '<input type="hidden" id="TypeClient" name="TypeClient" value="particulier"/>';
+							$typeClient = "particulier";
+						}
+						else{
+							echo 'Modification de '.stripslashes($client["CLI_Nom"]).', client (structure) de l\'association';
+							echo '<input type="hidden" id="TypeClient" name="TypeClient" value="structure"/>';
+							$typeClient = "structure";
+						}			        
+				    ?>
+				    </label>
+				</div>
 <?php
 			include_once("./includes/form2.php"); 			
+?>
+			<div align="center">
+		            <input type="hidden" id="request_type" name="request_type" value="<?php echo $_POST["request_type"]; ?>"/>
+		            <input type="hidden" id="TC_ID" name="TC_ID" value="<?php echo $_POST["TC_ID"]; ?>"/>
+		            <input type="hidden" id="ConNum" name="ConNum" value="<?php echo $_POST["ConNum"]; ?>"/>
+					<input type="button" value="Annuler" class="buttonC" onclick="$.redirect('showContact.php',{
+						'TC_ID': <?php echo $_POST["TC_ID"];?>, 'ConNum' : <?php echo $_POST["ConNum"] ?>, 'TypeClient' : '<?php echo $typeClient; ?>'}, 'POST');" />
+					<input type="submit" value="Valider" class="buttonC">
+			  	</div>
+			</form>
+<?php
 		}
     	else{
 	        echo '<div id="bad"> 
@@ -151,15 +160,6 @@
 	        </div>';
     	}
 	}
-
-		echo '<div align="center">
-	            <input type="hidden" id="request_type" name="request_type" value="'.$request_type.'"/>
-	            <input type="hidden" id="TC_ID" name="TC_ID" value="'.$_POST["TC_ID"].'"/>
-	            <input type="hidden" id="ConNum" name="ConNum" value="'.$_POST["ConNum"].'"/>
-				<input type="button" value="Annuler" class="buttonC" onclick="$.redirect(\'showContact.php\',{\'TC_ID\': '.$_POST["TC_ID"].', \'ConNum\' : '.$_POST["ConNum"].', \'TypeClient\' : \''.$typeClient.'\'}, \'POST\');" />
-				<input type="submit" value="Valider" class="buttonC">
-		  	</div>
-		</form>';
 ?>
 </div>
 <?php

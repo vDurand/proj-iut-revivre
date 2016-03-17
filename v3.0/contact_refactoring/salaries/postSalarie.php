@@ -53,7 +53,7 @@
 							PER_Sexe = ".$_POST["PER_Sexe"]." WHERE PER_Num = (SELECT PER_Num FROM salaries WHERE SAL_NumSalarie = ".$_POST["SAL_NumSalarie"].")");
 
 						if($querying){
-							if($_POST["TYP_Id"] < 5){
+							if($_POST["TYP_Id"] <= 5){
 								$querying = mysqli_query($db, "UPDATE salaries SET SAL_Actif = ".(($_POST["SAL_DateSortie"] == null) ? 1 : 0).", SAL_DateSortie = '".$_POST["SAL_DateSortie"]."', 
 									FCT_Id = ".((isset($_POST["new_FCT_Id"])) ? "(SELECT max(FCT_Id) FROM fonction)" : $_POST["FCT_Id"])." WHERE SAL_NumSalarie =".$_POST["SAL_NumSalarie"].";");
 							}
@@ -188,7 +188,7 @@
 							'".$_POST["PER_NSecu"]."', '".$_POST["PER_NCaf"]."', ".$_POST["PER_Sexe"].");");
 
 						if($querying){
-							if($_POST["TYP_Id"] < 5){
+							if($_POST["TYP_Id"] <= 5){
 								$querying = mysqli_query($db, "INSERT INTO salaries (PER_Num, TYP_Id, SAL_Actif, FCT_Id, SAL_DateSortie)
 									VALUES ((SELECT max(PER_Num) FROM personnes), ".$_POST["TYP_Id"].", 1, ".((isset($_POST["new_FCT_Id"])) ? "(SELECT max(FCT_Id) FROM fonction)" : $_POST["FCT_Id"]).", NULL);");
 							}
@@ -337,7 +337,7 @@
 			if((isset($_POST["FCT_Id"]) && !empty($_POST["FCT_Id"]) && !isset($_POST["new_FCT_Id"])) || ((isset($_POST["new_FCT_Id"]) && !empty($_POST["new_FCT_Id"])))){
 				if(isset($_POST["new_FCT_Id"]) && !empty($_POST["new_FCT_Id"])){
 					if(!empty($_POST["new_FCT_Id"])){
-						$_POST["new_FCT_Id"] = FirstToUpper(suppr_carac_spe($_POST["new_FCT_Id"]));
+						$_POST["new_FCT_Id"] = FirstToUpper(deleteSpecialChars(suppr_carac_spe($_POST["new_FCT_Id"])));
 					}
 					else{
 						$fieldOk = false;
@@ -351,13 +351,13 @@
 			}
 		}
 
-		$_POST["PER_Nom"] = strtoupper(suppr_carac_spe($_POST["PER_Nom"]));
-		$_POST["PER_Prenom"] = FirstToUpper(suppr_carac_spe($_POST["PER_Prenom"]));
+		$_POST["PER_Nom"] = strtoupper(deleteSpecialChars(suppr_carac_spe($_POST["PER_Nom"])));
+		$_POST["PER_Prenom"] = FirstToUpper(deleteSpecialChars(suppr_carac_spe($_POST["PER_Prenom"])));
 		$_POST["PER_LieuN"] = strtoupper(suppr_carac_spe($_POST["PER_LieuN"]));
-		$_POST["PER_Nation"] = strtoupper(suppr_carac_spe($_POST["PER_Nation"]));
-		$_POST["PER_NSecu"] = str_replace(array(" ", ".", "-"), "",$_POST["PER_NSecu"]);
-		$_POST["PER_Adresse"] = (!empty($_POST["PER_Adresse"])) ? FirstToUpper(suppr_carac_spe($_POST["PER_Adresse"])) : null;
-		$_POST["PER_Ville"] = (!empty($_POST["PER_Ville"])) ? strtoupper(suppr_carac_spe($_POST["PER_Ville"])) : null;
+		$_POST["PER_Nation"] = strtoupper(deleteSpecialChars(suppr_carac_spe($_POST["PER_Nation"])));
+		$_POST["PER_NSecu"] = str_replace(array(" ", ".", "-"), "", $_POST["PER_NSecu"]);
+		$_POST["PER_Adresse"] = (!empty($_POST["PER_Adresse"])) ? FirstToUpper(deleteSpecialChars(suppr_carac_spe($_POST["PER_Adresse"]))) : null;
+		$_POST["PER_Ville"] = (!empty($_POST["PER_Ville"])) ? strtoupper(deleteSpecialChars(suppr_carac_spe($_POST["PER_Ville"]))) : null;
 		$_POST["PER_NCaf"] = (!empty($_POST["PER_NCaf"])) ? str_replace(array(" ", ".", "-"), "",$_POST["PER_NCaf"]) : null;
 		$_POST["PER_NPoleEmp"] = (!empty($_POST["PER_NPoleEmp"])) ? str_replace(array(" ", ".", "-"), "",$_POST["PER_NPoleEmp"]) : null;
 
@@ -437,11 +437,11 @@
 		$fieldOk = isset($_POST["INS_UrgNom"]) && isset($_POST["INS_UrgPrenom"]) && isset($_POST["INS_UrgTel"]);
 
 		if(!empty($_POST["INS_UrgNom"])){
-			$_POST["INS_UrgNom"] = strtoupper(suppr_carac_spe($_POST["INS_UrgNom"]));
+			$_POST["INS_UrgNom"] = strtoupper(deleteSpecialChars(suppr_carac_spe($_POST["INS_UrgNom"])));
 		}
 
 		if(!empty($_POST["INS_UrgPrenom"])){
-			$_POST["INS_UrgPrenom"] = FirstToUpper(suppr_carac_spe($_POST["INS_UrgPrenom"]));
+			$_POST["INS_UrgPrenom"] = FirstToUpper(deleteSpecialChars(suppr_carac_spe($_POST["INS_UrgPrenom"])));
 		}
 
 		if(!empty($_POST["INS_UrgTel"])){
@@ -514,8 +514,8 @@
 
 		if((isset($_POST["REF_NumRef"]) && !empty($_POST["REF_NumRef"]) && !isset($_POST["new_REF_NumRef"])) || ((isset($_POST["new_REF_NumRef"]) && !empty($_POST["new_REF_NumRef"])))){
 			if(isset($_POST["new_REF_NumRef"])){
-				if(!empty($_POST["new_REF_NumRef"]) && preg_match('/[A-Z|a-z]{2,}\s[A-Z|a-z]{2,}/',$_POST["new_REF_NumRef"])){
-					$_POST["new_REF_NumRef"] = FirstToUpper(suppr_carac_spe($_POST["new_REF_NumRef"]));
+				if(!empty($_POST["new_REF_NumRef"]) && preg_match('/^[A-Z|a-z]{2,}\s[A-Z|a-z|-]{2,}$/',$_POST["new_REF_NumRef"])){
+					$_POST["new_REF_NumRef"] = FirstToUpper(deleteSpecialChars(suppr_carac_spe($_POST["new_REF_NumRef"])));
 				}
 				else{
 					$fieldOk = false;
@@ -534,7 +534,7 @@
 		}
 
 		$_POST["INS_NbHeures"] = (!empty($_POST["INS_NbHeures"])) ? $_POST["INS_NbHeures"] : 0;
-		$_POST["INS_SituationF"] = (!empty($_POST["INS_SituationF"])) ? $_POST["INS_SituationF"] : null;
+		$_POST["INS_SituationF"] = (!empty($_POST["INS_SituationF"])) ? deleteSpecialChars($_POST["INS_SituationF"]) : null;
 
 		return $fieldOk;
 	}

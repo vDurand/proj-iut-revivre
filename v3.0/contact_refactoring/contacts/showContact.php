@@ -9,7 +9,7 @@
         $num = $_POST["ConNum"];
         $typeClient = "";
 
-        if($_POST["TC_ID"] == 1){
+        if($_POST["TC_ID"] == "1"){
             $type = "Fournisseur";
             $prep = "FOU";
             $table = "fournisseurs";
@@ -34,11 +34,11 @@
 <div id="labelT">
     <label>
     <?php
-        if ($type == "Fournisseur"){
-            echo stripslashes($contact[$prep."_Nom"]).', fournisseur de l\'association';
+        if($type == "Fournisseur"){
+             echo stripslashes($contact[$prep."_Nom"]).', fournisseur de l\'association';
         }
         else{
-            echo stripslashes($contact[$prep."_Nom"]).' '.stripslashes($contact[$prep."_Prenom"]).', client de l\'association';
+            echo trim(stripslashes($contact[$prep."_Nom"]).' '.stripslashes($contact[$prep."_Prenom"])).', client ('.($_POST["TypeClient"] == "particulier" ? "particulier" : "structure").') de l\'association';
         }
     ?>
     </label>
@@ -245,7 +245,7 @@
     }
     else{
         echo '<div id="bad"> 
-            <label>Une erreur c\'est produite lors de l\'accès à la page</label>
+            <label>Une erreur c\'est produite lors de l\'accès à la page !</label>
         </div>';
     }
 ?>

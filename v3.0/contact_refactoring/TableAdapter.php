@@ -8,23 +8,23 @@
 	//mysqli_query($db, 'SET autocommit=0;');
 	//mysqli_query($db, 'START TRANSACTION;');
 
-	$query1 = mysqli_query($db, "SELECT *, '1' AS isSalNormal FROM personnes 
+	$query1 = mysqli_query($db, "SELECT *, '1' AS typePer FROM personnes 
 								WHERE PER_Num IN (SELECT PER_Num FROM personnes JOIN salaries USING(PER_Num) JOIN insertion USING(SAL_NumSalarie)) 
 								UNION
-								SELECT *, '2' AS isSalNormal FROM personnes 
+								SELECT *, '2' AS typePer FROM personnes 
 								WHERE PER_Num NOT IN (SELECT PER_Num FROM personnes JOIN salaries USING(PER_Num) JOIN insertion USING(SAL_NumSalarie)) AND PER_Num IN (SELECT PER_Num FROM personnes JOIN salaries USING(PER_Num))
 								UNION
-								SELECT *, '3' AS isSalNormal FROM personnes 
+								SELECT *, '3' AS typePer FROM personnes 
 								WHERE PER_Num NOT IN (SELECT PER_Num FROM personnes JOIN salaries USING(PER_Num))
 								ORDER BY PER_NUM");
 	echo mysqli_num_rows($query1)." Lignes au total<br/>";
 
 	while($d = mysqli_fetch_assoc($query1)){
-		if($d["isSalNormal"] == "1"){
+		if($d["typePer"] == "1"){
 			$query2 = mysqli_query($db, "SELECT * FROM personnes JOIN salaries USING(PER_Num) JOIN insertion USING(SAL_NumSalarie) WHERE PER_Num = ".$d["PER_Num"]);
 			$da = mysqli_fetch_array($query2, MYSQLI_ASSOC);
 		}
-		else if($d["isSalNormal"] == "2"){
+		else if($d["typePer"] == "2"){
 			$query2 = mysqli_query($db, "SELECT * FROM personnes JOIN salaries USING(PER_Num) WHERE PER_Num = ".$d["PER_Num"]);
 			$da = mysqli_fetch_array($query2, MYSQLI_ASSOC);
 		}
@@ -64,7 +64,7 @@
 											'".((isset($da["INS_NCaf"])) ? $da["INS_NCaf"] : NULL)."');"
 								);
 
-		if($d["isSalNormal"] == "1" || $d["isSalNormal"] == "2"){
+		if($d["typePer"] == "1" || $d["typePer"] == "2"){
 			$query4 = mysqli_query($db, "INSERT INTO salaries2 
 												(SAL_NumSalarie,
 												PER_Num,
@@ -81,7 +81,7 @@
 									);
 		}
 
-		if($d["isSalNormal"] == "1"){
+		if($d["typePer"] == "1"){
 			$query5 = mysqli_query($db, "INSERT INTO insertion2 
 												(SAL_NumSalarie,
 												INS_DateEntretien,
@@ -135,6 +135,36 @@
 			echo mysqli_error($db)."<br/><br/>";
 		}
 	}
+	echo mysqli_num_rows($query1)." Lignes au total<br/>";
+
+	$query1 = mysqli_query($db, "SELECT SAL_NumSalarie FROM salaries2 WHERE FCT_Id = 0 AND SAL_NumSalarie NOT IN (SELECT SAL_NumSalarie FROM insertion2)");
+	while($d = mysqli_fetch_assoc($query1)){
+		$query2 = mysqli_query($db, "INSERT INTO insertion2 (SAL_NumSalarie,
+												INS_DateEntretien,
+												INS_SituationF,
+												INS_NivScol,
+												INS_Diplome,
+												INS_Permis,
+												INS_RecoTH,
+												INS_Revenu,
+												INS_Mutuelle,
+												CNV_Id,
+												CNT_Id,
+												INS_DateEntree,
+												INS_NbHeures,
+												INS_NbJours,
+												INS_RevenuDepuis,
+												INS_SEDepuis,
+												INS_PEDepuis,
+												INS_Repas,
+												INS_TRepas,
+												INS_Positionmt,
+												INS_SituGeo,
+												REF_NumRef,
+												TYS_ID)
+												VALUES (".$d["SAL_NumSalarie"].", '0000-00-00', '-', '-', 0, 0, '-', '-', 1, 1,'0000-00-00', 0, 0, '-', '-', '-', 0, 0, '-', '-', 1, 0)");
+	}
+	
 ?>
 </div>
 <?php

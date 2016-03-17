@@ -9,7 +9,7 @@
 		<label>Liste des contacts</label>
 	</div>
 	<div class="repertoire-show-filters">
-		<table>
+		<table style="table-layout: auto;">
 			<thead>
 				<tr>
 					<th colspan="3">Filtres :</th>
@@ -30,11 +30,12 @@
 							</select>
 						</div>
 					</td>
-					
 					<td>		
-						<label for="TypeClient" id="Label_TypeClient"  hidden="hidden">Type du client : </label>				
-						<div class="selectType" style="width:200px" id="Div_TypeClient" hidden="hidden">
-							<select id="TypeClient">
+						<label for="typeclient" id="label-typeclient" style="visibility: hidden;">Type du client : </label>	
+					</td>
+					<td>			
+						<div class="selectType" id="div-typeclient" style="width:200px; visibility: hidden;">
+							<select id="typeclient">
 								<option value="0" selected="selected" disabled="disabled">Choisissez le type</option>
 								<option value="structure">Structure</option>
 								<option value="particulier">Particulier</option>
@@ -81,20 +82,16 @@
 
 		//choix du type de client (structure ou particulier)
 		if($("#TC_ID").val() == 2){
-			$("#Label_TypeClient, #Div_TypeClient").show();
-			$("#Label_TypeClient").prop("hidden", "");
-			$("#Div_TypeClient").prop("hidden", "");
+			$("#label-typeclient, #div-typeclient").css("visibility", "visible");
 		}
 		else{
-			$("#Label_TypeClient, #Div_TypeClient").hide();
-			$("#TypeClient").val("0");
-			$("#Label_TypeClient").prop("hidden", "hidden");
-			$("#Div_TypeClient").prop("hidden", "hidden");
+			$("#label-typeclient, #div-typeclient").css("visibility", "hidden");
+			$("#typeclient").val("0");
 		}
 	});
 
-	$("#TypeClient").on("change", function(){
-		getDataAjax("./ajax/formulaireDataAdd.php", {"request_type": "list", "TC_ID": $("#TC_ID").val(), "TypeClient": $("#TypeClient").val()}, function(data){
+	$("#typeclient").on("change", function(){
+		getDataAjax("./ajax/formulaireDataAdd.php", {"request_type": "list", "TC_ID": $("#TC_ID").val(), "TypeClient": $("#typeclient").val()}, function(data){
 			if(data.length > 0){
 				$(".repertoire-form-content").removeClass("waiting-repertoire-form");
 				$(".repertoire-form-content .form-loader").hide();

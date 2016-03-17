@@ -4,7 +4,7 @@ $pwd="";
 ?>
 		<div id="corps">
 			<div id="labelT">     
-	            <label>Base de données de l'Association Revivre</label>
+	            <label>Intranet de l'Association Revivre</label>
 			</div>
 			<br/>
             <div>

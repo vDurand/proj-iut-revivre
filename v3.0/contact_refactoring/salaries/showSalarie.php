@@ -30,7 +30,7 @@
             }
             $personne = mysqli_fetch_assoc($reponse1);
 
-            $travailleur = mysqli_num_rows(mysqli_query($db, "SELECT * from Insertion where SAL_NumSalarie = ".$personne["SAL_NumSalarie"]));
+            $travailleur = mysqli_num_rows(mysqli_query($db, "SELECT * from insertion where SAL_NumSalarie = ".$personne["SAL_NumSalarie"].";"));
             
             if($travailleur > 0){
                 // récupération du nom du type de sortie
@@ -399,7 +399,7 @@
                         }
                     }
 
-                    if((empty($personne["SAL_DateSortie"]) || $personne["SAL_DateSortie"] == "0000-00-00") && $personne["TYS_ID"] < 0){
+                    if((empty($personne["SAL_DateSortie"]) || $personne["SAL_DateSortie"] == "0000-00-00") && $personne["TYS_ID"] <= 0){
                         if(mysqli_num_rows($donnees) > 0){
                             echo '<tr></tr>';
                         }
