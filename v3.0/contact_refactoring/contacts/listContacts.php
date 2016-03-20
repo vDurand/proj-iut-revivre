@@ -35,7 +35,7 @@
 					</td>
 					<td>			
 						<div class="selectType" id="div-typeclient" style="width:200px; visibility: hidden;">
-							<select id="typeclient">
+							<select id="Typeclient">
 								<option value="0" selected="selected" disabled="disabled">Choisissez le type</option>
 								<option value="structure">Structure</option>
 								<option value="particulier">Particulier</option>
@@ -86,12 +86,12 @@
 		}
 		else{
 			$("#label-typeclient, #div-typeclient").css("visibility", "hidden");
-			$("#typeclient").val("0");
+			$("#Typeclient").val("0");
 		}
 	});
 
-	$("#typeclient").on("change", function(){
-		getDataAjax("./ajax/formulaireDataAdd.php", {"request_type": "list", "TC_ID": $("#TC_ID").val(), "TypeClient": $("#typeclient").val()}, function(data){
+	$("#Typeclient").on("change", function(){
+		getDataAjax("./ajax/formulaireDataAdd.php", {"request_type": "list", "TC_ID": $("#TC_ID").val(), "TypeClient": $("#Typeclient").val()}, function(data){
 			if(data.length > 0){
 				$(".repertoire-form-content").removeClass("waiting-repertoire-form");
 				$(".repertoire-form-content .form-loader").hide();
@@ -109,8 +109,8 @@
 
 	function triggerTableRows(){
 		$(".repertoire-show-list table tbody tr").on("click", function(){
-			if($("#TC_ID").val() == 2){
-				$.redirect("./showContact.php", {"ConNum": $(this).data("connum"), "TC_ID": $("#TC_ID").val(), "TypeClient": $("#TypeClient").val()}, "POST");
+			if($("#TC_ID").val() == 2){				
+				$.redirect("./showContact.php", {"ConNum": $(this).data("connum"), "TC_ID": $("#TC_ID").val(), "TypeClient": $("#Typeclient").val()}, "POST");			
 			}
 			else{
 				$.redirect("./showContact.php", {"ConNum": $(this).data("connum"), "TC_ID": $("#TC_ID").val()}, "POST");

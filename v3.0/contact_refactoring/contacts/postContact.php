@@ -5,7 +5,6 @@
 	$error_handler = "";
 
 	if(isset($_POST["request_type"]) && !empty($_POST["request_type"])){
-
 		switch($_POST["request_type"]){
 			case "add";
 				addContact($db, $error_handler);
@@ -21,18 +20,18 @@
 				break;
 		}
 	}
+	else{
+		displayError("Une erreur s'est produite pendant l'envoi du formulaire !");
+	}
 
-	function editEmploye($db, $error_handler){
+	function editEmploye($db, &$error_handler){
 		if(isset($_POST["PER_Num"]) && !empty($_POST["PER_Num"]) && isset($_POST["Type"]) && !empty($_POST["Type"]) && isset($_POST["TC_ID"]) && !empty($_POST["TC_ID"]) && isset($_POST["ConNum"]) && !empty($_POST["ConNum"])){
 
 			$prep="PER";
 			$table="personnes";
 			$verif_infos = verification_civile($error_handler, $prep);
 
-			/*if(isset($_POST["Fonction"]) && !empty($_POST["Fonction"])){
-				$fieldOk = isset($_POST[$prep."_Prenom"]) && !empty($_POST[$prep."_Prenom"]);
-				$_POST[$prep."_Prenom"] = FirstToUpper(suppr_carac_spe($_POST[$prep."_Prenom"]));
-			}*/
+			$querying = true;
 
 			if($verif_infos){
 	        	if(mysqli_query($db, 'SET autocommit=0;') && mysqli_query($db, 'START TRANSACTION;')){
@@ -49,7 +48,7 @@
 														WHERE ".$prep."_Num=".$_POST["PER_Num"].";");
 
 						if($querying && $_POST["TC_ID"] == 1){		
-							$querying = mysqli_query($db,"UPDATE employerfourn SET EMF_Fonction='".addslashes($_POST["Fonction"])."' WHERE CLI_NumClient = ".$_POST["ConNum"]." AND PER_Num = ".$_POST["PER_Num"]);	
+							$querying = mysqli_query($db,"UPDATE employerfourn SET EMF_Fonction='".addslashes($_POST["Fonction"])."' WHERE FOU_NumFournisseur = ".$_POST["ConNum"]." AND PER_Num = ".$_POST["PER_Num"]);	
 
 							if($querying){
 								displaySuccess("L'employé a bien été modifié !");
@@ -57,9 +56,10 @@
 								redirectPage($_POST["ConNum"],$_POST["TC_ID"]);
 							}
 							else{
+								echo mysqli_error($db);
 								displayError("Une erreur s'est produite pendant l'envoi du formulaire, réessayez !");
 								mysqli_query($db, 'ROLLBACK;');
-								redirectPageFormErrors($error_handler, "edit",$_POST["TC_ID"]);
+								redirectPageFormErrors($error_handler, "Employe",$_POST["TC_ID"]);
 							}		
 						}
 						else{
@@ -69,14 +69,14 @@
 							else{
 								displayError("Une erreur s'est produite pendant l'envoi du formulaire, réessayez !");
 								mysqli_query($db, 'ROLLBACK;');
-								redirectPageFormErrors($error_handler, "edit",$_POST["TC_ID"]);
+								redirectPageFormErrors($error_handler, "Employe",$_POST["TC_ID"]);
 							}
 						}
 					}
 					else{
 						displayError("Une erreur s'est produite pendant l'envoi du formulaire, réessayez !");
 						mysqli_query($db, 'ROLLBACK;');
-						redirectPageFormErrors($error_handler, "edit",$_POST["TC_ID"]);
+						redirectPageFormErrors($error_handler, "Employe",$_POST["TC_ID"]);
 					}
 				}
 				else{
@@ -85,7 +85,7 @@
 			}
 			else{
 				displayError("Veuillez remplir correctement tous les champs du formulaire, réessayez !");
-				redirectPageFormErrors($error_handler, "edit",$_POST["TC_ID"]);	
+				redirectPageFormErrors($error_handler, "Employe",$_POST["TC_ID"]);	
 			}
 		}
 		else{
@@ -125,27 +125,28 @@
 							            ".$_POST[$prep."_CodePostal"].", 
 							'".addslashes($_POST[$prep."_Ville"])."');");
 
-						if($querying && $type == "Client"){	
+						if($querying && $type == "Client" && isset($_POST["CLI_Prenom"])){	
 							$querynum = mysqli_query($db,"SELECT MAX(CLI_NumClient) as num from clients;");	
 							$numclient = mysqli_fetch_assoc($querynum);			
-							$querying = mysqli_query($db,"UPDATE clients SET CLI_Prenom='".addslashes($_POST[$prep."_Prenom"])."' WHERE CLI_NumClient = ".$numclient["num"]	);
+							$querying = mysqli_query($db,"UPDATE clients SET CLI_Prenom='".addslashes($_POST["CLI_Prenom"])."' WHERE CLI_NumClient = ".$numclient["num"]);
+
 							if($querying){
-								displaySuccess("Le ".$type." a bien été enregistré !");
+								displaySuccess("Le ".strtolower($type)." a bien été enregistré !");
 								$query = mysqli_query($db, "SELECT max(CLI_NumClient) as ConNum FROM clients;");
 								$TC_ID = 2;
 								$data = mysqli_fetch_assoc($query);
 								mysqli_query($db, 'COMMIT;');
-								redirectPage($data["ConNum"],$TC_ID);
+								redirectPage($data["ConNum"],$TC_ID,"particulier");
 							}
 							else{
 								displayError("Une erreur s'est produite pendant l'envoi du formulaire, réessayez !");
 								mysqli_query($db, 'ROLLBACK;');
-								redirectPageFormErrors($error_handler, "add",$_POST["TC_ID"]);
+								redirectPageFormErrors($error_handler,$type,$_POST["TC_ID"]);
 							}				
 						}
 						else{
 							if($querying){
-								displaySuccess("Le ".$type." a bien été enregistré !");
+								displaySuccess("Le ".strtolower($type)." a bien été enregistré !");
 								if($type == "Fournisseur"){
 									$query = mysqli_query($db, "SELECT max(FOU_NumFournisseur) as ConNum FROM fournisseurs;");
 									$TC_ID = 1;
@@ -161,14 +162,14 @@
 							else{
 								displayError("Une erreur s'est produite pendant l'envoi du formulaire, réessayez !");
 								mysqli_query($db, 'ROLLBACK;');
-								redirectPageFormErrors($error_handler, "add",$_POST["TC_ID"]);
+								redirectPageFormErrors($error_handler, $type,$_POST["TC_ID"]);
 							}
 						}
 					}
 					else{
 						displayError("Une erreur s'est produite pendant l'envoi du formulaire, réessayez !");
 						mysqli_query($db, 'ROLLBACK;');
-						redirectPageFormErrors($error_handler, "add",$_POST["TC_ID"]);
+						redirectPageFormErrors($error_handler, $type,$_POST["TC_ID"]);
 					}
 		        }
 		        else{
@@ -177,7 +178,7 @@
 			}
 			else{
 				displayError("Veuillez remplir correctement tous les champs du formulaire, réessayez !");
-				redirectPageFormErrors($error_handler, "add",$_POST["TC_ID"]);	
+				redirectPageFormErrors($error_handler, $type,$_POST["TC_ID"]);	
 			}
         }
         else{
@@ -185,7 +186,7 @@
 		}
 	}
 
-	function editContact($db, $error_handler){
+	function editContact($db, &$error_handler){
 		$typeClient = "";
 		if(isset($_POST["ConNum"]) && !empty($_POST["ConNum"]) && isset($_POST["TC_ID"]) && !empty($_POST["TC_ID"])){
 			if($_POST["TC_ID"] == 1){
@@ -227,33 +228,33 @@
 						if($querying && $type == "Client" && $typeClient == "particulier"){		
 							$querying = mysqli_query($db,"UPDATE clients SET CLI_Prenom='".addslashes($_POST[$prep."_Prenom"])."' WHERE CLI_NumClient = ".$_POST["ConNum"]);
 							if($querying){
-								displaySuccess("Le ".$type." a bien été modifié !");
+								displaySuccess("Le ".strtolower($type)." a bien été modifié !");
 								mysqli_query($db, 'COMMIT;');
 								redirectPage($_POST["ConNum"],$_POST["TC_ID"]);
 							}
 							else{
 								displayError("Une erreur s'est produite pendant l'envoi du formulaire, réessayez !");
 								mysqli_query($db, 'ROLLBACK;');
-								redirectPageFormErrors($error_handler, "edit",$_POST["TC_ID"]);
+								redirectPageFormErrors($error_handler,$type,$_POST["TC_ID"]);
 							}				
 						}
 						else{
 							if($querying){
-								displaySuccess("Le ".$type." a bien été modifié !");
+								displaySuccess("Le ".strtolower($type)." a bien été modifié !");
 								mysqli_query($db, 'COMMIT;');
 								redirectPage($_POST["ConNum"],$_POST["TC_ID"]);
 							}
 							else{
 								displayError("Une erreur s'est produite pendant l'envoi du formulaire, réessayez !");
 								mysqli_query($db, 'ROLLBACK;');
-								redirectPageFormErrors($error_handler, "edit",$_POST["TC_ID"]);
+								redirectPageFormErrors($error_handler, $type,$_POST["TC_ID"]);
 							}
 						}
 					}
 					else{
 						displayError("Une erreur s'est produite pendant l'envoi du formulaire, réessayez !");
 						mysqli_query($db, 'ROLLBACK;');
-						redirectPageFormErrors($error_handler, "edit",$_POST["TC_ID"]);
+						redirectPageFormErrors($error_handler, $type,$_POST["TC_ID"]);
 					}
 				}
 				else{
@@ -262,7 +263,7 @@
 			}
 			else{
 				displayError("Veuillez remplir correctement tous les champs du formulaire, réessayez !");
-				redirectPageFormErrors($error_handler, "edit",$_POST["TC_ID"]);	
+				redirectPageFormErrors($error_handler,$type,$_POST["TC_ID"]);	
 			}
 
 		}
@@ -272,13 +273,13 @@
 	}
 
 	function addEmploye($db){
-		if(isset($_POST["typeClient"]) && !empty($_POST["typeClient"]) && isset($_POST["connum"]) && !empty($_POST["connum"])){
-			if($_POST["typeClient"] == "Fournisseur"){								
+		if(isset($_POST["TypeClient"]) && !empty($_POST["TypeClient"]) && isset($_POST["connum"]) && !empty($_POST["connum"])){
+			if($_POST["TypeClient"] == "Fournisseur"){								
 				$type = "fournisseur";
 				$TC_ID = 1;
 			}
 			else{
-				if($_POST["typeClient"] == "structure"){										
+				if($_POST["TypeClient"] == "structure"){										
 					$type = "client";
 					$TC_ID = 2;
 				}
@@ -342,6 +343,13 @@
 					displayError("Une erreur s'est produite pendant l'envoi du formulaire !");
 				}
 			}
+			else{
+				displayError("Veuillez remplir correctement tous les champs du formulaire, réessayez !");
+				redirectPageFormErrors($error_handler, "Employe",$_POST["TC_ID"]);	
+			}
+		}
+		else{
+			displayError("Une erreur s'est produite pendant l'envoi du formulaire !");
 		}
 	}
 
@@ -354,13 +362,22 @@
 				&& isset($_POST[$prep."_TelFixe"]);
 
 		if(($prep == "CLI" && $type == "particulier") || $prep == "PER"){
-			$fieldOk = isset($_POST[$prep."_Prenom"]) && !empty($_POST[$prep."_Prenom"]);
-			$_POST[$prep."_Prenom"] = FirstToUpper(suppr_carac_spe($_POST[$prep."_Prenom"]));
+			if(isset($_POST[$prep."_Prenom"]) && !empty($_POST[$prep."_Prenom"])){
+				$_POST[$prep."_Prenom"] = FirstToUpper(deleteSpecialChars(suppr_carac_spe($_POST[$prep."_Prenom"])));
+			}
+			else{
+				$error_handler .= $prep."_Prenom|Le prénom n'est pas conforme;";
+				$fieldOk = false;
+			}
 		}
 
-		$_POST[$prep."_Nom"] = strtoupper(suppr_carac_spe($_POST[$prep."_Nom"]));
-		$_POST[$prep."_Adresse"] = (!empty($_POST[$prep."_Adresse"])) ? FirstToUpper(suppr_carac_spe($_POST[$prep."_Adresse"])) : null;
-		$_POST[$prep."_Ville"] = (!empty($_POST[$prep."_Ville"])) ? strtoupper(suppr_carac_spe($_POST[$prep."_Ville"])) : null;
+		if(isset($_POST["Fonction"]) && !empty($_POST["Fonction"])){
+			$_POST["Fonction"] = FirstToUpper(deleteSpecialChars(suppr_carac_spe($_POST["Fonction"])));
+		}
+
+		$_POST[$prep."_Nom"] = strtoupper(deleteSpecialChars(suppr_carac_spe($_POST[$prep."_Nom"])));
+		$_POST[$prep."_Adresse"] = (!empty($_POST[$prep."_Adresse"])) ? FirstToUpper(deleteSpecialChars(suppr_carac_spe($_POST[$prep."_Adresse"]))) : null;
+		$_POST[$prep."_Ville"] = (!empty($_POST[$prep."_Ville"])) ? strtoupper(deleteSpecialChars(suppr_carac_spe($_POST[$prep."_Ville"]))) : null;
 
 		if(!empty($_POST[$prep."_CodePostal"])){
 			if(isPostalCode($_POST[$prep."_CodePostal"])){
@@ -443,7 +460,7 @@
 	          </div>';
 	}
 
-	function redirectPage($ConNum,$TC_ID){
+	function redirectPage($ConNum,$TC_ID,$typeClient=""){
 		if($TC_ID == 1){
 		    echo '<script type="text/javascript">
 	    			setTimeout(function(){
@@ -452,19 +469,34 @@
 				</script>';
 		}
 		else{
-			 echo '<script type="text/javascript">
+			if($typeClient=="particulier"){
+				echo '<script type="text/javascript">
+	    			setTimeout(function(){
+	                    $.redirect("./showContact.php", {"ConNum": '.$ConNum.',"TC_ID": '.$TC_ID.',"TypeClient": "particulier"}, "POST");
+	                }, 2500);
+				</script>';
+			}
+			else{
+				echo '<script type="text/javascript">
 	    			setTimeout(function(){
 	                    $.redirect("./showContact.php", {"ConNum": '.$ConNum.',"TC_ID": '.$TC_ID.',"TypeClient": "structure"}, "POST");
 	                }, 2500);
 				</script>';
+			}
 		}
 	}
 
-	function redirectPageFormErrors(&$error_handler, $type, $TC_ID){
+	function redirectPageFormErrors(&$error_handler, $type, $TC_ID, $typeClient=false, $connum=0){
 		echo '<form action="editContact.php" method="POST" id="tempForm">';
 		foreach ($_POST as $key => $value) {
 			echo '<input type="hidden" name="'.htmlentities($key).'" value="'.htmlentities($value).'">';
 		}
+
+		if($typeClient!=false && $connum!=0){
+			echo '<input type="hidden" name="TypeClient" value="'.$typeClient.'">
+				<input type="hidden" name="connum" value="'.$connum.'">';
+		}
+
 	    echo '<input type="hidden" name="Post_Errors" value="'.$error_handler.'">
 	    	<input type="hidden" name="Head_Title" value="Ajout d\'un contact">
 	    	<input type="hidden" name="TC_ID" value="'.$TC_ID.'">
@@ -472,7 +504,7 @@
 	    	</form>
 	    	<script type="text/javascript">
     			setTimeout(function(){
-                   //$("#tempForm").submit();
+                   $("#tempForm").submit();
                 }, 2500);
 			</script>';
 	}

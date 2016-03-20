@@ -5,7 +5,7 @@
 		<table class="form_table">
 			<tbody>
 			<?php
-				if(isset($client_edit) && $client_edit){
+				if(isset($client_edit) && $client_edit==false){
 			?>
 						<tr>
 							<td colspan="4" class="align-center">
@@ -18,19 +18,19 @@
 				}
 			?>
 				<tr>
-					<td><label for="CLI_Nom">Nom <span id="client_type">de la structure</span>* :</label></td>
+					<td><label for="CLI_Nom">Nom* :</label></td>
 					<td><input required="required" class="inputC" type="text" id="CLI_Nom" name="CLI_Nom" <?php echo isset($client["CLI_Nom"]) ? 'value="'.stripslashes($client["CLI_Nom"]).'"' : "";?> /></td>
 			<?php
-				if(isset($client_edit) && $client_edit){
+				if(isset($client_edit) && $client_edit==false){
 			?>
-					<td><label for="CLI_Prenom" id="label_CLI_Prenom" style="display: none;">Prénom du particulier*:</label></td>
+					<td><label for="CLI_Prenom" id="label_CLI_Prenom" style="display: none;">Prénom*:</label></td>
 					<td><input class="inputC" type="text" id="CLI_Prenom" name="CLI_Prenom" style="display: none;" <?php echo isset($client["CLI_Prenom"]) ? 'value="'.stripslashes($client["CLI_Prenom"]).'"' : "";?>/></td>
 			<?php
 				}
 				else{
-					if(isset($client["CLI_Prenom"])){
+					if(isset($client["CLI_Prenom"]) && isset($_POST["CLI_Prenom"])){
 			?>
-						<td><label for="CLI_Prenom" id="label_CLI_Prenom">Prénom du particulier*:</label></td>
+						<td><label for="CLI_Prenom" id="label_CLI_Prenom">Prénom*:</label></td>
 						<td><input class="inputC" type="text" id="CLI_Prenom" name="CLI_Prenom" <?php echo 'value="'.stripslashes($client["CLI_Prenom"]).'"';?>/></td>
 			<?php
 					}
@@ -66,19 +66,23 @@
 	</fieldset>
 	<input type="hidden" id="Num_form" name="Num_form" value="2">
 </div>
+<?php 
+if(isset($client_edit) && $client_edit==false){
+?>
 <script type="text/javascript">
 	$(".CLI_type").on("change", function(){
 		if($(this).prop("id") == "CLI_structure"){
 			$("#label_CLI_Prenom, #CLI_Prenom").hide();
 			$("#CLI_Prenom").prop("required", "");
 			$("#CLI_Prenom").val("");
-			$("#client_type").html("de la structure");
 		}
 		else{
 			$("#label_CLI_Prenom, #CLI_Prenom").show();
 			$("#CLI_Prenom").prop("required", "required");
-			$("#client_type").html("du particulier");
 		}
 	});
 </script>
+<?php 
+}
+?>
 

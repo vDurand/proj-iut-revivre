@@ -25,6 +25,8 @@
 		if(isset($_POST["TC_ID"]) && !empty($_POST["TC_ID"])){
 			echo '<form method="POST" action="../contacts/postContact.php">';
 
+			$client_edit = false;
+
 			include_once(__DIR__."/../includes/form".$_POST["TC_ID"].".php");
 
 			echo '<div align="center">
@@ -46,17 +48,17 @@
 			if($_POST["TC_ID"] == 1){ // partie fournisseur
 				$prep="FOU";
 				$type="Fournisseur";
-				$query = mysqli_query($db, "SELECT FOU_NumFournisseur, FOU_Nom, FOU_Telephone, FOU_Portable, FOU_Email, FOU_Adresse, FOU_Ville FROM fournisseurs;");											
+				$query = mysqli_query($db, "SELECT FOU_NumFournisseur, FOU_Nom, FOU_Telephone, FOU_Portable, FOU_Email, FOU_Adresse, FOU_Ville FROM fournisseurs WHERE FOU_NOM IS NOT NULL ORDER BY FOU_Nom;");											
 			}
 			else if($_POST["TC_ID"] == 2 && isset($_POST["TypeClient"]) && !empty($_POST["TypeClient"])){
 				$prep="CLI";
 				$type="Client";
 
 				if($_POST["TypeClient"] == "structure"){
-					$query = mysqli_query($db, "SELECT CLI_NumClient, CLI_Nom, CLI_Telephone, CLI_Portable, CLI_Email, CLI_Adresse, CLI_Ville FROM clients WHERE CLI_Prenom IS NULL OR CLI_Prenom = '';");
+					$query = mysqli_query($db, "SELECT CLI_NumClient, CLI_Nom, CLI_Telephone, CLI_Portable, CLI_Email, CLI_Adresse, CLI_Ville FROM clients WHERE CLI_NOM IS NOT NULL AND (CLI_Prenom IS NULL OR CLI_Prenom = '') ORDER BY CLI_Nom;");
 				}
 				else if($_POST["TypeClient"] == "particulier"){
-					$query = mysqli_query($db, "SELECT CLI_NumClient, CLI_Nom, CLI_Prenom, CLI_Telephone, CLI_Portable, CLI_Email, CLI_Adresse, CLI_Ville FROM clients WHERE CLI_Prenom IS NOT NULL AND CLI_Prenom <> '';");
+					$query = mysqli_query($db, "SELECT CLI_NumClient, CLI_Nom, CLI_Prenom, CLI_Telephone, CLI_Portable, CLI_Email, CLI_Adresse, CLI_Ville FROM clients WHERE CLI_NOM IS NOT NULL AND (CLI_Prenom IS NOT NULL AND CLI_Prenom <> '') ORDER BY CLI_Nom, CLI_Prenom;");
 				}
 			}
 			else{
@@ -85,7 +87,7 @@
 					while($data = mysqli_fetch_assoc($query)){
 		?>
 	            		<tr data-connum="<?php echo $data[$prep."_Num".$type]; ?>">
-	                		<td><?php echo (($data[$prep."_Nom"] != "") ? $data[$prep."_Nom"] : '<i class="no-data">Aucun nom</i>') ?></td>
+	                		<td class="truncate"><?php echo (($data[$prep."_Nom"] != "") ? $data[$prep."_Nom"] : '<i class="no-data">Aucun nom</i>') ?></td>
 	                		
 	                	<?php
 	                		if($prep=="CLI" && $_POST["TypeClient"] == "particulier"){
@@ -99,9 +101,9 @@
 
 		                    <td><?php echo (($data[$prep."_Telephone"] != "") ? convertToPhoneNumber($data[$prep."_Telephone"]) : '<i class="no-data">Aucun numéro</i>'); ?></td>
 		                    <td><?php echo (($data[$prep."_Portable"] != "") ? convertToPhoneNumber($data[$prep."_Portable"]) : '<i class="no-data">Aucun numéro</i>'); ?></td>
-		                    <td><?php echo (($data[$prep."_Email"] != "") ? $data[$prep."_Email"] : '<i class="no-data">Aucun e-mail</i>'); ?></td>
-		                    <td><?php echo (($data[$prep."_Adresse"] != "") ? $data[$prep."_Adresse"] : '<i class="no-data">Aucune rue/lotissement</i>'); ?></td>
-		                    <td><?php echo (($data[$prep."_Ville"] != "") ? $data[$prep."_Ville"] : '<i class="no-data">Aucune ville</i>'); ?></td>
+		                    <td class="truncate"><?php echo (($data[$prep."_Email"] != "") ? $data[$prep."_Email"] : '<i class="no-data">Aucun e-mail</i>'); ?></td>
+		                    <td class="truncate"><?php echo (($data[$prep."_Adresse"] != "") ? $data[$prep."_Adresse"] : '<i class="no-data">Aucune rue/lotissement</i>'); ?></td>
+		                    <td class="truncate"><?php echo (($data[$prep."_Ville"] != "") ? $data[$prep."_Ville"] : '<i class="no-data">Aucune ville</i>'); ?></td>
 		                </tr>
 		<?php
 					}

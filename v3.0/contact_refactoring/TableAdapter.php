@@ -56,7 +56,7 @@
 											'".addslashes($d["PER_Adresse"])."',
 											'".$d["PER_CodePostal"]."',
 											'".addslashes($d["PER_Ville"])."',
-											'".((isset($da["INS_DateN"])) ? $da["INS_DateN"] : NULL)."',
+											'".((isset($da["INS_DateN"])) ? $da["INS_DateN"] : "1970-01-01")."',
 											'".((isset($da["INS_LieuN"])) ? addslashes($da["INS_LieuN"]) : NULL)."',
 											'".((isset($da["INS_Nation"])) ? addslashes($da["INS_Nation"]) : NULL)."',
 											'".((isset($da["INS_NPoleEmp"])) ? $da["INS_NPoleEmp"] : NULL)."',
@@ -77,7 +77,7 @@
 												'".$da["TYP_Id"]."',
 												'".((isset($da["INS_DateSortie"]) && (!empty($da["INS_DateSortie"]) && $da["INS_DateSortie"] != "0000-00-00")) ? 0 : 1)."',
 												'".$da["FCT_Id"]."',
-												'".((isset($da["INS_DateSortie"])) ? $da["INS_DateSortie"] : "")."');"
+												'".((isset($da["INS_DateSortie"]) && (!empty($da["INS_DateSortie"]) && $da["INS_DateSortie"] != "0000-00-00")) ? $da["INS_DateSortie"] : "1970-01-01")."');"
 									);
 		}
 
@@ -107,7 +107,7 @@
 												REF_NumRef,
 												TYS_ID) 
 										VALUES (".$da["SAL_NumSalarie"].",
-												'".$da["INS_DateEntretien"]."',
+												'".(($da["INS_DateEntretien"] == "") ? '2015-01-01' : $da["INS_DateEntretien"])."',
 												'".addslashes($da["INS_SituationF"])."',
 												'".addslashes($da["INS_NivScol"])."',
 												'".addslashes($da["INS_Diplome"])."',
@@ -162,7 +162,7 @@
 												INS_SituGeo,
 												REF_NumRef,
 												TYS_ID)
-												VALUES (".$d["SAL_NumSalarie"].", '0000-00-00', '-', '-', 0, 0, '-', '-', 1, 1,'0000-00-00', 0, 0, '-', '-', '-', 0, 0, '-', '-', 1, 0)");
+												VALUES (".$d["SAL_NumSalarie"].", '2015-01-01', '-', '-', 0, 0, '-', '-', 1, 1,'2015-01-01', 0, 0, '-', '-', '-', 0, 0, '-', '-', 1, 0)");
 	}
 	
 ?>
