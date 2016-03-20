@@ -263,7 +263,7 @@ $pwd='../';
                     <td><?php echo $donnees['CHA_AchatsPrev']." €"; $totAP += $donnees['CHA_AchatsPrev']; ?></td>
                     <td><?php if(!empty($donnees['AchatTot'])){ echo number_format($donnees['AchatTot'], 2)." €"; $totAT += $donnees['AchatTot'];} else echo "0 €"; ?></td>
                     <td><?php if(!empty($donnees['EcartAch'])){ echo $donnees['EcartAch']." €"; $totEA += $donnees['EcartAch'];} else echo "0 €"; ?></td>
-                    <td><?php echo (!is_null($donnees['CHA_HeuresPrev'])) ? $donnees['CHA_HeuresPrev'] : 0; $totHP += $donnees['CHA_HeuresPrev']; ?></td>
+                    <td><?php echo (!is_null($donnees['CHA_HeuresPrev'])) ? $donnees['CHA_HeuresPrev'].":00" : "00:00"; $totHP += $donnees['CHA_HeuresPrev']; ?></td>
                     <td><?php echo (!is_null($donnees['HeureTot'])) ? $donnees['HeureTot'] : "00:00"; $totHT += $donnees['HeureTot']; ?></td>
                     <td><?php echo (!is_null($donnees['EcartHeure'])) ? $donnees['EcartHeure'] : "00:00"; $totEH += $donnees['EcartHeure']; ?></td>
                     <td><?php echo (!is_null($donnees['NbSalarie'])) ? $donnees['NbSalarie'] : 0; $totNS += $donnees['NbSalarie']; ?></td>
@@ -281,9 +281,9 @@ $pwd='../';
                         <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totAP." €"; ?></th>
                         <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totAT." €"; ?></th>
                         <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totEA." €"; ?></th>
-                        <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totHP; ?></th>
-                        <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totHT; ?></th>
-                        <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totEH; ?></th>
+                        <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totHP.":00"; ?></th>
+                        <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totHT.":00"; ?></th>
+                        <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totEH.":00"; ?></th>
                         <th style="text-align: left; font-size: 14px; padding-left: 5px;"><?php echo $totNS; ?></th>
                     </tr>
                 </tfoot>

@@ -15,16 +15,17 @@
 			case "edit":
 				editSalarie($db, $error_handler);
 				break;
-
 			default:
-		        echo '<div id="bad"> 
-		              <label>Une erreur s\'est produite lors de l\'envoi du formulaire !</label>
-		              </div>';
+		        displayError("Une erreur s'est produite pendant l'envoi du formulaire !");
 		        redirectPage();
 		        break;	
 		}
 	}
-
+	else{
+		displayError("Une erreur s'est produite pendant l'envoi du formulaire !");
+		redirectPage();
+	}
+	
 	function editSalarie($db, &$error_handler){
         if(isset($_POST["TYP_Id"]) && !empty($_POST["TYP_Id"]) && isset($_POST["SAL_NumSalarie"]) && !empty($_POST["SAL_NumSalarie"])){
 			

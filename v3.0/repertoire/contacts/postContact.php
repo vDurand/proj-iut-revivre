@@ -22,6 +22,7 @@
 	}
 	else{
 		displayError("Une erreur s'est produite pendant l'envoi du formulaire !");
+		redirectPage();
 	}
 
 	function editEmploye($db, &$error_handler){
@@ -460,29 +461,38 @@
 	          </div>';
 	}
 
-	function redirectPage($ConNum,$TC_ID,$typeClient=""){
-		if($TC_ID == 1){
-		    echo '<script type="text/javascript">
-	    			setTimeout(function(){
-	                    $.redirect("./showContact.php", {"ConNum": '.$ConNum.',"TC_ID": '.$TC_ID.'}, "POST");
-	                }, 2500);
-				</script>';
-		}
-		else{
-			if($typeClient=="particulier"){
-				echo '<script type="text/javascript">
-	    			setTimeout(function(){
-	                    $.redirect("./showContact.php", {"ConNum": '.$ConNum.',"TC_ID": '.$TC_ID.',"TypeClient": "particulier"}, "POST");
-	                }, 2500);
-				</script>';
+	function redirectPage($ConNum=-1,$TC_ID=-1,$typeClient=""){
+		if($ConNum > -1){
+			if($TC_ID == 1){
+			    echo '<script type="text/javascript">
+		    			setTimeout(function(){
+		                    $.redirect("./showContact.php", {"ConNum": '.$ConNum.',"TC_ID": '.$TC_ID.'}, "POST");
+		                }, 2500);
+					</script>';
 			}
 			else{
-				echo '<script type="text/javascript">
+				if($typeClient=="particulier"){
+					echo '<script type="text/javascript">
+		    			setTimeout(function(){
+		                    $.redirect("./showContact.php", {"ConNum": '.$ConNum.',"TC_ID": '.$TC_ID.',"TypeClient": "particulier"}, "POST");
+		                }, 2500);
+					</script>';
+				}
+				else{
+					echo '<script type="text/javascript">
+		    			setTimeout(function(){
+		                    $.redirect("./showContact.php", {"ConNum": '.$ConNum.',"TC_ID": '.$TC_ID.',"TypeClient": "structure"}, "POST");
+		                }, 2500);
+					</script>';
+				}
+			}
+		}
+		else{
+			echo '<script type="text/javascript">
 	    			setTimeout(function(){
-	                    $.redirect("./showContact.php", {"ConNum": '.$ConNum.',"TC_ID": '.$TC_ID.',"TypeClient": "structure"}, "POST");
+	                    $.redirect("../../home.php");
 	                }, 2500);
 				</script>';
-			}
 		}
 	}
 

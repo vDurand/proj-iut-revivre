@@ -142,4 +142,4 @@ SELECT `co`.`CHA_NumDevis` AS `CNumDevis`,concat(`cl`.`CLI_Nom`,' ',ifnull(`cl`.
 'structure' AS `Structure`
 FROM (`revivre`.`commanditer` `co` join `revivre`.`clients` `cl` on((`co`.`CLI_NumClient` = `cl`.`CLI_NumClient`)))
 
-/*RIEN POUR L'INSTANT*/
+UPDATE salaries SET SAL_DateSortie = NULL WHERE SAL_DateSortie =  "1970-01-01";

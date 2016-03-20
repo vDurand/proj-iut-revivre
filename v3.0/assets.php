@@ -345,8 +345,8 @@ function convertToPhoneNumber($txt){
 
 function deleteSpecialChars($string)
 {
-    $pattern = ['/[<>!"#$£%&€§=°()¤\*+,.\/:;?@\\\\^_`{\|}~\[\]]/', "/'+/", "/^'{1,}|'{1,}$/"];
-    $remplacement = ["", "'", "'"];
+    $pattern = array('/[<>!"#$£%&€§=°()¤\*+,.\/:;?@\\\\^_`{\|}~\[\]]/', "/'+/", "/^'{1,}|'{1,}$/");
+    $remplacement = array("", "'", "'");
     return trim(preg_replace($pattern, $remplacement, trim($string)));
 }
 
