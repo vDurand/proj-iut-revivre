@@ -60,59 +60,26 @@
 							<ul class="sub-menu">
 								<li><a href="#">Salariés<span>&#9656;</span></a>
 									<ul class="sub-menu">
-                                        <li><a href="<?php echo $pwd; ?>contact_refactoring/salaries/addSalarie.php">Ajouter un salarié</a></li>
-                                        <li><a href="<?php echo $pwd; ?>contact_refactoring/salaries/listSalaries.php">Liste des salariés</a></li>
+                                        <li><a href="<?php echo $pwd; ?>repertoire/salaries/addSalarie.php">Ajouter un salarié</a></li>
+                                        <li><a href="<?php echo $pwd; ?>repertoire/salaries/listSalaries.php">Liste des salariés</a></li>
 									</ul>
 								</li>
 								<li><a href="#">Contacts<span>&#9656;</span></a>
 									<ul class="sub-menu">
-                                        <li><a href="<?php echo $pwd; ?>contact_refactoring/contacts/addContact.php">Ajouter un contact</a></li>
-                                        <li><a href="<?php echo $pwd; ?>contact_refactoring/contacts/listContacts.php">Liste des contacts</a></li>
+                                        <li><a href="<?php echo $pwd; ?>repertoire/contacts/addContact.php">Ajouter un contact</a></li>
+                                        <li><a href="<?php echo $pwd; ?>repertoire/contacts/listContacts.php">Liste des contacts</a></li>
 									</ul>
 								</li>
-								<li><a href="<?php echo $pwd; ?>contact/partenaire/viewRef.php">Référents</a></li>
+								<li><a href="<?php echo $pwd; ?>repertoire/salaries/referents/listReferents.php">Référents</a></li>
                                 <li>
                                 	<a href="#">Administratif<span>&#9656;</span></a>
                                     <ul class="sub-menu">
-                                        <li><a href="<?php echo $pwd; ?>contact/convention.php">Conventions</a></li>
-                                        <li><a href="<?php echo $pwd; ?>contact/logoProperties.php">Logos</a></li>
-                                        <li><a href="<?php echo $pwd; ?>contact/sorties.php">Type de sorties</a></li>
-                                        <li><a href="<?php echo $pwd; ?>contact/prescripteurs.php">Prescripteurs</a></li>
+                                        <li><a href="<?php echo $pwd; ?>repertoire/administratif/convention.php">Conventions</a></li>
+                                        <li><a href="<?php echo $pwd; ?>repertoire/administratif/logoProperties.php">Logos</a></li>
+                                        <li><a href="<?php echo $pwd; ?>repertoire/administratif/sorties.php">Type de sorties</a></li>
+                                        <li><a href="<?php echo $pwd; ?>repertoire/administratif/prescripteurs.php">Prescripteurs</a></li>
                                     </ul>
                                 </li>
-                               	<li>
-								</li>
-                                <li><a href="<?php echo $pwd; ?>contact/addInsertion.php">Ajouter en insertion</a></li>
-								<li><a href="<?php echo $pwd; ?>contact/addContact.php">Ajouter contact</a></li>
-                       			<li><a href="<?php echo $pwd; ?>contact/client/viewClients.php">Clients<span>&#9656;</span></a>
-									<ul class="sub-menu">
-										<li><a href="<?php echo $pwd; ?>contact/client/viewClientPart.php">Particuliers</a></li>
-										<li><a href="<?php echo $pwd; ?>contact/client/viewClientEnt.php">Structures</a></li>
-	                                    <li><a href="<?php echo $pwd; ?>contact/client/viewClientEmp.php">Contacts</a></li>
-									</ul>
-								</li>
-								<li><a href="<?php echo $pwd; ?>contact/fournisseur/viewFourn.php">Fournisseurs<span>&#9656;</span></a>
-									<ul class="sub-menu">
-                                        <li><a href="<?php echo $pwd; ?>contact/fournisseur/viewFournEnt.php">Structures</a></li>
-                                        <li><a href="<?php echo $pwd; ?>contact/fournisseur/viewFournEmp.php">Contacts</a></li>
-									</ul>
-								</li>
-								<li><a href="<?php echo $pwd; ?>contact/membre/viewMembers.php">Membres de l'association<span>&#9656;</span></a>
-									<ul class="sub-menu">
-									<?php
-										$reponse = mysqli_query($db, "SELECT * FROM Type");
-										while ($donnees = mysqli_fetch_assoc($reponse))
-										{
-									?>
-										<li>
-									    	<a onclick="$.redirect('<?php echo $pwd; ?>contact/membre/viewSal.php', {'TypeM':'<?php echo $donnees['TYP_Id']; ?>'}, 'post');"><?php echo $donnees['TYP_Nom']; ?></a>
-										</li>
-									<?php
-										}
-										mysqli_free_result($reponse);
-									?>										
-									</ul>
-								</li>
                 			</ul>
 						</li>
 						<li id="champs">
@@ -127,7 +94,6 @@
                        			<li><a href="<?php echo $pwd; ?>chantier/addWork.php">Ajouter chantier</a></li>
                                 <li><a href="<?php echo $pwd; ?>chantier/awaitingWorks.php">Chantiers en attente</a></li>
 								<li><a href="<?php echo $pwd; ?>chantier/ongoingWorks.php">Chantiers en cours</a></li>
-								<!-- <li><a href="<?php echo $pwd; ?>chantier/oldWorks.php">Archive chantiers</a></li> -->
                                 <li><a href="<?php echo $pwd; ?>chantier/suiviEnc.php">Suivi chantiers</a></li>
                 			</ul>
 						</li>
@@ -160,13 +126,12 @@
 				<?php
 				if (isset($_SESSION["user"])) {
                 ?>
-<!-- 		            <form action="<?php echo $pwd; ?>login.php" method="post">
-    <input class="deco" id="deco" name="logout" type="submit" value="X">
-</form> -->
+		            <form action="<?php echo $pwd; ?>login.php" method="post" id="form-deco">
+					    <input class="deco" id="deco" name="logout" type="submit" value="X">
+					</form> 
 				<?php
 				}
 				?>	
 			</div>
 		</div>
 		<div id="debug"><a href="<?php echo $pwd; ?>debugger.php">Signaler<br>un Bug</a></div>
-		<?php //echo session_cache_expire(); ?>

@@ -1,7 +1,7 @@
 <?php
     $pageTitle = "Detail Salarié";
     $pwd='../../';
-    include('../../bandeau.php');
+    include($pwd.'bandeau.php');
 ?>
 <div id="corps">
 <?php
@@ -9,7 +9,7 @@
         $num = $_GET["SalNum"];
 
         // récupération de la fonction de la personne (travailleur ou salaries internes)
-        $reponse1 = mysqli_query($db, "SELECT * FROM salaries WHERE SAL_NumSalarie='$num' ORDER BY PER_Num");
+        $reponse1 = mysqli_query($db, "SELECT * FROM salaries WHERE SAL_NumSalarie='$num'");
         $personne = mysqli_fetch_assoc($reponse1);
         
         if($personne){
@@ -353,12 +353,6 @@
                     <td></td>
                     <td></td>
                 </tr>
-                <!--
-                <tr>
-                    Ici, normalement une case avec les repas, mais à définir en fonction de la suite.
-                    Ici, type de sortie et date de sortie
-                </tr>
-                -->  
                 <tr>
                     <td>Autre détails :</td>
                     <td colspan="3"><?php echo (!empty($personne["INS_PlusDetails"])) ? stripslashes($personne["INS_PlusDetails"]) : '<i class="no-data">Aucun autres détails</i>'; ?></td>
@@ -514,5 +508,5 @@
 ?>
 </div>
 <?php
-    include('../../footer.php');
+    include($pwd.'footer.php');
 ?>

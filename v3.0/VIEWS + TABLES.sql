@@ -137,4 +137,9 @@ ALTER TABLE `cursus`
 **************************************************************************************************
 */
 
+SELECT `co`.`CHA_NumDevis` AS `CNumDevis`,concat(`cl`.`CLI_Nom`,' ',ifnull(`cl`.`CLI_Prenom`, '')) AS `Client`,'none' AS `ClientP`,`cl`.`CLI_Telephone` AS `ClientTel`,
+`cl`.`CLI_Email` AS `ClientEmail`,`cl`.`CLI_Adresse` AS `ClientAd`,`cl`.`CLI_Ville` AS `ClienV`,`cl`.`CLI_CodePostal` AS `ClientCP`,`cl`.`CLI_NumClient` AS `NumClient`,
+'structure' AS `Structure`
+FROM (`revivre`.`commanditer` `co` join `revivre`.`clients` `cl` on((`co`.`CLI_NumClient` = `cl`.`CLI_NumClient`)))
+
 /*RIEN POUR L'INSTANT*/

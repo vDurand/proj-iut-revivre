@@ -1,4 +1,5 @@
 <?php
+    $pageTitle = "Édition d'un salarie";
 	$pwd = "../../";
 	include($pwd.'bandeau.php');
 ?>

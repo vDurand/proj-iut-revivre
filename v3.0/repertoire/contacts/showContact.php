@@ -118,11 +118,11 @@
                                 while($data = mysqli_fetch_assoc($query)){
                     ?>
                                     <tr data-pernum="<?php echo $data["PER_Num"]; ?>">
-                                        <td><?php echo (($data["PER_Nom"] != "") ? $data["PER_Nom"] : '<i class="no-data">Aucun nom</i>') ?></td>
-                                        <td><?php echo (($data["PER_Prenom"] != "") ? $data["PER_Prenom"] : '<i class="no-data">Aucun prenom</i>'); ?></td>
+                                        <td><?php echo (($data["PER_Nom"] != "") ? stripslashes($data["PER_Nom"]) : '<i class="no-data">Aucun nom</i>') ?></td>
+                                        <td><?php echo (($data["PER_Prenom"] != "") ? stripslashes($data["PER_Prenom"]) : '<i class="no-data">Aucun prenom</i>'); ?></td>
                                         <td><?php echo (($data["PER_TelFixe"] != "") ? convertToPhoneNumber($data["PER_TelFixe"]) : '<i class="no-data">Aucun numéro</i>'); ?></td>
                                         <td><?php echo (($data["PER_TelPort"] != "") ? convertToPhoneNumber($data["PER_TelPort"]) : '<i class="no-data">Aucun numéro</i>'); ?></td>
-                                        <td><?php echo (($data["PER_Email"] != "") ? $data["PER_Email"] : '<i class="no-data">Aucun e-mail</i>'); ?></td>                       
+                                        <td><?php echo (($data["PER_Email"] != "") ? stripslashes($data["PER_Email"]) : '<i class="no-data">Aucun e-mail</i>'); ?></td>                       
                                     </tr>
                     <?php
                                 }
@@ -158,11 +158,11 @@
                     <?php
                                 while($data = mysqli_fetch_assoc($query)){
                     ?>
-                                    <tr data-channum="<?php echo $data["CHA_NumDevis"]; ?>">
-                                        <td><?php echo (($data["CHA_Intitule"] != "") ? $data["CHA_Intitule"] : '<i class="no-data">Aucun chantier</i>') ?></td>
-                                        <td><?php echo (($data["CHA_Adresse"] != "") ? $data["CHA_Adresse"] : '<i class="no-data">Aucune adresse</i>'); ?></td>
-                                        <td><?php echo (($data["CHA_DateDebut"] != "") ? $data["CHA_DateDebut"] : '<i class="no-data">Aucune date</i>'); ?></td>  
-                                        <td><?php echo (($data["CHA_Echeance"] != "") ? $data["CHA_Echeance"] : '<i class="no-data">Aucune echeance</i>'); ?></td>                       
+                                    <tr data-chanum="<?php echo $data["CHA_NumDevis"]; ?>">
+                                        <td><?php echo (($data["CHA_Intitule"] != "") ? stripslashes($data["CHA_Intitule"]) : '<i class="no-data">Aucun chantier</i>') ?></td>
+                                        <td><?php echo (($data["CHA_Adresse"] != "") ? stripslashes($data["CHA_Adresse"]) : '<i class="no-data">Aucune adresse</i>'); ?></td>
+                                        <td><?php echo (($data["CHA_DateDebut"] != "") ? dater($data["CHA_DateDebut"]) : '<i class="no-data">Aucune date</i>'); ?></td>  
+                                        <td><?php echo (($data["CHA_Echeance"] != "") ? dater($data["CHA_Echeance"]) : '<i class="no-data">Aucune echeance</i>'); ?></td>                       
                                     </tr>
                     <?php
                                 }
@@ -209,7 +209,7 @@
                     });  
 
                     $("#chantier-list table tbody tr").on("click", function(){
-                        $.redirect("../../chantier/detailChantier.php", {"NumC": $(this).data("CHA_NumDevis")}, "POST");        
+                        $.redirect("../../chantier/detailChantier.php", {"NumC": $(this).data("chanum")}, "GET");        
                     });        
                 });
 

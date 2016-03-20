@@ -129,10 +129,14 @@ img {
 	color: #333333;
 	text-shadow: 2px 2px 0 #fff;
 }
-#deco{
-	position: relative;
-	top: -129px;
-	right: -1009px;
+#form-deco{
+	position: absolute;
+	top: 4px;
+	right: 4px;
+	padding: 0;
+	margin: 0;
+	width: 30px;
+	height: 30px;
 }
 #deco2{
     position: relative;

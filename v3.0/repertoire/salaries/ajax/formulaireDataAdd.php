@@ -78,13 +78,13 @@
 				while($data = mysqli_fetch_assoc($query_salaries)){
 	?>
             		<tr data-salnum="<?php echo $data["SAL_NumSalarie"]; ?>">
-                		<td><?php echo (($data["PER_Nom"] != "") ? $data["PER_Nom"] : '<i class="no-data">Aucun nom</i>') ?></td>
-                		<td><?php echo (($data["PER_Prenom"] != "") ? $data["PER_Prenom"] : '<i class="no-data">Aucun nom</i>') ?></td>
+                		<td><?php echo (($data["PER_Nom"] != "") ? stripcslashes($data["PER_Nom"]) : '<i class="no-data">Aucun nom</i>') ?></td>
+                		<td><?php echo (($data["PER_Prenom"] != "") ? stripcslashes($data["PER_Prenom"]) : '<i class="no-data">Aucun nom</i>') ?></td>
 	                    <td><?php echo (($data["PER_TelFixe"] != "") ? convertToPhoneNumber($data["PER_TelFixe"]) : '<i class="no-data">Aucun numéro</i>'); ?></td>
 	                    <td><?php echo (($data["PER_TelPort"] != "") ? convertToPhoneNumber($data["PER_TelPort"]) : '<i class="no-data">Aucun numéro</i>'); ?></td>
-	                    <td class="truncate"><?php echo (($data["PER_Email"] != "") ? $data["PER_Email"] : '<i class="no-data">Aucun e-mail</i>'); ?></td>
-	                    <td class="truncate"><?php echo (($data["PER_Adresse"] != "") ? $data["PER_Adresse"] : '<i class="no-data">Aucune rue/lotissement</i>'); ?></td>
-	                    <td class="truncate"><?php echo (($data["PER_Ville"] != "") ? $data["PER_Ville"] : '<i class="no-data">Aucune ville</i>'); ?></td>
+	                    <td class="truncate"><?php echo (($data["PER_Email"] != "") ? stripcslashes($data["PER_Email"]) : '<i class="no-data">Aucun e-mail</i>'); ?></td>
+	                    <td class="truncate"><?php echo (($data["PER_Adresse"] != "") ? stripcslashes($data["PER_Adresse"]) : '<i class="no-data">Aucune rue/lotissement</i>'); ?></td>
+	                    <td class="truncate"><?php echo (($data["PER_Ville"] != "") ? stripcslashes($data["PER_Ville"]) : '<i class="no-data">Aucune ville</i>'); ?></td>
 	                </tr>
 	<?php
 				}

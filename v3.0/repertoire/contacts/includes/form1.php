@@ -21,8 +21,8 @@
 				</tr>
 				<tr></tr>
 				<tr>
-					<td><label for="FOU_TelFixe">Téléphone fixe* :</label></td>
-					<td><input required="required" class="inputC" type="text" id="FOU_TelFixe" name="FOU_TelFixe"<?php echo isset($_POST["FOU_TelFixe"]) ? 'value="'.stripslashes($_POST["FOU_TelFixe"]).'"' : "";?>/></td>
+					<td><label for="FOU_TelFixe">Téléphone fixe :</label></td>
+					<td><input class="inputC" type="text" id="FOU_TelFixe" name="FOU_TelFixe"<?php echo isset($_POST["FOU_TelFixe"]) ? 'value="'.stripslashes($_POST["FOU_TelFixe"]).'"' : "";?>/></td>
 					<td><label for="FOU_TelPort">Téléphone portable :</label></td>
 					<td><input class="inputC" type="text" id="FOU_TelPort" name="FOU_TelPort"<?php echo isset($_POST["FOU_TelPort"]) ? 'value="'.stripslashes($_POST["FOU_TelPort"]).'"' : "";?>/></td>
 				</tr>

@@ -1,6 +1,6 @@
 <?php
 	$query_conv = mysqli_query($db, 'SELECT CNV_Id, CNV_Nom FROM convention ORDER BY CNV_Id');
-	$query_pres = mysqli_query($db, 'SELECT * FROM prescripteurs ORDER BY PRE_Id');
+	$query_pres = mysqli_query($db, 'SELECT * FROM prescripteurs ORDER BY PRE_Nom');
 	$prescripteurs = mysqli_fetch_all($query_pres, MYSQLI_ASSOC);
 	$query_contrat =  mysqli_query($db, "SELECT * FROM contrat ORDER BY CNT_id");
 ?>

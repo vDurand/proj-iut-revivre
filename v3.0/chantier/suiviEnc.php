@@ -255,17 +255,7 @@ $pwd='../';
                     <?php
                         $reponse2 = mysqli_query($db, "SELECT Client FROM ChantierMax WHERE CHA_NumDevis = ".$donnees['CHA_NumDevis']);
                         $donnees2 = mysqli_fetch_assoc($reponse2);
-
-                        if(empty($donnees2["Client"]))
-                        {
-                            $reponse2 = mysqli_query($db, "select PER_Nom, PER_Prenom from EmployerClient join Personnes USING (PER_Num) where CLI_NumClient = (SELECT NumClient FROM chantierclient WHERE CNumDevis = ".$donnees['CHA_NumDevis'].");");
-                            $donnees2 = mysqli_fetch_assoc($reponse2);
-                            echo formatUP($donnees2['PER_Nom'])." ".formatLOW($donnees2['PER_Prenom']);
-                        }
-                        else
-                        {
-                            echo $donnees2["Client"];
-                        }
+                        echo stripslashes($donnees2["Client"]);
                     ?>
                     </td>
                     <td><?php echo formatLOW($donnees['CHA_Intitule']); ?></td>

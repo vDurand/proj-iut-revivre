@@ -20,7 +20,7 @@
 		        echo '<div id="bad"> 
 		              <label>Une erreur s\'est produite lors de l\'envoi du formulaire !</label>
 		              </div>';
-		            redirectPage();
+		        redirectPage();
 		        break;	
 		}
 	}

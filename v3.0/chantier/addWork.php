@@ -21,26 +21,19 @@ include('../bandeau.php');
                                 <select id="Client" name="Client">
                                     <optgroup label="Particuliers">
                                         <?php
-                                        $reponse = mysqli_query($db, "SELECT * FROM Clients cl JOIN EmployerClient em ON cl.CLI_NumClient=em.CLI_NumClient JOIN Personnes pe ON em.PER_Num=pe.PER_Num WHERE CLI_Nom IS NULL ORDER BY PER_Nom");
+                                        $reponse = mysqli_query($db, "SELECT * FROM Clients WHERE CLI_NOM IS NOT NULL AND (CLI_Prenom IS NOT NULL AND CLI_Prenom <> '') ORDER BY CLI_Nom, CLI_Prenom;");
+                                        echo mysqli_error($db);
                                         while ($donnees = mysqli_fetch_assoc($reponse)) {
                                             ?>
-                                            <option value="<?php echo $donnees['CLI_NumClient']; ?>"><?php
-                                                if (!empty($donnees['PER_Nom'])) {
-                                                    echo formatUP($donnees['PER_Nom']);
-                                                    if (!empty($donnees['PER_Prenom'])) {
-                                                        echo " " . formatLOW($donnees['PER_Prenom']);
-                                                    }
-                                                }
-                                                ?>
-                                            </option>
+                                            <option value="<?php echo $donnees['CLI_NumClient']; ?>"><?php echo formatUP($donnees['CLI_Nom'])." ".((strlen($donnees['CLI_Prenom']) > 1) ? $donnees['CLI_Prenom'] : "");?></option>
                                             <?php
                                         }
-                                        mysqli_free_result($reponse);
-                                        ?>                                        </optgroup>
+                                        ?>
+                                    </optgroup>
                                     <optgroup label="Structures">
                                         <?php
                                         $i = 2;
-                                        $reponse = mysqli_query($db, "SELECT * FROM Clients cl WHERE CLI_Nom IS NOT NULL ORDER BY CLI_Nom");
+                                        $reponse = mysqli_query($db, "SELECT * FROM Clients cl WHERE CLI_NOM IS NOT NULL AND (CLI_Prenom IS NULL OR CLI_Prenom = '') ORDER BY CLI_Nom;");
                                         while ($donnees = mysqli_fetch_assoc($reponse)) {
                                             ?>
                                             <option value="<?php echo $donnees['CLI_NumClient']; ?>">
@@ -67,12 +60,10 @@ include('../bandeau.php');
                                                 }
                                                 echo ")";
                                             }
-                                            mysqli_free_result($reponse2);
                                             ?>
                                             </option>
                                             <?php
                                         }
-                                        mysqli_free_result($reponse);
                                         ?>
                                     </optgroup>
                                 </select>
