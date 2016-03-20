@@ -53,6 +53,20 @@
 	margin-left: -10px;
 }
 
+#news-update{
+	margin: 35px 0 10px 0;
+	background-color: #ffe26e;
+	border: 2px solid #dabb3d;
+	padding: 0px 10px;
+}
+
+#news-update .news-title{
+	font-size: 18px;
+	font-weight: bold;
+	display: block;
+	margin: 5px 0;
+}
+
 .tableContact, .tableContact th, .tableContact td {
 	border:1px solid #003f7f;
 	border-collapse:collapse;

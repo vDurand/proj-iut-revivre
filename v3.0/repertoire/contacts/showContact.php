@@ -42,7 +42,7 @@
                          echo stripslashes($contact[$prep."_Nom"]).', fournisseur de l\'association';
                     }
                     else{
-                        echo trim(stripslashes($contact[$prep."_Nom"]).' '.stripslashes($contact[$prep."_Prenom"])).', client ('.($typeClient == "particulier" ? "particulier" : "structure").') de l\'association';
+                        echo trim(stripslashes($contact[$prep."_Nom"]).' '.stripslashes($contact[$prep."_Prenom"])).', client ('.$typeClient.') de l\'association';
                     }
                 ?>
                 </label>
@@ -221,14 +221,14 @@
         }
         else{
             echo '<div id="bad"> 
-                <label>Une erreur c\'est produite lors de l\'accès à la page !</label>
+                <label>Une erreur c\'est produite lors de l\'accès à la page 1!</label>
             </div>';
         }
 
     }
     else{
         echo '<div id="bad"> 
-            <label>Une erreur c\'est produite lors de l\'accès à la page !</label>
+            <label>Une erreur c\'est produite lors de l\'accès à la page 2!</label>
         </div>';
     }
 ?>

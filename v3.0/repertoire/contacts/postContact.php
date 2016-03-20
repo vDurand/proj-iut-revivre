@@ -37,15 +37,15 @@
 			if($verif_infos){
 	        	if(mysqli_query($db, 'SET autocommit=0;') && mysqli_query($db, 'START TRANSACTION;')){
 					if($querying){
-						$querying = mysqli_query($db,  "UPDATE ".$table." SET ".$prep."_Nom = '".$_POST[$prep."_Nom"]."',
-																			 ".$prep."_Prenom = '".$_POST[$prep."_Prenom"]."',
-																			 ".$prep."_Adresse = '".$_POST[$prep."_Adresse"]."',
+						$querying = mysqli_query($db,  "UPDATE ".$table." SET ".$prep."_Nom = '".addslashes($_POST[$prep."_Nom"])."',
+																			 ".$prep."_Prenom = '".addslashes($_POST[$prep."_Prenom"])."',
+																			 ".$prep."_Adresse = '".addslashes($_POST[$prep."_Adresse"])."',
 																			 ".$prep."_CodePostal = ".$_POST[$prep."_CodePostal"].",
-																			 ".$prep."_Ville = '".$_POST[$prep."_Ville"]."',
+																			 ".$prep."_Ville = '".addslashes($_POST[$prep."_Ville"])."',
 																			 ".$prep."_TelFixe = '".$_POST[$prep."_TelFixe"]."',
 																			 ".$prep."_TelPort = '".$_POST[$prep."_TelPort"]."',
 																			 ".$prep."_Fax = '".$_POST[$prep."_Fax"]."',
-																			 ".$prep."_Email = '".$_POST[$prep."_Email"]."'
+																			 ".$prep."_Email = '".addslashes($_POST[$prep."_Email"])."'
 														WHERE ".$prep."_Num=".$_POST["PER_Num"].";");
 
 						if($querying && $_POST["TC_ID"] == 1){		
@@ -216,14 +216,14 @@
 			if($verif_infos){
 	        	if(mysqli_query($db, 'SET autocommit=0;') && mysqli_query($db, 'START TRANSACTION;')){
 					if($querying){
-						$querying = mysqli_query($db,  "UPDATE ".$table." SET ".$prep."_Nom = '".$_POST[$prep."_Nom"]."',
-																			 ".$prep."_Adresse = '".$_POST[$prep."_Adresse"]."',
-																			 ".$prep."_CodePostal = ".$_POST[$prep."_CodePostal"].",
-																			 ".$prep."_Ville = '".$_POST[$prep."_Ville"]."',
+						$querying = mysqli_query($db,  "UPDATE ".$table." SET ".$prep."_Nom = '".addslashes($_POST[$prep."_Nom"])."',
+																			 ".$prep."_Adresse = '".addslashes($_POST[$prep."_Adresse"])."',
+																			 ".$prep."_CodePostal = ".$_POST[$prep."_CodePostal"]).",
+																			 ".$prep."_Ville = '".addslashes($_POST[$prep."_Ville"])."',
 																			 ".$prep."_Telephone = '".$_POST[$prep."_TelFixe"]."',
 																			 ".$prep."_Portable = '".$_POST[$prep."_TelPort"]."',
 																			 ".$prep."_Fax = '".$_POST[$prep."_Fax"]."',
-																			 ".$prep."_Email = '".$_POST[$prep."_Email"]."'
+																			 ".$prep."_Email = '".addslashes($_POST[$prep."_Email"])."'
 														WHERE ".$prep."_Num".$type."=".$_POST["ConNum"].";");
 
 						if($querying && $type == "Client" && $typeClient == "particulier"){		
@@ -301,25 +301,25 @@
 			if($verif_infos){
 				if(mysqli_query($db, 'SET autocommit=0;') && mysqli_query($db, 'START TRANSACTION;')){
 					$query1 = mysqli_query($db, "INSERT INTO personnes (PER_Nom, PER_Prenom, PER_Adresse, PER_CodePostal, PER_Ville, PER_TelFixe, PER_TelPort, PER_Fax, PER_Email)
-												 VALUES ('".$_POST["PER_Nom"]."',
-												 '".$_POST["PER_Prenom"]."',
-												 '".$_POST["PER_Adresse"]."',
+												 VALUES ('".addslashes($_POST["PER_Nom"])."',
+												 '".addslashes($_POST["PER_Prenom"])."',
+												 '".addslashes($_POST["PER_Adresse"])."',
 												  ".$_POST["PER_CodePostal"].",
-												 '".$_POST["PER_Ville"]."',
-												 '".$_POST["PER_TelFixe"]."',
-												 '".$_POST["PER_TelPort"]."',
-												 '".$_POST["PER_Fax"]."',
-												 '".$_POST["PER_Email"]."')");
+												 '".addslashes($_POST["PER_Ville"])."',
+												 '".addslashes($_POST["PER_TelFixe"])."',
+												 '".addslashes($_POST["PER_TelPort"])."',
+												 '".addslashes($_POST["PER_Fax"])."',
+												 '".addslashes($_POST["PER_Email"])."')");
 					if($query1){
 
 						$query2 = mysqli_query($db,"SELECT MAX(PER_Num) as EmpNum FROM personnes");
 						$empnum = mysqli_fetch_assoc($query2);
 
 						if($type=="fournisseur"){
-							$req="INSERT INTO employerfourn VALUES (".$_POST["connum"].", ".$empnum["EmpNum"].", '".$_POST["Fonction"]."');";
+							$req="INSERT INTO employerfourn VALUES (".$_POST["connum"].", ".$empnum["EmpNum"].", '".addslashes($_POST["Fonction"])."');";
 						} 
 						else{
-							$req="INSERT INTO employerclient VALUES (".$_POST["connum"].", ".$empnum["EmpNum"].", '".$_POST["Fonction"]."');";
+							$req="INSERT INTO employerclient VALUES (".$_POST["connum"].", ".$empnum["EmpNum"].", '".addslashes($_POST["Fonction"])."');";
 						}
 
 						$query3 = mysqli_query($db,$req);
