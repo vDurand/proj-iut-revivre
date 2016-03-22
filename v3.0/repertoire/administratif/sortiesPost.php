@@ -1,6 +1,6 @@
 ﻿<?php
 	$pageTitle = "Envoi des propriétés des types de sortie";
-	$pwd='../';
+	$pwd='../../';
 	include($pwd.'bandeau.php');
 ?>
 <div id="corps">

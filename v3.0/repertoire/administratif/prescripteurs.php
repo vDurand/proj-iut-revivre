@@ -1,6 +1,6 @@
 <?php
 	$pageTitle = "Prescripteurs";
-	$pwd='../';
+	$pwd='../../';
 	include($pwd."bandeau.php");
 	$arrayElements = Array();
 ?>

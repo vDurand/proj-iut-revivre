@@ -68,7 +68,7 @@ if(isset($_POST['ENC_Num']) && isset($_POST['ASSOC_Date']) && isset($_POST["PL_i
             <div class="planning-printer-logo">
                 <?php
                 for($x=0; $x<sizeof($logos); $x++){
-                    echo '<img src="'.$logos[$x]["LOGO_Url"].'"/>';
+                    echo '<img src="'.$pwd.$logos[$x]["LOGO_Url"].'"/>';
                 }
                  ?>
             </div>

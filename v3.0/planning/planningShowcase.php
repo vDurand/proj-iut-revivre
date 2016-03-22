@@ -173,7 +173,7 @@
 	$("#ENC_Num").on("change", function(){
 		if($(this).val() != null){
 
-			getDataAjax("./ajax/planningShowcaseData.php", {"request_type": "global", "PL_id": $("#PL_id").val(), "ASSOC_Date": $("#ASSOC_Date").val(), "ENC_Num": $(this).val(), "ASSOC_Archi": $("#ASSOC_Archi").prop("checked")}, function(data){
+			getDataAjax("./ajax/planningShowcaseData.php", {"request_type": "global", "PL_id": $("#PL_id").val(), "ASSOC_Date": $("#ASSOC_Date").val(), "ENC_Num": $(this).val(), "ASSOC_Archi": $("#ASSOC_Archi").prop("checked"), "PWD": "<?php echo $pwd; ?>"}, function(data){
 		   		if(data.length > 0){
 		   			cleanPlanning();
 		   			$(".planning-table").removeClass('waiting-planning');

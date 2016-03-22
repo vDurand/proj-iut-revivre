@@ -1,6 +1,6 @@
 <?php
 	$pageTitle = "Conventions";
-	$pwd='../';
+	$pwd='../../';
 	include($pwd."bandeau.php");
 	$arrayElements = Array();
 ?>

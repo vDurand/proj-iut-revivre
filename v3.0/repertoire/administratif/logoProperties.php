@@ -1,6 +1,6 @@
 <?php
 	$pageTitle = "Propriétés des logos";
-	$pwd='../';
+	$pwd='../../';
 	include($pwd."bandeau.php");
     
     if(isset($_POST["select_logo"]))
@@ -68,7 +68,7 @@
                             $query = mysqli_query($db, "SELECT LOGO_Url FROM logo WHERE LOGO_Libelle='$nomLogo';");
                             while($data = mysqli_fetch_assoc($query))
                             {
-                                echo '<img id="imgLogo" src="'.$data['LOGO_Url']."?cacheid=".rand(1, 500).'"/>';
+                                echo '<img id="imgLogo" src="'.$pwd.$data['LOGO_Url']."?cacheid=".rand(1, 500).'"/>';
                             }
                             echo '</div></td>';
                         }
@@ -85,7 +85,7 @@
                             $query = mysqli_query($db, "SELECT LOGO_Url FROM logo WHERE LOGO_Libelle='$nomLogo';");
                             while($data = mysqli_fetch_assoc($query))
                             {
-                                echo '<td rowspan="3" style="text-align:center;"><img id="imgLogo" src="'.$data['LOGO_Url'].'" style="border: 3px solid lightgrey; margin:0px 10px 0px 0px;"/></td>';
+                                echo '<td rowspan="3" style="text-align:center;"><img id="imgLogo" src="'.$pwd.$data['LOGO_Url'].'" style="border: 3px solid lightgrey; margin:0px 10px 0px 0px;"/></td>';
                             }
                         }
                         else
@@ -193,7 +193,7 @@
                     document.getElementById('uploadValidMessage').style.fontStyle="";
                     document.getElementById('uploadValidMessage').style.fontSize="14px";
                     document.getElementById('uploadValidMessage').innerHTML="Logo valide.";
-                    finalUrl = "../images/logo_upload/"+file.name;
+                    finalUrl = "images/logo_upload/"+file.name;
                     document.getElementById('imgLogo').src=this.src;
                     activeValidButton();
                 }

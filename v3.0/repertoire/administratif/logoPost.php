@@ -1,6 +1,6 @@
 <?php
 	$pageTitle = "Envoi des propriétés logos";
-	$pwd='../';
+	$pwd='../../';
 	include($pwd.'bandeau.php');
 ?>
 <div id="corps">
@@ -46,9 +46,9 @@
                     break;
             }
             
-            if(file_exists('../images/logo_upload/.png'))
+            if(file_exists($pwd.'images/logo_upload/'.strtolower(addslashes(preg_replace('/-|\s|\/|\.|\'|/i','',wd_remove_accents($tableau[0])))).strrchr($_FILES['fileInput']['name'], '.')))
             {
-                unlink('../images/logo_upload/.png');
+                unlink($pwd.'images/logo_upload/'.strtolower(addslashes(preg_replace('/-|\s|\/|\.|\'|/i','',wd_remove_accents($tableau[0])))).strrchr($_FILES['fileInput']['name'], '.'));
             }
         }
         else
@@ -190,11 +190,11 @@
             {
                 $fichier = strtolower(addslashes(preg_replace('/-|\s|\/|\.|\'|/i','',wd_remove_accents($tableau[0]))));
                 $extension = strrchr($_FILES['fileInput']['name'], '.');
-                return "../images/logo_upload/".$fichier.$extension;
+                return "images/logo_upload/".$fichier.$extension;
             }
             else
             {
-                return "../images/logo_upload/nologo.png";
+                return "images/logo_upload/nologo.png";
             }
         }
     ?>

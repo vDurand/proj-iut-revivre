@@ -40,7 +40,7 @@ if(isset($_POST['date_select_hebdo']) && isset($_POST['encadrant_select_hebdo'])
         <?php
             for($x=0; $x<sizeof($tableauLogo) && $x<6; $x++)
             {
-                echo '<img src="../'.$tableauLogo[$x]["LOGO_Url"].'" style="margin:0px 3px;" />';
+                echo '<img src="'.$pwd.$tableauLogo[$x]["LOGO_Url"].'" style="margin:0px 3px;" />';
             }
         ?>
         </div>
@@ -104,7 +104,7 @@ if(isset($_POST['date_select_hebdo']) && isset($_POST['encadrant_select_hebdo'])
 
                         for($x=0; $x<sizeof($tableauLogo) && $x<6; $x++)
                         {
-                            echo '<img src="../'.$tableauLogo[$x]["LOGO_Url"].'" style="margin:0px 3px;" />';
+                            echo '<img src="'.$pwd.$tableauLogo[$x]["LOGO_Url"].'" style="margin:0px 3px;" />';
                         }
 
                 echo '</div>

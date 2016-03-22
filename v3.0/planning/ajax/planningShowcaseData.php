@@ -138,7 +138,7 @@
 			<div class="planning-logo">
 				<?php
 					for($x=0; $x<sizeof($logos); $x++){
-						echo '<div class="logo-wrapper"><img src="'.$logos[$x]["LOGO_Url"].'"/></div>';
+						echo '<div class="logo-wrapper"><img src="'.$_POST["PWD"].$logos[$x]["LOGO_Url"].'"/></div>';
 					}
 				?>
 			</div>

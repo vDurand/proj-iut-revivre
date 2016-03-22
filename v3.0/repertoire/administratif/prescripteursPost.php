@@ -1,6 +1,6 @@
 ﻿<?php
 	$pageTitle = "Envoi des propriétés prescripteurs";
-	$pwd='../';
+	$pwd='../../';
 	include($pwd.'bandeau.php');
 ?>
 <div id="corps">
@@ -117,19 +117,18 @@
             </div>';
     }
 
-	// if(isset($_POST['redirectPage']))
-	// {
-	// 	$locationPath = $_POST['redirectPage'];
-	//     echo '<script type="text/javascript">
-	// 	window.setTimeout("location=(\''.$locationPath.'\');",2500);
-	// 	</script>';
-	// }
-	// else
-	// {
-	// 	echo '<script type="text/javascript">
-	// 	window.setTimeout("location=(\''.$pwd.'home.php\');",2500);
-	// 	</script>';
-	// }
+	if(isset($_POST['redirectPage']))
+	{
+	   $locationPath = $_POST['redirectPage'];
+	   echo '<script type="text/javascript">
+	   window.setTimeout("location=(\''.$locationPath.'\');",2500);
+	   </script>';
+	}
+	else{
+	   echo '<script type="text/javascript">
+	   window.setTimeout("location=(\''.$pwd.'home.php\');",2500);
+	   </script>';
+	}
 ?>
 </div>
 <?php

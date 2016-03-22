@@ -34,7 +34,7 @@ if(isset($_POST['salarie_select_mensuel']) && isset($_POST['mois_select_mensuel'
         <?php
             for($x=0; $x<sizeof($tableauLogo) && $x<6; $x++)
             {
-                echo '<img src="../'.$tableauLogo[$x]["LOGO_Url"].'" style="margin:0px 3px;" />';
+                echo '<img src="'.$pwd.$tableauLogo[$x]["LOGO_Url"].'" style="margin:0px 3px;" />';
             }
         ?>
         </div>
