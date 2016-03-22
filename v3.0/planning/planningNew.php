@@ -164,7 +164,7 @@
 	});
 
 	$("#valid_required").on("click", function(){
-		getDataAjax("./ajax/planningNewData.php", {"request_type": "global", "ASSOC_Date": $("#ASSOC_Date").val(), "PL_id": $("#PL_id").val()}, function(data){
+		getDataAjax("./ajax/planningNewData.php", {"request_type": "global", "ASSOC_Date": $("#ASSOC_Date").val(), "PL_id": $("#PL_id").val(), "PWD": "<?php echo $pwd; ?>"}, function(data){
 			if(data.length > 0){
 				$(".planning-edit-area").html(data);
 				handleEvents();

@@ -246,15 +246,23 @@
 				<td><label for="TYS_ID">Type de sortie :</label></td>
 				<td>
 					<?php
-						$query_sorties = mysqli_query($db, 'SELECT * FROM typesortie ORDER BY TYS_Numero');
+						$query_sorties = mysqli_query($db, 'SELECT * FROM typesortie WHERE TYS_Active = 1 ORDER BY TYS_Numero');
 						$sorties = mysqli_fetch_all($query_sorties, MYSQLI_ASSOC);
 					?>
-					<div class="selectType">
-						<select id="TYS_ID" name="TYS_ID">	
+					<div class="selectType" id="type-sortie">
+						<select id="TYS_ID" name="TYS_ID">
+							<option value="-1" disabled="disabled" selected="selected">Choisir ...</option>
 						<?php
+							$type_sortie_selected = false;
+
 							for($x=0; $x<sizeof($sorties); $x++){
-								echo '<option value="'.$sorties[$x]["TYS_ID"].'"'.((isset($personne["TYS_ID"]) && $personne["TYS_ID"] == $sorties[$x]["TYS_ID"]) ? ' selected="selected"' : "").'>'
-										.$sorties[$x]["TYS_Numero"]." - ".$sorties[$x]["TYS_Libelle"].'</option>';
+								if(isset($personne["TYS_ID"]) && $personne["TYS_ID"] == $sorties[$x]["TYS_ID"]){
+									echo '<option value="'.$sorties[$x]["TYS_ID"].'" selected="selected">'.$sorties[$x]["TYS_Numero"]." - ".$sorties[$x]["TYS_Libelle"].'</option>';
+									$type_sortie_selected = true;
+								}
+								else{
+									echo '<option value="'.$sorties[$x]["TYS_ID"].'">'.$sorties[$x]["TYS_Numero"]." - ".$sorties[$x]["TYS_Libelle"].'</option>';
+								}
 							}
 						?>
 						</select>
@@ -278,6 +286,17 @@
 </div>
 <script type="text/javascript">
 	$(document).ready(function(){
+		<?php if(!$type_sortie_selected && !empty($personne["TYS_ID"])) { ?>
+			$('#type-sortie').tooltipster({
+	            content: $('<span><strong>Le type de sortie n\'est plus valide, veuillez le changer !</strong></span>'),
+	            position: 'right',
+	            delay: -1,
+	            functionAfter: function(){
+	            	$(this).tooltipster("show");
+	            }
+	        }).tooltipster("show");
+	    <?php } ?>
+
 		$("#addReferentCross").on("click", function(){
 			if($("#REF_NumRef").prop("disabled")){
 				$(this).val("+");

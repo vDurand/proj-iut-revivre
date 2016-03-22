@@ -110,10 +110,10 @@
 	function triggerTableRows(){
 		$(".repertoire-show-list table tbody tr").on("click", function(){
 			if($("#TC_ID").val() == 2){				
-				$.redirect("./showContact.php", {"ConNum": $(this).data("connum"), "TC_ID": $("#TC_ID").val(), "TypeClient": $("#Typeclient").val()}, "POST");			
+				$.redirect("./showContact.php", {"ConNum": $(this).data("connum"), "TC_ID": $("#TC_ID").val(), "TypeClient": $("#Typeclient").val()}, "POST", "_blank");			
 			}
 			else{
-				$.redirect("./showContact.php", {"ConNum": $(this).data("connum"), "TC_ID": $("#TC_ID").val()}, "POST");
+				$.redirect("./showContact.php", {"ConNum": $(this).data("connum"), "TC_ID": $("#TC_ID").val()}, "POST", "_blank");
 			}			
 		});
 	}

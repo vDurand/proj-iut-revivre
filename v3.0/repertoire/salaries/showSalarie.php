@@ -218,8 +218,10 @@
         <table class="showcase_table">
             <tbody>
                 <tr>
-                    <td colspan="2">Date d'entrée dans l'association :</td>
-                    <td colspan="2"><?php echo (!empty($personne['INS_DateEntree'])) ? dater($personne['INS_DateEntree']) : '<i class="no-data">Aucune date</i>'; ?></td>
+                    <td>Date de l'entretien :</td>
+                    <td><?php echo (!empty($personne['INS_DateEntretien'])) ? dater($personne['INS_DateEntretien']) : '<i class="no-data">Aucune date</i>'; ?></td>
+                    <td>Date d'entrée :</td>
+                    <td><?php echo (!empty($personne['INS_DateEntree'])) ? dater($personne['INS_DateEntree']) : '<i class="no-data">Aucune date</i>'; ?></td>
                 </tr>
                 <tr>
                     <td></td>

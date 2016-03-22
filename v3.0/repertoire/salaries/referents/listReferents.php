@@ -48,7 +48,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$(".repertoire-show-list table tbody tr").on("click", function(){
-			$.redirect("./showReferent.php", {"RefNum": $(this).data("refnum")}, "get");
+			$.redirect("./showReferent.php", {"RefNum": $(this).data("refnum")}, "get", "_blank");
 		});
 	});
 </script>

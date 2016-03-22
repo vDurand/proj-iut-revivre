@@ -73,7 +73,7 @@
 
 	function triggerTableRows(){
 		$(".repertoire-show-list table tbody tr").on("click", function(){
-			$.redirect("./showSalarie.php", {"SalNum": $(this).data("salnum")}, "get");
+			$.redirect("./showSalarie.php", {"SalNum": $(this).data("salnum")}, "get", "_blank");
 		});
 	}
 
