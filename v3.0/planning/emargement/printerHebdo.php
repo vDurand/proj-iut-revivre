@@ -93,7 +93,7 @@ if(isset($_POST['date_select_hebdo']) && isset($_POST['encadrant_select_hebdo'])
                 echo '</tr>
                     </tbody>
                 </table>
-                <h4 class="signature-emargement-hebdo">Encadrant '.$encName.' - signature :</h4>
+                <h4 class="signature-emargement-hebdo">Encadrant '.stripslashes($encName).' - signature :</h4>
             </page>
             <page backtop="14mm" backbottom="5mm" backleft="2mm" backright="8mm">
                 <page_header>
@@ -142,7 +142,7 @@ if(isset($_POST['date_select_hebdo']) && isset($_POST['encadrant_select_hebdo'])
                 echo '</tr><tr>';
             }
 
-            echo '<td class="sal-name-cell">'.$data["PER_Nom"]." ".$data["PER_Prenom"].'</td>';
+            echo '<td class="sal-name-cell">'.stripslashes($data["PER_Nom"])." ".stripslashes($data["PER_Prenom"]).'</td>';
             $lastPerNum = $data["PER_Num"];
             $CreId = 1;
 

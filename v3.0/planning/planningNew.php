@@ -109,7 +109,7 @@
 			for($x=0; $x<sizeof($logos); $x++){
 				echo '<div class="logo-wrapper">
 						<input type="checkbox" class="logoCheckbox" data-logo="'.$logos[$x]["LOGO_Id"].'"/>
-						<img src="'.$logos[$x]["LOGO_Url"].'"/>
+						<img src="'.$pwd.$logos[$x]["LOGO_Url"].'"/>
 					</div>';
 			}
 		?>

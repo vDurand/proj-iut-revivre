@@ -107,7 +107,7 @@ if(isset($_POST['ENC_Num']) && isset($_POST['ASSOC_Date']) && isset($_POST["PL_i
             echo '<td><table>';
             while(isset($planningContenu[$z]) && $planningContenu[$z]["CRE_id"] == $CRE_id){
                 if($lineCount+1 == $max_line_per_days){
-                    echo '<tr><td style="color: '.$planningContenu[$z]["CNV_Couleur"].';">'.$planningContenu[$z++]["nom"].'</td></tr>';
+                    echo '<tr><td style="color: '.$planningContenu[$z]["CNV_Couleur"].';">'.stripslashes($planningContenu[$z++]["nom"]).'</td></tr>';
                 }
                 elseif($lineCount >= $max_line_per_days){
                     $z++;

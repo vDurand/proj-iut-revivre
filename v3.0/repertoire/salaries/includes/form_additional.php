@@ -26,7 +26,7 @@
 							                        	WHERE PER_Nom <> '' AND PER_Prenom <> '' AND PRE_Id = ".$prescripteurs[$x]["PRE_Id"]." ORDER BY PER_Nom, PER_Prenom");
 	                        while($data = mysqli_fetch_assoc($query)){
 	                            echo '<option value="'.$data['REF_NumRef'].'"'.((isset($personne["REF_NumRef"]) && $personne["REF_NumRef"] == $data['REF_NumRef']) ? ' selected="selected"' : "").'>'
-	                            		.$data['PER_Nom'].' '.$data['PER_Prenom'].'</option>';
+	                            		.stripslashes($data['PER_Nom']).' '.stripslashes($data['PER_Prenom']).'</option>';
 	                        }
 	                	?>
 	                        </optgroup>
@@ -241,7 +241,7 @@
 					<label>Sans porc</label>
 				</td>
 			</tr>
-			<?php if ($_POST["request_type"] == "edit"){?>
+			<?php if($_POST["request_type"] == "edit"){?>
 			<tr>
 				<td><label for="TYS_ID">Type de sortie :</label></td>
 				<td>

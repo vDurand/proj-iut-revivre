@@ -32,7 +32,7 @@
 
 			while($data = mysqli_fetch_assoc($query))
 			{
-				echo '<option value="'.$data["SAL_NumSalarie"].'">'.$data["PER_Nom"]." ".$data["PER_Prenom"].'</option>';
+				echo '<option value="'.$data["SAL_NumSalarie"].'">'.stripslashes($data["PER_Nom"])." ".stripslashes($data["PER_Prenom"]).'</option>';
 			}
 		}
 		else{

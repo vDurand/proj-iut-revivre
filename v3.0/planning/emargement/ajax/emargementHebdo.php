@@ -15,7 +15,7 @@
 									WHERE pl.PL_id = ".$_POST["PL_id"]." AND date_format(pl.ASSOC_date,'%d/%m/%Y') = '".$_POST["date"]."' ORDER BY pe.PER_Nom;");
 		while($data = mysqli_fetch_assoc($query))
 		{
-			echo '<option value="'.$data["ENC_Num"].'">'.$data["PER_Nom"]." ".$data["PER_Prenom"].'</option>';
+			echo '<option value="'.$data["ENC_Num"].'">'.stripslashes($data["PER_Nom"])." ".stripslashes($data["PER_Prenom"]).'</option>';
 		}
 	}
 ?>

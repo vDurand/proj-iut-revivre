@@ -47,7 +47,7 @@
 ?>
 <div id="corps">
 	<div id="labelT">
-		<label>Planning <?php echo $nomTypesPlanning[$_POST["PL_id"]-1]["PL_Libelle"]; ?> du <?php echo date("d/m/Y", strtotime($_POST["ASSOC_Date"])); ?> encadré par <i><?php echo $nomEncadrant["Nom"]; ?></i></label>
+		<label>Planning <?php echo $nomTypesPlanning[$_POST["PL_id"]-1]["PL_Libelle"]; ?> du <?php echo date("d/m/Y", strtotime($_POST["ASSOC_Date"])); ?> encadré par <i><?php echo stripslashes($nomEncadrant["Nom"]); ?></i></label>
 	</div>
 	<div class="planning-edit-area planning-table">
 		<div class="planning-edit-tools">
@@ -57,7 +57,7 @@
 				<?php
 					while($data = mysqli_fetch_assoc($queryListeSalaries))
 					{
-						echo '<option value="'.$data["SAL_NumSalarie"].'">'.$data["PER_Nom"].' '.$data["PER_Prenom"].'</option>';
+						echo '<option value="'.$data["SAL_NumSalarie"].'">'.stripslashes($data["PER_Nom"]).' '.stripslashes($data["PER_Prenom"]).'</option>';
 					}
 				?>
 			</select>
@@ -171,14 +171,14 @@
 				if($logos[$x]["checked"] == "true"){
 					echo '<div class="logo-wrapper">
 							<input type="checkbox" class="logoCheckbox" data-logo="'.$logos[$x]["LOGO_Id"].'" checked="checked"/>
-							<img src="'.$logos[$x]["LOGO_Url"].'"/>
+							<img src="'.$pwd.$logos[$x]["LOGO_Url"].'"/>
 						</div>';
 					array_push($phpLogoToJS, (int)($logos[$x]["LOGO_Id"]));
 				}
 				else{
 					echo '<div class="logo-wrapper">
 						<input type="checkbox" class="logoCheckbox" data-logo="'.$logos[$x]["LOGO_Id"].'"/>
-						<img src="'.$logos[$x]["LOGO_Url"].'"/>
+						<img src="'.$pwd.$logos[$x]["LOGO_Url"].'"/>
 					</div>';
 				}
 			}

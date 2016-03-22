@@ -33,7 +33,7 @@
 
 			while($data = mysqli_fetch_assoc($query))
 			{
-				echo '<option value="'.$data["ENC_Num"].'">'.$data["PER_Nom"].' '.$data["PER_Prenom"].'</option>';
+				echo '<option value="'.$data["ENC_Num"].'">'.stripslashes($data["PER_Nom"]).' '.stripslashes($data["PER_Prenom"]).'</option>';
 			}
 		}
 		else{
@@ -124,7 +124,7 @@
 		                    {
 		                        echo '<td><ul>';
 		                        while(isset($planningContenu[$z]) && $planningContenu[$z]["CRE_id"] == $CRE_id){
-									echo '<li style="color: '.$planningContenu[$z]["CNV_Couleur"].';">'.$planningContenu[$z++]["nom"].'</li>';
+									echo '<li style="color: '.$planningContenu[$z]["CNV_Couleur"].';">'.stripslashes($planningContenu[$z++]["nom"]).'</li>';
 		                        }
 		                        echo '</ul></td>';
 		                        $CRE_id++;
